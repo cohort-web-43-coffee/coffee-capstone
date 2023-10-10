@@ -10,25 +10,29 @@
     <h2>account</h2>
     <ul>
         <li>PK account_id</li>
-        <li>account_password_hash</li>
+        <li>account_activation_token</li>
         <li>account_email</li>
+        <li>account_hash</li>
         <li>account_name</li>
     </ul>
 
     <h2>shop</h2>
     <ul>
         <li>PK shop_id</li>
-        <li>shop_phone_number</li>
         <li>shop_address</li>
-        <li>shop_description</li>
+        <li>shop_alt</li>
+        <li>shop_name</li>
+        <li>shop_phone_number</li>
+        <li>shop_url</li>
     </ul>
 
-    <h2>shop_photo</h2>
+    <h2>photo</h2>
     <ul>
-        <li>FK shop_id</li>
+        <li>PK photo_id</li>
+        <li>FK photo_shop_id</li>
         <li>photo_url</li>
         <li>photo_credit</li>
-        <li>photo_description</li>
+        <li>photo_alt</li>
         <li>photo_order</li>
     </ul>
 
@@ -46,15 +50,12 @@
         <li>FK3 account_id</li>
     </ul>
 
-    <h2>shop_bookmark</h2>
+    <h2>bookmark</h2>
     <ul>
         <li>FK1 account_id</li>
         <li>FK2 shop_id</li>
-        <li>shop_bookmark_order</li>
+        <li>bookmark_order</li>
     </ul>
-
-    (pk = primary key)
-    (fk = foreign key)
 </div>
 
 <img src="ERD.png" alt="Entity Relationship Diagram" style="max-width: 90%; margin: 2rem">
