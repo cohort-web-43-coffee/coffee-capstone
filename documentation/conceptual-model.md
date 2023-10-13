@@ -13,7 +13,7 @@
 * shop_address
 * shop_description
 
-## shop_photo
+## photo
 * FK shop_id
 * photo_url
 * photo_credit
