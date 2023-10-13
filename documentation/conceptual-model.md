@@ -30,10 +30,10 @@
 * FK2 tag_id
 * FK3 account_id
 
-## shop_bookmark
+## bookmark
 * FK1 account_id
 * FK2 shop_id
-* shop_bookmark_order
+* bookmark_order
 
 (pk = primary key) 
  (fk = foreign key)
