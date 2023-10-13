@@ -33,7 +33,7 @@ create index on photo (photo_shop_id);
 create table if not exists tag (
     tag_id uuid not null primary key,
     tag_group varchar(512) not null,
-    tag_label varchar(512) not null
+    tag_label varchar(512) not null unique
 );
 
 create table if not exists active_tag(
