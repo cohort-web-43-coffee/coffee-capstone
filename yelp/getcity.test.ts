@@ -1,7 +1,11 @@
 import { expect, test } from 'vitest'
 import {findAbqCoffeeLocations} from './getcity'
 import {readBusinessDetails} from './read-business-details'
+import {businessDetailsToShopEntry} from './convert'
 
+
+//  TODO: Filter businesses for isClosed
+// TODO: Set search limit to 50
 test('List Albuquerque coffee shops', async () => {
     const result = await findAbqCoffeeLocations()
 
@@ -13,7 +17,7 @@ test('List Albuquerque coffee shops', async () => {
 })
 
 test('Read coffee shop business details', async () => {
-    const businessId = mockBusinessResult[0].id
+    const businessId = mockBusinessLocationSearchResult[0].id
     const result = await readBusinessDetails(businessId)
 
     expect(result).toBeDefined()
@@ -24,8 +28,117 @@ test('Read coffee shop business details', async () => {
     expect(result).toHaveProperty('photos')
 })
 
+test('Convert yelp data into Shop data', () => {
+    const shopData = businessDetailsToShopEntry(mockBusinessDetails)
 
-const mockBusinessResult = [
+    expect(shopData).toBeDefined()
+    expect(shopData).toHaveProperty('shopName')
+    expect(shopData).toHaveProperty('shopAddress')
+    expect(shopData).toHaveProperty('shopUrl')
+    expect(shopData).toHaveProperty('shopPhoneNumber')
+})
+
+const mockBusinessDetails = {
+    "id": "N8TBIDZwEaWm9czkF9Ncdw",
+    "alias": "the-grove-cafe-and-market-albuquerque",
+    "name": "The Grove Cafe & Market",
+    "image_url": "https://s3-media3.fl.yelpcdn.com/bphoto/FY8GjfG71hD2nZL3LbNOJA/o.jpg",
+    "is_claimed": true,
+    "is_closed": false,
+    "url": "https://www.yelp.com/biz/the-grove-cafe-and-market-albuquerque?adjust_creative=gtw0huIWlUOiqWb7M4oBqQ&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_lookup&utm_source=gtw0huIWlUOiqWb7M4oBqQ",
+    "phone": "+15052489800",
+    "display_phone": "(505) 248-9800",
+    "review_count": 1464,
+    "categories": [
+        {
+            "alias": "coffee",
+            "title": "Coffee & Tea"
+        },
+        {
+            "alias": "newamerican",
+            "title": "American (New)"
+        },
+        {
+            "alias": "cafes",
+            "title": "Cafes"
+        }
+    ],
+    "rating": 4.5,
+    "location": {
+        "address1": "600 Central Ave SE",
+        "address2": "Ste A",
+        "address3": "",
+        "city": "Albuquerque",
+        "zip_code": "87102",
+        "country": "US",
+        "state": "NM",
+        "display_address": [
+            "600 Central Ave SE",
+            "Ste A",
+            "Albuquerque, NM 87102"
+        ],
+        "cross_streets": ""
+    },
+    "coordinates": {
+        "latitude": 35.0828,
+        "longitude": -106.6404699
+    },
+    "photos": [
+        "https://s3-media3.fl.yelpcdn.com/bphoto/FY8GjfG71hD2nZL3LbNOJA/o.jpg",
+        "https://s3-media1.fl.yelpcdn.com/bphoto/UmVbLaTWA3tjc9kxx-Ec4A/o.jpg",
+        "https://s3-media4.fl.yelpcdn.com/bphoto/4wP1JBeIsC5ElCFckGO6zQ/o.jpg"
+    ],
+    "price": "$$",
+    "hours": [
+        {
+            "open": [
+                {
+                    "is_overnight": false,
+                    "start": "0800",
+                    "end": "1400",
+                    "day": 1
+                },
+                {
+                    "is_overnight": false,
+                    "start": "0800",
+                    "end": "1400",
+                    "day": 2
+                },
+                {
+                    "is_overnight": false,
+                    "start": "0800",
+                    "end": "1400",
+                    "day": 3
+                },
+                {
+                    "is_overnight": false,
+                    "start": "0800",
+                    "end": "1400",
+                    "day": 4
+                },
+                {
+                    "is_overnight": false,
+                    "start": "0800",
+                    "end": "1400",
+                    "day": 5
+                },
+                {
+                    "is_overnight": false,
+                    "start": "0800",
+                    "end": "1400",
+                    "day": 6
+                }
+            ],
+            "hours_type": "REGULAR",
+            "is_open_now": true
+        }
+    ],
+    "transactions": [
+        "delivery"
+    ]
+}
+
+const mockBusinessLocationSearchResult = [
     {
         "id": "N8TBIDZwEaWm9czkF9Ncdw",
         "alias": "the-grove-cafe-and-market-albuquerque",
