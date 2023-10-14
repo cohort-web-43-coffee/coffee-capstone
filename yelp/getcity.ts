@@ -3,7 +3,11 @@ const endpoint = '/businesses/search'
 require('dotenv').config({path: __dirname + '/.env'})
 
 
-export async function findLocations (cityName, categories) {
+export async function findAbqCoffeeLocations () {
+    return findBusinessByCityAndCategory('albuquerque', 'coffee,coffeeroasteries')
+}
+
+async function findBusinessByCityAndCategory (cityName, categories) {
     return fetch(
         getSearchRoute(cityName, categories),
         getData()
@@ -13,7 +17,7 @@ export async function findLocations (cityName, categories) {
             }, (fetchFailReason) => {
                 throw Error(fetchFailReason)
             }
-            )
+        )
 }
 
 function getSearchRoute (cityName, categories) {
