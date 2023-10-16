@@ -6,7 +6,7 @@ import {mockBusinessDetails, mockBusinessLocationSearchResult} from './mocks'
 
 
 //  TODO: Filter businesses for isClosed
-// TODO: Set search limit to 50
+
 test('List Albuquerque coffee shops', async () => {
     const result = await findAbqCoffeeLocations()
 
@@ -49,4 +49,9 @@ test('Convert yelp data into Photo data', () => {
     expect(photoData[0].photo_order).toBe(0)
     expect(photoData[0].photo_url).toBe('https://s3-media3.fl.yelpcdn.com/bphoto/FY8GjfG71hD2nZL3LbNOJA/o.jpg')
 
+    expect(photoData[1].photo_order).toBe(1)
+    expect(photoData[1].photo_shop_id).toBe(45)
+
+    expect(photoData[2].photo_order).toBe(2)
+    expect(photoData[2].photo_shop_id).toBe(45)
 })
