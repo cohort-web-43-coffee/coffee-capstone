@@ -1,7 +1,7 @@
 import { expect, test } from 'vitest'
 import {findAbqCoffeeLocations} from './getcity'
 import {readBusinessDetails} from './read-business-details'
-import {businessDetailsToShopEntry} from './convert'
+import {businessDetailsToPhotoEntries, businessDetailsToShopEntry} from './convert'
 
 
 //  TODO: Filter businesses for isClosed
@@ -32,10 +32,21 @@ test('Convert yelp data into Shop data', () => {
     const shopData = businessDetailsToShopEntry(mockBusinessDetails)
 
     expect(shopData).toBeDefined()
-    expect(shopData).toHaveProperty('shopName')
-    expect(shopData).toHaveProperty('shopAddress')
-    expect(shopData).toHaveProperty('shopUrl')
-    expect(shopData).toHaveProperty('shopPhoneNumber')
+    expect(shopData.shopName).toBe('The Grove Cafe & Market')
+    expect(shopData.shopAddress).toBe('600 Central Ave SE\nSte A\nAlbuquerque, NM 87102')
+    expect(shopData.shopUrl).toBe('https://www.yelp.com/biz/the-grove-cafe-and-market-albuquerque?adjust_creative=gtw0huIWlUOiqWb7M4oBqQ&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_lookup&utm_source=gtw0huIWlUOiqWb7M4oBqQ')
+    expect(shopData.shopPhoneNumber).toBe('(505) 248-9800')
+})
+
+test('Convert yelp data into Photo data', () => {
+    const mockUuid = 45
+    const photoData = businessDetailsToPhotoEntries(mockBusinessDetails, mockUuid)
+
+    expect(photoData).toBeDefined()
+    expect(photoData[0].photo_shop_id).toBe(45)
+    expect(photoData[0].photo_order).toBe(0)
+    expect(photoData[0].photo_url).toBe('https://s3-media3.fl.yelpcdn.com/bphoto/FY8GjfG71hD2nZL3LbNOJA/o.jpg')
+
 })
 
 const mockBusinessDetails = {
