@@ -1,7 +1,7 @@
 import {Request, Response} from 'express'
 import {SignUpSchema} from "./sign-up.validator";
 import {zodErrorResponse} from "../../utils/response.utils";
-import {setHash} from "../../utils/auth.utils";
+import {setHash, setActivationToken } from "../../utils/auth.utils";
 import {insertAccount, PrivateAccount} from "../account/account.model";
 import {Status} from "../../utils/interfaces/Status";
 
@@ -19,10 +19,12 @@ export async function signUpController (request: Request, response: Response): P
         }
         const {accountEmail, accountName, accountPassword} = bodyValidationResult.data
         const accountHash = await setHash(accountPassword)
+        const accountActivationToken = setActivationToken()
         const account: PrivateAccount = {
             accountId: null,
             accountEmail,
             accountHash,
+            accountActivationToken,
             accountName
         }
         await insertAccount(account)

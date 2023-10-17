@@ -9,9 +9,9 @@ export type PublicAccount = z.infer<typeof PublicAccountSchema>
 
 
 export async function insertAccount(account: PrivateAccount): Promise<string> {
-    const {accountEmail, accountHash, accountName} = account
-    await sql`insert into account(account_id, account_email, account_hash, account_name)
-              values (gen_random_uuid(), ${accountEmail}, ${accountHash}, ${accountName})`
+    const {accountEmail, accountHash, accountActivationToken, accountName} = account
+    await sql`insert into account(account_id, account_email, account_hash, account_activation_token, account_name)
+              values (gen_random_uuid(), ${accountEmail}, ${accountHash}, ${accountActivationToken}, ${accountName})`
     return 'account successfully created'
 }
 
@@ -32,7 +32,7 @@ export async function selectPublicAccountByAccountId (accountId:string): Promise
 
 
 export async function selectPrivateAccountByAccountEmail (accountEmail: string): Promise<PrivateAccount| null>{
-    const rowList = await sql `select account_id, account_email, account_hash, account_name from account where account_email = ${accountEmail}`
+    const rowList = await sql `select account_id, account_email, account_hash, account_activation_token, account_name from account where account_email = ${accountEmail}`
 
     const result = PrivateAccountSchema.array().max(1).parse(rowList)
 
