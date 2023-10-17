@@ -26,3 +26,6 @@ export const PrivateAccountSchema = z.object({
         .max(32, {message: 'please provide a valid account name (max 32 characters)'})
 
 })
+
+
+export const PublicAccountSchema = PrivateAccountSchema.omit({accountHash: true, accountEmail: true})
