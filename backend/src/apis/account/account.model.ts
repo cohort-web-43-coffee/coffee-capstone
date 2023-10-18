@@ -1,7 +1,6 @@
 import {PrivateAccountSchema, PublicAccountSchema} from "./account.validator";
 import {z} from "zod";
 import {sql} from "../../utils/database.utils";
-import express from "express";
 
 
 export type PrivateAccount = z.infer<typeof PrivateAccountSchema>
@@ -37,4 +36,10 @@ export async function selectPrivateAccountByAccountEmail (accountEmail: string):
     const result = PrivateAccountSchema.array().max(1).parse(rowList)
 
     return result?.length === 1 ? result[0]: null
+}
+
+export async function selectPrivateAccountByAccountActivationToken (accountActivationToken: string): Promise<PrivateAccount|null> {
+    const rowList = await sql`SELECT account_id, account_activation_token, account_email, account_hash, account_name FROM account WHERE account_activation_token = ${accountActivationToken}`
+    const result = PrivateAccountSchema.array().max(1).parse(rowList)
+    return result?.length === 1 ? result[0] : null
 }

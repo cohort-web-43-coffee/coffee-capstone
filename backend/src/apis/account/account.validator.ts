@@ -19,7 +19,7 @@ export const PrivateAccountSchema = z.object({
         required_error: 'accountHash is required',
         invalid_type_error: 'please provide a valid accountHash'
     })
-        .length(30,{message:'account hash must be 30 characters'}),
+        .length(97,{message:'account hash must be 97 characters'}),
     accountActivationToken: z.string({
             required_error: 'Must have an activationToken',
             invalid_type_error: 'Activation token format is invalid'
