@@ -11,7 +11,7 @@ export async function insertTag(tag: Tag): Promise<string> {
 }
 
 export async function getAllTagsByTagGroup(tagGroup: string): Promise<Tag[]> {
-    const rowList = <Tag[]>await sql `select tag_id, tag_group, tag_label from 'tag' where tag_group = ${tagGroup}`
+    const rowList = <Tag[]>await sql `select tag_id, tag_group, tag_label from tag where tag_group = ${tagGroup}`
     return TagSchema.array().parse(rowList)
 }
 
