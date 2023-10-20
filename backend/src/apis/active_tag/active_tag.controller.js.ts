@@ -2,6 +2,7 @@ import {Request, Response} from 'express'
 import {ActiveTagSchema} from './active_tag.validator'
 import {zodErrorResponse} from '../../utils/response.utils'
 import {
+    countActiveTagByTagId,
     deleteActiveTag,
     insertActiveTag,
     selectActiveTagsByAccountId,
@@ -90,4 +91,25 @@ export async function getActiveTagsByShopIdController(request: Request, response
             data: []
         })
     }
+}
+export async function getActiveTagCountByTagIdController(request: Request, response: Response): Promise<Response> {
+    try {
+        const validationResult = z.string().uuid('Please provide a valid UUID for accountId').safeParse(request.params.tagId)
+
+        if(!validationResult.success) {
+            return zodErrorResponse(response, validationResult.error)
+        }
+
+        const tagId = validationResult.data
+        const data = await countActiveTagByTagId(tagId)
+
+        return response.json({status: 200, message: null, data})
+    } catch (error: any) {
+        return response.json({
+            status: 500,
+            message: '',
+            data: []
+        })
+    }
+
 }

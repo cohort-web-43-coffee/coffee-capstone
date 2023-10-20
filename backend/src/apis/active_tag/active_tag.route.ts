@@ -1,6 +1,6 @@
 import {Router} from 'express'
 import {
-    deleteActiveTagController,
+    deleteActiveTagController, getActiveTagCountByTagIdController,
     getActiveTagsByAccountIdController, getActiveTagsByShopIdController,
     postActiveTagController
 } from './active_tag.controller.js'
@@ -17,5 +17,8 @@ router.route('/activeTagsByAccountId/:accountId')
 
 router.route('/activeTagsByShopId/:shopId')
     .get(getActiveTagsByShopIdController)
+
+router.route('/countActiveTagsByTagId/:tagId')
+    .get(getActiveTagCountByTagIdController)
 
 export const activeTagRoute = {basePath, router}

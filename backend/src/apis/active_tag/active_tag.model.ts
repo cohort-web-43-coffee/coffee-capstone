@@ -27,16 +27,21 @@ export async function deleteActiveTag(activeTag: ActiveTag): Promise<string> {
 
 export async function selectActiveTagsByAccountId(accountId: string): Promise<ActiveTag[]> {
     const rows = await sql`SELECT account_id, shop_id, tag_id
-                             FROM active_tag
-                             WHERE account_id = ${accountId}`
+                           FROM active_tag
+                           WHERE account_id = ${accountId}`
 
     return ActiveTagSchema.array().parse(rows)
 }
 
 export async function selectActiveTagsByShopId(shopId: string): Promise<ActiveTag[]> {
     const rows = await sql`SELECT account_id, shop_id, tag_id
-                             FROM active_tag
-                             WHERE shop_id = ${shopId}`
+                           FROM active_tag
+                           WHERE shop_id = ${shopId}`
 
     return ActiveTagSchema.array().parse(rows)
+}
+
+export async function countActiveTagByTagId(tagId: string): Promise<number> {
+    const result = await sql`SELECT COUNT (tag_id) WHERE tag_id = ${tagId}`
+    return result[0].count
 }
