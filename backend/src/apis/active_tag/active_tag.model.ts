@@ -25,11 +25,18 @@ export async function deleteActiveTag(activeTag: ActiveTag): Promise<string> {
     return 'Delete active tag successful.'
 }
 
-
 export async function selectActiveTagsByAccountId(accountId: string): Promise<ActiveTag[]> {
     const rows = await sql`SELECT account_id, shop_id, tag_id
                              FROM active_tag
                              WHERE account_id = ${accountId}`
+
+    return ActiveTagSchema.array().parse(rows)
+}
+
+export async function selectActiveTagsByShopId(shopId: string): Promise<ActiveTag[]> {
+    const rows = await sql`SELECT account_id, shop_id, tag_id
+                             FROM active_tag
+                             WHERE shop_id = ${shopId}`
 
     return ActiveTagSchema.array().parse(rows)
 }

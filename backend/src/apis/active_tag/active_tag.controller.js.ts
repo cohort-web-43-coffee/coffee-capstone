@@ -1,7 +1,12 @@
 import {Request, Response} from 'express'
 import {ActiveTagSchema} from './active_tag.validator'
 import {zodErrorResponse} from '../../utils/response.utils'
-import {deleteActiveTag, insertActiveTag, selectActiveTagsByAccountId} from './active_tag.model'
+import {
+    deleteActiveTag,
+    insertActiveTag,
+    selectActiveTagsByAccountId,
+    selectActiveTagsByShopId
+} from './active_tag.model'
 import {z} from 'zod'
 
 export async function postActiveTagController(request: Request, response: Response): Promise<Response> {
@@ -45,7 +50,7 @@ export async function deleteActiveTagController(request: Request, response: Resp
     }
 }
 
-export async function getActiveTagByAccountIdController(request: Request, response: Response): Promise<Response> {
+export async function getActiveTagsByAccountIdController(request: Request, response: Response): Promise<Response> {
     try {
         const validationResult = z.string().uuid('Please provide a valid UUID for accountId').safeParse(request.params.accountId)
 
@@ -55,6 +60,27 @@ export async function getActiveTagByAccountIdController(request: Request, respon
 
         const accountId = validationResult.data
         const data = await selectActiveTagsByAccountId(accountId)
+
+        return response.json({status: 200, message: null, data})
+    } catch (error: any) {
+        return response.json({
+            status: 500,
+            message: '',
+            data: []
+        })
+    }
+}
+
+export async function getActiveTagsByShopIdController(request: Request, response: Response): Promise<Response> {
+    try {
+        const validationResult = z.string().uuid('Please provide a valid UUID for accountId').safeParse(request.params.shopId)
+
+        if(!validationResult.success) {
+            return zodErrorResponse(response, validationResult.error)
+        }
+
+        const shopId = validationResult.data
+        const data = await selectActiveTagsByShopId(shopId)
 
         return response.json({status: 200, message: null, data})
     } catch (error: any) {
