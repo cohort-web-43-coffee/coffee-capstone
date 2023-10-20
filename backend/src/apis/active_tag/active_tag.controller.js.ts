@@ -2,7 +2,7 @@ import {Request, Response} from 'express'
 import {ActiveTagSchema} from './active_tag.validator'
 import {zodErrorResponse} from '../../utils/response.utils'
 import {
-    countActiveTagByTagId,
+    countActiveTagByTagId, countActiveTagByTagIdAndShopId,
     deleteActiveTag,
     insertActiveTag,
     selectActiveTagsByAccountId,
@@ -92,9 +92,10 @@ export async function getActiveTagsByShopIdController(request: Request, response
         })
     }
 }
+
 export async function getActiveTagCountByTagIdController(request: Request, response: Response): Promise<Response> {
     try {
-        const validationResult = z.string().uuid('Please provide a valid UUID for accountId').safeParse(request.params.tagId)
+        const validationResult = z.string().uuid('Please provide a valid UUID for tagId').safeParse(request.params.tagId)
 
         if(!validationResult.success) {
             return zodErrorResponse(response, validationResult.error)
@@ -111,5 +112,34 @@ export async function getActiveTagCountByTagIdController(request: Request, respo
             data: []
         })
     }
+}
 
+export async function getActiveTagCountByTagIdAndShopIdController(request: Request, response: Response): Promise<Response> {
+    try {
+        const shopIdValidationResult = z.string().uuid('Please provide a valid UUID for shopId')
+            .safeParse(request.params.shopId)
+
+        if(!shopIdValidationResult.success) {
+            return zodErrorResponse(response, shopIdValidationResult.error)
+        }
+
+        const tagIdValidationResult = z.string().uuid('Please provide a valid UUID for tagId')
+            .safeParse(request.params.tagId)
+
+        if(!tagIdValidationResult.success) {
+            return zodErrorResponse(response, tagIdValidationResult.error)
+        }
+
+        const shopId = shopIdValidationResult.data
+        const tagId = tagIdValidationResult.data
+        const data = await countActiveTagByTagIdAndShopId(tagId, shopId)
+
+        return response.json({status: 200, message: null, data})
+    } catch (error: any) {
+        return response.json({
+            status: 500,
+            message: '',
+            data: []
+        })
+    }
 }

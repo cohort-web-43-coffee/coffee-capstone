@@ -21,4 +21,7 @@ router.route('/activeTagsByShopId/:shopId')
 router.route('/countActiveTagsByTagId/:tagId')
     .get(getActiveTagCountByTagIdController)
 
+router.route('/countActiveTagsByTagId/:tagId/:shopId')
+    .get(getActiveTagCountByTagIdController)
+
 export const activeTagRoute = {basePath, router}

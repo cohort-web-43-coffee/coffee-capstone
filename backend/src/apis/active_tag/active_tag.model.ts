@@ -45,3 +45,8 @@ export async function countActiveTagByTagId(tagId: string): Promise<number> {
     const result = await sql`SELECT COUNT (tag_id) WHERE tag_id = ${tagId}`
     return result[0].count
 }
+
+export async function countActiveTagByTagIdAndShopId(tagId: string, shopId: string) : Promise<number> {
+    const result = await sql`SELECT COUNT (tag_id) WHERE tag_id = ${tagId} AND shop_id = ${shopId}`
+    return result[0].count
+}
