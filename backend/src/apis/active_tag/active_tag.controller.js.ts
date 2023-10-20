@@ -22,6 +22,7 @@ export async function postActiveTagController(request: Request, response: Respon
         await insertActiveTag(data)
         return response.json({status: 200, message: null, data})
     } catch (error: any) {
+        console.log(error.message)
         return response.json({
             status: 500,
             message: error.message,
@@ -43,6 +44,7 @@ export async function deleteActiveTagController(request: Request, response: Resp
 
         return response.json({status: 200, message: null, data})
     } catch (error: any) {
+        console.log(error.message)
         return response.json({
             status: 500,
             message: error.message,
@@ -64,9 +66,10 @@ export async function getActiveTagsByAccountIdController(request: Request, respo
 
         return response.json({status: 200, message: null, data})
     } catch (error: any) {
+        console.log(error.message)
         return response.json({
             status: 500,
-            message: '',
+            message: error.message,
             data: []
         })
     }
@@ -85,9 +88,10 @@ export async function getActiveTagsByShopIdController(request: Request, response
 
         return response.json({status: 200, message: null, data})
     } catch (error: any) {
+        console.log(error.message)
         return response.json({
             status: 500,
-            message: '',
+            message: error.message,
             data: []
         })
     }
@@ -106,9 +110,10 @@ export async function getActiveTagCountByTagIdController(request: Request, respo
 
         return response.json({status: 200, message: null, data})
     } catch (error: any) {
+        console.log(error.message)
         return response.json({
             status: 500,
-            message: '',
+            message: error.message,
             data: []
         })
     }
@@ -136,9 +141,10 @@ export async function getActiveTagCountByTagIdAndShopIdController(request: Reque
 
         return response.json({status: 200, message: null, data})
     } catch (error: any) {
+        console.log(error.message)
         return response.json({
             status: 500,
-            message: '',
+            message: error.message,
             data: []
         })
     }
