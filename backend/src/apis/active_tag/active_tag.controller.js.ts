@@ -1,7 +1,7 @@
 import {Request, Response} from 'express'
 import {z} from 'zod'
 import {ActiveTagSchema} from './active_tag.validator'
-import {zodErrorResponse} from '../../../utils/response.utils'
+import {zodErrorResponse} from '../../utils/response.utils'
 import {insertActiveTag} from './active_tag.model'
 
 export async function insertActiveTagController(request: Request, response: Response): Promise<Response> {

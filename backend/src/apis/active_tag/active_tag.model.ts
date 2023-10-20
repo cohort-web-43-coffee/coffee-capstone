@@ -1,6 +1,6 @@
 import {ActiveTagSchema} from './active_tag.validator'
 import {z} from 'zod'
-import {sql} from '../../../utils/database.utils'
+import {sql} from '../../utils/database.utils'
 
 export type ActiveTag = z.infer<typeof ActiveTagSchema>
 
