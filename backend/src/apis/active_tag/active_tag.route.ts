@@ -3,9 +3,9 @@ import {
     deleteActiveTagController, getActiveTagCountByTagIdAndShopIdController, getActiveTagCountByTagIdController,
     getActiveTagsByAccountIdController, getActiveTagsByShopIdController,
     postActiveTagController
-} from './active_tag.controller.js'
+} from './active_tag.controller'
 
-const basePath = '/apis/active_tag'
+const basePath = '/apis/activeTag'
 const router = Router()
 
 router.route('/')
@@ -18,10 +18,10 @@ router.route('/activeTagsByAccountId/:accountId')
 router.route('/activeTagsByShopId/:shopId')
     .get(getActiveTagsByShopIdController)
 
-router.route('/countActiveTag/:tagId')
+router.route('/activeTagCount/:tagId')
     .get(getActiveTagCountByTagIdController)
 
-router.route('/countActiveTag/:tagId/:shopId')
+router.route('/activeTagCount/:tagId/:shopId')
     .get(getActiveTagCountByTagIdAndShopIdController)
 
 export const activeTagRoute = {basePath, router}
