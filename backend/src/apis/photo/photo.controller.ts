@@ -17,11 +17,11 @@ export async function getPhotosByShopIdController (request: Request, response: R
             message: null,
             data
         })
-    } catch (error) {
+    } catch (error:any) {
         console.error(error)
         return response.json({
             status: 500,
-            message: '',
+            message: error.message,
             data: []
         })
     }
