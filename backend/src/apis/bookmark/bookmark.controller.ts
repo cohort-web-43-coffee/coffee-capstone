@@ -20,19 +20,9 @@ export async function insertBookmarkController(request: Request, response: Respo
             return zodErrorResponse(response, validationResult.error)
         }
 
-        const account = request.session.account as PublicAccount
-        const {bookmarkShopId} = validationResult.data
 
+        const bookmark = validationResult.data
 
-        const bookmarkAccountId = account.accountId as string
-        const bookmarkOrder = z.number().int()
-
-
-        const bookmark: Bookmark = {
-            bookmarkAccountId,
-            bookmarkShopId,
-            bookmarkOrder
-        }
 
         const status: Status = {
             status: 200,
@@ -81,18 +71,8 @@ export async function deleteBookmarkController(request: Request, response: Respo
             return zodErrorResponse(response, validationResult.error)
         }
 
-        const {bookmarkShopId} = validationResult.data
+        const bookmark = validationResult.data
 
-        const account = request.session.account as PublicAccount
-
-        const bookmarkAccountId = account.accountId as string
-        const bookmarkOrder = z.number().int()
-
-        const bookmark: Bookmark = {
-            bookmarkAccountId,
-            bookmarkShopId,
-            bookmarkOrder
-        }
 
         const status: Status = {
             status: 200,
