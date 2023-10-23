@@ -34,4 +34,4 @@ export const PrivateAccountSchema = z.object({
 })
 
 
-export const PublicAccountSchema = PrivateAccountSchema.omit({accountHash: true, accountEmail: true})
+export const PublicAccountSchema = PrivateAccountSchema.omit({accountHash: true, accountActivationToken: true})

@@ -11,7 +11,9 @@ import {activeTagRoute} from './apis/active_tag/active_tag.route'
 import {bookmarkRoute} from "./apis/bookmark/bookmark.route";
 import {tagRoute} from "./apis/tags/tag.route";
 import {shopRoute} from "./apis/shop/shop.route";
-
+import {accountRoute} from "./apis/account/account.route";
+import {signOutRoute} from "./apis/sign-out/sign-out.route";
+import {photoRoute} from "./apis/photo/photo.route";
 
 // The following class creates the app and instantiates the server
 export class App {
@@ -61,6 +63,9 @@ export class App {
     this.app.use(bookmarkRoute.basePath, bookmarkRoute.router)
     this.app.use(tagRoute.basePath, tagRoute.router)
     this.app.use(shopRoute.basePath, shopRoute.router)
+    this.app.use(accountRoute.basePath, accountRoute.router)
+    this.app.use(signOutRoute.basePath, signOutRoute.router)
+    this.app.use(photoRoute.basePath, photoRoute.router)
   }
 
   // starts the server and tells the terminal to post a message that the server is running and on what port
