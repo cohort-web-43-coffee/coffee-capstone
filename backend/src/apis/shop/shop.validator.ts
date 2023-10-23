@@ -3,8 +3,7 @@ import {z} from "zod";
 
 export const ShopSchema = z.object({
     shopId: z.string({required_error: 'please provide a valid shopId or null.'})
-        .uuid({message: 'please provide a valid uuid for shopId'})
-        .nullable(),
+        .uuid({message: 'please provide a valid uuid for shopId'}),
     shopAddress: z.string()
         .min(1, {message: 'the address has to exist so please type it in'})
         .max(60, {message: 'the address cannot exceed 60 characters. Please shorten it using the proper abbreviations for the postal service.'}),
