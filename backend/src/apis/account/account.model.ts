@@ -1,6 +1,7 @@
 import {PrivateAccountSchema, PublicAccountSchema} from "./account.validator";
-import {z} from "zod";
+import {any, z} from "zod";
 import {sql} from "../../utils/database.utils";
+import session from "express-session";
 
 
 export type PrivateAccount = z.infer<typeof PrivateAccountSchema>
@@ -21,8 +22,9 @@ export async function updateAccount(account: PublicAccount): Promise<string> {
     return 'account successfully updated'
 }
 
-export async function selectPublicAccountByAccountId (accountId:string): Promise<PublicAccount | null> {
-    const rowList = await sql `select account_id, account_name from account where account_id = ${accountId}`
+export async function selectPublicAccountByAccountId (accountId:string | null): Promise<PublicAccount | null> {
+    const rowList = await sql `select  account_id, account_email, account_name from account where account_id = ${accountId}`
+    console.log(rowList)
 
     const result = PublicAccountSchema.array().max(1).parse(rowList)
 
@@ -30,7 +32,7 @@ export async function selectPublicAccountByAccountId (accountId:string): Promise
 }
 
 
-export async function selectPrivateAccountByAccountEmail (accountEmail: string): Promise<PrivateAccount| null>{
+export async function selectPrivateAccountByAccountEmail (accountEmail: string | null): Promise<PrivateAccount| null>{
     const rowList = await sql `select account_id, account_email, account_hash, account_activation_token, account_name from account where account_email = ${accountEmail}`
 
     const result = PrivateAccountSchema.array().max(1).parse(rowList)
@@ -43,3 +45,12 @@ export async function selectPrivateAccountByAccountActivationToken (accountActiv
     const result = PrivateAccountSchema.array().max(1).parse(rowList)
     return result?.length === 1 ? result[0] : null
 }
+
+export async function deleteAccount(account: PublicAccount): Promise<string> {
+    const {accountId} = account
+    await sql`delete
+             from account
+             where  account_id= ${accountId}`
+    return 'Account successfully deleted '
+}
+
