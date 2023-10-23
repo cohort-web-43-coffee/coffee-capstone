@@ -9,6 +9,7 @@ import {signUpRoute} from "./apis/sign-up/sign-up.route";
 import {signInRoute} from "./apis/sign-in/sign-in.route";
 import {activeTagRoute} from './apis/active_tag/active_tag.route'
 import {bookmarkRoute} from "./apis/bookmark/bookmark.route";
+import {tagRoute} from "./apis/tags/tag.route";
 
 
 // The following class creates the app and instantiates the server
@@ -57,7 +58,7 @@ export class App {
     this.app.use(signInRoute.basePath, signInRoute.router)
     this.app.use(activeTagRoute.basePath, activeTagRoute.router)
     this.app.use(bookmarkRoute.basePath, bookmarkRoute.router)
-
+    this.app.use(tagRoute.basePath, tagRoute.router)
   }
 
   // starts the server and tells the terminal to post a message that the server is running and on what port
