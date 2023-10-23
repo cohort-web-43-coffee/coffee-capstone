@@ -1,8 +1,8 @@
-import {Request,Response} from "express";
+import {Request, Response} from "express";
 import {
     deleteBookmark,
     Bookmark,
-    selectBookmarkByBookmarkAccountId
+    selectBookmarksByAccountId, insertBookmark
 } from "./bookmark.model";
 
 import {PublicAccount} from "../account/account.model";
@@ -12,7 +12,44 @@ import {zodErrorResponse} from "../../utils/response.utils";
 import {z} from "zod";
 
 
-export async function getBookmarksByBookmarkAccountIdController(request: Request, response: Response): Promise<Response> {
+export async function insertBookmarkController(request: Request, response: Response): Promise<Response<Status>> {
+    try {
+        const validationResult = BookmarkSchema.safeParse(request.body)
+
+        if (!validationResult.success) {
+            return zodErrorResponse(response, validationResult.error)
+        }
+
+        const account = request.session.account as PublicAccount
+        const {bookmarkShopId} = validationResult.data
+
+
+        const bookmarkAccountId = account.accountId as string
+        const bookmarkOrder = z.number().int()
+
+
+        const bookmark: Bookmark = {
+            bookmarkAccountId,
+            bookmarkShopId,
+            bookmarkOrder
+        }
+
+        const status: Status = {
+            status: 200,
+            message: 'bookmark inserted',
+            data: null
+        }
+
+        status.message = await insertBookmark(bookmark)
+
+        return response.json(status)
+    } catch (error: any) {
+        return (response.json({status: 500, data: null, message: error.message}))
+    }
+}
+
+
+export async function getBookmarksByAccountIdController(request: Request, response: Response): Promise<Response> {
     try {
 
         const validationResult = z.string().uuid("please provide a valid BookmarkAccountId").safeParse(request.params.bookmarkAccountId)
@@ -23,12 +60,10 @@ export async function getBookmarksByBookmarkAccountIdController(request: Request
 
         const bookmarkAccountId = validationResult.data
 
-        const data = await selectBookmarkByBookmarkAccountId(bookmarkAccountId)
+        const data = await selectBookmarksByAccountId(bookmarkAccountId)
 
         return response.json({status: 200, message: null, data})
-    }
-
-    catch (error) {
+    } catch (error) {
         return response.json({
             status: 500,
             message: '',
@@ -46,16 +81,17 @@ export async function deleteBookmarkController(request: Request, response: Respo
             return zodErrorResponse(response, validationResult.error)
         }
 
+        const {bookmarkShopId} = validationResult.data
+
         const account = request.session.account as PublicAccount
 
         const bookmarkAccountId = account.accountId as string
-        const bookmarkOrder = account.accountId as string
-        const bookmarkShopId = 'your-shop-id';
+        const bookmarkOrder = z.number().int()
 
         const bookmark: Bookmark = {
             bookmarkAccountId,
-            bookmarkOrder,
-            bookmarkShopId
+            bookmarkShopId,
+            bookmarkOrder
         }
 
         const status: Status = {
@@ -72,3 +108,5 @@ export async function deleteBookmarkController(request: Request, response: Respo
     }
 
 }
+
+

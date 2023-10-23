@@ -1,9 +1,8 @@
 import {Router} from "express";
 import {
     deleteBookmarkController,
-    getBookmarksByBookmarkAccountIdController
+    getBookmarksByAccountIdController, insertBookmarkController
 } from "./bookmark.controller";
-
 
 
 const basePath = '/apis/bookmark'
@@ -12,7 +11,9 @@ const router = Router()
 
 
 router.route('/')
-.delete(deleteBookmarkController)
+    .post(insertBookmarkController)
+    .delete(deleteBookmarkController)
 
-router.route('/bookmarkByAccountId/:bookmarkAccountId').get(getBookmarksByBookmarkAccountIdController)
+router.route('/bookmarkByAccountId/:bookmarkAccountId')
+    .get(getBookmarksByAccountIdController)
 export const bookmarkRoute = {basePath, router}
