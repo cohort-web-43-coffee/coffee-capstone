@@ -4,16 +4,17 @@ import {
     getActiveTagsByAccountIdController, getActiveTagsByShopIdController,
     postActiveTagController
 } from './active_tag.controller'
+import {isSignInController} from "../../utils/contollers/isSignIn.Controller";
 
 const basePath = '/apis/activeTag'
 const router = Router()
 
 router.route('/')
-    .post(postActiveTagController)
-    .delete(deleteActiveTagController)
+    .post(isSignInController,postActiveTagController)
+    .delete(isSignInController, deleteActiveTagController)
 
 router.route('/activeTagsByAccountId/:accountId')
-    .get(getActiveTagsByAccountIdController)
+    .get(isSignInController,getActiveTagsByAccountIdController)
 
 router.route('/activeTagsByShopId/:shopId')
     .get(getActiveTagsByShopIdController)
