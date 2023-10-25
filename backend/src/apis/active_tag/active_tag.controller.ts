@@ -10,6 +10,12 @@ import {
 } from './active_tag.model'
 import {z} from 'zod'
 
+/**
+ *
+ * @param request
+ * @param response
+ */
+
 export async function postActiveTagController(request: Request, response: Response): Promise<Response> {
     try {
         const validationResult = ActiveTagSchema.safeParse(request.body)
@@ -30,6 +36,13 @@ export async function postActiveTagController(request: Request, response: Respon
         })
     }
 }
+
+
+/**
+ *
+ * @param request
+ * @param response
+ */
 
 export async function deleteActiveTagController(request: Request, response: Response): Promise<Response> {
     try {
@@ -53,6 +66,12 @@ export async function deleteActiveTagController(request: Request, response: Resp
     }
 }
 
+/**
+ *
+ * @param request
+ * @param response
+ */
+
 export async function getActiveTagsByAccountIdController(request: Request, response: Response): Promise<Response> {
     try {
         const validationResult = z.string().uuid('Please provide a valid UUID for accountId').safeParse(request.params.accountId)
@@ -74,6 +93,13 @@ export async function getActiveTagsByAccountIdController(request: Request, respo
         })
     }
 }
+
+
+/**
+ *
+ * @param request
+ * @param response
+ */
 
 export async function getActiveTagsByShopIdController(request: Request, response: Response): Promise<Response> {
     try {
@@ -97,6 +123,12 @@ export async function getActiveTagsByShopIdController(request: Request, response
     }
 }
 
+/**
+ *
+ * @param request
+ * @param response
+ */
+
 export async function getActiveTagCountByTagIdController(request: Request, response: Response): Promise<Response> {
     try {
         const validationResult = z.string().uuid('Please provide a valid UUID for tagId').safeParse(request.params.tagId)
@@ -118,6 +150,12 @@ export async function getActiveTagCountByTagIdController(request: Request, respo
         })
     }
 }
+
+/**
+ *
+ * @param request
+ * @param response
+ */
 
 export async function getActiveTagCountByTagIdAndShopIdController(request: Request, response: Response): Promise<Response> {
     try {

@@ -1,6 +1,13 @@
 import {z} from 'zod'
 import {PrivateAccountSchema} from "../account/account.validator"
 
+
+/**
+ * The shape of the data that comes from the client when signing up
+ * @property accountPasswordConfirm {string} the password confirmation
+ * @property accountPassword {string} the password
+ */
+
 export const SignUpSchema = PrivateAccountSchema
     .omit({accountHash: true})
     .extend({

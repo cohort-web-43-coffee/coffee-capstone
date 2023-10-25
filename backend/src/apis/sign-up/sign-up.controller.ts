@@ -6,7 +6,13 @@ import {insertAccount, PrivateAccount} from "../account/account.model";
 import {Status} from "../../utils/interfaces/Status";
 
 
-
+/**
+ * Express controller for sign-up
+ * @endpoint POST /apis/sign-up/
+ * @param request an object containing the body contain a accountName, accountEmail, accountPassword and accountPasswordConfirm.
+ * @param response an object modeling the response that will be sent to the client.
+ * @returns response to the client indicating whether the sign up was successful or not
+ * */
 
 
 
