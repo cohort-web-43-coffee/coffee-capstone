@@ -14,6 +14,7 @@ import {shopRoute} from "./apis/shop/shop.route";
 import {accountRoute} from "./apis/account/account.route";
 import {signOutRoute} from "./apis/sign-out/sign-out.route";
 import {photoRoute} from "./apis/photo/photo.route";
+import helmet from "helmet";
 
 // The following class creates the app and instantiates the server
 export class App {
@@ -52,6 +53,7 @@ export class App {
       resave: false
 
     }))
+    this.app.use(helmet())
   }
 
   // private method for setting up routes in their basic sense (ie. any route that performs an action on profiles starts with /profiles)
