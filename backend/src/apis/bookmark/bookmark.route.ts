@@ -15,6 +15,6 @@ router.route('/')
     .post(isSignInController, insertBookmarkController)
     .delete(isSignInController, deleteBookmarkController)
 
-router.route('/bookmarkByAccountId/:bookmarkAccountId')
+router.route('/bookmarkByAccountId/')
     .get(isSignInController,getBookmarksByAccountIdController)
 export const bookmarkRoute = {basePath, router}

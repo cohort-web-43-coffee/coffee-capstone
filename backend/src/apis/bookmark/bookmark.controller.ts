@@ -20,9 +20,17 @@ export async function insertBookmarkController(request: Request, response: Respo
             return zodErrorResponse(response, validationResult.error)
         }
 
+        const bookmarkAccountId = request.session.account?.accountId ?? null
 
-        const bookmark = validationResult.data
+        if(bookmarkAccountId === null) {
+            return response.json({
+                status: 400,
+                message: "Session missing account",
+                data: null
+            })
+        }
 
+        const bookmark = {...validationResult.data, bookmarkAccountId}
 
         const status: Status = {
             status: 200,
@@ -41,14 +49,15 @@ export async function insertBookmarkController(request: Request, response: Respo
 
 export async function getBookmarksByAccountIdController(request: Request, response: Response): Promise<Response> {
     try {
+        const bookmarkAccountId = request.session.account?.accountId ?? null
 
-        const validationResult = z.string().uuid("please provide a valid BookmarkAccountId").safeParse(request.params.bookmarkAccountId)
-
-        if (!validationResult.success) {
-            return zodErrorResponse(response, validationResult.error)
+        if(bookmarkAccountId === null) {
+            return response.json({
+                status: 400,
+                message: "Session missing account",
+                data: null
+            })
         }
-
-        const bookmarkAccountId = validationResult.data
 
         const data = await selectBookmarksByAccountId(bookmarkAccountId)
 
@@ -71,8 +80,17 @@ export async function deleteBookmarkController(request: Request, response: Respo
             return zodErrorResponse(response, validationResult.error)
         }
 
-        const bookmark = validationResult.data
+        const bookmarkAccountId = request.session.account?.accountId ?? null
 
+        if(bookmarkAccountId === null) {
+
+            return response.json({
+                status: 400,
+                message: "Session missing account",
+                data: null
+            })
+        }
+        const bookmark = {...validationResult.data, bookmarkAccountId}
 
         const status: Status = {
             status: 200,
@@ -88,5 +106,3 @@ export async function deleteBookmarkController(request: Request, response: Respo
     }
 
 }
-
-
