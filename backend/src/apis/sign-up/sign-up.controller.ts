@@ -21,8 +21,7 @@ export async function signUpController (request: Request, response: Response): P
         }
 
         const mailgun: Mailgun = new Mailgun(formData)
-        const mailgunClient = mailgun.client({ username: 'api', key: process.env.MAILGUN_API_KEY as string })
-
+        const mailgunClient = mailgun.client({ username: 'api', key: process.env.MAILGUN_API_KEY as string})
         const {accountEmail, accountName, accountPassword} = bodyValidationResult.data
         const accountHash = await setHash(accountPassword)
         const accountActivationToken = setActivationToken()
@@ -35,7 +34,7 @@ export async function signUpController (request: Request, response: Response): P
         // create a mailgun message object
         const mailgunMessage = {
             from: `Mailgun Sandbox <postmaster@${process.env.MAILGUN_DOMAIN as string}>`,
-            to: accountEmail,
+            to: [accountEmail],
             subject: 'One step closer to better coffee! Please activate account.',
             html: message
         }
@@ -58,6 +57,7 @@ export async function signUpController (request: Request, response: Response): P
         }
         return response.json(status)
     } catch (error: any) {
+        console.log(error)
         const status: Status = {
             status: 500,
             message: error.message,
