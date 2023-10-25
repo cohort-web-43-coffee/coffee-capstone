@@ -10,7 +10,7 @@ import {
 } from './active_tag.model'
 import {z} from 'zod'
 
-export async function postActiveTagController(request: Request, response: Response): Promise<Response> {
+export async function postActiveTagController (request: Request, response: Response): Promise<Response> {
     try {
         const validationResult = ActiveTagSchema.safeParse(request.body)
 
@@ -18,7 +18,18 @@ export async function postActiveTagController(request: Request, response: Respon
             return zodErrorResponse(response, validationResult.error)
         }
 
-        const data = validationResult.data
+        const activeTagAccountId = request.session.account?.accountId ?? null
+
+        if(activeTagAccountId === null) {
+            return response.json({
+                status: 400,
+                message: "Session missing account",
+                data: null
+            })
+        }
+
+        const data = {...validationResult.data, activeTagAccountId }
+        console.log(data)
         await insertActiveTag(data)
         return response.json({status: 200, message: null, data})
     } catch (error: any) {
@@ -31,7 +42,7 @@ export async function postActiveTagController(request: Request, response: Respon
     }
 }
 
-export async function deleteActiveTagController(request: Request, response: Response): Promise<Response> {
+export async function deleteActiveTagController (request: Request, response: Response): Promise<Response> {
     try {
         const validationResult = ActiveTagSchema.safeParse(request.body)
 
@@ -39,10 +50,19 @@ export async function deleteActiveTagController(request: Request, response: Resp
             return zodErrorResponse(response, validationResult.error)
         }
 
-        const data = validationResult.data
+        const activeTagAccountId = request.session.account?.accountId ?? null
+
+        if(activeTagAccountId === null) {
+            return response.json({
+                status: 400,
+                message: "Session missing account",
+                data: null
+            })
+        }
+        const data = {...validationResult.data, activeTagAccountId }
         await deleteActiveTag(data)
 
-        return response.json({status: 200, message: null, data})
+        return response.json({status: 200, message: null, data: null})
     } catch (error: any) {
         console.log(error.message)
         return response.json({
@@ -53,15 +73,18 @@ export async function deleteActiveTagController(request: Request, response: Resp
     }
 }
 
-export async function getActiveTagsByAccountIdController(request: Request, response: Response): Promise<Response> {
+export async function getActiveTagsByAccountIdController (request: Request, response: Response): Promise<Response> {
     try {
-        const validationResult = z.string().uuid('Please provide a valid UUID for accountId').safeParse(request.params.accountId)
 
-        if(!validationResult.success) {
-            return zodErrorResponse(response, validationResult.error)
+        const accountId = request.session.account?.accountId ?? null
+
+        if(accountId === null) {
+            return response.json({
+                status: 400,
+                message: "Session missing account",
+                data: null
+            })
         }
-
-        const accountId = validationResult.data
         const data = await selectActiveTagsByAccountId(accountId)
 
         return response.json({status: 200, message: null, data})
@@ -75,11 +98,11 @@ export async function getActiveTagsByAccountIdController(request: Request, respo
     }
 }
 
-export async function getActiveTagsByShopIdController(request: Request, response: Response): Promise<Response> {
+export async function getActiveTagsByShopIdController (request: Request, response: Response): Promise<Response> {
     try {
         const validationResult = z.string().uuid('Please provide a valid UUID for accountId').safeParse(request.params.shopId)
 
-        if(!validationResult.success) {
+        if (!validationResult.success) {
             return zodErrorResponse(response, validationResult.error)
         }
 
@@ -97,11 +120,11 @@ export async function getActiveTagsByShopIdController(request: Request, response
     }
 }
 
-export async function getActiveTagCountByTagIdController(request: Request, response: Response): Promise<Response> {
+export async function getActiveTagCountByTagIdController (request: Request, response: Response): Promise<Response> {
     try {
         const validationResult = z.string().uuid('Please provide a valid UUID for tagId').safeParse(request.params.tagId)
 
-        if(!validationResult.success) {
+        if (!validationResult.success) {
             return zodErrorResponse(response, validationResult.error)
         }
 
@@ -119,19 +142,19 @@ export async function getActiveTagCountByTagIdController(request: Request, respo
     }
 }
 
-export async function getActiveTagCountByTagIdAndShopIdController(request: Request, response: Response): Promise<Response> {
+export async function getActiveTagCountByTagIdAndShopIdController (request: Request, response: Response): Promise<Response> {
     try {
         const shopIdValidationResult = z.string().uuid('Please provide a valid UUID for shopId')
             .safeParse(request.params.shopId)
 
-        if(!shopIdValidationResult.success) {
+        if (!shopIdValidationResult.success) {
             return zodErrorResponse(response, shopIdValidationResult.error)
         }
 
         const tagIdValidationResult = z.string().uuid('Please provide a valid UUID for tagId')
             .safeParse(request.params.tagId)
 
-        if(!tagIdValidationResult.success) {
+        if (!tagIdValidationResult.success) {
             return zodErrorResponse(response, tagIdValidationResult.error)
         }
 

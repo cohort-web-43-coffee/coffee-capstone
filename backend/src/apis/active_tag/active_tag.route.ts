@@ -13,7 +13,7 @@ router.route('/')
     .post(isSignInController,postActiveTagController)
     .delete(isSignInController, deleteActiveTagController)
 
-router.route('/activeTagsByAccountId/:accountId')
+router.route('/activeTagsByAccountId/')
     .get(isSignInController,getActiveTagsByAccountIdController)
 
 router.route('/activeTagsByShopId/:shopId')
