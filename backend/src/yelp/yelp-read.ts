@@ -1,3 +1,6 @@
+import {a} from 'vitest/dist/reporters-5f784f42'
+import {promises} from 'dns'
+
 require('dotenv').config({path: '../project.env'})
 
 const baseUrl = 'https://api.yelp.com/v3'
@@ -5,7 +8,7 @@ const searchRoute = '/businesses/search'
 const businessDetailsRoute = '/businesses'
 const maxSearchResults = '50'
 
-export async function findAbqCoffeeLocations() {
+export async function findAbqCoffeeLocations(): Promise<any> {
     return findBusinessByCityAndCategory('albuquerque', 'coffee,coffeeroasteries')
 }
 
@@ -14,7 +17,7 @@ async function findBusinessByCityAndCategory(cityName: string, categories: strin
     return makeRequest(searchRoute)
 }
 
-export async function readBusinessDetails(businessId: string) {
+export async function readBusinessDetails(businessId: string): Promise<any> {
     const route = getBusinessDetailsRoute(businessId)
     return makeRequest(route)
 }
@@ -31,7 +34,7 @@ function getBusinessDetailsRoute(businessId: string): string {
     return `${baseUrl}${businessDetailsRoute}/${businessId}`
 }
 
-function makeRequest(route: string) {
+function makeRequest(route: string): Promise<any> {
     const requestData = getRequestData()
     return fetch(route, requestData).then((response) => {
         return response.json()

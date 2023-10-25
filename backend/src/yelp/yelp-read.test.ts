@@ -14,8 +14,8 @@ test('List Albuquerque coffee shops', async () => {
     expect(result).toBeTypeOf('object')
     expect(result).toHaveProperty('businesses')
     expect(result.businesses.length).toBe(50)
-    expect(result.businesses.every((element) => element.location.city.toLowerCase() === 'albuquerque')).true
-    expect(result.businesses.every((element) => element.location.state.toLowerCase() === 'nm')).true
+    expect(result.businesses.every((element: any) => element.location.city.toLowerCase() === 'albuquerque')).true
+    expect(result.businesses.every((element: any) => element.location.state.toLowerCase() === 'nm')).true
 })
 
 test('Read coffee shop business details', async () => {

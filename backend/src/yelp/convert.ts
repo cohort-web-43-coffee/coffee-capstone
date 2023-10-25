@@ -1,4 +1,4 @@
-export function businessDetailsToShopEntry(businessDetails) {
+export function businessDetailsToShopEntry(businessDetails: any): any {
     return {
         "shopName": businessDetails.name,
         "shopAddress": locationToString(businessDetails.location),
@@ -7,11 +7,12 @@ export function businessDetailsToShopEntry(businessDetails) {
     }
 }
 
-function locationToString(location) : string {
+function locationToString(location: any) : string {
     return location.display_address.join('\n')
 }
-export function businessDetailsToPhotoEntries(businessDetails, businessUuid) {
-    return businessDetails.photos.map((element,  index) => {
+
+export function businessDetailsToPhotoEntries(businessDetails: any, businessUuid: any) {
+    return businessDetails.photos.map((element: any,  index: number) => {
         return {
             'photo_url': element,
             'photo_order': index,
