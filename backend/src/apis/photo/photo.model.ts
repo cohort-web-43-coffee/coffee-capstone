@@ -6,6 +6,12 @@ import {z} from "zod";
 export type Photo = z.infer<typeof PhotoSchema>
 
 
+/**
+ * gets the photos from shopId
+ * @param shopId
+ * @returns 'Error retrieving photos by shopId:'
+ */
+
 export async function getPhotosByShopId(shopId: string) {
     try {
         return await sql`select *

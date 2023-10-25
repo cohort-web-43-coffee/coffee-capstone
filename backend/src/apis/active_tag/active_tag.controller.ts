@@ -10,7 +10,12 @@ import {
 } from './active_tag.model'
 import {z} from 'zod'
 
-export async function postActiveTagController (request: Request, response: Response): Promise<Response> {
+/**
+ *
+ * @param request
+ * @param response
+ */
+export async function postActiveTagController(request: Request, response: Response): Promise<Response> {
     try {
         const validationResult = ActiveTagSchema.safeParse(request.body)
 
@@ -42,7 +47,13 @@ export async function postActiveTagController (request: Request, response: Respo
     }
 }
 
-export async function deleteActiveTagController (request: Request, response: Response): Promise<Response> {
+/**
+ *
+ * @param request
+ * @param response
+ */
+
+export async function deleteActiveTagController(request: Request, response: Response): Promise<Response> {
     try {
         const validationResult = ActiveTagSchema.safeParse(request.body)
 
@@ -73,7 +84,14 @@ export async function deleteActiveTagController (request: Request, response: Res
     }
 }
 
-export async function getActiveTagsByAccountIdController (request: Request, response: Response): Promise<Response> {
+/**
+ *
+ * @param request
+ * @param response
+ */
+
+export async function getActiveTagsByAccountIdController(request: Request, response: Response): Promise<Response> {
+
     try {
 
         const accountId = request.session.account?.accountId ?? null
@@ -98,7 +116,15 @@ export async function getActiveTagsByAccountIdController (request: Request, resp
     }
 }
 
-export async function getActiveTagsByShopIdController (request: Request, response: Response): Promise<Response> {
+
+/**
+ *
+ * @param request
+ * @param response
+ */
+
+export async function getActiveTagsByShopIdController(request: Request, response: Response): Promise<Response> {
+
     try {
         const validationResult = z.string().uuid('Please provide a valid UUID for accountId').safeParse(request.params.shopId)
 
@@ -120,7 +146,15 @@ export async function getActiveTagsByShopIdController (request: Request, respons
     }
 }
 
-export async function getActiveTagCountByTagIdController (request: Request, response: Response): Promise<Response> {
+
+/**
+ *
+ * @param request
+ * @param response
+ */
+
+export async function getActiveTagCountByTagIdController(request: Request, response: Response): Promise<Response> {
+
     try {
         const validationResult = z.string().uuid('Please provide a valid UUID for tagId').safeParse(request.params.tagId)
 
@@ -142,7 +176,15 @@ export async function getActiveTagCountByTagIdController (request: Request, resp
     }
 }
 
-export async function getActiveTagCountByTagIdAndShopIdController (request: Request, response: Response): Promise<Response> {
+
+/**
+ *
+ * @param request
+ * @param response
+ */
+
+export async function getActiveTagCountByTagIdAndShopIdController(request: Request, response: Response): Promise<Response> {
+
     try {
         const shopIdValidationResult = z.string().uuid('Please provide a valid UUID for shopId')
             .safeParse(request.params.shopId)

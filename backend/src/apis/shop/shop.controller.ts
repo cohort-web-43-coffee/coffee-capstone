@@ -5,6 +5,12 @@ import {z} from "zod";
 import {zodErrorResponse} from "../../utils/response.utils";
 
 
+/**
+ * gets information from all shops
+ * @param request getting all shops in the area
+ * @param response an error message
+ * @returns 'Error getting shops. Please try again. And get some coffee.'
+ */
 export async function getAllShopsController (request: Request, response: Response): Promise<Response<Status>> {
     try {
         const data = await getAllShops()
@@ -23,6 +29,12 @@ export async function getAllShopsController (request: Request, response: Respons
         })
     }
 }
+
+/**
+ * gets shop from shop id from the table
+ * @param request
+ * @param response
+ */
 
 export async function getShopByShopIdController(request: Request, response: Response): Promise<Response<Status>> {
     try {
