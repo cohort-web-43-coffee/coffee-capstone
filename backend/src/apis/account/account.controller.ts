@@ -7,20 +7,20 @@ import {
 import {Request, Response} from "express";
 
 
-<<<<<<< HEAD
+
 export async function getPublicAccountController (request: Request, response: Response) : Promise<Response<Status>> {
     try {
         const accountId = request.session.account?.accountId ?? null
 
-        if(accountId === null) {
+        if (accountId === null) {
             return response.json({
                 status: 400,
                 message: "Session missing account",
                 data: null
             })
         }
-
-=======
+    }
+}
 /**
  * Express controller for getting the public account by accountId
  * @param request from the end user to the server to get all threads by thread(?) account id
@@ -45,7 +45,7 @@ export async function getPublicAccountByAccountIdController(request: Request, re
 
 
         //grab the account by the accountid
->>>>>>> doc-blocks
+
         const data = await selectPublicAccountByAccountId(accountId)
 
         //return a response to the end user with the information they need

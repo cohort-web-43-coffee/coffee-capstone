@@ -11,9 +11,9 @@ import {
 import {z} from 'zod'
 
 /**
- *
+ * posts the active tag with active tag account id
  * @param request
- * @param response
+ * @param response "Session missing account"
  */
 export async function postActiveTagController(request: Request, response: Response): Promise<Response> {
     try {
@@ -48,9 +48,9 @@ export async function postActiveTagController(request: Request, response: Respon
 }
 
 /**
- *
+ * controller that deletes an active tag
  * @param request
- * @param response
+ * @param response "Session missing account",
  */
 
 export async function deleteActiveTagController(request: Request, response: Response): Promise<Response> {
@@ -85,9 +85,9 @@ export async function deleteActiveTagController(request: Request, response: Resp
 }
 
 /**
- *
+ * gets the active tags from account id
  * @param request
- * @param response
+ * @param response "Session missing account"
  */
 
 export async function getActiveTagsByAccountIdController(request: Request, response: Response): Promise<Response> {
@@ -118,7 +118,7 @@ export async function getActiveTagsByAccountIdController(request: Request, respo
 
 
 /**
- *
+ * gets the active tags by the shop id
  * @param request
  * @param response
  */
@@ -148,9 +148,9 @@ export async function getActiveTagsByShopIdController(request: Request, response
 
 
 /**
- *
+ * gets an active tag count by the tag id
  * @param request
- * @param response
+ * @param response gives an error message if not working
  */
 
 export async function getActiveTagCountByTagIdController(request: Request, response: Response): Promise<Response> {
@@ -178,7 +178,7 @@ export async function getActiveTagCountByTagIdController(request: Request, respo
 
 
 /**
- *
+ * gets an active tag count by tag and shop id controller
  * @param request
  * @param response
  */
