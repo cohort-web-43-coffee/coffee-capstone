@@ -7,14 +7,18 @@ import {
 import {Request, Response} from "express";
 
 
-export async function getPublicAccountByAccountIdController (request: Request, response: Response) : Promise<Response<Status>> {
+export async function getPublicAccountController (request: Request, response: Response) : Promise<Response<Status>> {
     try {
-        const validationResult = PublicAccountSchema.pick({accountId: true}).safeParse(request.params)
-        if (!validationResult.success) {
-            return zodErrorResponse(response, validationResult.error)
+        const accountId = request.session.account?.accountId ?? null
+
+        if(accountId === null) {
+            return response.json({
+                status: 400,
+                message: "Session missing account",
+                data: null
+            })
         }
-        const {accountId} = validationResult.data
-        console.log(accountId)
+
         const data = await selectPublicAccountByAccountId(accountId)
         return response.json({
             status: 200,
@@ -30,4 +34,3 @@ export async function getPublicAccountByAccountIdController (request: Request, r
         })
     }
 }
-
