@@ -72,7 +72,7 @@ export async function getAllTagsByTagLabelController(request: Request, response:
         // validate the tagLabel coming from the request parameters
         const validationResult = z.string({required_error: 'please provide a tagLabel'})
             .min(1, {message: 'tagLabel must be at least 1 character. Thank you.'})
-            .max(512, {message: 'tagLabel must be at most 512 character. Thank you'}).safeParse(request.params.tagGroup)
+            .max(512, {message: 'tagLabel must be at most 512 character. Thank you'}).safeParse(request.params.tagLabel)
         // if the validation fails, return a response to the client
         if (!validationResult.success) {
             return zodErrorResponse(response, validationResult.error)
