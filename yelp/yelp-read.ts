@@ -1,4 +1,4 @@
-require('dotenv').config({path: __dirname + '/.env'})
+require('dotenv').config({path: '../project.env'})
 
 const baseUrl = 'https://api.yelp.com/v3'
 const searchRoute = '/businesses/search'
@@ -12,7 +12,6 @@ export async function findAbqCoffeeLocations() {
 async function findBusinessByCityAndCategory(cityName: string, categories: string) {
     const searchRoute = getSearchRoute(cityName, categories)
     return makeRequest(searchRoute)
-
 }
 
 export async function readBusinessDetails(businessId: string) {
