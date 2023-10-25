@@ -11,12 +11,13 @@ function locationToString(location: any) : string {
     return location.display_address.join('\n')
 }
 
-export function businessDetailsToPhotoEntries(businessDetails: any, businessUuid: any) {
+export function businessDetailsToPhotoEntries(businessDetails: any) {
     return businessDetails.photos.map((element: any,  index: number) => {
         return {
-            'photo_url': element,
-            'photo_order': index,
-            'photo_shop_id': businessUuid
+            'photoUrl': element,
+            'photoOrder': index,
+            'photoCredit': '',
+            'photoDescription': ''
         }
     })
 }

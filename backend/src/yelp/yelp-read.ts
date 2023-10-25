@@ -1,8 +1,3 @@
-import {a} from 'vitest/dist/reporters-5f784f42'
-import {promises} from 'dns'
-
-require('dotenv').config({path: '../project.env'})
-
 const baseUrl = 'https://api.yelp.com/v3'
 const searchRoute = '/businesses/search'
 const businessDetailsRoute = '/businesses'

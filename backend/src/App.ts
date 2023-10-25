@@ -5,6 +5,7 @@ import { indexRoute } from './apis/index.route'
 import session from 'express-session'
 import { createClient,  RedisClientType } from 'redis'
 import RedisStore from 'connect-redis'
+import {insertData, isPhotoTableEmpty, isShopTableEmpty} from './yelp/adapt'
 
 // The following class creates the app and instantiates the server
 export class App {
@@ -24,6 +25,7 @@ export class App {
     this.settings()
     this.middlewares()
     this.routes()
+    this.insertYelpData().then()
   }
 
   // private method that sets the port for the sever, to one from index.route.ts, and external .env file or defaults to 3000
@@ -54,5 +56,11 @@ export class App {
   public async listen (): Promise<void> {
     await this.app.listen(this.app.get('port'))
     console.log('Express application built successfully')
+  }
+
+  private async insertYelpData () {
+    if (await isPhotoTableEmpty() && await isShopTableEmpty()) {
+      await insertData()
+    }
   }
 }

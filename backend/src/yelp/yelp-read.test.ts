@@ -3,7 +3,6 @@ import {findAbqCoffeeLocations, readBusinessDetails} from './yelp-read'
 import {businessDetailsToPhotoEntries, businessDetailsToShopEntry} from './convert'
 import {mockBusinessDetails, mockBusinessLocationSearchResult} from './mocks'
 
-
 //  TODO: Filter businesses for isClosed
 //  TODO: Get > 50 businesses
 
