@@ -5,14 +5,12 @@ import {z} from "zod";
 import {zodErrorResponse} from "../../utils/response.utils";
 
 
-<<<<<<< HEAD
-=======
 /**
  * Handles GET request for all photos associated with a shopId
  * @param request object containing shop id
  * @param response object containing the status of the request and the photos associated with the shop id
  */
->>>>>>> doc-blocks
+
 export async function getPhotosByShopIdController (request: Request, response: Response): Promise<Response<Status>> {
     try {
         const validationResult = z.string().uuid({message: 'please provide a valid shopId'}).safeParse(request.params.shopId)

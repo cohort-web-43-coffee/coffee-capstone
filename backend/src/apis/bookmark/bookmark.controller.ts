@@ -25,7 +25,7 @@ export async function insertBookmarkController(request: Request, response: Respo
 
         const bookmarkAccountId = request.session.account?.accountId ?? null
 
-<<<<<<< HEAD
+
         if(bookmarkAccountId === null) {
             return response.json({
                 status: 400,
@@ -36,7 +36,7 @@ export async function insertBookmarkController(request: Request, response: Respo
 
         const bookmark = {...validationResult.data, bookmarkAccountId}
 
-=======
+
         //proceed if the validation works
 
 
@@ -44,7 +44,7 @@ export async function insertBookmarkController(request: Request, response: Respo
         const bookmark = validationResult.data
 
         //create status object
->>>>>>> doc-blocks
+
         const status: Status = {
             status: 200,
             message: 'bookmark inserted',
@@ -76,7 +76,7 @@ export async function getBookmarksByAccountIdController(request: Request, respon
     try {
         const bookmarkAccountId = request.session.account?.accountId ?? null
 
-<<<<<<< HEAD
+
         if(bookmarkAccountId === null) {
             return response.json({
                 status: 400,
@@ -85,7 +85,7 @@ export async function getBookmarksByAccountIdController(request: Request, respon
             })
         }
 
-=======
+
         //check if bookmarkAccountId is valid from the request
         const validationResult = z.string().uuid("please provide a valid BookmarkAccountId").safeParse(request.params.bookmarkAccountId)
 
@@ -98,7 +98,7 @@ export async function getBookmarksByAccountIdController(request: Request, respon
         const bookmarkAccountId = validationResult.data
 
         //select the bookmarks by the bookmark account id
->>>>>>> doc-blocks
+
         const data = await selectBookmarksByAccountId(bookmarkAccountId)
 
         // return the status and the bookmarks associated with the account
@@ -126,15 +126,15 @@ export async function deleteBookmarkController(request: Request, response: Respo
             return zodErrorResponse(response, validationResult.error)
         }
 
-<<<<<<< HEAD
+
         const bookmarkAccountId = request.session.account?.accountId ?? null
-=======
+
         //proceed if the validation succeeds
 
 
         //deconstruct the bookmarkaccountid from the validation result (like taking toppings off a pizza)
         const bookmark = validationResult.data
->>>>>>> doc-blocks
+
 
         if(bookmarkAccountId === null) {
 

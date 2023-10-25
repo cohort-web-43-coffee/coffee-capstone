@@ -16,13 +16,12 @@ router.route('/')
     .post(isSignInController, insertBookmarkController)
     .delete(isSignInController, deleteBookmarkController)
 
-<<<<<<< HEAD
+
 router.route('/bookmarkByAccountId/')
     .get(isSignInController,getBookmarksByAccountIdController)
-=======
+
 router.route('/bookmarkByAccountId/:bookmarkAccountId')
     .get(isSignInController, getBookmarksByAccountIdController)
 
 // export the router with the basePath and router object
->>>>>>> doc-blocks
 export const bookmarkRoute = {basePath, router}
