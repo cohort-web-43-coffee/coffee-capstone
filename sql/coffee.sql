@@ -22,6 +22,7 @@ create table if not exists shop (
 );
 
 create table if not exists photo (
+    photo_id uuid not null primary key,
     photo_shop_id uuid not null,
     photo_credit varchar (512) not null,
     photo_description varchar (512) not null,
