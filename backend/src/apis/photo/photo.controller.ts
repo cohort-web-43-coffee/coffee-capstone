@@ -34,7 +34,6 @@ export async function getPhotosByShopIdController (request: Request, response: R
     }
 }
 
-
 export async function getPhotoByPhotoIdController (request: Request, response: Response): Promise<Response<Status>> {
     try {
         const validationResult = z.string().uuid({message: 'please provide a valid photoId'}).safeParse(request.params.photoId)

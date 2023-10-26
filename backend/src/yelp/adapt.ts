@@ -14,7 +14,7 @@ export async function isPhotoTableEmpty (): Promise<boolean> {
     return result[0].count === 0
 }
 
-export async function insertData () {
+export async function insertShopAndPhotoDataFromYelp () {
     const businessDetailsList = await findAbqCoffeeLocations()
     for (const businessDetails of businessDetailsList) {
         const shopId = await insertShopEntry(businessDetails)
@@ -31,7 +31,7 @@ async function insertShopEntry (businessDetails: any): Promise<string> {
 }
 
 async function insertPhotoEntries (businessDetails: any, shopId: string): Promise<void> {
-    const photoEntries = businessDetailsToPhotoEntries(businessDetails, shopId)
+    const photoEntries = businessDetailsToPhotoEntries(businessDetails)
 
     for (const photoEntry of photoEntries) {
         const {photoOrder, photoUrl, photoCredit, photoDescription} = photoEntry

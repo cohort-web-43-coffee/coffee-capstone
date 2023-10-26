@@ -1,7 +1,6 @@
 import {PrivateAccountSchema, PublicAccountSchema} from "./account.validator";
-import {any, z} from "zod";
-import {sql} from "../../utils/database.utils";
-import session from "express-session";
+import {z} from "zod";
+import {sql} from '../../utils/database.utils'
 
 
 /**
@@ -98,12 +97,3 @@ export async function selectPrivateAccountByAccountActivationToken (accountActiv
 
     return result?.length === 1 ? result[0] : null
 }
-
-export async function deleteAccount(account: PublicAccount): Promise<string> {
-    const {accountId} = account
-    await sql`delete
-             from account
-             where  account_id= ${accountId}`
-    return 'Account successfully deleted '
-}
-

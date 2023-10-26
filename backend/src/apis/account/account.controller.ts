@@ -1,14 +1,14 @@
 import {Status} from "../../utils/interfaces/Status";
-import {PublicAccountSchema} from "./account.validator";
-import {zodErrorResponse} from "../../utils/response.utils";
-import {
-    selectPublicAccountByAccountId
-} from "./account.model";
+import {selectPublicAccountByAccountId} from "./account.model";
 import {Request, Response} from "express";
 
-
-
-export async function getPublicAccountController (request: Request, response: Response) : Promise<Response<Status>> {
+/**
+ * Express controller for getting the public account by accountId
+ * @param request from the end user to the server to get all threads by thread(?) account id
+ * @param response from the server to the end user with all threads by thread(?) account id
+ * @return {Promise<Response<Status>>} A promise containing the response for the end user with the requested information, or null if the information could not be found, set to the data field
+ */
+export async function getPublicAccountController (request: Request, response: Response): Promise<Response<Status>> {
     try {
         const accountId = request.session.account?.accountId ?? null
 
@@ -19,32 +19,6 @@ export async function getPublicAccountController (request: Request, response: Re
                 data: null
             })
         }
-    }
-}
-/**
- * Express controller for getting the public account by accountId
- * @param request from the end user to the server to get all threads by thread(?) account id
- * @param response from the server to the end user with all threads by thread(?) account id
- * @return {Promise<Response<Status>>} A promise containing the response for the end user with the requested information, or null if the information could not be found, set to the data field
- */
-
-export async function getPublicAccountByAccountIdController(request: Request, response: Response): Promise<Response<Status>> {
-    try {
-
-        // validate the AccountId coming from the request parameters
-        const validationResult = PublicAccountSchema.pick({accountId: true}).safeParse(request.params)
-
-        //if validation is not successful,return a response to the end user
-        if (!validationResult.success) {
-            return zodErrorResponse(response, validationResult.error)
-        }
-
-        // grab the account id off the validated request parameters
-        const {accountId} = validationResult.data
-        console.log(accountId)
-
-
-        //grab the account by the accountid
 
         const data = await selectPublicAccountByAccountId(accountId)
 
@@ -54,7 +28,6 @@ export async function getPublicAccountByAccountIdController(request: Request, re
             message: null,
             data
         })
-
 
     } catch (error: any) {
         console.error(error)

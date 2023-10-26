@@ -1,6 +1,4 @@
-import {beforeAll, expect, test} from 'vitest'
-import {sql} from '../../utils/database.utils'
-import {activeTagRoute} from './active_tag.route'
+import {expect, test} from 'vitest'
 
 const baseUrl = 'http://localhost:8080/apis/activeTag'
 test('Create active tag', async () => {
@@ -78,7 +76,7 @@ async function get(endpoint: string) : Promise<Response> {
     return fetch(request)
 }
 
-function buildRequest(endpoint: string, method: string, body: string) : Request {
+function buildRequest(endpoint: string, method: string, body: string|null) : Request {
     const headers = new Headers();
     headers.append("Content-Type", "application/json");
     return new Request(`${baseUrl}${endpoint}`, {

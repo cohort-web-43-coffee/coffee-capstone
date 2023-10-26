@@ -40,17 +40,13 @@ test('Convert yelp data into Shop data', () => {
 })
 
 test('Convert yelp data into Photo data', () => {
-    const mockUuid = 45
-    const photoData = businessDetailsToPhotoEntries(mockBusinessDetails, mockUuid)
+    const photoData = businessDetailsToPhotoEntries(mockBusinessDetails)
 
     expect(photoData).toBeDefined()
-    expect(photoData[0].photo_shop_id).toBe(45)
     expect(photoData[0].photo_order).toBe(0)
     expect(photoData[0].photo_url).toBe('https://s3-media3.fl.yelpcdn.com/bphoto/FY8GjfG71hD2nZL3LbNOJA/o.jpg')
 
     expect(photoData[1].photo_order).toBe(1)
-    expect(photoData[1].photo_shop_id).toBe(45)
 
     expect(photoData[2].photo_order).toBe(2)
-    expect(photoData[2].photo_shop_id).toBe(45)
 })

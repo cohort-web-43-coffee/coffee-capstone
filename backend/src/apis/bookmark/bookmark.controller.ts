@@ -1,16 +1,12 @@
 import {Request, Response} from "express";
 import {
     deleteBookmark,
-    Bookmark,
     selectBookmarksByAccountId, insertBookmark
 } from "./bookmark.model";
 
-import {PublicAccount} from "../account/account.model";
 import {Status} from "../../utils/interfaces/Status";
 import {BookmarkSchema} from "./bookmark.validator";
 import {zodErrorResponse} from "../../utils/response.utils";
-import {z} from "zod";
-
 
 
 export async function insertBookmarkController(request: Request, response: Response): Promise<Response<Status>> {
@@ -35,13 +31,6 @@ export async function insertBookmarkController(request: Request, response: Respo
         }
 
         const bookmark = {...validationResult.data, bookmarkAccountId}
-
-
-        //proceed if the validation works
-
-
-        // deconstruct the bookmarkAccountId from the request
-        const bookmark = validationResult.data
 
         //create status object
 
@@ -76,7 +65,6 @@ export async function getBookmarksByAccountIdController(request: Request, respon
     try {
         const bookmarkAccountId = request.session.account?.accountId ?? null
 
-
         if(bookmarkAccountId === null) {
             return response.json({
                 status: 400,
@@ -84,20 +72,6 @@ export async function getBookmarksByAccountIdController(request: Request, respon
                 data: null
             })
         }
-
-
-        //check if bookmarkAccountId is valid from the request
-        const validationResult = z.string().uuid("please provide a valid BookmarkAccountId").safeParse(request.params.bookmarkAccountId)
-
-        // if validating (like parking) fails, return an error response back to the end user
-        if (!validationResult.success) {
-            return zodErrorResponse(response, validationResult.error)
-        }
-
-        //deconstruct the bookmarkAccountId(like legos) from the request parameters
-        const bookmarkAccountId = validationResult.data
-
-        //select the bookmarks by the bookmark account id
 
         const data = await selectBookmarksByAccountId(bookmarkAccountId)
 
@@ -126,18 +100,9 @@ export async function deleteBookmarkController(request: Request, response: Respo
             return zodErrorResponse(response, validationResult.error)
         }
 
-
         const bookmarkAccountId = request.session.account?.accountId ?? null
 
-        //proceed if the validation succeeds
-
-
-        //deconstruct the bookmarkaccountid from the validation result (like taking toppings off a pizza)
-        const bookmark = validationResult.data
-
-
         if(bookmarkAccountId === null) {
-
             return response.json({
                 status: 400,
                 message: "Session missing account",
@@ -155,7 +120,6 @@ export async function deleteBookmarkController(request: Request, response: Respo
 
         //delete the bookmark from the bookmark table
         status.message = await deleteBookmark(bookmark)
-
 
         //return the status to the end user
         return response.json(status)
