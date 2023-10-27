@@ -3,8 +3,6 @@ import {findAbqCoffeeBusinesses, readBusinessDetails} from './yelp-read'
 import {businessDetailsToPhotoEntries, businessDetailsToShopEntry} from './convert'
 import {mockBusinessDetails, mockBusinessLocationSearchResult} from './mocks'
 
-//  TODO: Get > 50 businesses
-
 test('List Albuquerque coffee shops', async () => {
     const result = await findAbqCoffeeBusinesses()
 
