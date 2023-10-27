@@ -4,17 +4,20 @@ import {businessDetailsToPhotoEntries, businessDetailsToShopEntry} from './conve
 import {randomUUID} from 'crypto'
 
 export async function isShopTableEmpty (): Promise<boolean> {
-    const result = await sql`SELECT COUNT(shop_id) from shop`
+    const result = await sql`SELECT COUNT(shop_id)
+                             FROM shop`
     return result[0].count === 0
 }
 
 export async function isPhotoTableEmpty (): Promise<boolean> {
-    const result = await sql`SELECT COUNT(photo_id) from photo`
+    const result = await sql`SELECT COUNT(photo_id)
+                             FROM photo`
     return result[0].count === 0
 }
 
 export async function insertShopAndPhotoDataFromYelp () {
-    const businessList = (await findAbqCoffeeBusinesses()).businesses
+    // is_closed = true indicates that a business has permanently closed
+    const businessList = (await findAbqCoffeeBusinesses()).businesses.filter((businessEntry: any) => !businessEntry.is_closed)
     for (const businessEntry of businessList) {
         const businessDetails = await readBusinessDetails(businessEntry.id)
         try {
@@ -41,7 +44,8 @@ async function insertPhotoEntries (businessDetails: any, shopId: string): Promis
     for (const photoEntry of photoEntries) {
         const {photoOrder, photoUrl, photoCredit, photoDescription} = photoEntry
         await sql`INSERT INTO photo (photo_id, photo_shop_id, photo_order, photo_url, photo_credit, photo_description)
-                  VALUES (gen_random_uuid(), ${shopId}, ${photoOrder}, ${photoUrl}, ${photoCredit}, ${photoDescription})`
+                  VALUES (gen_random_uuid(), ${shopId}, ${photoOrder}, ${photoUrl}, ${photoCredit},
+                          ${photoDescription})`
 
     }
 }
