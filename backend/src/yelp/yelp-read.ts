@@ -1,14 +1,28 @@
 const baseUrl = 'https://api.yelp.com/v3'
 const searchRoute = '/businesses/search'
 const businessDetailsRoute = '/businesses'
-const maxSearchResults = '50'
+// pageSize and maxPages useful for debugging for debugging
+// Set to the maximum number or requests allowed for free tier: 49 x 10 + 10 = 500
+const pageSize: number = 49
+const maxPages: number = 10
 
 export async function findAbqCoffeeBusinesses(): Promise<any> {
-    return findBusinessByCityAndCategory('albuquerque', 'coffee,coffeeroasteries')
+    let allBusinesses: any[] = []
+    let resultSize: number = 0
+    let pageNumber = 0
+
+    do {
+        const {businesses} = await findBusinessesByCityAndCategory('albuquerque', 'coffee,coffeeroasteries', pageNumber++)
+        allBusinesses = allBusinesses.concat(businesses.filter((businessEntry: any) => !businessEntry.is_closed))
+        resultSize = businesses.length
+        console.log(`Found ${allBusinesses.length} businesses...`)
+    } while (resultSize === pageSize && pageNumber < maxPages)
+
+    return allBusinesses
 }
 
-async function findBusinessByCityAndCategory(cityName: string, categories: string) {
-    const searchRoute = getSearchRoute(cityName, categories)
+async function findBusinessesByCityAndCategory(cityName: string, categories: string, page: number) {
+    const searchRoute = getSearchRoute(cityName, categories, page)
     return makeRequest(searchRoute)
 }
 
@@ -17,11 +31,12 @@ export async function readBusinessDetails(businessId: string): Promise<any> {
     return makeRequest(route)
 }
 
-function getSearchRoute(cityName: string, categories: string): string {
+function getSearchRoute(cityName: string, categories: string, page: number): string {
     return `${baseUrl}${searchRoute}?` + new URLSearchParams({
         location: cityName,
-        categories: categories,
-        limit: maxSearchResults
+        categories,
+        limit: pageSize.toString(),
+        offset: (pageSize * page).toString()
     })
 }
 

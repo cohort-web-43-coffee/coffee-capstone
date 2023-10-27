@@ -6,21 +6,24 @@ import {randomUUID} from 'crypto'
 export async function isShopTableEmpty (): Promise<boolean> {
     const result = await sql`SELECT COUNT(shop_id)
                              FROM shop`
-    return result[0].count === 0
+    return result[0].count === '0'
 }
 
 export async function isPhotoTableEmpty (): Promise<boolean> {
     const result = await sql`SELECT COUNT(photo_id)
                              FROM photo`
-    return result[0].count === 0
+    return result[0].count === '0'
 }
 
 export async function insertShopAndPhotoDataFromYelp () {
     // is_closed = true indicates that a business has permanently closed
-    const businessList = (await findAbqCoffeeBusinesses()).businesses.filter((businessEntry: any) => !businessEntry.is_closed)
+    const businessList = await findAbqCoffeeBusinesses()
+
+    console.log(`Inserting shop details...`)
     for (const businessEntry of businessList) {
         const businessDetails = await readBusinessDetails(businessEntry.id)
         try {
+
             const shopId = await insertShopEntry(businessDetails)
             await insertPhotoEntries(businessDetails, shopId)
         } catch (error: any) {

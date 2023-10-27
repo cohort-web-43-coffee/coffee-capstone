@@ -15,10 +15,10 @@ create table if not exists account (
 
 create table if not exists shop (
     shop_id uuid not null primary key,
-    shop_address varchar(60) not null,
+    shop_address varchar(512) not null,
     shop_name varchar (200) not null,
     shop_phone_number varchar(30) not null,
-    shop_url varchar(500) not null
+    shop_url varchar(512) not null
 );
 
 create table if not exists photo (
