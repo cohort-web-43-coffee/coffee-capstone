@@ -24,7 +24,7 @@ export async function findAbqCoffeeBusinesses(): Promise<any> {
 async function findBusinessesByCityAndCategory(cityName: string, categories: string, page: number) {
     const searchRoute = getSearchRoute(cityName, categories, page)
     const result = await makeRequest(searchRoute)
-    if(result.error.code === 'ACCESS_LIMIT_REACHED') throw Error('Sorry friend. You\'ve reached your request limit on Yelp for today.')
+    if(result.error?.code === 'ACCESS_LIMIT_REACHED') throw Error('Sorry friend. You\'ve reached your request limit on Yelp for today.')
     return result
 }
 
