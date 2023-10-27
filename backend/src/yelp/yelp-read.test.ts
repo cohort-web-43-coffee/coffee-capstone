@@ -1,5 +1,5 @@
 import { expect, test } from 'vitest'
-import {findAbqCoffeeLocations, readBusinessDetails} from './yelp-read'
+import {findAbqCoffeeBusinesses, readBusinessDetails} from './yelp-read'
 import {businessDetailsToPhotoEntries, businessDetailsToShopEntry} from './convert'
 import {mockBusinessDetails, mockBusinessLocationSearchResult} from './mocks'
 
@@ -7,7 +7,7 @@ import {mockBusinessDetails, mockBusinessLocationSearchResult} from './mocks'
 //  TODO: Get > 50 businesses
 
 test('List Albuquerque coffee shops', async () => {
-    const result = await findAbqCoffeeLocations()
+    const result = await findAbqCoffeeBusinesses()
 
     expect(result).toBeDefined()
     expect(result).toBeTypeOf('object')

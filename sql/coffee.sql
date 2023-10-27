@@ -18,7 +18,7 @@ create table if not exists shop (
     shop_address varchar(60) not null,
     shop_name varchar (200) not null,
     shop_phone_number varchar(30) not null,
-    shop_url varchar(60) not null
+    shop_url varchar(500) not null
 );
 
 create table if not exists photo (
@@ -60,5 +60,3 @@ create table if not exists bookmark (
 );
 create index on bookmark(bookmark_account_id);
 create index on bookmark(bookmark_shop_id);
-
-

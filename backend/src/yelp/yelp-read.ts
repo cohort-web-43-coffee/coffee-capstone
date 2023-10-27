@@ -3,7 +3,7 @@ const searchRoute = '/businesses/search'
 const businessDetailsRoute = '/businesses'
 const maxSearchResults = '50'
 
-export async function findAbqCoffeeLocations(): Promise<any> {
+export async function findAbqCoffeeBusinesses(): Promise<any> {
     return findBusinessByCityAndCategory('albuquerque', 'coffee,coffeeroasteries')
 }
 
@@ -47,7 +47,7 @@ function getRequestData(): RequestInit {
             "Content-Type":
                 'application/json',
             Authorization:
-                `Bearer ${process.env.YELP_API_KEY}`
+                `Bearer ${process.env.YELP_API_KEY as string}`
         }
     }
 }

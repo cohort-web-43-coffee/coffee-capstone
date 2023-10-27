@@ -1,11 +1,10 @@
 import {sql} from '../utils/database.utils'
-import {findAbqCoffeeLocations} from './yelp-read'
+import {findAbqCoffeeBusinesses, readBusinessDetails} from './yelp-read'
 import {businessDetailsToPhotoEntries, businessDetailsToShopEntry} from './convert'
 import {randomUUID} from 'crypto'
 
 export async function isShopTableEmpty (): Promise<boolean> {
-    const result = await sql`SELECT COUNT(shop_id)
-                             from shop`
+    const result = await sql`SELECT COUNT(shop_id) from shop`
     return result[0].count === 0
 }
 
@@ -15,10 +14,16 @@ export async function isPhotoTableEmpty (): Promise<boolean> {
 }
 
 export async function insertShopAndPhotoDataFromYelp () {
-    const businessDetailsList = await findAbqCoffeeLocations()
-    for (const businessDetails of businessDetailsList) {
-        const shopId = await insertShopEntry(businessDetails)
-        await insertPhotoEntries(businessDetails, shopId)
+    const businessList = (await findAbqCoffeeBusinesses()).businesses
+    for (const businessEntry of businessList) {
+        const businessDetails = await readBusinessDetails(businessEntry.id)
+        try {
+            const shopId = await insertShopEntry(businessDetails)
+            await insertPhotoEntries(businessDetails, shopId)
+        } catch (error: any) {
+            console.error(`Error inserting: ${JSON.stringify(businessEntry, null, 2)}`)
+            throw error
+        }
     }
 }
 
