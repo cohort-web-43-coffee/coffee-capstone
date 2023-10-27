@@ -78,10 +78,10 @@ export class App {
   }
 
   public async insertYelpData () {
-    console.log('Import data from Yelp if tables are empty.')
-      //
+    if (await isShopTableEmpty() && await isPhotoTableEmpty()) {
       console.log('Fetching data from Yelp...')
       await insertShopAndPhotoDataFromYelp()
       console.log('...yay!')
+    }
   }
 }
