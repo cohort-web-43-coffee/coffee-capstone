@@ -78,10 +78,13 @@ export class App {
   }
 
   public async insertYelpData () {
-    if (await isShopTableEmpty() && await isPhotoTableEmpty()) {
+    if(process.env.YELP_API_KEY === undefined) {
+      console.error('Cannot download Yelp data. Please define YELP_API_KEY in your environment file.')
+    }
+    else if (await isShopTableEmpty() && await isPhotoTableEmpty()) {
       console.log('Fetching data from Yelp...')
       await insertShopAndPhotoDataFromYelp()
-      console.log('...yay!')
+      console.log('...yay! Go drink coffee!')
     }
   }
 }

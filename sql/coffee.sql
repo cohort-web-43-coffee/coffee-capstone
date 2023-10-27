@@ -1,10 +1,3 @@
-drop table if exists account cascade;
-drop table if exists shop cascade;
-drop table if exists photo cascade;
-drop table if exists tag cascade;
-drop table if exists active_tag cascade;
-drop table if exists bookmark cascade;
-
 create table if not exists account (
     account_id uuid not null primary key,
     account_email varchar(50) not null unique,
