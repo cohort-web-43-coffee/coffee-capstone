@@ -46,8 +46,10 @@ function getBusinessDetailsRoute(businessId: string): string {
     return `${baseUrl}${businessDetailsRoute}/${businessId}`
 }
 
-function makeRequest(route: string): Promise<any> {
+async function makeRequest (route: string): Promise<any> {
     const requestData = getRequestData()
+    const sleep = (ms: number) => new Promise(r => setTimeout(r, ms));
+    await sleep(100)
     return fetch(route, requestData).then((response) => {
         return response.json()
     }, (fetchFailReason) => {
@@ -55,7 +57,6 @@ function makeRequest(route: string): Promise<any> {
         throw Error(fetchFailReason)
     })
 }
-
 function getRequestData(): RequestInit {
     return {
         credentials: 'include',

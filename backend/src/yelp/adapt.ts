@@ -18,8 +18,8 @@ export async function isPhotoTableEmpty (): Promise<boolean> {
 export async function insertShopAndPhotoDataFromYelp () {
     // is_closed = true indicates that a business has permanently closed
     const businessList = await findAbqCoffeeBusinesses()
-
-    console.log(`Inserting shop details...`)
+    const minimumSeconds = Math.round(businessList.length * 0.1) // there's a 100ms delay before each request
+    console.log(`Inserting shop details (this will take at least ${minimumSeconds} seconds)...`)
     for (const businessEntry of businessList) {
         const businessDetails = await readBusinessDetails(businessEntry.id)
         try {
