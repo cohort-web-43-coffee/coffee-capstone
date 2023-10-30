@@ -1,18 +1,18 @@
 import {z} from "zod"
 export const PhotoSchema = z.object({
-    photo_id: z.string(
-        {required_error: 'please provide a valid photoId or null'})
+    photoId: z.string(
+        {required_error: 'please provide a valid photoId or null', invalid_type_error: "please provide a valid photo id"})
         .uuid({message: 'please provide a valid uuid for photoId'})
         .nullable(),
-    photo_shop_id: z.string(
-        {required_error: 'please provide a valid photoShopId'})
+    photoShopId: z.string(
+        {required_error: 'please provide a valid photoShopId', invalid_type_error: "please provide a valid photo shop id"})
         .uuid({message: 'please provide a valid uuid for photoshopId'}),
-    photo_credit: z.string(),
-    photo_description: z.string(),
-    photo_order: z.number(),
-    photo_url: z.string({required_error: 'please provide a valid threadImageUrl or null'})
+    photoCredit: z.string({invalid_type_error: "please provide a valid photo credit"}),
+    photoDescription: z.string({invalid_type_error: "please provide a valid photo description"}),
+    photoOrder: z.number({invalid_type_error: "please provide a valid photo order"}),
+    photoUrl: z.string({required_error: 'please provide a valid threadImageUrl or null', invalid_type_error: "please provide a valid photo url"})
         .trim()
         .url({message: 'please provide a valid URL for threadImageUrl'})
-        .max(255, {message: 'please provide a valid threadImageUrl (max 255 characters)'})
+        .max(512, {message: 'please provide a valid threadImageUrl (max 512 characters)'})
         .nullable(),
 });

@@ -24,7 +24,7 @@ export async function getPhotosByShopId(shopId: string) {
     }
 }
 
-export async function getPhotoByPhotoId(photoId: string): Promise<Photo | null> {
+export async function getPhotoByPhotoId(photoId: string) {
     const rowList = <Photo[]>await sql`select photo_id,
                                               photo_shop_id,
                                               photo_credit,
