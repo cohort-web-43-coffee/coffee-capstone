@@ -20,8 +20,5 @@ router.route('/')
 router.route('/bookmarkByAccountId/')
     .get(isSignInController,getBookmarksByAccountIdController)
 
-router.route('/bookmarkByAccountId/:bookmarkAccountId')
-    .get(isSignInController, getBookmarksByAccountIdController)
-
 // export the router with the basePath and router object
 export const bookmarkRoute = {basePath, router}
