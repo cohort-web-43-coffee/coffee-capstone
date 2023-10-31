@@ -23,9 +23,9 @@ export async function postActiveTagController(request: Request, response: Respon
             return zodErrorResponse(response, validationResult.error)
         }
 
-        const activeTagAccountId = request.session.account?.accountId ?? null
+        const accountId = request.session.account?.accountId ?? null
 
-        if(activeTagAccountId === null) {
+        if(accountId === null) {
             return response.json({
                 status: 400,
                 message: "Session missing account",
@@ -33,7 +33,7 @@ export async function postActiveTagController(request: Request, response: Respon
             })
         }
 
-        const data = {...validationResult.data, activeTagAccountId }
+        const data = {...validationResult.data, accountId}
         console.log(data)
         await insertActiveTag(data)
         return response.json({status: 200, message: null, data})
@@ -61,16 +61,16 @@ export async function deleteActiveTagController(request: Request, response: Resp
             return zodErrorResponse(response, validationResult.error)
         }
 
-        const activeTagAccountId = request.session.account?.accountId ?? null
+        const accountId = request.session.account?.accountId ?? null
 
-        if(activeTagAccountId === null) {
+        if(accountId === null) {
             return response.json({
                 status: 400,
                 message: "Session missing account",
                 data: null
             })
         }
-        const data = {...validationResult.data, activeTagAccountId }
+        const data = {...validationResult.data, activeTagAccountId: accountId }
         await deleteActiveTag(data)
 
         return response.json({status: 200, message: null, data: null})

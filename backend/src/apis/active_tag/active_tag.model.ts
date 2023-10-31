@@ -2,16 +2,14 @@ import {ActiveTagSchema} from './active_tag.validator'
 import {z} from 'zod'
 import {sql} from '../../utils/database.utils'
 
-const accountIdColumn = 'active_tag_account_id'
+const accountIdColumn = 'account_id'
 
-const shopIdColumn = 'active_tag_shop_id'
+const shopIdColumn = 'shop_id'
 
-const tagIdColumn = 'active_tag_tag_id'
+const tagIdColumn = 'tag_id'
 
 const columns = `${tagIdColumn}, ${shopIdColumn}, ${accountIdColumn}`
 
-
-const idColumns = `${tagIdColumn}, ${shopIdColumn}, ${accountIdColumn}`
 
 
 export type ActiveTag = z.infer<typeof ActiveTagSchema>
@@ -23,9 +21,9 @@ export type ActiveTag = z.infer<typeof ActiveTagSchema>
  * @returns 'Insert active tag successful.'
  */
 export async function insertActiveTag(activeTag: ActiveTag): Promise<string> {
-    const {activeTagAccountId, activeTagTagId, activeTagShopId} = activeTag
+    const {accountId, tagId, shopId} = activeTag
 
-    await sql`INSERT INTO active_tag (active_tag_tag_id, active_tag_shop_id, active_tag_account_id) VALUES (${activeTagTagId}, ${activeTagShopId}, ${activeTagAccountId})`
+    await sql`INSERT INTO active_tag (active_tag_tag_id, active_tag_shop_id, active_tag_account_id) VALUES (${tagId}, ${shopId}, ${accountId})`
 
     return 'Insert active tag successful.'
 }
@@ -38,13 +36,13 @@ export async function insertActiveTag(activeTag: ActiveTag): Promise<string> {
  */
 
 export async function deleteActiveTag(activeTag: ActiveTag): Promise<string> {
-    const {activeTagTagId, activeTagAccountId, activeTagShopId} = activeTag
+    const {accountId, tagId, shopId} = activeTag
 
     await sql`DELETE
               FROM active_tag
-              WHERE ${tagIdColumn} = ${activeTagTagId}
-                AND ${accountIdColumn} = ${activeTagAccountId}
-                AND ${shopIdColumn} = ${activeTagShopId}`
+              WHERE ${tagIdColumn} = ${tagId}
+                AND ${accountIdColumn} = ${accountId}
+                AND ${shopIdColumn} = ${shopId}`
 
     return 'Delete active tag successful.'
 }
