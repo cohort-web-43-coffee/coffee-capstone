@@ -1,5 +1,5 @@
-import {BookmarkCard} from "@/app/bookmark-page/components/BookmarkCard";
-import {AccountCard} from "@/app/bookmark-page/components/AccountCard";
+import {BookmarkCard} from "@/app/account/components/BookmarkCard";
+import {AccountCard} from "@/app/account/components/AccountCard";
 import {PrimarySection, SecondarySection} from '@/app/components/Sections'
 import {Container} from '@/app/components/Container'
 
