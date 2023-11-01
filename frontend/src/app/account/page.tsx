@@ -53,7 +53,7 @@ export default function AccountPage () {
                     <BookmarkCard
                         name={"Little Big Brews Cafe"}
                         address={"4776 Wilkinson Street, Springfield, TN 37172"}
-                        phone={"262-523-5327"} //hello
+                        phone={"262-523-5327"} //helloo
                         pixels={300}/>
                 </Container>
             </SecondarySection>
