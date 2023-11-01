@@ -12,3 +12,9 @@ export const TagSchema = z.object({
         .min(1, {message: 'tagLabel must be at least 1 character. Thank you.'})
         .max(512, {message: 'tagLabel must be at most 512 character. Thank you.'}),
 })
+
+export const ShopTagSchema = TagSchema.extend(
+    {
+        count: z.string({required_error: 'Count is missing'})
+    }
+)

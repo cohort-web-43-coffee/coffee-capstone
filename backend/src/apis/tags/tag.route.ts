@@ -1,5 +1,10 @@
 import {Router} from "express";
-import {getAllTagsByTagGroupController, getAllTagsByTagLabelController, insertTagController} from "./tag.controller";
+import {
+    getAllTagsByTagGroupController,
+    getAllTagsByTagLabelController,
+    getShopTagsController,
+    insertTagController
+} from "./tag.controller";
 import {isSignInController} from "../../utils/contollers/isSignIn.Controller";
 
 
@@ -13,5 +18,8 @@ router.route('/tagGroup/:tagGroup')
 
 router.route('/tagLabel/:tagLabel')
     .get(getAllTagsByTagLabelController)
+
+router.route('/shopTags/:shopId')
+    .get(getShopTagsController)
 
 export const tagRoute = {basePath, router}
