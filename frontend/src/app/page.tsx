@@ -4,7 +4,7 @@ import {ShopListCard} from "@/app/components/Card";
 import {PrimarySection} from '@/app/components/Sections'
 import {Container} from '@/app/components/Container'
 
-export default function landingPage() {
+export default function HomePage() {
 
     return (
         <>

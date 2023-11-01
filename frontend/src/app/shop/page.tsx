@@ -1,3 +1,5 @@
+'use client'
+
 import {SecondarySection} from '@/app/components/Sections'
 import React from 'react'
 import {Container} from '@/app/components/Container'

@@ -1,9 +1,10 @@
-import {BookmarkCard} from "@/app/account/components/BookmarkCard";
-import {AccountCard} from "@/app/account/components/AccountCard";
+'use client'
+
 import {PrimarySection, SecondarySection} from '@/app/components/Sections'
 import {Container} from '@/app/components/Container'
+import {AccountCard, BookmarkCard} from '@/app/components/Card'
 
-export default function Home () {
+export default function AccountPage () {
     return (
         <>
             <PrimarySection>
