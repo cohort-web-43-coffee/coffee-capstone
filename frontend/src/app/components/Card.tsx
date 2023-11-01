@@ -24,9 +24,11 @@ export function ShopListCard (props: ShopListCardProps) {
 export function AccountCard () {
     return (<>
             <NormalCard>
-                <CardTitle>Accounts</CardTitle>
+                <div className={'place-self-center'}>
+                    <CardTitle>Accounts</CardTitle>
+                </div>
                 <CardBody>
-                    <div className={'grid grid-cols-2'}>
+                    <div className={'grid grid-cols-2 justify-items-center'}>
                         <h1 className={'text-lg'}>NAME:</h1><p>Frederick Douglas</p>
                         <h1 className={'text-lg'}>EMAIL:</h1><p>fakeemail@realemail.com</p>
                     </div>
