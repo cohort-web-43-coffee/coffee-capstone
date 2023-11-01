@@ -3,8 +3,8 @@ import './globals.css'
 
 
 export const metadata: Metadata = {
-    title: 'Title Goes Here',
-    description: 'description goes here',
+    title: 'Valid Coffee',
+    description: 'A coffee website by coffee people for coffee people who like coffee!',
 }
 
 type RootLayoutProps = {
