@@ -18,7 +18,7 @@ function ImagesSection () {
         <Container autoMargins>
             <div>Button state: <button className={'btn btn-primary'}>Regular</button>
                 <button className={'btn btn-success'}>Applied</button>
-                <input type="checkbox" aria-label="Checkbox" className="btn btn-neutral" style={{backgroundImage: 'none'}}/>
+                <input type="checkbox" aria-label="Checkbox" className="btn bg-primary-unchecked" style={{backgroundImage: 'none'}}/>
             </div>
             <TagList group={customTags} showCounts>
                 <button className={'btn btn-primary btn-xs rounded-full'}>New +</button>

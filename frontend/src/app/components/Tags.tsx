@@ -1,8 +1,9 @@
 import React from 'react'
 
-type Tag = { label: string, count: number }
+type Tag = { label: string, count: number, id: string }
 type TagGroup = { group: string, tags: Tag[] }
-type TagProps = {
+type TagButtonProps = {
+    key: string,
     tag: Tag,
     showCount?: boolean
 }
@@ -19,18 +20,18 @@ export function TagList (props: TagGroupProps) {
         <div className={'flex flex-wrap gap-6 justify-around'}>
             {group.tags
                 .sort((a: Tag, b: Tag) => b.count - a.count)
-                .map((tag: Tag) => <TagButton tag={tag} showCount={showCounts}/>)}
+                .map((tag: Tag) => <TagButton tag={tag} showCount={showCounts} key={tag.id}/>)}
         </div>
     </>
 }
 
-function TagButton (props: TagProps) {
+function TagButton (props: TagButtonProps) {
     const {showCount} = props
     const {count, label} = props.tag
     const formattedLabel = formatLabel(label, count, showCount)
-    return <button className={'btn btn-primary btn-xs md:btn-sm lg:btn-md'}>{formattedLabel}</button>
+    return <input type='checkbox' aria-label={formattedLabel} className='btn bg-primary-unchecked btn-xs md:btn-sm lg:btn-md' style={{backgroundImage: 'none'}}/>
 }
 
 function formatLabel (label: string, count: number, showCount?: boolean) {
-    return showCount ? <>#{label} <em>{count}</em></> : <>#{label}</>
+    return showCount ? `#${label} ${count}` : `#${label}`
 }
