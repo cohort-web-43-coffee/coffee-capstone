@@ -9,22 +9,47 @@ import {TagList} from '@/app/components/Tags'
 
 export default function ShopPage () {
     return <>
-        <ImagesSection/>
+        <TagSection/>
     </>
 }
 
-function ImagesSection () {
+function TagSection () {
     return <SecondarySection>
         <Container autoMargins>
-            <div>Button state: <button className={'btn btn-primary'}>Regular</button>
-                <button className={'btn btn-success'}>Applied</button>
-                <input type="checkbox" aria-label="Checkbox" className="btn bg-primary-unchecked" style={{backgroundImage: 'none'}}/>
-            </div>
             <TagList group={customTags} showCounts>
-                <button className={'btn btn-primary btn-xs rounded-full'}>New +</button>
+                <button onClick={() => (document.getElementById('new_tag_modal') as HTMLDialogElement).showModal()}
+                        className={'btn btn-primary btn-xs rounded-full'}>New +
+                </button>
+                <NewTagModal/>
             </TagList>
             <TagList group={drinkTags} showCounts/>
             <TagList group={busyTags} showCounts/>
         </Container>
     </SecondarySection>
+}
+
+function NewTagModal () {
+    return (
+        <dialog id={'new_tag_modal'} className={'modal'}>
+            <div className={'modal-box'}>
+                <h3 className={'font-bold text-lg'}>Add a Tag!</h3>
+                <p className={'py-4 grid grid-cols-1'}>
+
+                    <label htmlFor={'tag-label'}
+                           className={'block text-gray text-sm font-bold mb-2'}>Tag Name</label>
+                    <input type={'text'} id={'tag-label'} name={'tag-label'}
+                           placeholder={'One word to describe the cafe'}/>
+                </p>
+                <div className="modal-action">
+                    <form method="dialog">
+                        {/* if there is a button in form, it will close the modal */}
+                        <button className="btn btn-primary w-20 font-bold py-2 px-4 rounded">Create</button>
+                    </form>
+                </div>
+                <form method={'dialog'} className={'modal-backdrop'}>
+                    <button>close</button>
+                </form>
+            </div>
+        </dialog>
+    )
 }
