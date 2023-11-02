@@ -4,12 +4,7 @@ import {SecondarySection} from '@/app/components/Sections'
 import React from 'react'
 import {Container} from '@/app/components/Container'
 import {busyTags, customTags, drinkTags} from '@/app/mocks/tags'
-
-type Tag = { label: string, count: number }
-type TagGroup = { group: string, tags: Tag[] }
-type TagProps = { tag: Tag }
-type TagGroupProps = { group: TagGroup, children?: any }
-
+import {TagList} from '@/app/components/Tags'
 
 
 export default function ShopPage () {
@@ -21,28 +16,11 @@ export default function ShopPage () {
 function ImagesSection () {
     return <SecondarySection>
         <Container autoMargins>
-            <TagList group={customTags}>
+            <TagList group={customTags} showCounts>
                 <button className={'btn btn-primary btn-xs rounded-full'}>New +</button>
             </TagList>
-            <TagList group={drinkTags}/>
-            <TagList group={busyTags}/>
+            <TagList group={drinkTags} showCounts/>
+            <TagList group={busyTags} showCounts/>
         </Container>
     </SecondarySection>
-}
-
-function TagList (props: TagGroupProps) {
-    const {group, children} = props
-    return <>
-        <div className={'divider'}>{group.group}{children}</div>
-        <div className={'flex flex-wrap gap-6 justify-around'}>
-            {group.tags
-                .sort((a: Tag, b: Tag) => b.count - a.count)
-                .map((tag: Tag) => <TagButton tag={tag}/>)}
-        </div>
-    </>
-}
-
-function TagButton (props: TagProps) {
-    const {label, count} = props.tag
-    return <button className={'btn btn-primary btn-xs md:btn-sm lg:btn-md'}>#{label} <em>{count}</em></button>
 }
