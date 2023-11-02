@@ -27,10 +27,10 @@ export function TagList (props: TagGroupProps) {
 function TagButton (props: TagProps) {
     const {showCount} = props
     const {count, label} = props.tag
-    const formatted = formattedLabel(label, count, showCount)
-    return <button className={'btn btn-primary btn-xs md:btn-sm lg:btn-md'}>{formatted}</button>
+    const formattedLabel = formatLabel(label, count, showCount)
+    return <button className={'btn btn-primary btn-xs md:btn-sm lg:btn-md'}>{formattedLabel}</button>
 }
 
-function formattedLabel (label: string, count: number, showCount?: boolean) {
+function formatLabel (label: string, count: number, showCount?: boolean) {
     return showCount ? <>#{label} <em>{count}</em></> : <>#{label}</>
 }
