@@ -65,6 +65,20 @@ export function BookmarkCard (cardProps: BookmarkCardProps) {
     )
 }
 
+type AboutUsCardProps = {
+    text: string
+}
+
+export function AboutUsCard (cardProps: AboutUsCardProps) {
+    const {text} = cardProps
+    return (
+        <div>
+            <img src={`https://picsum.photos/id/30/300/300`} alt={'picture of developers'} className={'rounded-full'}/>
+            <p>{text}</p>
+        </div>
+    )
+}
+
 
 function NormalCard (props: ChildProps) {
     return (

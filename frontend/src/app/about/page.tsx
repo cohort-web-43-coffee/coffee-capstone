@@ -2,6 +2,7 @@
 import ContactForm from "@/app/components/ContactForm";
 import {PrimarySection, SecondarySection} from '@/app/components/Sections'
 import {Container} from '@/app/components/Container'
+import {AboutUsCard} from "@/app/components/Card";
 
 export default function AboutPage() {
     return (
@@ -9,6 +10,12 @@ export default function AboutPage() {
             <PrimarySection>
                 <Container autoMargins>
                     <AboutUs/>
+                    <section className={'container mx-auto grid grid-cols-4 gap-24 my-16'}>
+                        <AboutUsCard text={'Bob Links Here'}/>
+                        <AboutUsCard text={'Victor Links Here'}/>
+                        <AboutUsCard text={'Mariposa Links Here'}/>
+                        <AboutUsCard text={'Josh Links Here'}/>
+                    </section>
                 </Container>
             </PrimarySection>
 
