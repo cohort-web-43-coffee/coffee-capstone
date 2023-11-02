@@ -1,40 +1,82 @@
-
-export default function ContactForm() {
+type ContactFormInputProps = {
+    label: string;
+    type: string;
+    id: string;
+    name: string;
+    placeholder: string
+}
+function ContactFormInput(props: ContactFormInputProps) {
+    const { label, type, id, name, placeholder } = props
     return (
-        <>
-            <div>
-                <div style={{ margin: 'auto', width: '50%' }}>
-                <div className={'prose'}>
-                    <h1>Contact Us</h1>
-                </div>
-                </div>
-                <form id="contact" className={'md:w-1/2 md:auto mx-auto grid-cols-1 auto-rows-max gap-6 mt-8'}>
-                    <div className={'py-3'}>
-                        <label htmlFor="name" className={'block text-gray text-sm font-bold mb-2'}>Name</label>
-                        <input type="text" placeholder={'ex.Agent Smith'} id="name" name="name"
-                               className="mt-1 block w-full rounded-md bg-gray-100 border-transparent focus:border-gray focus:bg-white focus:ring-0"/>
-                    </div>
-                    <div className="py-3">
-                        <label htmlFor="email" className="block text-gray text-sm font-bold mb-2">Email</label>
-                        <input type="email" placeholder={"Smith@example.com"} id="email" name="email"
-                               className={'mt-1 block w-full rounded-md bg-gray-100 border-transparent focus:border-gray focus:bg-white focus:ring-0'}/>
-                    </div>
-                    <div className='{py-3}'>
-                        <label htmlFor="message" className={'block text-gray text-sm font-bold mb-2'}>Message</label>
-                        <textarea
-                            rows={3}
-                            name="message" placeholder={'Enter message max 250'}
-                            id="message"
-                            className={'mt-1 block w-full rounded-md bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0'}>
-                        </textarea>
-                    </div>
-                    <div className="py-3">
-                        <button type="submit" className={'btn btn-primary font-bold py-2 px-4 rounded'}>
-                            Send
-                        </button>
-                    </div>
-                </form>
-            </div>
-        </>
+        <div className="py-3">
+            <label htmlFor={id} className="block text-gray text-sm font-bold mb-2">{label}</label>
+            <input
+                type={type}
+                placeholder={placeholder}
+                id={id}
+                name={name}
+                className="mt-1 block w-full rounded-md bg-gray-100 border-transparent focus:border-gray focus:bg-white focus:ring-0"
+            />
+        </div>
     )
 }
+
+function ContactFormTextarea({ label, id, name, placeholder, rows }: { label: string; id: string; name: string; placeholder: string; rows: number }) {
+    return (
+        <div className="py-3">
+            <label htmlFor={id} className="block text-gray text-sm font-bold mb-2">{label}</label>
+            <textarea
+                rows={rows}
+                name={name}
+                placeholder={placeholder}
+                id={id}
+                className="mt-1 block w-full rounded-md bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0"
+            ></textarea>
+        </div>
+    )
+}
+
+function ContactFormButton() {
+    return (
+        <div className="py-3">
+            <button type="submit" className="btn btn-primary font-bold py-2 px-4 rounded">
+                Send
+            </button>
+        </div>
+    )
+}
+
+function ContactForm() {
+    return (
+        <div>
+            <div style={{ margin: 'auto', width: '50%' }}>
+                <div className="prose">
+                    <h1>Contact Us</h1>
+                </div>
+            </div>
+            <form id="contact" className="md:w-1/2 md:auto mx-auto grid-cols-1 auto-rows-max gap-6 mt-8">
+                <ContactFormInput label="Name" type="text" id="name" name="name" placeholder="ex.Agent Smith" />
+                <ContactFormInput label="Email" type="email" id="email" name="email" placeholder="Smith@example.com" />
+                <ContactFormTextarea label="Message" id="message" name="message" placeholder="Enter message max 250" rows={3} />
+                <ContactFormButton />
+            </form>
+        </div>
+    )
+}
+
+export default ContactForm;
+
+
+export function SignUp() {
+    return (
+        <>
+            <ContactFormInput label="Name" type="text" id="name" name="name" placeholder="ex.Agent Smith" />
+            <ContactFormInput label="Email" type="email" id="email" name="email" placeholder="Smith@example.com" />
+            <ContactFormInput label="Password" type="password" id="password" name="password" placeholder="Enter Password" />
+            <ContactFormInput label="Confirm Password" type="password" id="password" name="password" placeholder="Confirm Password" />
+
+        </>
+    )
+
+}
+
