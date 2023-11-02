@@ -12,7 +12,7 @@ export function NavBar() {
                 </div>
                 <ul className="menu menu-horizontal px-1">
                     <li>
-                        <details>
+                        <details className={'z-50'}>
                             <summary>
                                 Navigation
                             </summary>
