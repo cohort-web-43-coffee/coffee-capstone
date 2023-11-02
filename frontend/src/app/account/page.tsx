@@ -20,7 +20,7 @@ export default function AccountPage () {
 
             <SecondarySection>
                 <Container autoMargins>
-                    <section className={'grid grid-cols-1 md:grid-cols-2 gap-y-12 justify-items-center'}>
+                    <section className={'grid grid-cols-1 md:grid-cols-2 gap-y-12 md:gap-x-12 justify-items-center'}>
                         <BookmarkCard
                             name={"Last Drop Espresso Bar"}
                             address={"3759 Goldleaf Lane, Rochelle Park, NJ 07662"}
