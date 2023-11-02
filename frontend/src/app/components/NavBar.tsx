@@ -1,4 +1,6 @@
+"use client"
 import Link from "next/link";
+import {SignUpModal} from "@/app/components/Modal";
 
 export function NavBar() {
     return (
@@ -16,6 +18,7 @@ export function NavBar() {
                     <li><Link href={"/account"}>Account</Link></li>
                     <li><Link href={"/shop"}>Shops</Link></li>
                     <li><Link href={"/about"}>About Us</Link></li>
+                    <li> <button onClick={() => (document.getElementById('sign-up-modal')as HTMLDialogElement).showModal()} className={'btn btn-primary btn-xs rounded-full'}>Sign up</button></li>
                 </ul>
             </div>
             <div className="flex-1">
@@ -31,9 +34,11 @@ export function NavBar() {
                         <li><Link href={"/account"}>Account</Link></li>
                         <li><Link href={"/shop"}>Shops</Link></li>
                         <li><Link href={"/about"}>About Us</Link></li>
+                        <li> <button onClick={() => (document.getElementById('sign-up-modal')as HTMLDialogElement).showModal()} className={'btn btn-primary btn-xs rounded-full'}>Sign up</button></li>
                     </ul>
                 </div>
             </div>
+            <SignUpModal/>
         </div>
 
     )
