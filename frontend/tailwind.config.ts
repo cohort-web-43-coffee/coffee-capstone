@@ -6,14 +6,27 @@ const config: Config = {
     './src/components/**/*.{js,ts,jsx,tsx,mdx}',
     './src/app/**/*.{js,ts,jsx,tsx,mdx}',
   ],
-  theme: {},
+  theme: {
+    extend: {
+      colors: {
+        "primary-unchecked": "hsl(var(--primary-unchecked) / <alpha-value>)",
+      }
+    }
+  },
   plugins: [
     require('@tailwindcss/typography'),
     require('@tailwindcss/forms'),
     require('daisyui')
   ],
   daisyui: {
-    themes: ["coffee"],
+    themes: [
+      {
+        coffee: {
+          ...require("daisyui/src/theming/themes")["[data-theme=coffee]"],
+          '--primary-unchecked': '45 0% 60%'
+        }
+      }
+    ]
   }
 }
 

@@ -1,10 +1,13 @@
 'use client'
 
 import {ShopListCard} from "@/app/components/Card";
-import {PrimarySection} from '@/app/components/Sections'
+import {PrimarySection, SecondarySection} from '@/app/components/Sections'
 import {Container} from '@/app/components/Container'
+import {TagList} from '@/app/components/Tags'
+import {busyTags, customTags, drinkTags} from '@/app/mocks/tags'
+import React from 'react'
 
-export default function HomePage() {
+export default function HomePage () {
 
     return (
         <>
@@ -13,6 +16,11 @@ export default function HomePage() {
                     <ShopList/>
                 </Container>
             </PrimarySection>
+            <SecondarySection>
+                <Container autoMargins>
+                    <TagSection/>
+                </Container>
+            </SecondarySection>
         </>
     )
 }
@@ -27,4 +35,12 @@ function ShopList () {
             </div>
         </>
     )
+}
+
+function TagSection () {
+    return <>
+        <TagList group={busyTags}/>
+        <TagList group={drinkTags}/>
+        <TagList group={customTags}/>
+    </>
 }
