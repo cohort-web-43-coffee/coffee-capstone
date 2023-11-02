@@ -57,6 +57,7 @@ export function BookmarkCard (cardProps: BookmarkCardProps) {
                         <li className={"container p-4"}>{name}</li>
                         <li className={"container p-4"}>{address}</li>
                         <li className={"container p-4"}>{phone}</li>
+                        <li className={"btn btn-accent rounded-lg"}>Delete Bookmark</li>
                     </ul>
                 </div>
             </CardBody>
