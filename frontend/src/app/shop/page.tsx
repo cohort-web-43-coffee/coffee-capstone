@@ -30,7 +30,7 @@ function TagSection () {
 
 function NewTagModal () {
     return (
-        <dialog id={'new_tag_modal'} className={'modal'}>
+        <dialog id={'new_tag_modal'} className={'modal modal-bottom sm:modal-middle'}>
             <div className={'modal-box'}>
                 <h3 className={'font-bold text-lg'}>Add a Tag!</h3>
                 <p className={'py-4 grid grid-cols-1'}>
@@ -43,12 +43,11 @@ function NewTagModal () {
                 <div className="modal-action">
                     <form method="dialog">
                         {/* if there is a button in form, it will close the modal */}
-                        <button className="btn btn-primary w-20 font-bold py-2 px-4 rounded">Create</button>
+                        <button className="btn btn-primary w-20 font-bold py-2 px-4 rounded mx-3">Create</button>
+                        <button className="btn btn-primary w-20 font-bold py-2 px-4 rounded">Cancel</button>
                     </form>
                 </div>
-                <form method={'dialog'} className={'modal-backdrop'}>
-                    <button>close</button>
-                </form>
+
             </div>
         </dialog>
     )
