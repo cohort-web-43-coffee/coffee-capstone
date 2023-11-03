@@ -2,7 +2,7 @@ import {Request, Response} from "express"
 import {TagSchema} from "./tag.validator";
 import {zodErrorResponse} from "../../utils/response.utils";
 import {Status} from "../../utils/interfaces/Status";
-import {getAllTagsByTagGroup, getAllTagsByTagLabel, insertTag, Tag} from "./tag.model";
+import {getAllTagsByTagGroup, getAllTagsByTagLabel, getTagsForShop, insertTag} from "./tag.model";
 import {z} from "zod";
 
 
@@ -90,6 +90,30 @@ export async function getAllTagsByTagLabelController(request: Request, response:
             data
         })
         // if an error occurs, return the error to the user
+    } catch (error: any) {
+        console.error(error)
+        return response.json({
+            status: 500,
+            message: error.message,
+            data: null
+        })
+    }
+}
+export async function getShopTagsController(request: Request, response: Response): Promise<Response<Status>> {
+    try{
+        const validationResult =  z.string().uuid('Please provide a valid UUID for shopId').safeParse(request.params.shopId)
+        if (!validationResult.success) {
+            return zodErrorResponse(response, validationResult.error)
+        }
+        const shopId = validationResult.data
+        const data = await getTagsForShop(shopId)
+
+        return response.json({
+            status: 200,
+            message: null,
+            data
+        })
+
     } catch (error: any) {
         console.error(error)
         return response.json({

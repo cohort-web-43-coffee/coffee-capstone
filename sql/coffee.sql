@@ -1,3 +1,5 @@
+create extension if not exists pg_trgm;
+
 create table if not exists account (
     account_id uuid not null primary key,
     account_email varchar(50) not null unique,
