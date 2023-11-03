@@ -1,6 +1,6 @@
 import {Status} from "../../utils/interfaces/Status";
 import {Request, Response} from "express";
-import {getAllShops, getShopByShopId} from "./shop.model";
+import {getAllShops, getShopByShopId, searchShopName} from "./shop.model";
 import {z} from "zod";
 import {zodErrorResponse} from "../../utils/response.utils";
 
@@ -15,7 +15,7 @@ export async function getAllShopsController (request: Request, response: Respons
     try {
         const data = await getAllShops()
         const status: Status = {
-            status:200,
+            status: 200,
             message: null,
             data
         }
@@ -36,7 +36,7 @@ export async function getAllShopsController (request: Request, response: Respons
  * @param response
  */
 
-export async function getShopByShopIdController(request: Request, response: Response): Promise<Response<Status>> {
+export async function getShopByShopIdController (request: Request, response: Response): Promise<Response<Status>> {
     try {
         const validationResult = z.string().uuid({message: 'please provide a valid shopId'}).safeParse(request.params.shopId)
         if (!validationResult.success) {
@@ -54,6 +54,34 @@ export async function getShopByShopIdController(request: Request, response: Resp
         return response.json({
             status: 500,
             message: '',
+            data: []
+        })
+    }
+}
+
+export async function searchShopByNameController (request: Request, response: Response): Promise<Response<Status>> {
+    try {
+        const search = request.query.name as string
+
+        if (search === undefined) {
+            return response.json({
+                status: 500,
+                message: 'Search term was undefined.',
+                data: []
+            })
+        }
+
+        const data = await searchShopName(search)
+        return response.json({
+            status: 200,
+            message: null,
+            data
+        })
+    } catch (error: any) {
+        console.error(error)
+        return response.json({
+            status: 500,
+            message: error.message,
             data: []
         })
     }
