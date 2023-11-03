@@ -1,5 +1,5 @@
 'use client'
-import {PrimarySection, SecondarySection} from '@/app/components/Sections'
+import {PrimarySection, SecondarySection} from '@/app/components/Section'
 import {Container} from '@/app/components/Container'
 import {ContactForm} from '@/app/components/ContactForm'
 

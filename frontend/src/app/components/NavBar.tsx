@@ -1,6 +1,8 @@
 'use client'
 import Link from "next/link";
-import {SignUpModal} from "@/app/components/Modal";
+import {Modal, ModalActions} from "@/app/components/Modal";
+import {SignUp} from '@/app/components/ContactForm'
+import React from 'react'
 
 
 export function NavBar () {
@@ -67,5 +69,18 @@ function MenuContent () {
                 </button>
             </li>
         </>
+    )
+}
+
+
+function SignUpModal () {
+    return (
+        <Modal id={'sign-up-modal'}>
+            <h1 className={'font-bold text-lg'}>Sign Up</h1>
+            <SignUp/>
+            <ModalActions>
+                <button className={'btn'}>Close</button>
+            </ModalActions>
+        </Modal>
     )
 }

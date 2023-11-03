@@ -1,10 +1,11 @@
 'use client'
 
-import {PrimarySection} from '@/app/components/Sections'
+import {PrimarySection} from '@/app/components/Section'
 import React from 'react'
 import {Container} from '@/app/components/Container'
 import {busyTags, customTags, drinkTags} from '@/app/mocks/tags'
-import {TagList} from '@/app/components/Tags'
+import {TagList} from '@/app/components/Tag'
+import {Modal, ModalActions} from '@/app/components/Modal'
 
 
 export default function ShopPage () {
@@ -30,7 +31,7 @@ export default function ShopPage () {
 function TagSection () {
     return (<>
             <TagList group={customTags} showCounts>
-                <button onClick={() => (document.getElementById('new_tag_modal') as HTMLDialogElement).showModal()}
+                <button onClick={() => (document.getElementById('new-tag-modal') as HTMLDialogElement).showModal()}
                         className={'btn btn-primary btn-xs rounded-full'}>New +
                 </button>
                 <NewTagModal/>
@@ -43,25 +44,18 @@ function TagSection () {
 
 function NewTagModal () {
     return (
-        <dialog id={'new_tag_modal'} className={'modal modal-bottom sm:modal-middle'}>
-            <div className={'modal-box'}>
-                <h3 className={'font-bold text-lg'}>Add a Tag!</h3>
-                <p className={'py-4 grid grid-cols-1'}>
-
-                    <label htmlFor={'tag-label'}
-                           className={'block text-gray text-sm font-bold mb-2'}>Tag Name</label>
-                    <input type={'text'} id={'tag-label'} name={'tag-label'}
-                           placeholder={'One word to describe the cafe'}/>
-                </p>
-                <div className="modal-action">
-                    <form method="dialog">
-                        {/* if there is a button in form, it will close the modal */}
-                        <button className="btn btn-primary w-20 font-bold py-2 px-4 rounded mx-3">Create</button>
-                        <button className="btn btn-primary w-20 font-bold py-2 px-4 rounded">Cancel</button>
-                    </form>
-                </div>
-
+        <Modal id={'new-tag-modal'}>
+            <span className={'font-bold text-lg'}>Add a Tag!</span>
+            <div className={'py-4 grid grid-cols-1'}>
+                <label htmlFor={'tag-label'}
+                       className={'block text-gray text-sm font-bold mb-2'}>Tag Name</label>
+                <input type={'text'} id={'tag-label'} name={'tag-label'}
+                       placeholder={'One word to describe the cafe'}/>
             </div>
-        </dialog>
+            <ModalActions>
+                <button className={'btn btn-primary w-20 font-bold py-2 px-4 rounded mx-3'}>Create</button>
+                <button className={'btn btn-primary w-20 font-bold py-2 px-4 rounded'}>Cancel</button>
+            </ModalActions>
+        </Modal>
     )
 }

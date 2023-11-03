@@ -1,9 +1,9 @@
 'use client'
 
 import {CardBody, CardImage, Card} from "@/app/components/Card";
-import {PrimarySection, SecondarySection} from '@/app/components/Sections'
+import {PrimarySection, SecondarySection} from '@/app/components/Section'
 import {Container} from '@/app/components/Container'
-import {TagList} from '@/app/components/Tags'
+import {TagList} from '@/app/components/Tag'
 import {busyTags, customTags, drinkTags} from '@/app/mocks/tags'
 import React from 'react'
 import {Carousel, CarouselSlide} from '@/app/components/Carousel'

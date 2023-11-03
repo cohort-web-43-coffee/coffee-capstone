@@ -1,6 +1,6 @@
 'use client'
 
-import {PrimarySection, SecondarySection} from '@/app/components/Sections'
+import {PrimarySection, SecondarySection} from '@/app/components/Section'
 import {Container} from '@/app/components/Container'
 import {Card, CardBody, CardImage, CardTitle} from '@/app/components/Card'
 

@@ -1,17 +1,23 @@
-import {SignUp} from "@/app/components/ContactForm";
+import React from 'react'
+import {ChildProps, IdProps} from '@/app/types/Props'
 
-export function SignUpModal () {
+
+export function Modal ({children, id}: ChildProps & IdProps) {
     return (
-        <dialog id="sign-up-modal" className="modal modal-bottom sm:modal-middle">
-            <div className="modal-box">
-                <h3 className="font-bold text-lg">Sign Up</h3>
-                <SignUp/>
-                <div className="modal-action">
-                    <form method="dialog">
-                        <button className="btn">Close</button>
-                    </form>
-                </div>
+        <dialog id={id} className={'modal modal-bottom sm:modal-middle'}>
+            <div className={'modal-box'}>
+                {children}
             </div>
         </dialog>
+    )
+}
+
+export function ModalActions ({children}: ChildProps) {
+    return (
+        <div className={'modal-action'}>
+            <form method={'dialog'}>
+                {children}
+            </form>
+        </div>
     )
 }
