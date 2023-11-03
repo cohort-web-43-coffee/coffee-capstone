@@ -11,31 +11,32 @@ export default function ShopPage () {
     return <>\
         <PrimarySection>
             <Container autoMargins>
-                <div className="mx-full mt-80 p-5 bg-amber-900 flex-row justify-center grid grid-cols-3 gap-3">
-                    <img src={'https://placebear.com/400/400'}/>
-                    <div className={'prose justify-self-center'}>
-                        <h1>Bear Cafe!</h1>
+                <div className="mx-full p-5 bg-amber-900 flex-row justify-center grid grid-cols-[1fr_2fr] gap-3">
+                    <div className={'flex flex-col gap-2'}>
+                        <img src={'https://placebear.com/400/400'}/>
+                        <img src={'https://placebear.com/200/200'}/>
+                        <img src={'https://placebear.com/300/300'}/>
+                    </div>
+                    <div className={'flex flex-col items-center justify-center'}>
+                        <div className={'prose'}><h1>Bear Cafe</h1></div>
+                        <TagSection/>
                     </div>
                 </div>
             </Container>
         </PrimarySection>
-        <TagSection/>
     </>
 }
 
 function TagSection () {
-    return <SecondarySection>
-        <Container autoMargins>
-            <TagList group={customTags} showCounts>
-                <button onClick={() => (document.getElementById('new_tag_modal') as HTMLDialogElement).showModal()}
-                        className={'btn btn-primary btn-xs rounded-full'}>New +
-                </button>
-                <NewTagModal/>
-            </TagList>
-            <TagList group={drinkTags} showCounts/>
-            <TagList group={busyTags} showCounts/>
-        </Container>
-    </SecondarySection>
+    return(<>
+        <TagList group={customTags} showCounts>
+            <button onClick={() => (document.getElementById('new_tag_modal') as HTMLDialogElement).showModal()}
+                    className={'btn btn-primary btn-xs rounded-full'}>New +</button>
+            <NewTagModal/>
+        </TagList>
+        <TagList group={drinkTags} showCounts/>
+        <TagList group={busyTags} showCounts/></>
+    )
 }
 
 function NewTagModal () {
