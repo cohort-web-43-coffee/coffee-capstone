@@ -3,24 +3,24 @@ import {ChildProps} from '@/app/types/Props'
 
 export function PrimarySection ({children}: ChildProps) {
     return (
-        <div className={'bg-primary text-primary-content'}>
+        <section className={'bg-primary text-primary-content'}>
             {children}
-        </div>
+        </section>
     )
 }
 
 export function SecondarySection ({children}: ChildProps) {
     return (
-        <div className={'bg-secondary text-secondary-content'}>
+        <section className={'bg-secondary text-secondary-content'}>
             {children}
-        </div>
+        </section>
     )
 }
 
 export function NeutralSection ({children}: ChildProps) {
     return (
-        <div className={'bg-neutral text-neutral-content'}>
+        <section className={'bg-neutral text-neutral-content'}>
             {children}
-        </div>
+        </section>
     )
 }

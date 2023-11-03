@@ -24,7 +24,7 @@ export default function AccountPage () {
 
             <SecondarySection>
                 <Container autoMargins>
-                    <section className={'grid grid-cols-1 md:grid-cols-2 gap-y-12 md:gap-x-12 justify-items-center'}>
+                    <div className={'grid grid-cols-1 md:grid-cols-2 gap-y-12 md:gap-x-12 justify-items-center'}>
                         <BookmarkCard
                             name={"Last Drop Espresso Bar"}
                             address={"3759 Goldleaf Lane, Rochelle Park, NJ 07662"}
@@ -65,7 +65,7 @@ export default function AccountPage () {
                             address={"4776 Wilkinson Street, Springfield, TN 37172"}
                             phone={"262-523-5327"}
                             pixels={300}/>
-                    </section>
+                    </div>
                 </Container>
             </SecondarySection>
         </>
