@@ -2,7 +2,14 @@
 
 import {PrimarySection, SecondarySection} from '@/app/components/Sections'
 import {Container} from '@/app/components/Container'
-import {AccountCard, BookmarkCard} from '@/app/components/Card'
+import {Card, CardBody, CardImage, CardTitle} from '@/app/components/Card'
+
+type BookmarkCardProps = {
+    name: string
+    address: string
+    phone: string
+    pixels: number
+}
 
 export default function AccountPage () {
     return (
@@ -61,6 +68,42 @@ export default function AccountPage () {
                     </section>
                 </Container>
             </SecondarySection>
+        </>
+    )
+}
+
+function BookmarkCard ({name, address, phone, pixels}: BookmarkCardProps) {
+    const id = Math.floor(Math.random() * 1084)
+    return (
+        <Card>
+            <CardImage imageUrl={`https://picsum.photos/id/${id}/${pixels}/${pixels}`} imageAlt={'picture'}/>
+            <CardBody>
+                <div className={"flex"}>
+                    <ul>
+                        <li className={"container p-4"}>{name}</li>
+                        <li className={"container p-4"}>{address}</li>
+                        <li className={"container p-4"}>{phone}</li>
+                        <li className={"btn btn-accent rounded-lg"}>Delete Bookmark</li>
+                    </ul>
+                </div>
+            </CardBody>
+        </Card>
+    )
+}
+
+function AccountCard () {
+    return (<>
+            <Card>
+                <div className={'place-self-center'}>
+                    <CardTitle>Account</CardTitle>
+                </div>
+                <CardBody>
+                    <div className={'grid grid-cols-2 justify-items-center'}>
+                        <h1 className={'text-lg'}>NAME:</h1><p>Frederick Douglas</p>
+                        <h1 className={'text-lg'}>EMAIL:</h1><p>fakeemail@realemail.com</p>
+                    </div>
+                </CardBody>
+            </Card>
         </>
     )
 }

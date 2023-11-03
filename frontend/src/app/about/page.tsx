@@ -1,8 +1,12 @@
 'use client'
 import {PrimarySection, SecondarySection} from '@/app/components/Sections'
 import {Container} from '@/app/components/Container'
-import {AboutUsCard} from "@/app/components/Card";
 import {ContactForm} from '@/app/components/ContactForm'
+
+
+type AboutUsCardProps = {
+    text: string
+}
 
 export default function AboutPage() {
     return (
@@ -41,5 +45,14 @@ function AboutUsHeader () {
              </div>
         </div>
 
+    )
+}
+
+function AboutUsCard ({text}: AboutUsCardProps) {
+    return (
+        <div>
+            <img src={`https://picsum.photos/id/30/300/300`} alt={'picture of developers'} className={'rounded-full'}/>
+            <p>{text}</p>
+        </div>
     )
 }
