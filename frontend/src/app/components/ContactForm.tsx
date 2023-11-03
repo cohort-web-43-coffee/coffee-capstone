@@ -5,8 +5,50 @@ type ContactFormInputProps = {
     name: string;
     placeholder: string
 }
-function ContactFormInput(props: ContactFormInputProps) {
-    const { label, type, id, name, placeholder } = props
+
+type ContactFormTextAreaProps = {
+    label: string,
+    id: string,
+    name: string,
+    placeholder: string,
+    rows: number
+}
+
+
+export function ContactForm () {
+    return (
+        <div>
+            <div style={{margin: 'auto', width: '50%'}}>
+                <div className="prose">
+                    <h1>Contact Us</h1>
+                </div>
+            </div>
+            <form id="contact" className="md:w-1/2 md:auto mx-auto grid-cols-1 auto-rows-max gap-6 mt-8">
+                <ContactFormInput label="Name" type="text" id="name" name="name" placeholder="ex.Agent Smith"/>
+                <ContactFormInput label="Email" type="email" id="email" name="email" placeholder="Smith@example.com"/>
+                <ContactFormTextArea label="Message" id="message" name="message" placeholder="Enter message max 250"
+                                     rows={3}/>
+                <ContactFormButton/>
+            </form>
+        </div>
+    )
+}
+
+export function SignUp () {
+    return (
+        <>
+            <ContactFormInput label="Name" type="text" id="name" name="name" placeholder="ex.Agent Smith"/>
+            <ContactFormInput label="Email" type="email" id="email" name="email" placeholder="Smith@example.com"/>
+            <ContactFormInput label="Password" type="password" id="password" name="password"
+                              placeholder="Enter Password"/>
+            <ContactFormInput label="Confirm Password" type="password" id="password" name="password"
+                              placeholder="Confirm Password"/>
+        </>
+    )
+}
+
+
+function ContactFormInput ({label, type, id, name, placeholder}: ContactFormInputProps) {
     return (
         <div className="py-3">
             <label htmlFor={id} className="block text-gray text-sm font-bold mb-2">{label}</label>
@@ -21,7 +63,7 @@ function ContactFormInput(props: ContactFormInputProps) {
     )
 }
 
-function ContactFormTextarea({ label, id, name, placeholder, rows }: { label: string; id: string; name: string; placeholder: string; rows: number }) {
+function ContactFormTextArea ({label, id, name, placeholder, rows}: ContactFormTextAreaProps) {
     return (
         <div className="py-3">
             <label htmlFor={id} className="block text-gray text-sm font-bold mb-2">{label}</label>
@@ -36,7 +78,7 @@ function ContactFormTextarea({ label, id, name, placeholder, rows }: { label: st
     )
 }
 
-function ContactFormButton() {
+function ContactFormButton () {
     return (
         <div className="py-3">
             <button type="submit" className="btn btn-primary font-bold py-2 px-4 rounded">
@@ -45,38 +87,3 @@ function ContactFormButton() {
         </div>
     )
 }
-
-function ContactForm() {
-    return (
-        <div>
-            <div style={{ margin: 'auto', width: '50%' }}>
-                <div className="prose">
-                    <h1>Contact Us</h1>
-                </div>
-            </div>
-            <form id="contact" className="md:w-1/2 md:auto mx-auto grid-cols-1 auto-rows-max gap-6 mt-8">
-                <ContactFormInput label="Name" type="text" id="name" name="name" placeholder="ex.Agent Smith" />
-                <ContactFormInput label="Email" type="email" id="email" name="email" placeholder="Smith@example.com" />
-                <ContactFormTextarea label="Message" id="message" name="message" placeholder="Enter message max 250" rows={3} />
-                <ContactFormButton />
-            </form>
-        </div>
-    )
-}
-
-export default ContactForm;
-
-
-export function SignUp() {
-    return (
-        <>
-            <ContactFormInput label="Name" type="text" id="name" name="name" placeholder="ex.Agent Smith" />
-            <ContactFormInput label="Email" type="email" id="email" name="email" placeholder="Smith@example.com" />
-            <ContactFormInput label="Password" type="password" id="password" name="password" placeholder="Enter Password" />
-            <ContactFormInput label="Confirm Password" type="password" id="password" name="password" placeholder="Confirm Password" />
-
-        </>
-    )
-
-}
-

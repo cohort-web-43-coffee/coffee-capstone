@@ -1,15 +1,15 @@
-"use client"
-import ContactForm from "@/app/components/ContactForm";
+'use client'
 import {PrimarySection, SecondarySection} from '@/app/components/Sections'
 import {Container} from '@/app/components/Container'
 import {AboutUsCard} from "@/app/components/Card";
+import {ContactForm} from '@/app/components/ContactForm'
 
 export default function AboutPage() {
     return (
         <>
             <PrimarySection>
                 <Container autoMargins>
-                    <AboutUs/>
+                    <AboutUsHeader/>
                     <section className={'container mx-auto grid grid-cols-4 gap-24 my-16'}>
                         <AboutUsCard text={'Bob Links Here'}/>
                         <AboutUsCard text={'Victor Links Here'}/>
@@ -23,14 +23,12 @@ export default function AboutPage() {
                 <Container autoMargins>
                     <ContactForm/>
                 </Container>
-
             </SecondarySection>
-
         </>
     )
 }
 
-function AboutUs () {
+function AboutUsHeader () {
     return (
         <div>
              <div style={{ margin: 'auto', width: '50%' }}>

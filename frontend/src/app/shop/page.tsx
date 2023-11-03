@@ -1,6 +1,6 @@
 'use client'
 
-import {PrimarySection, SecondarySection} from '@/app/components/Sections'
+import {PrimarySection} from '@/app/components/Sections'
 import React from 'react'
 import {Container} from '@/app/components/Container'
 import {busyTags, customTags, drinkTags} from '@/app/mocks/tags'
@@ -8,14 +8,14 @@ import {TagList} from '@/app/components/Tags'
 
 
 export default function ShopPage () {
-    return <>\
+    return <>
         <PrimarySection>
             <Container autoMargins>
                 <div className="mx-full p-5 bg-amber-900 flex-row justify-center grid grid-cols-[1fr_2fr] gap-3">
                     <div className={'flex flex-col gap-2'}>
-                        <img src={'https://placebear.com/400/400'}/>
-                        <img src={'https://placebear.com/200/200'}/>
-                        <img src={'https://placebear.com/300/300'}/>
+                        <img src={'https://placebear.com/400/400'} alt={'yeet'}/>
+                        <img src={'https://placebear.com/200/200'} alt={'yeet'}/>
+                        <img src={'https://placebear.com/300/300'} alt={'yeet'}/>
                     </div>
                     <div className={'flex flex-col items-center justify-center'}>
                         <div className={'prose'}><h1>Bear Cafe</h1></div>
@@ -28,14 +28,16 @@ export default function ShopPage () {
 }
 
 function TagSection () {
-    return(<>
-        <TagList group={customTags} showCounts>
-            <button onClick={() => (document.getElementById('new_tag_modal') as HTMLDialogElement).showModal()}
-                    className={'btn btn-primary btn-xs rounded-full'}>New +</button>
-            <NewTagModal/>
-        </TagList>
-        <TagList group={drinkTags} showCounts/>
-        <TagList group={busyTags} showCounts/></>
+    return (<>
+            <TagList group={customTags} showCounts>
+                <button onClick={() => (document.getElementById('new_tag_modal') as HTMLDialogElement).showModal()}
+                        className={'btn btn-primary btn-xs rounded-full'}>New +
+                </button>
+                <NewTagModal/>
+            </TagList>
+            <TagList group={drinkTags} showCounts/>
+            <TagList group={busyTags} showCounts/>
+        </>
     )
 }
 

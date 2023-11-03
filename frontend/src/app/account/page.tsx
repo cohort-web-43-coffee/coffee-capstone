@@ -1,14 +1,12 @@
 'use client'
 
-import {NeutralSection, PrimarySection, SecondarySection} from '@/app/components/Sections'
+import {PrimarySection, SecondarySection} from '@/app/components/Sections'
 import {Container} from '@/app/components/Container'
 import {AccountCard, BookmarkCard} from '@/app/components/Card'
-import {NavBar} from "@/app/components/NavBar";
 
 export default function AccountPage () {
     return (
         <>
-
             <PrimarySection>
                 <Container autoMargins>
                     <div className={'flex justify-center'}>

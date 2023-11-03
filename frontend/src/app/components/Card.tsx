@@ -1,24 +1,23 @@
 'use client'
 
-import {ChildProps} from '@/app/types/ChildProps'
+import {ChildProps, ImageProps} from '@/app/types/Props'
 
-type ShopListCardProps = {
-    shopName: string,
-    imageUrl: string,
-    alt: string
+type ShopListCardProps = ImageProps & {
+    shopName: string
 }
 
-type CardImageProps = {
-    imageUrl: string,
-    alt: string
+type BookmarkCardProps = {
+    name: string
+    address: string
+    phone: string
+    pixels: number
 }
 
-export function ShopListCard (props: ShopListCardProps) {
-    const {imageUrl, alt, shopName} = props
+export function ShopCard ({imageUrl, imageAlt, shopName}: ShopListCardProps) {
     return (
         <NormalCard>
             <a href={''}>
-                <CardImage imageUrl={imageUrl} alt={alt}/>
+                <CardImage imageUrl={imageUrl} imageAlt={imageAlt}/>
                 <CardBody>
                     <div className={'prose'}><h1>{shopName}</h1></div>
                 </CardBody>
@@ -44,19 +43,11 @@ export function AccountCard () {
     )
 }
 
-type BookmarkCardProps = {
-    name: string
-    address: string
-    phone: string
-    pixels: number
-}
-
-export function BookmarkCard (cardProps: BookmarkCardProps) {
-    const {name, address, phone, pixels} = cardProps
+export function BookmarkCard ({name, address, phone, pixels}: BookmarkCardProps) {
     const id = Math.floor(Math.random() * 1084)
     return (
         <NormalCard>
-            <CardImage imageUrl={`https://picsum.photos/id/${id}/${pixels}/${pixels}`} alt={'picture'}/>
+            <CardImage imageUrl={`https://picsum.photos/id/${id}/${pixels}/${pixels}`} imageAlt={'picture'}/>
             <CardBody>
                 <div className={"flex"}>
                     <ul>
@@ -85,7 +76,6 @@ export function AboutUsCard (cardProps: AboutUsCardProps) {
     )
 }
 
-
 function NormalCard (props: ChildProps) {
     return (
         <div className="card w-96 p-4 bg-white text-black shadow-xl">
@@ -94,11 +84,9 @@ function NormalCard (props: ChildProps) {
     )
 }
 
-
-function CardImage (props: CardImageProps) {
-    const {imageUrl, alt} = props
+function CardImage ({imageUrl, imageAlt}: ImageProps) {
     return (
-        <figure><img src={imageUrl} alt={alt}/></figure>
+        <figure><img src={imageUrl} alt={imageAlt}/></figure>
     )
 }
 
@@ -118,6 +106,7 @@ function CardTitle (props: ChildProps) {
     )
 }
 
+// noinspection JSUnusedLocalSymbols
 function CardActions (props: ChildProps) {
     return (
         <div className="card-actions justify-end">
