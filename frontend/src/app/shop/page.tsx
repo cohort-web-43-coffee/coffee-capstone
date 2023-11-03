@@ -1,6 +1,6 @@
 'use client'
 
-import {SecondarySection} from '@/app/components/Sections'
+import {PrimarySection, SecondarySection} from '@/app/components/Sections'
 import React from 'react'
 import {Container} from '@/app/components/Container'
 import {busyTags, customTags, drinkTags} from '@/app/mocks/tags'
@@ -8,7 +8,17 @@ import {TagList} from '@/app/components/Tags'
 
 
 export default function ShopPage () {
-    return <>
+    return <>\
+        <PrimarySection>
+            <Container autoMargins>
+                <div className="mx-full mt-80 p-5 bg-amber-900 flex-row justify-center grid grid-cols-3 gap-3">
+                    <img src={'https://placebear.com/400/400'}/>
+                    <div className={'prose justify-self-center'}>
+                        <h1>Bear Cafe!</h1>
+                    </div>
+                </div>
+            </Container>
+        </PrimarySection>
         <TagSection/>
     </>
 }
