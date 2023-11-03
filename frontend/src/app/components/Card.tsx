@@ -3,6 +3,7 @@
 import {ChildProps} from '@/app/types/ChildProps'
 
 type ShopListCardProps = {
+    shopName: string,
     imageUrl: string,
     alt: string
 }
@@ -13,10 +14,15 @@ type CardImageProps = {
 }
 
 export function ShopListCard (props: ShopListCardProps) {
-    const {imageUrl, alt} = props
+    const {imageUrl, alt, shopName} = props
     return (
         <NormalCard>
-            <CardImage imageUrl={imageUrl} alt={alt}/>
+            <a href={''}>
+                <CardImage imageUrl={imageUrl} alt={alt}/>
+                <CardBody>
+                    <div className={'prose'}><h1>{shopName}</h1></div>
+                </CardBody>
+            </a>
         </NormalCard>
     )
 }

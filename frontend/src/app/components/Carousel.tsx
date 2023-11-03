@@ -15,7 +15,7 @@ type SlideProps = ChildProps & {
 
 export function CarouselSlide({slideId, children, nextSlideId, previousSlideId}: SlideProps) {
     return (
-        <div id={slideId} className={'carousel-item relative w-full'}>
+        <div id={slideId} className={'carousel-item relative w-full flex gap-4'}>
             {children}
             <CarouselSlideArrows previousSlideId={previousSlideId} nextSlideId={nextSlideId}/>
         </div>
