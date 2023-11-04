@@ -17,6 +17,7 @@ export function NavBar () {
                 <SiteTitle/>
             </div>
             <div className={'flex-none'}>
+                Search:&nbsp;
                 <SearchField/>
                 <div className={'navbar-center hidden md:flex'}>
                     <ul className={'menu menu-horizontal px-1'}>
@@ -35,7 +36,7 @@ function SiteTitle () {
 function SearchField () {
     return (
         <div className={'form-control'}>
-            <input type={'text'} placeholder={'Search'} className={'input input-bordered w-40 md:w-auto'}/>
+            <input type={'text'} placeholder={'Coffee shop name'} className={'input input-bordered w-40 md:w-auto'}/>
         </div>
     )
 }

@@ -4,7 +4,7 @@ import {ChildProps, ImageProps} from '@/app/types/Props'
 
 export function Card ({children}: ChildProps) {
     return (
-        <div className={'card w-96 p-4 bg-white text-black shadow-xl'}>
+        <div className={'card w-96 p-4 bg-base-100 text-black shadow-xl'}>
             {children}
         </div>
     )

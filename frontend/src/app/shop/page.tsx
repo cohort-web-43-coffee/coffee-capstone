@@ -13,7 +13,7 @@ export default function ShopPage () {
     return <>
         <PrimarySection>
             <Container autoMargins>
-                <div className="mx-full p-5 bg-amber-900 flex-row justify-center grid grid-cols-[1fr_2fr] gap-3">
+                <div className="mx-full p-5 bg-primary-container-variant flex-row justify-center grid grid-cols-[1fr_2fr] gap-3">
                     <div className={'flex flex-col gap-2'}>
                         <img src={'https://placebear.com/400/400'} alt={'yeet'}/>
                         <img src={'https://placebear.com/200/200'} alt={'yeet'}/>

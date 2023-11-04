@@ -16,7 +16,7 @@ type RootLayoutProps = {
 export default function RootLayout(props : RootLayoutProps) {
     const { children } = props
     return (
-        <html data-theme="coffee" lang="en">
+        <html data-theme={'valid'} lang={'en'}>
         <body>
         <NavBar/>
         {children}

@@ -32,7 +32,7 @@ export function FormInput ({label, type, id, name, placeholder}: FormInputProps)
                 placeholder={placeholder}
                 id={id}
                 name={name}
-                className={'mt-1 block w-full rounded-md bg-gray-100 border-transparent focus:border-gray focus:bg-white focus:ring-0'}
+                className={'mt-1 block w-full rounded-md bg-base-100 border-transparent focus:border-base-300 focus:bg-base-200 focus:ring-0'}
             />
         </div>
     )
@@ -47,7 +47,7 @@ export function FormTextArea ({label, id, name, placeholder, rows}: FormTextArea
                 name={name}
                 placeholder={placeholder}
                 id={id}
-                className={'mt-1 block w-full rounded-md bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0'}
+                className={'mt-1 block w-full rounded-md bg-base-100 border-transparent focus:border-base-300 focus:bg-base-200 focus:ring-0'}
             />
         </div>
     )
