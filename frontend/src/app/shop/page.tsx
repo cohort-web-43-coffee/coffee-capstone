@@ -6,6 +6,7 @@ import {Container} from '@/app/components/Container'
 import {busyTags, customTags, drinkTags} from '@/app/mocks/tags'
 import {TagList} from '@/app/components/Tag'
 import {Modal, ModalActions} from '@/app/components/Modal'
+import {Form, FormInput} from '@/app/components/Form'
 
 
 export default function ShopPage () {
@@ -47,10 +48,10 @@ function NewTagModal () {
         <Modal id={'new-tag-modal'}>
             <span className={'font-bold text-lg'}>Add a Tag!</span>
             <div className={'py-4 grid grid-cols-1'}>
-                <label htmlFor={'tag-label'}
-                       className={'block text-gray text-sm font-bold mb-2'}>Tag Name</label>
-                <input type={'text'} id={'tag-label'} name={'tag-label'}
-                       placeholder={'One word to describe the cafe'}/>
+                <Form id={'new-tag-form'}>
+                    <FormInput label={'Tag Name'} id={'tag-label'} name={'tag-label'}
+                               placeholder={'One word to describe a cafe'} type={'text'}/>
+                </Form>
             </div>
             <ModalActions>
                 <button className={'btn btn-primary w-20 font-bold py-2 px-4 rounded mx-3'}>Create</button>

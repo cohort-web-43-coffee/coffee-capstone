@@ -1,7 +1,7 @@
 'use client'
 import {PrimarySection, SecondarySection} from '@/app/components/Section'
 import {Container} from '@/app/components/Container'
-import {ContactForm} from '@/app/components/ContactForm'
+import {Form, FormButton, FormInput, FormTextArea} from '@/app/components/Form'
 
 
 type AboutUsCardProps = {
@@ -53,6 +53,25 @@ function AboutUsCard ({text}: AboutUsCardProps) {
         <div>
             <img src={`https://picsum.photos/id/30/300/300`} alt={'picture of developers'} className={'rounded-full'}/>
             <p>{text}</p>
+        </div>
+    )
+}
+
+export function ContactForm () {
+    return (
+        <div>
+            <div style={{margin: 'auto', width: '50%'}}>
+                <div className='prose'>
+                    <h1>Contact Us</h1>
+                </div>
+            </div>
+            <Form id='contact-form'>
+                <FormInput label={'Name'} type={'text'} id={'name'} name={'name'} placeholder={'ex.Agent Smith'}/>
+                <FormInput label={'Email'} type={'email'} id={'email'} name={'email'} placeholder={'Smith@example.com'}/>
+                <FormTextArea label={'Message'} id={'message'} name={'message'} placeholder={'Enter message max 250'}
+                              rows={3}/>
+                <FormButton/>
+            </Form>
         </div>
     )
 }
