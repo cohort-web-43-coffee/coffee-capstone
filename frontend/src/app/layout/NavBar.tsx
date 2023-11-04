@@ -25,6 +25,7 @@ export function NavBar () {
                     </ul>
                 </div>
             </div>
+            <SignUpModal/>
         </nav>
     )
 }
@@ -61,7 +62,7 @@ function MenuContent () {
             <li><Link href={'/shop'}>Shops</Link></li>
             <li><Link href={'/about'}>About Us</Link></li>
             <li>
-                <SignUpModal/>
+
                 <button
                     onClick={() => (document.getElementById('sign-up-modal') as HTMLDialogElement).showModal()}
                     className={'btn btn-primary btn-xs rounded-full'}>
