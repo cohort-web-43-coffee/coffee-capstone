@@ -2,7 +2,7 @@
 
 import {CardBody, CardImage, Card} from "@/app/components/Card";
 import {PrimarySection} from '@/app/components/Section'
-import {Container} from '@/app/components/Container'
+import {PrimaryContainer} from '@/app/components/Container'
 import {TagList} from '@/app/components/Tag'
 import {busyTags, customTags, drinkTags} from '@/app/mocks/tags'
 import React from 'react'
@@ -17,10 +17,10 @@ export default function HomePage () {
     return (
         <>
             <PrimarySection>
-                <Container autoMargins>
+                <PrimaryContainer autoMargins>
                     <ShopList/>
                     <TagSection/>
-                </Container>
+                </PrimaryContainer>
             </PrimarySection>
         </>
     )
@@ -28,7 +28,7 @@ export default function HomePage () {
 
 function ShopList () {
     return (
-        <div className="card mx-full p-5 bg-primary-container-variant flex-row justify-center">
+        <div className="flex-row justify-center">
             <Carousel>
                 <CarouselSlide slideId={'Weee1'} previousSlideId={'Weee3'} nextSlideId={'Weee2'}>
                     <ShopCard shopName={'Bear Cafe 1'} imageUrl={'https://placebear.com/900/900'} imageAlt={'yeet'}/>

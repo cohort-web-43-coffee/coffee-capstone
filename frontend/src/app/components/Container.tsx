@@ -19,3 +19,19 @@ export function Container ({children, autoMargins}: ContainerProps) {
         )
     }
 }
+
+export function PrimaryContainer ({children, autoMargins}: ContainerProps) {
+    if (autoMargins) {
+        return (
+            <div className={'container mx-auto p-4 bg-primary-container-variant'}>
+                {children}
+            </div>
+        )
+    } else {
+        return (
+            <div className={'p-8 bg-primary-container-variant'}>
+                {children}
+            </div>
+        )
+    }
+}
