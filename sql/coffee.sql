@@ -55,3 +55,41 @@ create table if not exists bookmark (
 );
 create index on bookmark(bookmark_account_id);
 create index on bookmark(bookmark_shop_id);
+
+
+
+-- Test account
+INSERT INTO account(account_id, account_email, account_hash, account_activation_token, account_name)
+VALUES ('78110022-3ea1-4d51-9094-ba887e2fb580',
+        'test@test.test',
+        '$argon2id$v=19$m=65536,t=3,p=1$O1mv+FewvEnfWRTXdLLvxA$TkBR7RRvQjSMJGmoNw/jKSV/LMCmPb+IfWQBqbkDXBM',
+        '00000000001111111111000000000011',
+        'Little Jimmy');
+
+
+-- busy group
+
+insert into tag(tag_id, tag_group, tag_label) VALUES (gen_random_uuid(), 'busy', 'busy:morning');
+insert into tag(tag_id, tag_group, tag_label) VALUES (gen_random_uuid(), 'busy', 'busy:afternoon');
+insert into tag(tag_id, tag_group, tag_label) VALUES (gen_random_uuid(), 'busy', 'busy:evening');
+
+-- customer service group
+
+insert into tag(tag_id, tag_group, tag_label) VALUES (gen_random_uuid(), 'service', 'service:great');
+insert into tag(tag_id, tag_group, tag_label) VALUES (gen_random_uuid(), 'service', 'service:ok');
+insert into tag(tag_id, tag_group, tag_label) VALUES (gen_random_uuid(), 'service', 'service:poor');
+
+-- brewing method groups
+
+insert into tag(tag_id, tag_group, tag_label) VALUES (gen_random_uuid(), 'brewing', 'Drip coffee');
+insert into tag(tag_id, tag_group, tag_label) VALUES (gen_random_uuid(), 'brewing', 'Pour-over');
+insert into tag(tag_id, tag_group, tag_label) VALUES (gen_random_uuid(), 'brewing', 'French press');
+insert into tag(tag_id, tag_group, tag_label) VALUES (gen_random_uuid(), 'brewing', 'AeroPress');
+insert into tag(tag_id, tag_group, tag_label) VALUES (gen_random_uuid(), 'brewing', 'Espresso');
+insert into tag(tag_id, tag_group, tag_label) VALUES (gen_random_uuid(), 'brewing', 'Stove-top');
+insert into tag(tag_id, tag_group, tag_label) VALUES (gen_random_uuid(), 'brewing', 'Cold brew');
+insert into tag(tag_id, tag_group, tag_label) VALUES (gen_random_uuid(), 'brewing', 'Japanese iced coffee');
+insert into tag(tag_id, tag_group, tag_label) VALUES (gen_random_uuid(), 'brewing', 'Percolator');
+insert into tag(tag_id, tag_group, tag_label) VALUES (gen_random_uuid(), 'brewing', 'Turkish');
+insert into tag(tag_id, tag_group, tag_label) VALUES (gen_random_uuid(), 'brewing', 'Coffee bag');
+insert into tag(tag_id, tag_group, tag_label) VALUES (gen_random_uuid(), 'brewing', 'Clever dripper');

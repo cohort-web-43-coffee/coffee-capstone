@@ -4,14 +4,26 @@ import {businessDetailsToPhotoEntries, businessDetailsToShopEntry} from './conve
 import {randomUUID} from 'crypto'
 
 export async function isShopTableEmpty (): Promise<boolean> {
-    const result = await sql`SELECT COUNT(shop_id)
+    const result = await sql`SELECT COUNT(*)
                              FROM shop`
     return result[0].count === '0'
 }
 
 export async function isPhotoTableEmpty (): Promise<boolean> {
-    const result = await sql`SELECT COUNT(photo_id)
+    const result = await sql`SELECT COUNT(*)
                              FROM photo`
+    return result[0].count === '0'
+}
+
+export async function isActiveTagTableEmpty (): Promise<boolean> {
+    const result = await sql`SELECT COUNT(*)
+                             FROM active_tag`
+    return result[0].count === '0'
+}
+
+export async function isBookmarkTableEmpty (): Promise<boolean> {
+    const result = await sql`SELECT COUNT(*)
+                             FROM bookmark`
     return result[0].count === '0'
 }
 
