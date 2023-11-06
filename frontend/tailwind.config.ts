@@ -1,4 +1,5 @@
 import type { Config } from 'tailwindcss'
+import colors from 'tailwindcss/colors'
 
 const config: Config = {
   content: [
@@ -13,11 +14,11 @@ const config: Config = {
         // https://m3.material.io/styles/color/the-color-system/color-roles
         // https://daisyui.com/docs/colors/
         // https://developer.mozilla.org/en-US/docs/Web/CSS/color_value/hsl
-        'primary-container': 'hsl(var(--primary-container) / <alpha-value>)',
-        'primary-container-variant': 'hsl(var(--primary-container-variant) / <alpha-value>)',
-        'primary-unchecked': 'hsl(var(--primary-unchecked) / <alpha-value>)',
-        'secondary-container': 'hsl(var(--secondary-container) / <alpha-value>)',
-        'secondary-container-variant': 'hsl(var(--secondary-container-variant) / <alpha-value>)'
+        'primary-container': 'var(--primary-container)',
+        'primary-container-variant': 'var(--primary-container-variant)',
+        'primary-unchecked': 'var(--primary-unchecked)',
+        'secondary-container': 'var(--secondary-container)',
+        'secondary-container-variant': 'var(--secondary-container-variant)'
       }
     }
   },
@@ -37,11 +38,11 @@ const config: Config = {
           'base-100': '#FFFFEA',
           'base-200': '#EEEEDA',
           'base-300': '#DDDDCA',
-          '--primary-container':  '30deg 20% 50%',
-          '--primary-container-variant':  '30deg 50% 50%',
-          '--primary-unchecked': 'none 0% 60%',
-          '--secondary-container':  '45deg 80% 50%',
-          '--secondary-container-variant':  '45deg 50% 50%',
+          '--primary-container':  colors.amber['900'],
+          '--primary-container-variant': colors.amber['200'],
+          '--primary-unchecked': colors.gray['300'],
+          '--secondary-container':  colors.yellow['400'],
+          '--secondary-container-variant':  colors.yellow['200']
         }
       }
     ]
