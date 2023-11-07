@@ -54,6 +54,8 @@ const mockPhotoDetails = {
 
 
 
+
+
 export default function ShopPage () {
     const params = useParams()
     console.log(params)
@@ -68,7 +70,8 @@ export default function ShopPage () {
                         })}
                     </div>
                     <div className={'flex flex-col items-center justify-center'}>
-                        <div className={'prose'}><h1>Bear Cafe</h1></div>
+                        <div className={'prose'}><h1>{mockShopDetails.data.shopName}</h1></div>
+
                         <TagSection/>
                     </div>
                 </div>
@@ -93,3 +96,4 @@ function TagSection () {
         </>
     )
 }
+
