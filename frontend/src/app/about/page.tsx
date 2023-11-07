@@ -1,4 +1,3 @@
-'use client'
 import {PrimarySection, SecondarySection} from '@/app/components/Section'
 import {Container} from '@/app/components/Container'
 import {Form, FormButton, FormInput, FormTextArea} from '@/app/components/Form'

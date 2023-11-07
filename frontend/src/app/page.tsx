@@ -1,5 +1,3 @@
-'use client'
-
 import {CardBody, CardImage, Card} from "@/app/components/Card";
 import {PrimarySection} from '@/app/components/Section'
 import {PrimaryContainer} from '@/app/components/Container'

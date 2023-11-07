@@ -1,5 +1,3 @@
-'use client'
-
 import {ChildProps, ImageProps} from '@/app/types/Props'
 
 export function Card ({children}: ChildProps) {
