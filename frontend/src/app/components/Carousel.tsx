@@ -18,7 +18,7 @@ type ShopCardProps = ImageProps & {
     shopName: string
 }
 
-export function Carousel (props: ChildProps) {
+export function Carousel(props: ChildProps) {
     return (<div className="carousel w-full">
         {props.children}
     </div>)
@@ -45,7 +45,8 @@ function CarouselNav({previousSlideId, nextSlideId}: CarouselNavProps) {
         </nav>
     )
 }
-function ShopCard ({imageUrl, imageAlt, shopName}: ShopCardProps) {
+
+function ShopCard({imageUrl, imageAlt, shopName}: ShopCardProps) {
 
     return (
         <Card>
@@ -71,7 +72,7 @@ async function getPhotoData(shopId: string): Promise<any> {
     }
 }
 
-function getRequestData (): RequestInit {
+function getRequestData(): RequestInit {
     return {
         method: 'GET',
         headers: {
