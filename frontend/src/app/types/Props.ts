@@ -1,9 +1,9 @@
 export type ChildProps = {
-    children: any
+    children: React.ReactNode
 }
 
 export type OptionalChildProps = {
-    children?: any
+    children?: React.ReactNode
 }
 
 export type IdProps = {
