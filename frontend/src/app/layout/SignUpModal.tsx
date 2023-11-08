@@ -1,13 +1,14 @@
 'use client'
 import {Modal, ModalActions} from '@/app/components/Modal'
 import {Form, FormInput} from '@/app/components/Form'
+import {SignInForm} from "@/app/layout/SignInForm";
 
 export function SignUpModalButton() {
     return (
         <button
             onClick={() => (document.getElementById('sign-up-modal') as HTMLDialogElement).showModal()}
             className={'btn btn-primary btn-xs rounded-full'}>
-            Sign up
+            Sign In
         </button>
     )
 }
@@ -15,8 +16,9 @@ export function SignUpModalButton() {
 export function SignUpModal () {
     return (
         <Modal id={'sign-up-modal'}>
-            <h1 className={'font-bold text-lg'}>Sign Up</h1>
-            <SignUpForm/>
+            <h1 className={'font-bold text-lg'}>Sign In</h1>
+            {<SignUpForm/>}
+            <SignInForm/>
             <ModalActions>
                 <button className={'btn'}>Close</button>
             </ModalActions>

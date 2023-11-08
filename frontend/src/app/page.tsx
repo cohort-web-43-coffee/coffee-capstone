@@ -6,6 +6,7 @@ import {busyTags, customTags, drinkTags} from '@/app/mocks/tags'
 import React from 'react'
 import {Carousel, CarouselSlide} from '@/app/components/Carousel'
 import {ImageProps} from '@/app/types/Props'
+import {SignInForm} from "@/app/layout/SignInForm";
 
 type ShopCardProps = ImageProps & {
     shopName: string
@@ -23,6 +24,7 @@ export default function HomePage () {
         </>
     )
 }
+
 
 function ShopList () {
     return (

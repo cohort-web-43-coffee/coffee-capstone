@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import {SignUpModalButton, SignUpModal} from '@/app/layout/SignUpModal'
+import {SignInForm} from "@/app/layout/SignInForm";
 
 
 export function NavBar () {
