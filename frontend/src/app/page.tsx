@@ -32,9 +32,11 @@ async function ShopList() {
     return (
         <div className="flex-row justify-center">
             <Carousel>
-                {shopSplits.map((split: any) => {
-                    return <CarouselSlide slideId={'Slide0'} shopArray={split} previousSlideId={'Slide81'}
-                                          nextSlideId={'Slide1'}/>
+                {shopSplits.map((split: any, slideIndex: number) => {
+                    const previousSlideIndex = slideIndex === 0 ? shopSplits.length - 1 : slideIndex - 1
+                    const nextSlideIndex = slideIndex === shopSplits.length - 1 ? 0: slideIndex + 1
+                    return <CarouselSlide slideId={`slide${slideIndex}`} shopArray={split} previousSlideId={`slide${previousSlideIndex}`}
+                                          nextSlideId={`slide${nextSlideIndex}`}/>
                 })}
 
             </Carousel>
