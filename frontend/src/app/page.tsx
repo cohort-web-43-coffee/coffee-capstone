@@ -29,27 +29,12 @@ export default function HomePage () {
 async function ShopList () {
     const allShopData = (await getShopData()).data
     const firstShopData = allShopData.splice(0,3)
+    const shopSplits = sliceSplit(allShopData, 3)
     return (
         <div className="flex-row justify-center">
             <Carousel>
-                <CarouselSlide slideId={'Weee1'} previousSlideId={'Weee3'} nextSlideId={'Weee2'}>
-                    {firstShopData.map(async (shop: any) => {
-                        const photoData = await getPhotoData(shop.shopId)
-                        return <ShopCard key={shop.shopId} imageUrl={photoData.data[1].photoUrl} imageAlt={shop.shopName}
-                                  shopName={shop.shopName}/>
-                    })}
+                {shopSplits.map((split: any) => <CarouselSlide slideId={'Weee1'} shopArray={split} previousSlideId={'Weee3'} nextSlideId={'Weee2'}/>)}
 
-                </CarouselSlide>
-                <CarouselSlide slideId={'Weee2'} previousSlideId={'Weee1'} nextSlideId={'Weee3'}>
-                    <ShopCard shopName={'Bear Cafe 5'} imageUrl={'https://placebear.com/800/800'} imageAlt={'yeet'}/>
-                    <ShopCard shopName={'Bear Cafe 7'} imageUrl={'https://placebear.com/800/800'} imageAlt={'yeet'}/>
-                    <ShopCard shopName={'Bear Cafe 3'} imageUrl={'https://placebear.com/800/800'} imageAlt={'yeet'}/>
-                </CarouselSlide>
-                <CarouselSlide slideId={'Weee3'} previousSlideId={'Weee2'} nextSlideId={'Weee1'}>
-                    <ShopCard shopName={'Bear Cafe 2'} imageUrl={'https://placebear.com/700/700'} imageAlt={'yeet'}/>
-                    <ShopCard shopName={'Bear Cafe 1'} imageUrl={'https://placebear.com/700/700'} imageAlt={'yeet'}/>
-                    <ShopCard shopName={'Bear Cafe 9'} imageUrl={'https://placebear.com/700/700'} imageAlt={'yeet'}/>
-                </CarouselSlide>
             </Carousel>
         </div>
     )
@@ -84,18 +69,6 @@ async function getShopData(): Promise<any> {
     return await response.json()
 }
 
-async function getPhotoData(shopId: string): Promise<any> {
-    try {
-        const requestData = getRequestData()
-        const url = `${process.env.REST_API_URL}/photo/photoByShopId/${shopId}`
-        const response = await fetch(url, requestData)
-        const data = await response.json()
-        return data
-    } catch (error) {
-
-    }
-}
-
 function getRequestData (): RequestInit {
     return {
         method: 'GET',
@@ -105,4 +78,12 @@ function getRequestData (): RequestInit {
                 'application/json'
         }
     }
+}
+
+function sliceSplit(array: Array<any>, sliceSize: number) {
+    return array.reduce((all,one,i) => {
+        const ch = Math.floor(i/sliceSize)
+        all[ch] = [].concat((all[ch]||[]),one)
+        return all
+    }, [])
 }
