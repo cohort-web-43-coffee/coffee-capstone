@@ -28,26 +28,16 @@ export default function HomePage () {
 
 async function ShopList () {
     const allShopData = (await getShopData()).data
-    const shopData = allShopData[0]
-    const photoData = await getPhotoData(shopData.shopId)
-    console.log('photo data should be:', photoData.data[0].photoUrl)
+    const firstShopData = allShopData.splice(0,3)
     return (
         <div className="flex-row justify-center">
             <Carousel>
                 <CarouselSlide slideId={'Weee1'} previousSlideId={'Weee3'} nextSlideId={'Weee2'}>
-                    {/*{allShopData.map(async (shopDetails: any) => {*/}
-                    {/*    const photoData = (await getPhotoData(shopDetails.shopId))*/}
-                    {/*    console.log(photoData)*/}
-                    {/*    if (photoData) {*/}
-                    {/*        return (<ShopCard key={shopDetails} imageUrl={photoData.data.photoUrl} imageAlt={shopDetails.shopName}*/}
-                    {/*                          shopName={shopDetails.shopName}/>)*/}
-                    {/*    } else {*/}
-                    {/*     return <p>There is no photo</p>*/}
-                    {/*    }*/}
-                    {/*})*/}
-                    {/*}*/}
-
-                    <ShopCard shopName={shopData.shopName} imageUrl={photoData.data[0].photoUrl} imageAlt={'yeet'}/>
+                    {firstShopData.map(async (shop: any) => {
+                        const photoData = await getPhotoData(shop.shopId)
+                        return <ShopCard key={shop.shopId} imageUrl={photoData.data[1].photoUrl} imageAlt={shop.shopName}
+                                  shopName={shop.shopName}/>
+                    })}
 
                 </CarouselSlide>
                 <CarouselSlide slideId={'Weee2'} previousSlideId={'Weee1'} nextSlideId={'Weee3'}>
