@@ -8,6 +8,7 @@ import {TagList} from '@/app/components/Tag'
 import {NewTagButton} from '@/app/components/NewTagModal'
 import {useParams} from 'next/navigation'
 import {ImageProps} from '@/app/types/Props'
+import {ShopDetails} from "@/app/shop/[shopId]/page.components";
 
 const mockShopDetails = {
     "status": 200,
@@ -54,24 +55,16 @@ const mockPhotoDetails = {
 
 
 
+export default async function ShopPage() {
 
-
-export default function ShopPage () {
-    const params = useParams()
-    console.log(params)
     return <>
         <PrimarySection>
             <Container autoMargins>
                 <div
                     className="mx-full p-5 bg-primary-container-variant flex-row justify-center grid grid-cols-[1fr_2fr] gap-3">
-                    <div className={'flex flex-col gap-2'}>
-                        { mockPhotoDetails.data.map((photoDetails) => {
-                            return <ShopDetailImage imageUrl={photoDetails.photoUrl} imageAlt={`Photograph of ${mockShopDetails.data.shopName}`}/>
-                        })}
-                    </div>
+                    <ShopDetails/>
                     <div className={'flex flex-col items-center justify-center'}>
                         <div className={'prose'}><h1>{mockShopDetails.data.shopName}</h1></div>
-
                         <TagSection/>
                     </div>
                 </div>
@@ -81,12 +74,9 @@ export default function ShopPage () {
 }
 
 
-function ShopDetailImage ({imageUrl, imageAlt}: ImageProps) {
-    return (
-        <img src={imageUrl} alt={imageAlt}/>
-    )
-}
-function TagSection () {
+
+
+function TagSection() {
     return (<>
             <TagList group={customTags} showCounts>
                 <NewTagButton/>
