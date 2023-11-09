@@ -58,9 +58,9 @@ async function getShopData(): Promise<any> {
 
 
 function sliceSplit(array: Array<any>, sliceSize: number) {
-    return array.reduce((all, one, i) => {
-        const ch = Math.floor(i / sliceSize)
-        all[ch] = [].concat((all[ch] || []), one)
-        return all
+    return array.reduce((accumulator, element, index) => {
+        const sliceIndex = Math.floor(index / sliceSize)
+        accumulator[sliceIndex] = [].concat((accumulator[sliceIndex] || []), element)
+        return accumulator
     }, [])
 }
