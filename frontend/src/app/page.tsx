@@ -1,4 +1,3 @@
-
 'use client'
 
 import {PrimarySection} from '@/app/components/Section'
@@ -24,6 +23,7 @@ export default function HomePage() {
     )
 }
 
+
 async function ShopList() {
     const allShopData = await getShopData()
     const shopSplits = sliceSplit(allShopData, 3)
@@ -31,12 +31,12 @@ async function ShopList() {
         <div className="flex-row justify-center">
             <Carousel>
                 {shopSplits.map((split: any, slideIndex: number) => {
-                    const previousSlideIndex = slideIndex === 0 ? shopSplits.length - 1 : slideIndex - 1
-                    const nextSlideIndex = slideIndex === shopSplits.length - 1 ? 0: slideIndex + 1
-                    return <CarouselSlide slideId={`slide${slideIndex}`} shopArray={split} previousSlideId={`slide${previousSlideIndex}`}
+                    const previousSlideIndex = getPreviousSlideIndex(slideIndex, shopSplits)
+                    const nextSlideIndex = getNextSlideIndex(slideIndex, shopSplits)
+                    return <CarouselSlide slideId={`slide${slideIndex}`} shopArray={split}
+                                          previousSlideId={`slide${previousSlideIndex}`}
                                           nextSlideId={`slide${nextSlideIndex}`}/>
                 })}
-
             </Carousel>
         </div>
     )
@@ -56,6 +56,13 @@ async function getShopData(): Promise<any> {
     return await getRestData(endpoint)
 }
 
+function getPreviousSlideIndex(slideIndex: number, shopSplits: any) {
+    return slideIndex === 0 ? shopSplits.length - 1 : slideIndex - 1;
+}
+
+function getNextSlideIndex(slideIndex: number, shopSplits: any) {
+    return slideIndex === shopSplits.length - 1 ? 0 : slideIndex + 1;
+}
 
 function sliceSplit(array: Array<any>, sliceSize: number) {
     return array.reduce((accumulator, element, index) => {
