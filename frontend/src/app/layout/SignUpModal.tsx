@@ -16,12 +16,13 @@ export function SignUpModalButton() {
 export function SignUpModal () {
     return (
         <Modal id={'sign-up-modal'}>
-            <h1 className={'font-bold text-lg'}>Sign In</h1>
+            <h1 className={'font-bold text-lg'}>Sign Up</h1>
             {<SignUpForm/>}
-            <SignInForm/>
+
             <ModalActions>
                 <button className={'btn'}>Close</button>
             </ModalActions>
+
         </Modal>
     )
 }
