@@ -1,4 +1,3 @@
-'use client'
 
 import {PrimarySection} from '@/app/components/Section'
 import {PrimaryContainer} from '@/app/components/Container'
@@ -10,7 +9,8 @@ import {ImageProps} from '@/app/types/Props'
 import {getRestData} from "@/app/utils/fetch";
 
 
-export default function HomePage() {
+export default function HomePage({searchParams}: { searchParams: { search: string } }) {
+    console.log(searchParams.search)
     return (
         <>
             <PrimarySection>

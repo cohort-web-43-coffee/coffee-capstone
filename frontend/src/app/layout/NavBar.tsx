@@ -1,8 +1,8 @@
+'use client'
+
 import Link from 'next/link';
 import {SignUpModalButton, SignUpModal} from '@/app/layout/SignUpModal'
-import {getRestData} from "@/app/utils/fetch";
-import {useState} from "react";
-
+import {useRouter} from "next/navigation";
 
 export function NavBar () {
     return (
@@ -35,15 +35,20 @@ function SiteTitle () {
 }
 
 async function SearchField () {
-    const searchResults = await getRestData(`/shop/search?name=cafe coffee`)
-    const [searchQuery, setSearchQuery] = useState('')
-    console.log('testing search', searchQuery)
+    const router = useRouter()
+    const handleSearchTextChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        router.push(`/?search=${event.target.value}`)
+    }
     return (
         <div className={'form-control'}>
-            <input type={'text'} placeholder={'Coffee shop name'} className={'input input-bordered w-40 md:w-auto'} onChange={event => setSearchQuery(event.currentTarget.value)}/>
+            <input type={'text'} placeholder={'Coffee shop name'} className={'input input-bordered w-40 md:w-auto'} onChange={
+                handleSearchTextChange
+            }/>
         </div>
     )
 }
+
+
 
 function MenuButton () {
     return (
