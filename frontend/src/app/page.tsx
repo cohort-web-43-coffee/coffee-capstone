@@ -9,9 +9,6 @@ import React from 'react'
 import {Carousel, CarouselSlide} from '@/app/components/Carousel'
 import {ImageProps} from '@/app/types/Props'
 
-type ShopCardProps = ImageProps & {
-    shopName: string
-}
 
 export default function HomePage() {
     return (
@@ -28,7 +25,6 @@ export default function HomePage() {
 
 async function ShopList() {
     const allShopData = (await getShopData()).data
-    // const firstShopData = allShopData.splice(0, 3)
     const shopSplits = sliceSplit(allShopData, 3)
     return (
         <div className="flex-row justify-center">
