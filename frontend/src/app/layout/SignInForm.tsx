@@ -89,7 +89,7 @@ function SignInFormContent(props: FormikProps<SignIn>) {
                     <button className='btn btn-success' type="submit">Log In</button>
                     <button className='btn btn-danger' onClick={handleReset} type="reset">reset</button>
                 </div>
-                <DisplayStatus status={status} />
+                <DisplayStatus status={status}/>
             </form>
         </>
     )

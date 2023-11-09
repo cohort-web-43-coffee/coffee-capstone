@@ -8,7 +8,7 @@ export function SignUpModalButton() {
         <button
             onClick={() => (document.getElementById('sign-up-modal') as HTMLDialogElement).showModal()}
             className={'btn btn-primary btn-xs rounded-full'}>
-            Sign In
+            Sign up/Sign In
         </button>
     )
 }
@@ -19,7 +19,6 @@ export function SignUpModal () {
             <h1 className={'font-bold text-lg'}>Sign Up</h1>
             {<SignUpForm/>}
             {<SignInForm/>}
-
             <ModalActions>
                 <button className={'btn'}>Close</button>
             </ModalActions>
