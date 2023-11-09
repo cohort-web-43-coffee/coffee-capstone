@@ -16,6 +16,7 @@ type CarouselNavProps = {
 
 type ShopCardProps = ImageProps & {
     shopName: string
+    shopAddress: string
 }
 
 export function Carousel(props: ChildProps) {
@@ -30,7 +31,7 @@ export function CarouselSlide({slideId, nextSlideId, previousSlideId, shopArray}
             {shopArray.map(async (shop: any) => {
                 const photoData = await getPhotoData(shop.shopId)
                 return <ShopCard key={shop.shopId} imageUrl={photoData.data[0]?.photoUrl} imageAlt={shop.shopName}
-                                 shopName={shop.shopName}/>
+                                 shopName={shop.shopName} shopAddress={shop.shopAddress}/>
             })}
             <CarouselNav previousSlideId={previousSlideId} nextSlideId={nextSlideId}/>
         </div>
@@ -46,14 +47,15 @@ function CarouselNav({previousSlideId, nextSlideId}: CarouselNavProps) {
     )
 }
 
-function ShopCard({imageUrl, imageAlt, shopName}: ShopCardProps) {
+function ShopCard({imageUrl, imageAlt, shopName, shopAddress}: ShopCardProps) {
 
     return (
         <Card>
             <a href={''}>
                 <CardImage imageUrl={imageUrl} imageAlt={imageAlt}/>
                 <CardBody>
-                    <div className={'prose'}><h1>{shopName}</h1></div>
+                    <div className={'prose'}><h1>{shopName}</h1>
+                    <p>{shopAddress}</p></div>
                 </CardBody>
             </a>
         </Card>
