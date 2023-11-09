@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import {SignUpModalButton, SignUpModal} from '@/app/layout/SignUpModal'
+import {getRestData} from "@/app/utils/fetch";
 
 
 export function NavBar () {
@@ -33,6 +34,7 @@ function SiteTitle () {
 }
 
 function SearchField () {
+    const searchResults = getRestData(`/shop/search`)
     return (
         <div className={'form-control'}>
             <input type={'text'} placeholder={'Coffee shop name'} className={'input input-bordered w-40 md:w-auto'}/>
