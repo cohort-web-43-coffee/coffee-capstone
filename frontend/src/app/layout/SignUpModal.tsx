@@ -18,6 +18,7 @@ export function SignUpModal () {
         <Modal id={'sign-up-modal'}>
             <h1 className={'font-bold text-lg'}>Sign Up</h1>
             {<SignUpForm/>}
+            {<SignInForm/>}
 
             <ModalActions>
                 <button className={'btn'}>Close</button>

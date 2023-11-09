@@ -1,9 +1,8 @@
 
-import Cookies from "js-cookie";
 import {NextResponse, } from "next/server";
-import {unstable_cache} from "next/cache";
 
 export async function POST(request: Request) {
+
     const data = await request.json()
 
     const responseFromServer =  await fetch(`${process.env.REST_API_URL}/apis/sign-in`,
@@ -21,7 +20,7 @@ export async function POST(request: Request) {
 
     result.status === 200 ? result.type = "alert alert-success" : result.type = "alert alert-danger"
 
-    const clientResponse = NextResponse.json({work: "god dammit"})
+    const clientResponse = NextResponse.json({work: "result"})
 
 
     const serverCookies = responseFromServer.headers.get("Set-Cookie")
