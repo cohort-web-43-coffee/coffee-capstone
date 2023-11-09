@@ -1,6 +1,5 @@
 import Link from 'next/link';
-import {SignUpModalButton, SignUpModal} from '@/app/layout/SignUpModal'
-import {SignInForm} from "@/app/layout/SignInForm";
+import {SignUpModalButton, SignUpModal, SignInModalButton, SignInModal} from '@/app/layout/SignUpModal'
 
 
 export function NavBar () {
@@ -25,6 +24,7 @@ export function NavBar () {
                 </div>
             </div>
             <SignUpModal/>
+            <SignInModal/>
         </nav>
     )
 }
@@ -62,6 +62,9 @@ function MenuContent () {
             <li><Link href={'/about'}>About Us</Link></li>
             <li>
                 <SignUpModalButton/>
+            </li>
+            <li>
+                <SignInModalButton/>
             </li>
         </>
     )
