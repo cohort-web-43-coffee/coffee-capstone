@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import {SignUpModalButton, SignUpModal} from '@/app/layout/SignUpModal'
 import {getRestData} from "@/app/utils/fetch";
+import {useState} from "react";
 
 
 export function NavBar () {
@@ -33,11 +34,13 @@ function SiteTitle () {
     return <header className={'text-2xl'}>Valid Coffee</header>
 }
 
-function SearchField () {
-    const searchResults = getRestData(`/shop/search`)
+async function SearchField () {
+    const searchResults = await getRestData(`/shop/search?name=cafe coffee`)
+    const [searchQuery, setSearchQuery] = useState('')
+    console.log('testing search', searchQuery)
     return (
         <div className={'form-control'}>
-            <input type={'text'} placeholder={'Coffee shop name'} className={'input input-bordered w-40 md:w-auto'}/>
+            <input type={'text'} placeholder={'Coffee shop name'} className={'input input-bordered w-40 md:w-auto'} onChange={event => setSearchQuery(event.currentTarget.value)}/>
         </div>
     )
 }
