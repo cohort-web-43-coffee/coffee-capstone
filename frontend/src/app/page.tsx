@@ -1,4 +1,6 @@
-import {CardBody, CardImage, Card} from "@/app/components/Card";
+
+'use client'
+
 import {PrimarySection} from '@/app/components/Section'
 import {PrimaryContainer} from '@/app/components/Container'
 import {TagList} from '@/app/components/Tag'
@@ -11,7 +13,7 @@ type ShopCardProps = ImageProps & {
     shopName: string
 }
 
-export default function HomePage () {
+export default function HomePage() {
     return (
         <>
             <PrimarySection>
@@ -24,47 +26,56 @@ export default function HomePage () {
     )
 }
 
-function ShopList () {
+async function ShopList() {
+    const allShopData = (await getShopData()).data
+    // const firstShopData = allShopData.splice(0, 3)
+    const shopSplits = sliceSplit(allShopData, 3)
     return (
         <div className="flex-row justify-center">
             <Carousel>
-                <CarouselSlide slideId={'Weee1'} previousSlideId={'Weee3'} nextSlideId={'Weee2'}>
-                    <ShopCard shopName={'Bear Cafe 1'} imageUrl={'https://placebear.com/900/900'} imageAlt={'yeet'}/>
-                    <ShopCard shopName={'Bear Cafe 2'} imageUrl={'https://placebear.com/900/900'} imageAlt={'yeet'}/>
-                    <ShopCard shopName={'Bear Cafe 3'} imageUrl={'https://placebear.com/900/900'} imageAlt={'yeet'}/>
-                </CarouselSlide>
-                <CarouselSlide slideId={'Weee2'} previousSlideId={'Weee1'} nextSlideId={'Weee3'}>
-                    <ShopCard shopName={'Bear Cafe 5'} imageUrl={'https://placebear.com/800/800'} imageAlt={'yeet'}/>
-                    <ShopCard shopName={'Bear Cafe 7'} imageUrl={'https://placebear.com/800/800'} imageAlt={'yeet'}/>
-                    <ShopCard shopName={'Bear Cafe 3'} imageUrl={'https://placebear.com/800/800'} imageAlt={'yeet'}/>
-                </CarouselSlide>
-                <CarouselSlide slideId={'Weee3'} previousSlideId={'Weee2'} nextSlideId={'Weee1'}>
-                    <ShopCard shopName={'Bear Cafe 2'} imageUrl={'https://placebear.com/700/700'} imageAlt={'yeet'}/>
-                    <ShopCard shopName={'Bear Cafe 1'} imageUrl={'https://placebear.com/700/700'} imageAlt={'yeet'}/>
-                    <ShopCard shopName={'Bear Cafe 9'} imageUrl={'https://placebear.com/700/700'} imageAlt={'yeet'}/>
-                </CarouselSlide>
+                {shopSplits.map((split: any, slideIndex: number) => {
+                    const previousSlideIndex = slideIndex === 0 ? shopSplits.length - 1 : slideIndex - 1
+                    const nextSlideIndex = slideIndex === shopSplits.length - 1 ? 0: slideIndex + 1
+                    return <CarouselSlide slideId={`slide${slideIndex}`} shopArray={split} previousSlideId={`slide${previousSlideIndex}`}
+                                          nextSlideId={`slide${nextSlideIndex}`}/>
+                })}
+
             </Carousel>
         </div>
     )
 }
 
- function ShopCard ({imageUrl, imageAlt, shopName}: ShopCardProps) {
-    return (
-        <Card>
-            <a href={''}>
-                <CardImage imageUrl={imageUrl} imageAlt={imageAlt}/>
-                <CardBody>
-                    <div className={'prose'}><h1>{shopName}</h1></div>
-                </CardBody>
-            </a>
-        </Card>
-    )
-}
 
-function TagSection () {
+function TagSection() {
     return <>
         <TagList group={busyTags}/>
         <TagList group={drinkTags}/>
         <TagList group={customTags}/>
     </>
+}
+
+async function getShopData(): Promise<any> {
+    const requestData = getRequestData()
+    const url = `${process.env.REST_API_URL}/shop/`
+    const response = await fetch(url, requestData)
+    return await response.json()
+}
+
+function getRequestData(): RequestInit {
+    return {
+        method: 'GET',
+        headers: {
+            Accept: 'application/json',
+            "Content-Type":
+                'application/json'
+        }
+    }
+}
+
+function sliceSplit(array: Array<any>, sliceSize: number) {
+    return array.reduce((all, one, i) => {
+        const ch = Math.floor(i / sliceSize)
+        all[ch] = [].concat((all[ch] || []), one)
+        return all
+    }, [])
 }
