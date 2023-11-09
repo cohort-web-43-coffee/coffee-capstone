@@ -8,6 +8,7 @@ import {busyTags, customTags, drinkTags} from '@/app/mocks/tags'
 import React from 'react'
 import {Carousel, CarouselSlide} from '@/app/components/Carousel'
 import {ImageProps} from '@/app/types/Props'
+import {getRestData} from "@/app/utils/fetch";
 
 
 export default function HomePage() {
@@ -24,7 +25,7 @@ export default function HomePage() {
 }
 
 async function ShopList() {
-    const allShopData = (await getShopData()).data
+    const allShopData = await getShopData()
     const shopSplits = sliceSplit(allShopData, 3)
     return (
         <div className="flex-row justify-center">
@@ -51,22 +52,10 @@ function TagSection() {
 }
 
 async function getShopData(): Promise<any> {
-    const requestData = getRequestData()
-    const url = `${process.env.REST_API_URL}/shop/`
-    const response = await fetch(url, requestData)
-    return await response.json()
+    const endpoint = `/shop`
+    return await getRestData(endpoint)
 }
 
-function getRequestData(): RequestInit {
-    return {
-        method: 'GET',
-        headers: {
-            Accept: 'application/json',
-            "Content-Type":
-                'application/json'
-        }
-    }
-}
 
 function sliceSplit(array: Array<any>, sliceSize: number) {
     return array.reduce((all, one, i) => {
