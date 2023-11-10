@@ -9,8 +9,9 @@ import {ImageProps} from '@/app/types/Props'
 import {getRestData} from "@/app/utils/fetch";
 
 
-export default function HomePage({searchParams}: { searchParams: { q: string } }) {
-    console.log(searchParams.q)
+export default async function HomePage({searchParams}: { searchParams: { q: string } }) {
+    const searchResult =  await getSearchData(searchParams.q)
+    console.log('testing the search data', searchResult)
     return (
         <>
             <PrimarySection>
@@ -70,4 +71,9 @@ function sliceSplit(array: Array<any>, sliceSize: number) {
         accumulator[sliceIndex] = [].concat((accumulator[sliceIndex] || []), element)
         return accumulator
     }, [])
+}
+
+async function getSearchData(query: string): Promise<any> {
+    const endpoint = `/shop/search?name=${query}`
+    return await getRestData(endpoint)
 }

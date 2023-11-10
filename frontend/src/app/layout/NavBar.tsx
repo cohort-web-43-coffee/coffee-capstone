@@ -1,11 +1,9 @@
 'use client'
 
-import Link from 'next/link';
+import Link from 'next/link'
 import {SignUpModalButton, SignUpModal} from '@/app/layout/SignUpModal'
-import {useRouter} from "next/navigation";
-import {useState} from "react";
-import {Simulate} from "react-dom/test-utils";
-import {ChildProps} from "@/app/types/Props";
+import {useRouter} from "next/navigation"
+import {ChildProps} from "@/app/types/Props"
 
 
 export function NavBar() {
@@ -68,7 +66,7 @@ async function SearchBarDropdownContent() {
     // setSearchResults(results.json())
     return (
         <ul tabIndex={0} className={'dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52'}>
-            {/*{searchResults.map((result) => (*/}
+            {/*{searchResults.map((result: any) => (*/}
             {/*    <li key={result.id}>{result.name}</li>*/}
             {/*))}*/}
             <li>zendo</li>
