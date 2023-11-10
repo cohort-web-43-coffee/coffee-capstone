@@ -7,6 +7,7 @@ import React from 'react'
 import {Carousel, CarouselSlide} from '@/app/components/Carousel'
 import {ImageProps} from '@/app/types/Props'
 import {getRestData} from "@/app/utils/fetch";
+import {NavBar} from "@/app/layout/NavBar";
 
 
 export default async function HomePage({searchParams}: { searchParams: { q: string } }) {
@@ -14,6 +15,7 @@ export default async function HomePage({searchParams}: { searchParams: { q: stri
     console.log('testing the search data', searchResult)
     return (
         <>
+            <NavBar/>
             <PrimarySection>
                 <PrimaryContainer autoMargins>
                     <ShopList/>

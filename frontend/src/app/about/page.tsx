@@ -1,6 +1,7 @@
 import {PrimarySection, SecondarySection} from '@/app/components/Section'
 import {Container} from '@/app/components/Container'
 import {Form, FormButton, FormInput, FormTextArea} from '@/app/components/Form'
+import {NavBar} from "@/app/layout/NavBar";
 
 
 type AboutUsCardProps = {
@@ -10,6 +11,7 @@ type AboutUsCardProps = {
 export default function AboutPage() {
     return (
         <>
+            <NavBar/>
             <PrimarySection>
                 <Container autoMargins>
                     <AboutUsHeader/>

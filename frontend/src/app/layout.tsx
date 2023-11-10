@@ -1,6 +1,5 @@
 import type { Metadata } from 'next'
 import './globals.css'
-import {NavBar} from '@/app/layout/NavBar'
 import {Footer} from '@/app/layout/Footer'
 
 
@@ -18,7 +17,6 @@ export default function RootLayout(props : RootLayoutProps) {
     return (
         <html data-theme={'valid'} lang={'en'}>
         <body>
-        <NavBar/>
         {children}
         <Footer/>
         </body>

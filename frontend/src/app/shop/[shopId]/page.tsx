@@ -6,6 +6,7 @@ import {TagList} from '@/app/components/Tag'
 import {NewTagButton} from '@/app/components/NewTagModal'
 import {ImageProps} from '@/app/types/Props'
 import {getRestData} from "@/app/utils/fetch";
+import {NavBar} from "@/app/layout/NavBar";
 
 
 export default async function ShopPage({params}: { params: { shopId: string } }) {
@@ -13,6 +14,7 @@ export default async function ShopPage({params}: { params: { shopId: string } })
     const photoData = await getPhotoData(params.shopId)
 
     return <>
+        <NavBar/>
         <PrimarySection>
             <Container autoMargins>
                 <div
