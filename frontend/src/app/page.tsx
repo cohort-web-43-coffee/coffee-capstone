@@ -7,6 +7,7 @@ import {Carousel, CarouselSlide} from '@/app/components/Carousel'
 import {getRestData} from "@/app/utils/fetch"
 import {MenuButton, MenuContent, SearchField, SiteTitle} from "@/app/layout/NavBar";
 import {SignUpModal} from "@/app/layout/SignUpModal"
+import Link from "next/link";
 
 
 export default async function HomePage({searchParams}: { searchParams: { q: string } }) {
@@ -31,8 +32,9 @@ export default async function HomePage({searchParams}: { searchParams: { q: stri
                             <div tabIndex={0}>
 
                                 <ul tabIndex={0}
-                                    className={'dropdown-content z-10 menu p-2 shadow bg-base-100 rounded-box w-52'}>
-                                    {searchResult.map((shop: any) => <li>{shop.shopName}</li>)}
+                                    className={'dropdown-content z-10 menu grid p-2 shadow bg-base-100 rounded-box sm:w-20 md:w-52 max-h-52 overflow-y-auto gap-4'}>
+                                    {searchResult.map((shop: any) => <Link href={`/shop/${shop.shopId}`}><li key={shop.shopId}>{shop.shopName}</li></Link>)}
+
                                 </ul>
 
                             </div>

@@ -6,37 +6,6 @@ import {useRouter} from "next/navigation"
 import {ChildProps} from "@/app/types/Props"
 
 
-export function NavBar() {
-    return (
-        <nav className={'navbar'}>
-            <div className={'dropdown'}>
-                <MenuButton/>
-                <ul className={'menu menu-sm dropdown-content mt-3 z-50 p-2 shadow bg-base-100 rounded-box w-32'}>
-                    <MenuContent/>
-                </ul>
-            </div>
-            <div className={'flex-1'}>
-                <SiteTitle/>
-            </div>
-            <div className={'flex-none'}>
-                Search:&nbsp;
-                <div className={'dropdown'}>
-                    <SearchField>
-                        <div tabIndex={0}>
-                        <SearchBarDropdownContent/>
-                        </div>
-                    </SearchField>
-                </div>
-                <div className={'navbar-center hidden md:flex'}>
-                    <ul className={'menu menu-horizontal px-1'}>
-                        <MenuContent/>
-                    </ul>
-                </div>
-            </div>
-            <SignUpModal/>
-        </nav>
-    )
-}
 
 export function SiteTitle() {
     return <header className={'text-2xl'}>Valid Coffee</header>
@@ -58,27 +27,6 @@ export async function SearchField({children}: ChildProps) {
 
     )
 }
-
-async function SearchBarDropdownContent() {
-    // const [searchResults, setSearchResults] = useState([])
-    // const handleSearch = async (event: any) => {
-    //     const searchTerm = event.target.value
-    // setSearchResults(results.json())
-    return (
-        <ul tabIndex={0} className={'dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52'}>
-            {/*{searchResults.map((result: any) => (*/}
-            {/*    <li key={result.id}>{result.name}</li>*/}
-            {/*))}*/}
-            <li>zendo</li>
-            <li>the last drop espresso</li>
-            <li>mcdonalds</li>
-            <li>starbucks</li>
-            <li>rise and roast</li>
-            <li>little bear</li>
-        </ul>
-    )
-}
-
 
 export function MenuButton() {
     return (

@@ -1,7 +1,7 @@
 import {PrimarySection, SecondarySection} from '@/app/components/Section'
 import {Container} from '@/app/components/Container'
 import {Card, CardBody, CardImage, CardTitle} from '@/app/components/Card'
-import {NavBar} from "@/app/layout/NavBar";
+
 
 type BookmarkCardProps = {
     name: string
@@ -13,7 +13,6 @@ type BookmarkCardProps = {
 export default function AccountPage () {
     return (
         <>
-            <NavBar/>
             <PrimarySection>
                 <Container autoMargins>
                     <div className={'flex justify-center'}>
