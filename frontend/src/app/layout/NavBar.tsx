@@ -38,11 +38,11 @@ export function NavBar() {
     )
 }
 
-function SiteTitle() {
+export function SiteTitle() {
     return <header className={'text-2xl'}>Valid Coffee</header>
 }
 
-async function SearchField({children}: ChildProps) {
+export async function SearchField({children}: ChildProps) {
     const router = useRouter()
     const handleSearchTextChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         router.push(`/?q=${event.target.value}`)
@@ -80,7 +80,7 @@ async function SearchBarDropdownContent() {
 }
 
 
-function MenuButton() {
+export function MenuButton() {
     return (
         <label tabIndex={0} className="btn btn-ghost md:hidden">
             <svg xmlns={'http://www.w3.org/2000/svg'} className={'h-5 w-5'} fill={'none'} viewBox={'0 0 24 24'}
@@ -92,7 +92,7 @@ function MenuButton() {
     )
 }
 
-function MenuContent() {
+export function MenuContent() {
     return (
         <>
             <li><Link href={'/'}>Home</Link></li>

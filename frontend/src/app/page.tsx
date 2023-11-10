@@ -1,21 +1,51 @@
-
 import {PrimarySection} from '@/app/components/Section'
 import {PrimaryContainer} from '@/app/components/Container'
 import {TagList} from '@/app/components/Tag'
 import {busyTags, customTags, drinkTags} from '@/app/mocks/tags'
 import React from 'react'
 import {Carousel, CarouselSlide} from '@/app/components/Carousel'
-import {ImageProps} from '@/app/types/Props'
-import {getRestData} from "@/app/utils/fetch";
-import {NavBar} from "@/app/layout/NavBar";
+import {getRestData} from "@/app/utils/fetch"
+import {MenuButton, MenuContent, SearchField, SiteTitle} from "@/app/layout/NavBar";
+import {SignUpModal} from "@/app/layout/SignUpModal"
 
 
 export default async function HomePage({searchParams}: { searchParams: { q: string } }) {
-    const searchResult =  await getSearchData(searchParams.q)
-    console.log('testing the search data', searchResult)
+    const searchResult = await getSearchData(searchParams.q)
+    console.log('testing the search data',)
     return (
         <>
-            <NavBar/>
+            <nav className={'navbar'}>
+                <div className={'dropdown'}>
+                    <MenuButton/>
+                    <ul className={'menu menu-sm dropdown-content mt-3 z-50 p-2 shadow bg-base-100 rounded-box w-32'}>
+                        <MenuContent/>
+                    </ul>
+                </div>
+                <div className={'flex-1'}>
+                    <SiteTitle/>
+                </div>
+                <div className={'flex-none'}>
+                    Search:&nbsp;
+                    <div className={'dropdown'}>
+                        <SearchField>
+                            <div tabIndex={0}>
+
+                                <ul tabIndex={0}
+                                    className={'dropdown-content z-10 menu p-2 shadow bg-base-100 rounded-box w-52'}>
+                                    {searchResult.map((shop: any) => <li>{shop.shopName}</li>)}
+                                </ul>
+
+                            </div>
+                        </SearchField>
+                    </div>
+                    <div className={'navbar-center hidden md:flex'}>
+                        <ul className={'menu menu-horizontal px-1'}>
+                            <MenuContent/>
+                        </ul>
+                    </div>
+                </div>
+                <SignUpModal/>
+            </nav>
             <PrimarySection>
                 <PrimaryContainer autoMargins>
                     <ShopList/>
