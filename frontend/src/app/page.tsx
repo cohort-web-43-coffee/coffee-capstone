@@ -9,8 +9,8 @@ import {ImageProps} from '@/app/types/Props'
 import {getRestData} from "@/app/utils/fetch";
 
 
-export default function HomePage({searchParams}: { searchParams: { search: string } }) {
-    console.log(searchParams.search)
+export default function HomePage({searchParams}: { searchParams: { q: string } }) {
+    console.log(searchParams.q)
     return (
         <>
             <PrimarySection>

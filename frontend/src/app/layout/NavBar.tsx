@@ -3,8 +3,12 @@
 import Link from 'next/link';
 import {SignUpModalButton, SignUpModal} from '@/app/layout/SignUpModal'
 import {useRouter} from "next/navigation";
+import {useState} from "react";
+import {Simulate} from "react-dom/test-utils";
+import {ChildProps} from "@/app/types/Props";
 
-export function NavBar () {
+
+export function NavBar() {
     return (
         <nav className={'navbar'}>
             <div className={'dropdown'}>
@@ -18,7 +22,13 @@ export function NavBar () {
             </div>
             <div className={'flex-none'}>
                 Search:&nbsp;
-                <SearchField/>
+                <div className={'dropdown'}>
+                    <SearchField>
+                        <div tabIndex={0}>
+                        <SearchBarDropdownContent/>
+                        </div>
+                    </SearchField>
+                </div>
                 <div className={'navbar-center hidden md:flex'}>
                     <ul className={'menu menu-horizontal px-1'}>
                         <MenuContent/>
@@ -30,27 +40,49 @@ export function NavBar () {
     )
 }
 
-function SiteTitle () {
+function SiteTitle() {
     return <header className={'text-2xl'}>Valid Coffee</header>
 }
 
-async function SearchField () {
+async function SearchField({children}: ChildProps) {
     const router = useRouter()
     const handleSearchTextChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        router.push(`/?search=${event.target.value}`)
+        router.push(`/?q=${event.target.value}`)
     }
     return (
         <div className={'form-control'}>
-            <input type={'text'} placeholder={'Coffee shop name'} className={'input input-bordered w-40 md:w-auto'} onChange={
-                handleSearchTextChange
-            }/>
+            <input type={'text'} placeholder={'Coffee shop name'} className={'input input-bordered w-40 md:w-auto'}
+                   onChange={
+                       handleSearchTextChange
+                   }/>
+            {children}
         </div>
+
+    )
+}
+
+async function SearchBarDropdownContent() {
+    // const [searchResults, setSearchResults] = useState([])
+    // const handleSearch = async (event: any) => {
+    //     const searchTerm = event.target.value
+    // setSearchResults(results.json())
+    return (
+        <ul tabIndex={0} className={'dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52'}>
+            {/*{searchResults.map((result) => (*/}
+            {/*    <li key={result.id}>{result.name}</li>*/}
+            {/*))}*/}
+            <li>zendo</li>
+            <li>the last drop espresso</li>
+            <li>mcdonalds</li>
+            <li>starbucks</li>
+            <li>rise and roast</li>
+            <li>little bear</li>
+        </ul>
     )
 }
 
 
-
-function MenuButton () {
+function MenuButton() {
     return (
         <label tabIndex={0} className="btn btn-ghost md:hidden">
             <svg xmlns={'http://www.w3.org/2000/svg'} className={'h-5 w-5'} fill={'none'} viewBox={'0 0 24 24'}
@@ -62,12 +94,11 @@ function MenuButton () {
     )
 }
 
-function MenuContent () {
+function MenuContent() {
     return (
         <>
             <li><Link href={'/'}>Home</Link></li>
             <li><Link href={'/account'}>Account</Link></li>
-            <li><Link href={'/shop'}>Shops</Link></li>
             <li><Link href={'/about'}>About Us</Link></li>
             <li>
                 <SignUpModalButton/>
