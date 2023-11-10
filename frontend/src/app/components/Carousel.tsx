@@ -1,6 +1,8 @@
 import {ChildProps, ImageProps} from '@/app/types/Props'
-import React from "react";
-import {Card, CardBody, CardImage} from "@/app/components/Card";
+import React from "react"
+import {Card, CardBody, CardImage} from "@/app/components/Card"
+import Link from "next/link"
+
 
 type SlideProps = {
     slideId: string,
@@ -27,7 +29,7 @@ export function Carousel(props: ChildProps) {
 
 export function CarouselSlide({slideId, nextSlideId, previousSlideId, shopArray}: SlideProps) {
     return (
-        <div id={slideId} className={'carousel-item relative w-full flex justify-around gap-4'}>
+        <div id={slideId} className={'carousel-item relative w-full md:flex md:justify-around grid grid-cols-1 gap-4'}>
             {shopArray.map(async (shop: any) => {
                 const photoData = await getPhotoData(shop.shopId)
                 return <ShopCard key={shop.shopId} imageUrl={photoData.data[0]?.photoUrl} imageAlt={shop.shopName}
@@ -48,16 +50,15 @@ function CarouselNav({previousSlideId, nextSlideId}: CarouselNavProps) {
 }
 
 function ShopCard({imageUrl, imageAlt, shopName, shopAddress}: ShopCardProps) {
-
     return (
         <Card>
-            <a href={''}>
+            <Link href={''}>
                 <CardImage imageUrl={imageUrl} imageAlt={imageAlt}/>
                 <CardBody>
                     <div className={'prose'}><h1>{shopName}</h1>
                     <p>{shopAddress}</p></div>
                 </CardBody>
-            </a>
+            </Link>
         </Card>
     )
 }
@@ -67,8 +68,7 @@ async function getPhotoData(shopId: string): Promise<any> {
         const requestData = getRequestData()
         const url = `${process.env.REST_API_URL}/photo/photoByShopId/${shopId}`
         const response = await fetch(url, requestData)
-        const data = await response.json()
-        return data
+        return await response.json()
     } catch (error) {
 
     }

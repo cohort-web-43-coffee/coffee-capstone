@@ -10,7 +10,7 @@ export function Card ({children}: ChildProps) {
 
 export function CardImage ({imageUrl, imageAlt}: ImageProps) {
     return (
-        <figure><img src={imageUrl} alt={imageAlt}/></figure>
+        <figure className={'h-96'}><img src={imageUrl} alt={imageAlt}/></figure>
     )
 }
 
