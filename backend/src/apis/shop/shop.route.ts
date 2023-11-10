@@ -1,5 +1,10 @@
 import {Router} from "express"
-import {getAllShopsController, getShopByShopIdController, searchShopByNameController} from "./shop.controller"
+import {
+    getAllShopsController,
+    getShopByShopIdController,
+    getsShopsWithTagsController,
+    searchShopByNameController
+} from "./shop.controller"
 
 
 const basePath = '/apis/shop'
@@ -12,5 +17,8 @@ router.route('/shopId/:shopId')
 
 router.route('/search')
     .get(searchShopByNameController)
+
+router.route('/getShopsWithTags')
+    .post(getsShopsWithTagsController)
 
 export const shopRoute = {basePath, router}

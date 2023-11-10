@@ -1,6 +1,6 @@
 import {Status} from "../../utils/interfaces/Status";
 import {Request, Response} from "express";
-import {getAllShops, getShopByShopId, searchShopName} from "./shop.model";
+import {getAllShops, getShopByShopId, getShopsWithTags, searchShopName} from "./shop.model";
 import {z} from "zod";
 import {zodErrorResponse} from "../../utils/response.utils";
 
@@ -78,6 +78,35 @@ export async function searchShopByNameController (request: Request, response: Re
             message: null,
             data
         })
+    } catch (error: any) {
+        console.error(error)
+        return response.json({
+            status: 500,
+            message: error.message,
+            data: []
+        })
+    }
+}
+
+export async function getsShopsWithTagsController (request: Request, response: Response): Promise<Response> {
+    try {
+        const validator = z.string().array()
+        const validationResult = validator.safeParse(request.body)
+
+        if (!validationResult.success) {
+            return zodErrorResponse(response, validationResult.error)
+        }
+
+        const tagIds = validationResult.data
+        const data = await getShopsWithTags(tagIds)
+
+        console.log(data)
+        return response.json({
+            status: 200,
+            message: null,
+            data
+        })
+
     } catch (error: any) {
         console.error(error)
         return response.json({
