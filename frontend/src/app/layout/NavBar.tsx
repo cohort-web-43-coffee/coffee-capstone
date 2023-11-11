@@ -1,13 +1,12 @@
 'use client'
-
-import Link from 'next/link'
-import {SignUpModalButton} from '@/app/layout/SignUpModal'
+import Link from 'next/link';
+import {SignInModalButton, SignUpModalButton} from '@/app/layout/SignUpModal'
 import {useRouter} from "next/navigation"
 import {ChildProps} from "@/app/types/Props"
 
 type SearchFieldProps = ChildProps & {
     initialText: string
-}
+
 
 
 export function SiteTitle() {
@@ -51,6 +50,9 @@ export function MenuContent() {
             <li><Link href={'/about'}>About Us</Link></li>
             <li>
                 <SignUpModalButton/>
+            </li>
+            <li>
+                <SignInModalButton/>
             </li>
         </>
     )

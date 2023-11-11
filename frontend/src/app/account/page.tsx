@@ -11,6 +11,8 @@ type BookmarkCardProps = {
 }
 
 export default function AccountPage () {
+    // const shopData = await getShopData(params.shopId)
+    // const photoData = await getPhotoData(params.shopId)
     return (
         <>
             <PrimarySection>

@@ -5,9 +5,10 @@ import {busyTags, customTags, drinkTags} from '@/app/mocks/tags'
 import React from 'react'
 import {Carousel, CarouselSlide} from '@/app/components/Carousel'
 import {getRestData} from "@/app/utils/fetch"
-import {MenuButton, MenuContent, SearchField, SiteTitle} from "@/app/layout/NavBar"
+import {MenuButton, MenuContent, SearchField, SiteTitle,} from "@/app/layout/NavBar"
 import {SignUpModal} from "@/app/layout/SignUpModal"
 import Link from "next/link"
+import {SignInForm} from "@/app/layout/SignInForm";
 
 
 export default async function HomePage({searchParams}: { searchParams: { q: string } }) {
