@@ -1,59 +1,40 @@
-'use client'
+'use server'
 
 import {PrimarySection} from '@/app/components/Section'
 import {PrimaryContainer} from '@/app/components/Container'
 import {TagList} from '@/app/components/Tag'
 import {busyTags, customTags, drinkTags} from '@/app/mocks/tags'
-import React from 'react'
 import {Carousel, CarouselSlide} from '@/app/components/Carousel'
-import {ImageProps} from '@/app/types/Props'
-import {getRestData} from "@/app/utils/fetch";
+import {getRestData, postRestData} from '@/app/utils/fetch'
 
+type HomePageProps = {
+    tags: string[] | undefined
+}
+export default async function HomePage ({tags}: HomePageProps) {
+    const shopData = tags ? await postRestData('/shop/getShopsWithTags', JSON.stringify(tags)) : await getRestData('/shop')
 
-export default function HomePage() {
     return (
         <>
             <PrimarySection>
                 <PrimaryContainer autoMargins>
-                    <ShopList/>
-                    <TagSection/>
+                    <div className="flex-row justify-center">
+                        <Carousel>
+                            {sliceSplit(shopData, 3).map((split: any, slideIndex: number) => {
+                                const previousSlideIndex = getPreviousSlideIndex(slideIndex, split)
+                                const nextSlideIndex = getNextSlideIndex(slideIndex, split)
+                                return <CarouselSlide slideId={`slide${slideIndex}`} shopArray={split}
+                                                      previousSlideId={`slide${previousSlideIndex}`}
+                                                      nextSlideId={`slide${nextSlideIndex}`}/>
+                            })}
+                        </Carousel>
+                    </div>
+                    <TagList group={busyTags}/>
+                    <TagList group={drinkTags}/>
+                    <TagList group={customTags}/>
                 </PrimaryContainer>
             </PrimarySection>
         </>
     )
-}
-
-
-async function ShopList() {
-    const allShopData = await getShopData()
-    const shopSplits = sliceSplit(allShopData, 3)
-    return (
-        <div className="flex-row justify-center">
-            <Carousel>
-                {shopSplits.map((split: any, slideIndex: number) => {
-                    const previousSlideIndex = getPreviousSlideIndex(slideIndex, shopSplits)
-                    const nextSlideIndex = getNextSlideIndex(slideIndex, shopSplits)
-                    return <CarouselSlide slideId={`slide${slideIndex}`} shopArray={split}
-                                          previousSlideId={`slide${previousSlideIndex}`}
-                                          nextSlideId={`slide${nextSlideIndex}`}/>
-                })}
-            </Carousel>
-        </div>
-    )
-}
-
-
-function TagSection() {
-    return <>
-        <TagList group={busyTags}/>
-        <TagList group={drinkTags}/>
-        <TagList group={customTags}/>
-    </>
-}
-
-async function getShopData(): Promise<any> {
-    const endpoint = `/shop`
-    return await getRestData(endpoint)
 }
 
 function getPreviousSlideIndex(slideIndex: number, shopSplits: any) {
