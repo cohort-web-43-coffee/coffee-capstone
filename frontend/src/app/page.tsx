@@ -5,14 +5,14 @@ import {busyTags, customTags, drinkTags} from '@/app/mocks/tags'
 import React from 'react'
 import {Carousel, CarouselSlide} from '@/app/components/Carousel'
 import {getRestData} from "@/app/utils/fetch"
-import {MenuButton, MenuContent, SearchField, SiteTitle} from "@/app/layout/NavBar";
+import {MenuButton, MenuContent, SearchField, SiteTitle} from "@/app/layout/NavBar"
 import {SignUpModal} from "@/app/layout/SignUpModal"
-import Link from "next/link";
+import Link from "next/link"
 
 
 export default async function HomePage({searchParams}: { searchParams: { q: string } }) {
-    const searchResult = await getSearchData(searchParams.q)
-    console.log('testing the search data',)
+    const query = searchParams.q
+    const searchResult = await getSearchData(query)
     return (
         <>
             <nav className={'navbar'}>
@@ -28,9 +28,8 @@ export default async function HomePage({searchParams}: { searchParams: { q: stri
                 <div className={'flex-none'}>
                     Search:&nbsp;
                     <div className={'dropdown'}>
-                        <SearchField>
+                        <SearchField initialText={query}>
                             <div tabIndex={0}>
-
                                 <ul tabIndex={0}
                                     className={'dropdown-content z-10 menu grid p-2 shadow bg-base-100 rounded-box sm:w-40 md:w-52 max-h-52 overflow-y-auto gap-4'}>
                                     {searchResult.length > 0 ? searchResult.map((shop: any) => <Link

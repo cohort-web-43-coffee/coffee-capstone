@@ -1,24 +1,27 @@
 'use client'
 
 import Link from 'next/link'
-import {SignUpModalButton, SignUpModal} from '@/app/layout/SignUpModal'
+import {SignUpModalButton} from '@/app/layout/SignUpModal'
 import {useRouter} from "next/navigation"
 import {ChildProps} from "@/app/types/Props"
 
+type SearchFieldProps = ChildProps & {
+    initialText: string
+}
 
 
 export function SiteTitle() {
     return <header className={'text-2xl'}>Valid Coffee</header>
 }
 
-export async function SearchField({children}: ChildProps) {
+export async function SearchField({children, initialText}: SearchFieldProps) {
     const router = useRouter()
     const handleSearchTextChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         router.push(`/?q=${event.target.value}`)
     }
     return (
         <div className={'form-control'}>
-            <input type={'text'} placeholder={'Coffee shop name'} className={'input input-bordered w-40 md:w-auto'}
+            <input type={'text'} placeholder={'Coffee shop name'} className={'placeholder:italic input input-bordered w-40 md:w-auto'} value={initialText}
                    onChange={
                        handleSearchTextChange
                    }/>
