@@ -66,7 +66,7 @@ function ShopCard({imageUrl, imageAlt, shopName, shopAddress}: ShopCardProps) {
 async function getPhotoData(shopId: string): Promise<any> {
     try {
         const requestData = getRequestData()
-        const url = `${process.env.REST_API_URL}/photo/photoByShopId/${shopId}`
+        const url = `${process.env.REST_API_URL}/apis/photo/photoByShopId/${shopId}`
         const response = await fetch(url, requestData)
         return await response.json()
     } catch (error) {

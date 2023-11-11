@@ -56,7 +56,7 @@ export function SignUpModal () {
 export function SignInModal () {
     return (
         <Modal id={'sign-in-modal'}>
-            <h1 className={'font-bold text-lg'}>Sign I</h1>
+            <h1 className={'font-bold text-lg'}>Sign In</h1>
             {<SignInForm/>}
             <ModalActions>
                 <button className={'btn'}>Close</button>

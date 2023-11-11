@@ -1,5 +1,5 @@
 export async function getRestData(endpoint: string) {
-    const url = `${process.env.REST_API_URL}${endpoint}`
+    const url = `${process.env.REST_API_URL}/apis${endpoint}`
     const response = await fetch(url, requestGetHeaders)
     return (await response.json()).data
 }
