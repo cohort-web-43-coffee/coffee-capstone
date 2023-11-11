@@ -2,6 +2,7 @@
 import {Modal, ModalActions} from '@/app/components/Modal'
 import {Form, FormInput} from '@/app/components/Form'
 import {SignInForm} from "@/app/layout/SignInForm";
+import {useState} from "react";
 
 export function SignUpModalButton() {
     return (
@@ -13,6 +14,18 @@ export function SignUpModalButton() {
     )
 }
 
+export function SignIn() {
+  const [isShown, setIsShown] = useState(true)
+
+  return (
+      <>
+          <div>
+              {isShown ? <span>{'sign-in-modal'}</span> : <span>{'sign-up-modal'}</span>}
+          </div>
+          <button onClick={() => {setIsShown(!isShown)}}>I am a button</button>
+      </>
+  );
+}
 
 export function SignInModalButton() {
     return (
@@ -34,7 +47,6 @@ export function SignUpModal () {
                 <button className={'btn'}>Close</button>
             </ModalActions>
 
-
         </Modal>
     )
 }
@@ -44,7 +56,7 @@ export function SignUpModal () {
 export function SignInModal () {
     return (
         <Modal id={'sign-in-modal'}>
-            <h1 className={'font-bold text-lg'}>Sign In</h1>
+            <h1 className={'font-bold text-lg'}>Sign I</h1>
             {<SignInForm/>}
             <ModalActions>
                 <button className={'btn'}>Close</button>

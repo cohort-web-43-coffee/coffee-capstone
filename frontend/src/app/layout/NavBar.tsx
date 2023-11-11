@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import {SignUpModalButton, SignUpModal, SignInModalButton, SignInModal} from '@/app/layout/SignUpModal'
+import {SignUpModal, SignInModal, SignInModalButton, SignUpModalButton} from '@/app/layout/SignUpModal'
 
 
 export function NavBar () {

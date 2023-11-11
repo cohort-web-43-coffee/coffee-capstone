@@ -15,7 +15,7 @@ export function SignInForm() {
 
     const handleSubmit = (values: SignIn, actions: FormikHelpers<SignIn>) => {
         const {setStatus, resetForm } = actions
-        const result = fetch('/apis/sign-in', {
+        const result = fetch('/api/sign-in', {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -31,7 +31,6 @@ export function SignInForm() {
 
     return(
         <>
-        <h1 className={'text-3xl pb-0 font-bold'}>Login</h1>
         <Formik initialValues={initialValues}
                 onSubmit={handleSubmit}
                 validationSchema={toFormikValidationSchema(signInAccountSchema)}
