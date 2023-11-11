@@ -6,7 +6,7 @@ import {ChildProps} from "@/app/types/Props"
 
 type SearchFieldProps = ChildProps & {
     initialText: string
-
+}
 
 
 export function SiteTitle() {
