@@ -12,7 +12,6 @@ import {getRestData} from "@/app/utils/fetch";
 export default async function ShopPage({params}: { params: { shopId: string } }) {
     const shopData = await getShopData(params.shopId)
     const photoData = await getPhotoData(params.shopId)
-
     return <>
         <PrimarySection>
             <Container autoMargins>
@@ -26,6 +25,8 @@ export default async function ShopPage({params}: { params: { shopId: string } })
                     </div>
                     <div className={'flex flex-col items-center justify-center'}>
                         <div className={'prose'}><h1>{shopData.shopName}</h1></div>
+                        <div className={'prose'}><p className={'font-bold'}>Address: {shopData.shopAddress}</p></div>
+                        <div className={'prose'}><p className={'font-bold'}>Phone Number: {shopData.shopPhoneNumber}</p></div>
                         <TagSection/>
                     </div>
                 </div>
