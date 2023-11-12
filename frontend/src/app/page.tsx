@@ -16,7 +16,8 @@ type HomePageProps = {
 
 export default async function HomePage ({searchParams}: HomePageProps) {
     const query = searchParams.q
-    const tags = new Set<string>(searchParams.tags?.split(','))
+    console.log('raw tags:', searchParams.tags)
+    const tags = new Set<string>(searchParams.tags?.split(',').filter(value => value != ''))
     console.log('top level tags set:', tags)
     const shopData = await getRestData('/apis/shop')
     const searchResult = await getRestData(`/apis/shop/search?name=${query}`)
@@ -76,7 +77,8 @@ export default async function HomePage ({searchParams}: HomePageProps) {
                             {sliceSplit(shopData, 3).map((split: any, slideIndex: number) => {
                                 const previousSlideIndex = getPreviousSlideIndex(slideIndex, split)
                                 const nextSlideIndex = getNextSlideIndex(slideIndex, split)
-                                return <CarouselSlide slideId={`slide${slideIndex}`} shopArray={split}
+                                return <CarouselSlide key={`slide${slideIndex}`}
+                                            slideId={`slide${slideIndex}`} shopArray={split}
                                                       previousSlideId={`slide${previousSlideIndex}`}
                                                       nextSlideId={`slide${nextSlideIndex}`}/>
                             })}

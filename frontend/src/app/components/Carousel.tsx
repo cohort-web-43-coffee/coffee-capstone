@@ -32,7 +32,7 @@ export function CarouselSlide ({slideId, nextSlideId, previousSlideId, shopArray
         <div id={slideId} className={'carousel-item relative w-full md:flex md:justify-around grid grid-cols-1 gap-4'}>
             {shopArray.map(async (shop: any) => {
                 const photoData = await getPhotoData(shop.shopId)
-                return <Link href={`/shop/${shop.shopId}`}><ShopCard key={shop.shopId} imageUrl={photoData.data[0]?.photoUrl} imageAlt={shop.shopName}
+                return <Link  key={shop.shopId} href={`/shop/${shop.shopId}`}><ShopCard imageUrl={photoData.data[0]?.photoUrl} imageAlt={shop.shopName}
                                  shopName={shop.shopName} shopAddress={shop.shopAddress}/></Link>
             })}
             <CarouselNav previousSlideId={previousSlideId} nextSlideId={nextSlideId}/>

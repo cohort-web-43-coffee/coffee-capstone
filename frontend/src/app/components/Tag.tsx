@@ -1,19 +1,16 @@
 'use client'
 
-import React, {useEffect, useState} from 'react'
 import {OptionalChildProps} from '@/app/types/Props'
 import {usePathname, useRouter, useSearchParams} from 'next/navigation'
-import {tag} from 'postcss-selector-parser'
 
 type Tag = { tagLabel: string, count: number, tagId: string }
 type TagGroup = { group: string, tags: Tag[] }
-type TagCheckedChangedProps = {
-    tagCheckedChanged: (tagId: string, isChecked: boolean) => void
-}
-type TagButtonProps = TagCheckedChangedProps & {
+
+type TagButtonProps = {
     key: string,
     tag: Tag,
-    showCount?: boolean
+    showCount?: boolean,
+    handleChanged: (event: React.ChangeEvent<HTMLInputElement>) => void
 }
 type TagGroupProps = OptionalChildProps & {
     showCounts?: boolean,
@@ -26,15 +23,20 @@ export function TagList ({group, showCounts, children, activeTags}: TagGroupProp
     const pathName = usePathname()
     const currentParams = useSearchParams()
 
-    const onCheckedChanged = (tagId: string, isChecked: boolean): void => {
+    const handleTagButtonChanged = (event: React.ChangeEvent<HTMLInputElement>) => {
+        // console.log('Changed id:', event.currentTarget.id, 'is checked:', event.currentTarget.checked)
+
         const newParams = new URLSearchParams(currentParams)
-        let newTagSet: Set<string>
-        if (isChecked) {
-            newTagSet = activeTags.add(tagId)
+        const tagId = event.currentTarget.id
+        let newTagSet: Set<string> = new Set<string>(activeTags)
+        console.log('set', newTagSet)
+        if (event.target.checked) {
+            newTagSet = newTagSet.add(tagId)
         } else {
-            activeTags.delete(tagId)
-            newTagSet = new Set(activeTags)
+            newTagSet.delete(tagId)
         }
+
+        // console.log('previousSet:', JSON.stringify(activeTags), 'new set:', JSON.stringify(newTagSet))
         newParams.set('tags', Array.from(newTagSet).join(','))
         router.push(`${pathName}?${newParams.toString()}`)
     }
@@ -46,18 +48,16 @@ export function TagList ({group, showCounts, children, activeTags}: TagGroupProp
                 {group.tags
                     .sort((a: Tag, b: Tag) => b.count - a.count)
                     .map((tag: Tag) => <TagButton tag={tag} showCount={showCounts} key={tag.tagId}
-                                                  tagCheckedChanged={onCheckedChanged}/>)}
+                                                  handleChanged={handleTagButtonChanged}/>)}
             </div>
         </>)
 }
 
-function TagButton ({showCount, tag, tagCheckedChanged}: TagButtonProps) {
+function TagButton ({showCount, tag, handleChanged}: TagButtonProps) {
     const {tagLabel, count} = tag
     const formattedLabel = formatTagButtonLabel(tagLabel, count, showCount)
-    const handleCheckedChanged = (event: React.ChangeEvent<HTMLInputElement>) => {
-        tagCheckedChanged(tag.tagId, event.currentTarget.checked)
-    }
-    return <input type="checkbox" key={tag.tagId} onChange={handleCheckedChanged} aria-label={formattedLabel}
+
+    return <input type="checkbox" id={tag.tagId} key={tag.tagId} onChange={handleChanged} aria-label={formattedLabel}
                   className="btn bg-primary-unchecked btn-xs md:btn-sm lg:btn-md" style={{backgroundImage: 'none'}}/>
 }
 
