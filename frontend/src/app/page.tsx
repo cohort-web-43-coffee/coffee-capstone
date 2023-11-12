@@ -1,5 +1,3 @@
-'use server'
-
 import {PrimarySection} from '@/app/components/Section'
 import {PrimaryContainer} from '@/app/components/Container'
 import {TagList} from '@/app/components/Tag'
@@ -12,12 +10,14 @@ import {getRestData} from '@/app/utils/fetch'
 type HomePageProps = {
     searchParams: {
         q: string,
-        tags: string[]
+        tags: string
     }
 }
 
 export default async function HomePage ({searchParams}: HomePageProps) {
     const query = searchParams.q
+    const tags = new Set<string>(searchParams.tags?.split(','))
+    console.log('top level tags set:', tags)
     const shopData = await getRestData('/apis/shop')
     const searchResult = await getRestData(`/apis/shop/search?name=${query}`)
     const brewingTags = {
@@ -82,9 +82,9 @@ export default async function HomePage ({searchParams}: HomePageProps) {
                             })}
                         </Carousel>
                     </div>
-                    <TagList group={brewingTags}/>
-                    <TagList group={serviceTags}/>
-                    <TagList group={busyTags}/>
+                    <TagList group={brewingTags} activeTags={tags}/>
+                    <TagList group={serviceTags} activeTags={tags}/>
+                    <TagList group={busyTags} activeTags={tags}/>
                 </PrimaryContainer>
             </PrimarySection>
         </>

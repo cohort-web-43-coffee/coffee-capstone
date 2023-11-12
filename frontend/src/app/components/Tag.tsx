@@ -3,6 +3,7 @@
 import React, {useEffect, useState} from 'react'
 import {OptionalChildProps} from '@/app/types/Props'
 import {usePathname, useRouter, useSearchParams} from 'next/navigation'
+import {tag} from 'postcss-selector-parser'
 
 type Tag = { tagLabel: string, count: number, tagId: string }
 type TagGroup = { group: string, tags: Tag[] }
@@ -16,42 +17,38 @@ type TagButtonProps = TagCheckedChangedProps & {
 }
 type TagGroupProps = OptionalChildProps & {
     showCounts?: boolean,
-    group: TagGroup
+    group: TagGroup,
+    activeTags: Set<string>
 }
 
-export function TagList ({group, showCounts, children}: TagGroupProps) {
-    const [tagIds, setTagIds] = useState(new Set<string>())
-
-
-    const onCheckedChanged = (tagId: string, isChecked: boolean) => {
-        setTagIds((prevSet: Set<string>) => {
-            if (isChecked) {
-                return new Set(prevSet.add(tagId))
-            } else {
-                prevSet.delete(tagId)
-                return new Set(prevSet)
-            }
-        })
-    }
+export function TagList ({group, showCounts, children, activeTags}: TagGroupProps) {
     const router = useRouter()
     const pathName = usePathname()
     const currentParams = useSearchParams()
 
-    useEffect(() => {
-        const params = new URLSearchParams(currentParams)
-        params.set('tags', Array.from(tagIds).join(','))
-        router.push(`${pathName}?${params.toString()}`)
-    }, [tagIds, router, pathName, currentParams]);
+    const onCheckedChanged = (tagId: string, isChecked: boolean): void => {
+        const newParams = new URLSearchParams(currentParams)
+        let newTagSet: Set<string>
+        if (isChecked) {
+            newTagSet = activeTags.add(tagId)
+        } else {
+            activeTags.delete(tagId)
+            newTagSet = new Set(activeTags)
+        }
+        newParams.set('tags', Array.from(newTagSet).join(','))
+        router.push(`${pathName}?${newParams.toString()}`)
+    }
 
-    return <>
-        <div className={'divider'}>{group.group}{children}</div>
-        <div className={'flex flex-wrap gap-6 justify-around'}>
-            {group.tags
-                .sort((a: Tag, b: Tag) => b.count - a.count)
-                .map((tag: Tag) => <TagButton tag={tag} showCount={showCounts} key={tag.tagId}
-                                              tagCheckedChanged={onCheckedChanged}/>)}
-        </div>
-    </>
+    return (
+        <>
+            <div className={'divider'}>{group.group}{children}</div>
+            <div className={'flex flex-wrap gap-6 justify-around'}>
+                {group.tags
+                    .sort((a: Tag, b: Tag) => b.count - a.count)
+                    .map((tag: Tag) => <TagButton tag={tag} showCount={showCounts} key={tag.tagId}
+                                                  tagCheckedChanged={onCheckedChanged}/>)}
+            </div>
+        </>)
 }
 
 function TagButton ({showCount, tag, tagCheckedChanged}: TagButtonProps) {
