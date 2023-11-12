@@ -8,7 +8,6 @@ export async function postRestData (endpoint: string, body: string) {
     const url = getUrl(endpoint)
     const postHeaders = requestPostHeaders(body)
     const response = await fetch(url, postHeaders)
-    console.log(response)
     return (await response.json()).data
 }
 

@@ -21,12 +21,9 @@ export async function SearchField({children, initialText}: SearchFieldProps) {
     return (
         <div className={'form-control'}>
             <input type={'text'} placeholder={'Coffee shop name'} className={'placeholder:italic input input-bordered w-40 md:w-auto'} value={initialText}
-                   onChange={
-                       handleSearchTextChange
-                   }/>
+                   onChange={handleSearchTextChange}/>
             {children}
         </div>
-
     )
 }
 

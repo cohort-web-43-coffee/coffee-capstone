@@ -5,7 +5,7 @@ import {Carousel, CarouselSlide} from '@/app/components/Carousel'
 import {MenuButton, MenuContent, SearchField, SiteTitle} from "@/app/layout/NavBar"
 import {SignInModal, SignUpModal} from "@/app/layout/SignUpModal"
 import Link from "next/link"
-import {getRestData} from '@/app/utils/fetch'
+import {getRestData, postRestData} from '@/app/utils/fetch'
 
 type HomePageProps = {
     searchParams: {
@@ -16,10 +16,9 @@ type HomePageProps = {
 
 export default async function HomePage ({searchParams}: HomePageProps) {
     const query = searchParams.q
-    console.log('raw tags:', searchParams.tags)
-    const tags = new Set<string>(searchParams.tags?.split(',').filter(value => value != ''))
-    console.log('top level tags set:', tags)
-    const shopData = await getRestData('/apis/shop')
+    const tagArray = searchParams.tags?.split(',').filter(value => value != '')
+    const tags = new Set<string>(tagArray)
+    const shopData = tags?.size > 0 ? await postRestData('/apis/shop/getShopsWithTags', JSON.stringify(tagArray)) : await getRestData('/apis/shop')
     const searchResult = await getRestData(`/apis/shop/search?name=${query}`)
     const brewingTags = {
         group: 'Brewing',
@@ -74,14 +73,17 @@ export default async function HomePage ({searchParams}: HomePageProps) {
                 <PrimaryContainer autoMargins>
                     <div className="flex-row justify-center">
                         <Carousel>
-                            {sliceSplit(shopData, 3).map((split: any, slideIndex: number) => {
+                            {shopData.length > 0 ? sliceSplit(shopData, 3)
+                                .map((split: any, slideIndex: number) => {
                                 const previousSlideIndex = getPreviousSlideIndex(slideIndex, split)
                                 const nextSlideIndex = getNextSlideIndex(slideIndex, split)
                                 return <CarouselSlide key={`slide${slideIndex}`}
                                             slideId={`slide${slideIndex}`} shopArray={split}
                                                       previousSlideId={`slide${previousSlideIndex}`}
                                                       nextSlideId={`slide${nextSlideIndex}`}/>
-                            })}
+
+
+                            }): <p>No shops matching your filters.</p>}
                         </Carousel>
                     </div>
                     <TagList group={brewingTags} activeTags={tags}/>
