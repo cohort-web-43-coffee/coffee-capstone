@@ -26,7 +26,7 @@ export default async function HomePage ({searchParams}: HomePageProps) {
     }
     const busyTags = {
         group: 'Busy Times',
-        tags: await getRestData('/apis/tag/tagGroup/brewing')
+        tags: await getRestData('/apis/tag/tagGroup/busy')
     }
     const serviceTags = {
         group: 'Service',
