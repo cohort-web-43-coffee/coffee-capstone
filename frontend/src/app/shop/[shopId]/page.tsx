@@ -1,9 +1,7 @@
 import {PrimarySection} from '@/app/components/Section'
 import React from 'react'
 import {Container} from '@/app/components/Container'
-import {busyTags, customTags, drinkTags} from '@/app/mocks/tags'
 import {TagList} from '@/app/components/Tag'
-import {NewTagButton} from '@/app/components/NewTagModal'
 import {ImageProps} from '@/app/types/Props'
 import {getRestData} from "@/app/utils/fetch";
 
@@ -12,6 +10,18 @@ import {getRestData} from "@/app/utils/fetch";
 export default async function ShopPage({params}: { params: { shopId: string } }) {
     const shopData = await getShopData(params.shopId)
     const photoData = await getPhotoData(params.shopId)
+    const brewingTags = {
+        group: 'Brewing',
+        tags: await getRestData('/apis/tag/tagGroup/brewing')
+    }
+    const busyTags = {
+        group: 'Busy Times',
+        tags: await getRestData('/apis/tag/tagGroup/brewing')
+    }
+    const serviceTags = {
+        group: 'Service',
+        tags: await getRestData('/apis/tag/tagGroup/service')
+    }
     return <>
         <PrimarySection>
             <Container autoMargins>
@@ -27,7 +37,9 @@ export default async function ShopPage({params}: { params: { shopId: string } })
                         <div className={'prose'}><h1>{shopData.shopName}</h1></div>
                         <div className={'prose'}><p className={'font-bold'}>Address: {shopData.shopAddress}</p></div>
                         <div className={'prose'}><p className={'font-bold'}>Phone Number: {shopData.shopPhoneNumber}</p></div>
-                        <TagSection/>
+                        <TagList group={brewingTags} showCounts/>
+                        <TagList group={serviceTags} showCounts/>
+                        <TagList group={busyTags} showCounts/>
                     </div>
                 </div>
             </Container>
@@ -41,23 +53,12 @@ function ShopDetailImage({imageUrl, imageAlt}: ImageProps) {
     )
 }
 
-function TagSection() {
-    return (<>
-            <TagList group={customTags} showCounts>
-                <NewTagButton/>
-            </TagList>
-            <TagList group={drinkTags} showCounts/>
-            <TagList group={busyTags} showCounts/>
-        </>
-    )
-}
-
 async function getPhotoData(shopId: string) {
-    const endpoint = `/photo/photoByShopId/${shopId}`
+    const endpoint = `/apis/photo/photoByShopId/${shopId}`
     return await getRestData(endpoint)
 }
 
 async function getShopData(shopId: string) {
-    const endpoint = `/shop/shopId/${shopId}`
+    const endpoint = `/apis/shop/shopId/${shopId}`
     return await getRestData(endpoint)
 }

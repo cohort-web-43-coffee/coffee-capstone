@@ -3,12 +3,11 @@
 import {PrimarySection} from '@/app/components/Section'
 import {PrimaryContainer} from '@/app/components/Container'
 import {TagList} from '@/app/components/Tag'
-import {busyTags, customTags, drinkTags} from '@/app/mocks/tags'
 import {Carousel, CarouselSlide} from '@/app/components/Carousel'
 import {MenuButton, MenuContent, SearchField, SiteTitle} from "@/app/layout/NavBar"
 import {SignInModal, SignUpModal} from "@/app/layout/SignUpModal"
 import Link from "next/link"
-import {getRestData, postRestData} from '@/app/utils/fetch'
+import {getRestData} from '@/app/utils/fetch'
 
 type HomePageProps = {
     searchParams: {
@@ -18,9 +17,21 @@ type HomePageProps = {
 }
 
 export default async function HomePage ({searchParams}: HomePageProps) {
-    const shopData = await getRestData('/apis/shop')
     const query = searchParams.q
-    const searchResult = await getSearchData(query)
+    const shopData = await getRestData('/apis/shop')
+    const searchResult = await getRestData(`/apis/shop/search?name=${query}`)
+    const brewingTags = {
+        group: 'Brewing',
+        tags: await getRestData('/apis/tag/tagGroup/brewing')
+    }
+    const busyTags = {
+        group: 'Busy Times',
+        tags: await getRestData('/apis/tag/tagGroup/brewing')
+    }
+    const serviceTags = {
+        group: 'Service',
+        tags: await getRestData('/apis/tag/tagGroup/service')
+    }
     return (
         <>
             <nav className={'navbar'}>
@@ -71,9 +82,9 @@ export default async function HomePage ({searchParams}: HomePageProps) {
                             })}
                         </Carousel>
                     </div>
+                    <TagList group={brewingTags}/>
+                    <TagList group={serviceTags}/>
                     <TagList group={busyTags}/>
-                    <TagList group={drinkTags}/>
-                    <TagList group={customTags}/>
                 </PrimaryContainer>
             </PrimarySection>
         </>
@@ -94,9 +105,4 @@ function sliceSplit (array: Array<any>, sliceSize: number) {
         accumulator[sliceIndex] = [].concat((accumulator[sliceIndex] || []), element)
         return accumulator
     }, [])
-}
-
-async function getSearchData (query: string): Promise<any> {
-    const endpoint = `/apis/shop/search?name=${query}`
-    return await getRestData(endpoint)
 }
