@@ -1,27 +1,29 @@
 import {PrimarySection} from '@/app/components/Section'
 import React from 'react'
 import {Container} from '@/app/components/Container'
-import {TagList} from '@/app/components/Tag'
 import {ImageProps} from '@/app/types/Props'
 import {getRestData} from "@/app/utils/fetch";
-
+import {TagToggleList} from '@/app/shop/[shopId]/page.client'
 
 
 export default async function ShopPage({params}: { params: { shopId: string } }) {
     const shopData = await getShopData(params.shopId)
     const photoData = await getPhotoData(params.shopId)
+    const tagData = await getRestData(`/apis/tag/shopTags/${params.shopId}`)
+
     const brewingTags = {
         group: 'Brewing',
-        tags: await getRestData('/apis/tag/tagGroup/brewing')
+        tags: tagData.filter((tag: any) => tag.tagGroup === 'brewing')
     }
     const busyTags = {
         group: 'Busy Times',
-        tags: await getRestData('/apis/tag/tagGroup/brewing')
+        tags: tagData.filter((tag: any) => tag.tagGroup === 'busy')
     }
     const serviceTags = {
         group: 'Service',
-        tags: await getRestData('/apis/tag/tagGroup/service')
+        tags: tagData.filter((tag: any) => tag.tagGroup === 'service')
     }
+
     return <>
         <PrimarySection>
             <Container autoMargins>
@@ -37,9 +39,10 @@ export default async function ShopPage({params}: { params: { shopId: string } })
                         <div className={'prose'}><h1>{shopData.shopName}</h1></div>
                         <div className={'prose'}><p className={'font-bold'}>Address: {shopData.shopAddress}</p></div>
                         <div className={'prose'}><p className={'font-bold'}>Phone Number: {shopData.shopPhoneNumber}</p></div>
-                        <TagList group={brewingTags} showCounts/>
-                        <TagList group={serviceTags} showCounts/>
-                        <TagList group={busyTags} showCounts/>
+                        <TagToggleList group={brewingTags}/>
+                        <TagToggleList group={serviceTags}/>
+                        <TagToggleList group={busyTags}/>
+
                     </div>
                 </div>
             </Container>

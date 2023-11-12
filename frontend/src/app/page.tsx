@@ -1,11 +1,11 @@
 import {PrimarySection} from '@/app/components/Section'
 import {PrimaryContainer} from '@/app/components/Container'
-import {TagList} from '@/app/components/Tag'
 import {Carousel, CarouselSlide} from '@/app/components/Carousel'
 import {MenuButton, MenuContent, SearchField, SiteTitle} from "@/app/layout/NavBar"
 import {SignInModal, SignUpModal} from "@/app/layout/SignUpModal"
 import Link from "next/link"
 import {getRestData, postRestData} from '@/app/utils/fetch'
+import {TagFilterList} from '@/app/page.client'
 
 type HomePageProps = {
     searchParams: {
@@ -86,9 +86,9 @@ export default async function HomePage ({searchParams}: HomePageProps) {
                             }): <p>No shops matching your filters.</p>}
                         </Carousel>
                     </div>
-                    <TagList group={brewingTags} activeTags={tags}/>
-                    <TagList group={serviceTags} activeTags={tags}/>
-                    <TagList group={busyTags} activeTags={tags}/>
+                    <TagFilterList group={brewingTags} activeTags={tags}/>
+                    <TagFilterList group={serviceTags} activeTags={tags}/>
+                    <TagFilterList group={busyTags} activeTags={tags}/>
                 </PrimaryContainer>
             </PrimarySection>
         </>
