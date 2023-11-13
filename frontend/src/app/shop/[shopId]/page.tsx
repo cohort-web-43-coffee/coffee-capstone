@@ -2,14 +2,21 @@ import {PrimarySection} from '@/app/components/Section'
 import React from 'react'
 import {Container} from '@/app/components/Container'
 import {TagList} from '@/app/components/Tag'
-import {ImageProps} from '@/app/types/Props'
+import {ImageProps, PageProps} from '@/app/types/Props'
 import {getRestData} from "@/app/utils/fetch";
+import {MenuButton, MenuContent, SearchField, SiteTitle} from "@/app/layout/NavBar";
+import Link from "next/link";
+import {SignInModal, SignUpModal} from "@/app/layout/SignUpModal";
 
+type ShopPageProps = PageProps & {
+    params: { shopId: string }
+}
 
-
-export default async function ShopPage({params}: { params: { shopId: string } }) {
+export default async function ShopPage({params, searchParams}: ShopPageProps) {
     const shopData = await getShopData(params.shopId)
     const photoData = await getPhotoData(params.shopId)
+    const query = searchParams.q
+    const searchResult = await getRestData(`/apis/shop/search?name=${query}`)
     const brewingTags = {
         group: 'Brewing',
         tags: await getRestData('/apis/tag/tagGroup/brewing')
@@ -23,6 +30,41 @@ export default async function ShopPage({params}: { params: { shopId: string } })
         tags: await getRestData('/apis/tag/tagGroup/service')
     }
     return <>
+        <nav className={'navbar'}>
+            <div className={'dropdown'}>
+                <MenuButton/>
+                <ul className={'menu menu-sm dropdown-content mt-3 z-50 p-2 shadow bg-base-100 rounded-box w-32'}>
+                    <MenuContent/>
+                </ul>
+            </div>
+            <div className={'flex-1'}>
+                <SiteTitle/>
+            </div>
+            <div className={'flex-none'}>
+                Search:&nbsp;
+                <div className={'dropdown'}>
+                    <SearchField initialText={query}>
+                        <div tabIndex={0}>
+                            <ul tabIndex={0}
+                                className={'dropdown-content z-10 menu grid p-2 shadow bg-base-100 rounded-box sm:w-40 md:w-52 max-h-52 overflow-y-auto gap-4'}>
+                                {searchResult.length > 0 ? searchResult.map((shop: any) => <Link
+                                        href={`/shop/${shop.shopId}`}>
+                                        <li key={shop.shopId}>{shop.shopName}</li>
+                                    </Link>) :
+                                    <p>No Results</p>}
+                            </ul>
+                        </div>
+                    </SearchField>
+                </div>
+                <div className={'navbar-center hidden md:flex'}>
+                    <ul className={'menu menu-horizontal px-1'}>
+                        <MenuContent/>
+                    </ul>
+                </div>
+            </div>
+            <SignUpModal/>
+            <SignInModal/>
+        </nav>
         <PrimarySection>
             <Container autoMargins>
                 <div

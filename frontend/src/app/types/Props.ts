@@ -14,3 +14,10 @@ export type ImageProps = {
     imageUrl: string,
     imageAlt: string
 }
+
+export type PageProps = {
+    searchParams: {
+        q: string,
+        tags: string
+    }
+}

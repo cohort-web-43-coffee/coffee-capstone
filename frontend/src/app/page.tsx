@@ -34,41 +34,41 @@ export default async function HomePage({searchParams}: HomePageProps) {
     }
     return (
         <>
-                <nav className={'navbar'}>
+            <nav className={'navbar'}>
+                <div className={'dropdown'}>
+                    <MenuButton/>
+                    <ul className={'menu menu-sm dropdown-content mt-3 z-50 p-2 shadow bg-base-100 rounded-box w-32'}>
+                        <MenuContent/>
+                    </ul>
+                </div>
+                <div className={'flex-1'}>
+                    <SiteTitle/>
+                </div>
+                <div className={'flex-none'}>
+                    Search:&nbsp;
                     <div className={'dropdown'}>
-                        <MenuButton/>
-                        <ul className={'menu menu-sm dropdown-content mt-3 z-50 p-2 shadow bg-base-100 rounded-box w-32'}>
+                        <SearchField initialText={query}>
+                            <div tabIndex={0}>
+                                <ul tabIndex={0}
+                                    className={'dropdown-content z-10 menu grid p-2 shadow bg-base-100 rounded-box sm:w-40 md:w-52 max-h-52 overflow-y-auto gap-4'}>
+                                    {searchResult.length > 0 ? searchResult.map((shop: any) => <Link
+                                            href={`/shop/${shop.shopId}`}>
+                                            <li key={shop.shopId}>{shop.shopName}</li>
+                                        </Link>) :
+                                        <p>No Results</p>}
+                                </ul>
+                            </div>
+                        </SearchField>
+                    </div>
+                    <div className={'navbar-center hidden md:flex'}>
+                        <ul className={'menu menu-horizontal px-1'}>
                             <MenuContent/>
                         </ul>
                     </div>
-                    <div className={'flex-1'}>
-                        <SiteTitle/>
-                    </div>
-                    <div className={'flex-none'}>
-                        Search:&nbsp;
-                        <div className={'dropdown'}>
-                            <SearchField initialText={query}>
-                                <div tabIndex={0}>
-                                    <ul tabIndex={0}
-                                        className={'dropdown-content z-10 menu grid p-2 shadow bg-base-100 rounded-box sm:w-40 md:w-52 max-h-52 overflow-y-auto gap-4'}>
-                                        {searchResult.length > 0 ? searchResult.map((shop: any) => <Link
-                                                href={`/shop/${shop.shopId}`}>
-                                                <li key={shop.shopId}>{shop.shopName}</li>
-                                            </Link>) :
-                                            <p>No Results</p>}
-                                    </ul>
-                                </div>
-                            </SearchField>
-                        </div>
-                        <div className={'navbar-center hidden md:flex'}>
-                            <ul className={'menu menu-horizontal px-1'}>
-                                <MenuContent/>
-                            </ul>
-                        </div>
-                    </div>
-                    <SignUpModal/>
-                    <SignInModal/>
-                </nav>
+                </div>
+                <SignUpModal/>
+                <SignInModal/>
+            </nav>
             <PrimarySection>
                 <PrimaryContainer autoMargins>
                     <div className="">
