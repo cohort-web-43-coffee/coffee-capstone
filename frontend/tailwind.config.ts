@@ -31,18 +31,18 @@ const config: Config = {
     themes: [
       {
         valid: {
-          'primary': 'hsl(30deg 100% 50%)',
-          'secondary': 'green',
-          'accent': '#37cdbe',
-          'neutral': '#3d4451',
+          'primary': '#5c2c0c',
+          'secondary': '#dda35d',
+          'accent': '#aa6231',
+          'neutral': '#e3deca',
           'base-100': '#FFFFEA',
           'base-200': '#EEEEDA',
           'base-300': '#DDDDCA',
-          '--primary-container':  colors.amber['900'],
-          '--primary-container-variant': colors.amber['200'],
+          '--primary-container': '#5c2c0c',
+          '--primary-container-variant': '#3c3a1e',
           '--primary-unchecked': colors.gray['300'],
-          '--secondary-container':  colors.yellow['400'],
-          '--secondary-container-variant':  colors.yellow['200']
+          '--secondary-container': '#dda35d',
+          '--secondary-container-variant': '#3c3a1e'
         }
       }
     ]

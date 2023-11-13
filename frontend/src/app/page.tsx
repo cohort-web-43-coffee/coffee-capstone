@@ -1,4 +1,4 @@
-import {PrimarySection} from '@/app/components/Section'
+import {PrimarySection, SecondarySection} from '@/app/components/Section'
 import {PrimaryContainer} from '@/app/components/Container'
 import {TagList} from '@/app/components/Tag'
 import {Carousel, CarouselSlide} from '@/app/components/Carousel'
@@ -14,7 +14,7 @@ type HomePageProps = {
     }
 }
 
-export default async function HomePage ({searchParams}: HomePageProps) {
+export default async function HomePage({searchParams}: HomePageProps) {
     const query = searchParams.q
     const tagArray = searchParams.tags?.split(',').filter(value => value != '')
     const tags = new Set<string>(tagArray)
@@ -34,56 +34,58 @@ export default async function HomePage ({searchParams}: HomePageProps) {
     }
     return (
         <>
-            <nav className={'navbar'}>
-                <div className={'dropdown'}>
-                    <MenuButton/>
-                    <ul className={'menu menu-sm dropdown-content mt-3 z-50 p-2 shadow bg-base-100 rounded-box w-32'}>
-                        <MenuContent/>
-                    </ul>
-                </div>
-                <div className={'flex-1'}>
-                    <SiteTitle/>
-                </div>
-                <div className={'flex-none'}>
-                    Search:&nbsp;
+            <SecondarySection>
+                <nav className={'navbar'}>
                     <div className={'dropdown'}>
-                        <SearchField initialText={query}>
-                            <div tabIndex={0}>
-                                <ul tabIndex={0}
-                                    className={'dropdown-content z-10 menu grid p-2 shadow bg-base-100 rounded-box sm:w-40 md:w-52 max-h-52 overflow-y-auto gap-4'}>
-                                    {searchResult.length > 0 ? searchResult.map((shop: any) => <Link
-                                            href={`/shop/${shop.shopId}`}>
-                                            <li key={shop.shopId}>{shop.shopName}</li>
-                                        </Link>) :
-                                        <p>No Results</p>}
-                                </ul>
-                            </div>
-                        </SearchField>
-                    </div>
-                    <div className={'navbar-center hidden md:flex'}>
-                        <ul className={'menu menu-horizontal px-1'}>
+                        <MenuButton/>
+                        <ul className={'menu menu-sm dropdown-content mt-3 z-50 p-2 shadow bg-base-100 rounded-box w-32'}>
                             <MenuContent/>
                         </ul>
                     </div>
-                </div>
-                <SignUpModal/>
-                <SignInModal/>
-            </nav>
+                    <div className={'flex-1'}>
+                        <SiteTitle/>
+                    </div>
+                    <div className={'flex-none'}>
+                        Search:&nbsp;
+                        <div className={'dropdown'}>
+                            <SearchField initialText={query}>
+                                <div tabIndex={0}>
+                                    <ul tabIndex={0}
+                                        className={'dropdown-content z-10 menu grid p-2 shadow bg-base-100 rounded-box sm:w-40 md:w-52 max-h-52 overflow-y-auto gap-4'}>
+                                        {searchResult.length > 0 ? searchResult.map((shop: any) => <Link
+                                                href={`/shop/${shop.shopId}`}>
+                                                <li key={shop.shopId}>{shop.shopName}</li>
+                                            </Link>) :
+                                            <p>No Results</p>}
+                                    </ul>
+                                </div>
+                            </SearchField>
+                        </div>
+                        <div className={'navbar-center hidden md:flex'}>
+                            <ul className={'menu menu-horizontal px-1'}>
+                                <MenuContent/>
+                            </ul>
+                        </div>
+                    </div>
+                    <SignUpModal/>
+                    <SignInModal/>
+                </nav>
+            </SecondarySection>
             <PrimarySection>
                 <PrimaryContainer autoMargins>
                     <div className="">
                         <Carousel>
                             {shopData.length > 0 ? sliceSplit(shopData, 3)
                                 .map((split: any, slideIndex: number, splitCollection: any[]) => {
-                                const previousSlideIndex = getPreviousSlideIndex(slideIndex, splitCollection.length)
-                                const nextSlideIndex = getNextSlideIndex(slideIndex, splitCollection.length)
-                                return <CarouselSlide key={`slide${slideIndex}`}
-                                            slideId={`slide${slideIndex}`} shopArray={split}
-                                                      previousSlideId={`slide${previousSlideIndex}`}
-                                                      nextSlideId={`slide${nextSlideIndex}`}/>
+                                    const previousSlideIndex = getPreviousSlideIndex(slideIndex, splitCollection.length)
+                                    const nextSlideIndex = getNextSlideIndex(slideIndex, splitCollection.length)
+                                    return <CarouselSlide key={`slide${slideIndex}`}
+                                                          slideId={`slide${slideIndex}`} shopArray={split}
+                                                          previousSlideId={`slide${previousSlideIndex}`}
+                                                          nextSlideId={`slide${nextSlideIndex}`}/>
 
 
-                            }): <p>No shops matching your filters.</p>}
+                                }) : <p>No shops matching your filters.</p>}
                         </Carousel>
                     </div>
                     <TagList group={brewingTags} activeTags={tags}/>
@@ -95,15 +97,15 @@ export default async function HomePage ({searchParams}: HomePageProps) {
     )
 }
 
-function getPreviousSlideIndex (slideIndex: number, max: number) {
+function getPreviousSlideIndex(slideIndex: number, max: number) {
     return slideIndex === 0 ? max - 1 : slideIndex - 1;
 }
 
-function getNextSlideIndex (slideIndex: number, max: number) {
+function getNextSlideIndex(slideIndex: number, max: number) {
     return slideIndex === max - 1 ? 0 : slideIndex + 1;
 }
 
-function sliceSplit (array: Array<any>, sliceSize: number) {
+function sliceSplit(array: Array<any>, sliceSize: number) {
     return array.reduce((accumulator, element, index) => {
         const sliceIndex = Math.floor(index / sliceSize)
         accumulator[sliceIndex] = [].concat((accumulator[sliceIndex] || []), element)
