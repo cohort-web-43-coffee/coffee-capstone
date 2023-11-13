@@ -31,7 +31,7 @@ const config: Config = {
     themes: [
       {
         valid: {
-          'primary': '#5c2c0c',
+          'primary': '#3c3a1e',
           'secondary': '#dda35d',
           'accent': '#aa6231',
           'neutral': '#e3deca',
@@ -39,10 +39,10 @@ const config: Config = {
           'base-200': '#EEEEDA',
           'base-300': '#DDDDCA',
           '--primary-container': '#5c2c0c',
-          '--primary-container-variant': '#3c3a1e',
+          '--primary-container-variant': '#dda35d',
           '--primary-unchecked': colors.gray['300'],
           '--secondary-container': '#dda35d',
-          '--secondary-container-variant': '#3c3a1e'
+          '--secondary-container-variant': '#aa6231'
         }
       }
     ]

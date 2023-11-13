@@ -34,7 +34,6 @@ export default async function HomePage({searchParams}: HomePageProps) {
     }
     return (
         <>
-            <SecondarySection>
                 <nav className={'navbar'}>
                     <div className={'dropdown'}>
                         <MenuButton/>
@@ -70,7 +69,6 @@ export default async function HomePage({searchParams}: HomePageProps) {
                     <SignUpModal/>
                     <SignInModal/>
                 </nav>
-            </SecondarySection>
             <PrimarySection>
                 <PrimaryContainer autoMargins>
                     <div className="">
