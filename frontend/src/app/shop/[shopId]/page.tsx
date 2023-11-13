@@ -34,9 +34,9 @@ export default async function ShopPage({params}: { params: { shopId: string } })
                         })}
                     </div>
                     <div className={'flex flex-col items-center justify-center'}>
-                        <div className={'prose'}><h1>{shopData.shopName}</h1></div>
-                        <div className={'prose'}><p className={'font-bold'}>Address: {shopData.shopAddress}</p></div>
-                        <div className={'prose'}><p className={'font-bold'}>Phone Number: {shopData.shopPhoneNumber}</p></div>
+                        <div className={'prose'}><h1 className={'text-accent'}>{shopData.shopName}</h1></div>
+                        <div className={'prose'}><p className={'font-bold text-accent'}>Address: {shopData.shopAddress}</p></div>
+                        <div className={'prose'}><p className={'font-bold text-accent'}>Phone Number: {shopData.shopPhoneNumber}</p></div>
                         <TagList group={brewingTags} showCounts/>
                         <TagList group={serviceTags} showCounts/>
                         <TagList group={busyTags} showCounts/>

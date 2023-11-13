@@ -40,8 +40,8 @@ function AboutUsHeader () {
     return (
         <div>
              <div style={{ margin: 'auto', width: '50%' }}>
-                <div className={'prose'}>
-                    <h1>About Us!</h1>
+                <div className={'prose text-accent'}>
+                    <h1 className={'text-accent'}>About Us!</h1>
                     <p>This website was the group project created by Valid Coffee in Cohort 43 of CNM Ingenuity Deep Dive Fullstack Web development course. Bob, Victor, Mariposa, and Josh, (that's us), created this website so that the coffee drinkers of Albuquerque can have a smooth experience in finding the perfect cup of coffee. We wanted to streamline the long review process that has become the norm, and make it easier to find you want by using tags instead of paragraph reviews. We also put all the coffee shops in one place, making it easier to find instead of having to search through Google Maps and Yelp.<br/>To find out more about the other projects we've made, see the links below! Please use the contact form if you'd like to get in touch with us about any suggestions, comments, concerns, or queries. Thank you for using Valid Coffee! Hope your next cup of coffee is what you're looking for!</p>
                 </div>
              </div>

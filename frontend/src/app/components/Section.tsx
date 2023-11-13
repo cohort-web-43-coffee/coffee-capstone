@@ -3,7 +3,7 @@ import {ChildProps} from '@/app/types/Props'
 
 export function PrimarySection ({children}: ChildProps) {
     return (
-        <section className={'bg-primary-container text-primary-content'}>
+        <section className={'bg-primary-container text-accent'}>
             {children}
         </section>
     )
