@@ -22,14 +22,14 @@ type ShopCardProps = ImageProps & {
 }
 
 export function Carousel (props: ChildProps) {
-    return (<div className="carousel w-full">
+    return (<div className={"carousel w-full"}>
         {props.children}
     </div>)
 }
 
 export function CarouselSlide ({slideId, nextSlideId, previousSlideId, shopArray}: SlideProps) {
     return (
-        <div id={slideId} className={'carousel-item relative w-full md:flex md:justify-around grid grid-cols-1 gap-4'}>
+        <div id={slideId} className={'carousel-item relative w-full md:flex md:justify-around grid grid-cols-1 grid-rows-3 gap-4'}>
             {shopArray.map(async (shop: any) => {
                 const photoData = await getPhotoData(shop.shopId)
                 return <Link  key={shop.shopId} href={`/shop/${shop.shopId}`}><ShopCard imageUrl={photoData.data[0]?.photoUrl} imageAlt={shop.shopName}
