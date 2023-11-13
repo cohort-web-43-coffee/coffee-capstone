@@ -74,9 +74,9 @@ export default async function HomePage ({searchParams}: HomePageProps) {
                     <div className="flex-row justify-center">
                         <Carousel>
                             {shopData.length > 0 ? sliceSplit(shopData, 3)
-                                .map((split: any, slideIndex: number) => {
-                                const previousSlideIndex = getPreviousSlideIndex(slideIndex, split)
-                                const nextSlideIndex = getNextSlideIndex(slideIndex, split)
+                                .map((split: any, slideIndex: number, splitCollection: any[]) => {
+                                const previousSlideIndex = getPreviousSlideIndex(slideIndex, splitCollection.length)
+                                const nextSlideIndex = getNextSlideIndex(slideIndex, splitCollection.length)
                                 return <CarouselSlide key={`slide${slideIndex}`}
                                             slideId={`slide${slideIndex}`} shopArray={split}
                                                       previousSlideId={`slide${previousSlideIndex}`}
@@ -95,12 +95,12 @@ export default async function HomePage ({searchParams}: HomePageProps) {
     )
 }
 
-function getPreviousSlideIndex (slideIndex: number, shopSplits: any) {
-    return slideIndex === 0 ? shopSplits.length - 1 : slideIndex - 1;
+function getPreviousSlideIndex (slideIndex: number, max: number) {
+    return slideIndex === 0 ? max - 1 : slideIndex - 1;
 }
 
-function getNextSlideIndex (slideIndex: number, shopSplits: any) {
-    return slideIndex === shopSplits.length - 1 ? 0 : slideIndex + 1;
+function getNextSlideIndex (slideIndex: number, max: number) {
+    return slideIndex === max - 1 ? 0 : slideIndex + 1;
 }
 
 function sliceSplit (array: Array<any>, sliceSize: number) {
