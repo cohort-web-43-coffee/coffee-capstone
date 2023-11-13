@@ -1,6 +1,6 @@
 import {PrimarySection, SecondarySection} from '@/app/components/Section'
 import {Container} from '@/app/components/Container'
-import {Card, CardBody, CardImage, CardTitle} from '@/app/components/Card'
+import {Card, CardBody, CardImage, CardTitle, MediumCard, SmallCard} from '@/app/components/Card'
 import {PageProps} from "@/app/types/Props";
 import {MenuButton, MenuContent, SearchField, SiteTitle} from "@/app/layout/NavBar";
 import Link from "next/link";
@@ -118,7 +118,7 @@ export default async function AccountPage({searchParams}: PageProps) {
 function BookmarkCard({name, address, phone, pixels}: BookmarkCardProps) {
     const id = Math.floor(Math.random() * 1084)
     return (
-        <Card>
+        <MediumCard>
             <CardImage imageUrl={`https://picsum.photos/id/${id}/${pixels}/${pixels}`} imageAlt={'picture'}/>
             <CardBody>
                 <div className={"flex"}>
@@ -130,13 +130,14 @@ function BookmarkCard({name, address, phone, pixels}: BookmarkCardProps) {
                     </ul>
                 </div>
             </CardBody>
-        </Card>
+        </MediumCard>
     )
 }
 
 function AccountCard() {
-    return (<>
-            <Card>
+    return (
+        <>
+            <SmallCard>
                 <div className={'place-self-center'}>
                     <CardTitle>Account</CardTitle>
                 </div>
@@ -146,7 +147,7 @@ function AccountCard() {
                         <h1 className={'text-lg'}>EMAIL:</h1><p>fakeemail@realemail.com</p>
                     </div>
                 </CardBody>
-            </Card>
+            </SmallCard>
         </>
     )
 }

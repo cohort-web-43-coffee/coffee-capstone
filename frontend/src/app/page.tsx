@@ -73,7 +73,7 @@ export default async function HomePage({searchParams}: HomePageProps) {
                 <PrimaryContainer autoMargins>
                     <div className="">
                         <Carousel>
-                            {shopData.length > 0 ? sliceSplit(shopData, 3)
+                            {shopData.length > 0 ? sliceSplit(shopData, 6)
                                 .map((split: any, slideIndex: number, splitCollection: any[]) => {
                                     const previousSlideIndex = getPreviousSlideIndex(slideIndex, splitCollection.length)
                                     const nextSlideIndex = getNextSlideIndex(slideIndex, splitCollection.length)

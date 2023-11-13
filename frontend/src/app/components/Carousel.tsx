@@ -21,26 +21,28 @@ type ShopCardProps = ImageProps & {
     shopAddress: string
 }
 
-export function Carousel (props: ChildProps) {
+export function Carousel(props: ChildProps) {
     return (<div className={"carousel w-full"}>
         {props.children}
     </div>)
 }
 
-export function CarouselSlide ({slideId, nextSlideId, previousSlideId, shopArray}: SlideProps) {
+export function CarouselSlide({slideId, nextSlideId, previousSlideId, shopArray}: SlideProps) {
     return (
-        <div id={slideId} className={'carousel-item relative w-full md:flex md:justify-around grid grid-cols-1 grid-rows-3 gap-4'}>
+        <div id={slideId}
+             className={'carousel-item relative w-full grid grid-cols-1 md:grid-cols-3 md:grid-rows-2 gap-4 justify-items-center'}>
             {shopArray.map(async (shop: any) => {
                 const photoData = await getPhotoData(shop.shopId)
-                return <Link  key={shop.shopId} href={`/shop/${shop.shopId}`}><ShopCard imageUrl={photoData.data[0]?.photoUrl} imageAlt={shop.shopName}
-                                 shopName={shop.shopName} shopAddress={shop.shopAddress}/></Link>
+                return <Link key={shop.shopId} href={`/shop/${shop.shopId}`}><ShopCard
+                    imageUrl={photoData.data[0]?.photoUrl} imageAlt={shop.shopName}
+                    shopName={shop.shopName} shopAddress={shop.shopAddress}/></Link>
             })}
             <CarouselNav previousSlideId={previousSlideId} nextSlideId={nextSlideId}/>
         </div>
     )
 }
 
-function CarouselNav ({previousSlideId, nextSlideId}: CarouselNavProps) {
+function CarouselNav({previousSlideId, nextSlideId}: CarouselNavProps) {
     return (
         <nav className={"absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2"}>
             <a href={`#${previousSlideId}`} className={"btn btn-circle"}>❮</a>
@@ -49,19 +51,21 @@ function CarouselNav ({previousSlideId, nextSlideId}: CarouselNavProps) {
     )
 }
 
-function ShopCard ({imageUrl, imageAlt, shopName, shopAddress}: ShopCardProps) {
+function ShopCard({imageUrl, imageAlt, shopName, shopAddress}: ShopCardProps) {
     return (
         <Card>
             <CardImage imageUrl={imageUrl} imageAlt={imageAlt}/>
             <CardBody>
-                <div className={'prose'}><h1>{shopName}</h1>
-                    <p>{shopAddress}</p></div>
+                <div className={'md:prose'}>
+                    <h1>{shopName}</h1>
+                    <p>{shopAddress}</p>
+                </div>
             </CardBody>
         </Card>
     )
 }
 
-async function getPhotoData (shopId: string): Promise<any> {
+async function getPhotoData(shopId: string): Promise<any> {
     try {
         const requestData = getRequestData()
         const url = `${process.env.REST_API_URL}/apis/photo/photoByShopId/${shopId}`
@@ -72,7 +76,7 @@ async function getPhotoData (shopId: string): Promise<any> {
     }
 }
 
-function getRequestData (): RequestInit {
+function getRequestData(): RequestInit {
     return {
         method: 'GET',
         headers: {

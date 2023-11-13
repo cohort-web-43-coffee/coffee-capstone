@@ -56,7 +56,7 @@ export function FormTextArea ({label, id, name, placeholder, rows}: FormTextArea
 export function FormButton () {
     return (
         <div className={'py-3'}>
-            <button type={'submit'} className={'btn btn-primary font-bold py-2 px-4 rounded'}>
+            <button type={'submit'} className={'btn btn-primary font-bold py-2 px-4 rounded-lg'}>
                 Send
             </button>
         </div>
