@@ -35,13 +35,13 @@ const requestGetHeaders: RequestInit = {
     headers: jsonHeaders
 }
 
-function requestPostHeaders (body: string, session?: Session): RequestInit {
+export function requestPostHeaders (body: string, session?: Session): RequestInit {
     if(session) {
         return {
             method: 'POST',
             headers: {
                 ...jsonHeaders,
-                'Authorization': `Bearer ${session.authorization}`
+                'Authorization': `${session.authorization}`
             },
             body
         }
@@ -54,7 +54,7 @@ function requestPostHeaders (body: string, session?: Session): RequestInit {
         }
     }
 }
-function requestDeleteHeaders (body: string, session?: Session): RequestInit {
+export function requestDeleteHeaders (body: string, session?: Session): RequestInit {
     if(session) {
         return {
             method: 'DELETE',

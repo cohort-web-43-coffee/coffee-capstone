@@ -2,25 +2,27 @@
 
 import {OptionalChildProps} from '@/app/types/Props'
 import {Tag, TagButton, TagGroup} from '@/app/components/Tag'
-import {useRouter} from 'next/navigation'
+import {requestDeleteHeaders, requestPostHeaders} from '@/app/utils/fetch'
+import {Session} from '@/utils/fetchSession'
 
 type TagToggleListProps = OptionalChildProps & {
     group: TagGroup,
-    shopId: string
+    shopId: string,
+    session: Session
 }
 
-export function TagToggleList ({children, group, shopId}: TagToggleListProps) {
-    const router = useRouter()
-    const handleTagButtonChanged = (event: React.ChangeEvent<HTMLInputElement>) => {
+export function TagToggleList ({children, group, shopId, session}: TagToggleListProps) {
+
+    const handleTagButtonChanged = (event: any) => {
         const isChecked = event.currentTarget.checked
         const tagId = event.currentTarget.id
-
-        if (isChecked) (
-            router.push(`/shop/${shopId}/${tagId}/add`)
-        )
-        else {
-            router.push(`/shop/${shopId}/${tagId}/remove`)
-        }
+        const body = JSON.stringify({
+            accountId: null,
+            shopId,
+            tagId
+        })
+        const request = isChecked ? requestPostHeaders(body, session) : requestDeleteHeaders(body, session)
+        fetch('/apis/activeTag', request).then()
     }
 
     return (
