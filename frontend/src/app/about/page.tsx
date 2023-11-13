@@ -1,11 +1,15 @@
 import {PrimarySection, SecondarySection} from '@/app/components/Section'
 import {Container} from '@/app/components/Container'
 import {Form, FormButton, FormInput, FormTextArea} from '@/app/components/Form'
+import Link from "next/link";
+import Image from "next/image";
 
 
 
 type AboutUsCardProps = {
-    text: string
+    name: string
+    linkedIn: string
+    gitHub: string
 }
 
 export default function AboutPage() {
@@ -14,11 +18,11 @@ export default function AboutPage() {
             <PrimarySection>
                 <Container autoMargins>
                     <AboutUsHeader/>
-                    <section className={'container mx-auto grid grid-cols-4 gap-24 my-16'}>
-                        <AboutUsCard text={'Bob Links Here'}/>
-                        <AboutUsCard text={'Victor Links Here'}/>
-                        <AboutUsCard text={'Mariposa Links Here'}/>
-                        <AboutUsCard text={'Josh Links Here'}/>
+                    <section className={'container mx-auto grid grid-cols-4 justify-items-center gap-24 my-16'}>
+                        <AboutUsCard name={'Bob'} gitHub={'https://github.com/inhaledesign'} linkedIn={'https://www.linkedin.com/in/inhale-design/'}/>
+                        <AboutUsCard name={'Victor'} gitHub={'https://github.com/vicvilla6'} linkedIn={'https://www.linkedin.com/in/victor-villa-098330292/'}/>
+                        <AboutUsCard name={'Josh'} gitHub={'https://github.com/JoshuaYu2023'} linkedIn={'https://www.linkedin.com/in/joshua-yu-993887289/'}/>
+                        <AboutUsCard name={'Mariposa'} gitHub={' https://github.com/mariposawheat'} linkedIn={'https://www.linkedin.com/in/mariposa-wheat-331763243/'}/>
                     </section>
                 </Container>
             </PrimarySection>
@@ -38,9 +42,7 @@ function AboutUsHeader () {
              <div style={{ margin: 'auto', width: '50%' }}>
                 <div className={'prose'}>
                     <h1>About Us!</h1>
-                    <p>Lucio fulci tremor est dark vivos magna. Expansis creepy arm yof darkness ulnis witchcraft missing carnem
-                        armis Kirkman Moore and Adlard caeruleum in locis. Romero morbo Congress amarus in auras. Nihil horum
-                        sagittis tincidunt, zombie slack-jawed gelida survival portenta.</p>
+                    <p></p>
                 </div>
              </div>
         </div>
@@ -48,11 +50,11 @@ function AboutUsHeader () {
     )
 }
 
-function AboutUsCard ({text}: AboutUsCardProps) {
+function AboutUsCard ({name, linkedIn, gitHub}: AboutUsCardProps) {
     return (
         <div>
             <img src={`https://picsum.photos/id/30/300/300`} alt={'picture of developers'} className={'rounded-full'}/>
-            <p>{text}</p>
+            <p>Check {name} out on <Link href={linkedIn}>LinkedIn</Link> and <Link href={gitHub}>GitHub!</Link></p>
         </div>
     )
 }
@@ -61,7 +63,7 @@ export function ContactForm () {
     return (
         <div>
             <div style={{margin: 'auto', width: '50%'}}>
-                <div className='prose'>
+                <div className={'prose'}>
                     <h1>Contact Us</h1>
                 </div>
             </div>

@@ -9,13 +9,13 @@ function ContactFormInput(props: ContactFormInputProps) {
     const { label, type, id, name, placeholder } = props
     return (
         <div className="py-3">
-            <label htmlFor={id} className="block text-gray text-sm font-bold mb-2">{label}</label>
+            <label htmlFor={id} className={"block text-gray text-sm font-bold mb-2"}>{label}</label>
             <input
                 type={type}
                 placeholder={placeholder}
                 id={id}
                 name={name}
-                className="mt-1 block w-full rounded-md bg-gray-100 border-transparent focus:border-gray focus:bg-white focus:ring-0"
+                className={"mt-1 block w-full rounded-md bg-gray-100 border-transparent focus:border-gray focus:bg-white focus:ring-0"}
             />
         </div>
     )
@@ -23,14 +23,14 @@ function ContactFormInput(props: ContactFormInputProps) {
 
 function ContactFormTextarea({ label, id, name, placeholder, rows }: { label: string; id: string; name: string; placeholder: string; rows: number }) {
     return (
-        <div className="py-3">
-            <label htmlFor={id} className="block text-gray text-sm font-bold mb-2">{label}</label>
+        <div className={"py-3"}>
+            <label htmlFor={id} className={"block text-gray text-sm font-bold mb-2"}>{label}</label>
             <textarea
                 rows={rows}
                 name={name}
                 placeholder={placeholder}
                 id={id}
-                className="mt-1 block w-full rounded-md bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0"
+                className={"mt-1 block w-full rounded-md bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0"}
             ></textarea>
         </div>
     )
@@ -38,8 +38,8 @@ function ContactFormTextarea({ label, id, name, placeholder, rows }: { label: st
 
 function ContactFormButton() {
     return (
-        <div className="py-3">
-            <button type="submit" className="btn btn-primary font-bold py-2 px-4 rounded">
+        <div className={"py-3"}>
+            <button type="submit" className={"btn btn-primary font-bold py-2 px-4 rounded"}>
                 Send
             </button>
         </div>
@@ -50,11 +50,11 @@ function ContactForm() {
     return (
         <div>
             <div style={{ margin: 'auto', width: '50%' }}>
-                <div className="prose">
+                <div className={"prose"}>
                     <h1>Contact Us</h1>
                 </div>
             </div>
-            <form id="contact" className="md:w-1/2 md:auto mx-auto grid-cols-1 auto-rows-max gap-6 mt-8">
+            <form id={"contact"} className={"md:w-1/2 md:auto mx-auto grid-cols-1 auto-rows-max gap-6 mt-8"}>
                 <ContactFormInput label="Name" type="text" id="name" name="name" placeholder="ex.Agent Smith" />
                 <ContactFormInput label="Email" type="email" id="email" name="email" placeholder="Smith@example.com" />
                 <ContactFormTextarea label="Message" id="message" name="message" placeholder="Enter message max 250" rows={3} />

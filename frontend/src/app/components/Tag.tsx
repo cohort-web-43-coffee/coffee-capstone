@@ -56,7 +56,7 @@ function TagButton ({showCount, tag, handleChanged, defaultChecked}: TagButtonPr
     const formattedLabel = formatTagButtonLabel(tagLabel, count, showCount)
 
     return <input type={'checkbox'} id={tag.tagId} key={tag.tagId} onChange={handleChanged} aria-label={formattedLabel}
-                  defaultChecked={defaultChecked} className="btn bg-primary-unchecked btn-xs md:btn-sm lg:btn-md" style={{backgroundImage: 'none'}}/>
+                  defaultChecked={defaultChecked} className={"btn bg-primary-unchecked btn-xs md:btn-sm lg:btn-md"} style={{backgroundImage: 'none'}}/>
 }
 
 function formatTagButtonLabel (label: string, count: number, showCount?: boolean) {

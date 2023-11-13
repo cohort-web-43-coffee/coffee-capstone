@@ -26,7 +26,7 @@ export function Form({children, id}: ChildProps & IdProps) {
 export function FormInput ({label, type, id, name, placeholder}: FormInputProps) {
     return (
         <div className="py-3">
-            <label htmlFor={id} className="block text-gray text-sm font-bold mb-2">{label}</label>
+            <label htmlFor={id} className={"block text-gray text-sm font-bold mb-2"}>{label}</label>
             <input
                 type={type}
                 placeholder={placeholder}
@@ -40,7 +40,7 @@ export function FormInput ({label, type, id, name, placeholder}: FormInputProps)
 
 export function FormTextArea ({label, id, name, placeholder, rows}: FormTextAreaProps) {
     return (
-        <div className="py-3">
+        <div className={"py-3"}>
             <label htmlFor={id} className={'block text-gray text-sm font-bold mb-2'}>{label}</label>
             <textarea
                 rows={rows}

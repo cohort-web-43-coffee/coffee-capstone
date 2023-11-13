@@ -58,13 +58,13 @@ function SignInFormContent(props: FormikProps<SignIn>) {
     return(
         <>
             <form onSubmit={handleSubmit} className={""}>
-                <div className="form-control">
-                    <label className="label" htmlFor="accountEmail">email</label>
+                <div className={"form-control"}>
+                    <label className={"label"} htmlFor="accountEmail">email</label>
                     <input
                         onBlur={handleBlur}
                         onChange={handleChange}
                         value={values.accountEmail}
-                        className="input input-bordered w-full max"
+                        className={"input input-bordered w-full max"}
                         type="text"
                         name="accountEmail"
                         id="accountEmail"
@@ -74,7 +74,7 @@ function SignInFormContent(props: FormikProps<SignIn>) {
                 <div className=" form-control">
                     <label className={" label"} htmlFor="password">Password</label>
                     <input
-                        className="input input-bordered w-full max"
+                        className={"input input-bordered w-full max"}
                         onBlur={handleBlur}
                         onChange={handleChange}
                         value={values.accountPassword}
@@ -84,9 +84,9 @@ function SignInFormContent(props: FormikProps<SignIn>) {
                     />
                     <DisplayError errors={errors} touched={touched} field={"accountPassword"} />
                 </div>
-                <div className="py-2 flex gap-2">
-                    <button className='btn btn-success' type="submit">Log In</button>
-                    <button className='btn btn-danger' onClick={handleReset} type="reset">reset</button>
+                <div className={"py-2 flex gap-2"}>
+                    <button className={"btn btn-success"} type="submit">Log In</button>
+                    <button className={'btn btn-danger'} onClick={handleReset} type="reset">reset</button>
                 </div>
                 <DisplayStatus status={status}/>
             </form>

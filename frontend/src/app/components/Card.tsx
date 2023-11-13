@@ -16,7 +16,7 @@ export function CardImage ({imageUrl, imageAlt}: ImageProps) {
 
 export function CardBody ({children}: ChildProps) {
     return (
-        <div className="card-body">
+        <div className={"card-body"}>
             {children}
         </div>
     )
@@ -24,7 +24,7 @@ export function CardBody ({children}: ChildProps) {
 
 export function CardTitle ({children}: ChildProps) {
     return (
-        <div className="card-title">
+        <div className={"card-title"}>
             {children}
         </div>
     )
@@ -32,7 +32,7 @@ export function CardTitle ({children}: ChildProps) {
 
 export function CardActions ({children}: ChildProps) {
     return (
-        <div className="card-actions justify-end">
+        <div className={"card-actions justify-end"}>
             {children}
         </div>
     )
