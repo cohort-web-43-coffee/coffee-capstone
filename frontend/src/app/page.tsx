@@ -71,7 +71,7 @@ export default async function HomePage ({searchParams}: HomePageProps) {
             </nav>
             <PrimarySection>
                 <PrimaryContainer autoMargins>
-                    <div className="flex-row justify-center">
+                    <div className="">
                         <Carousel>
                             {shopData.length > 0 ? sliceSplit(shopData, 3)
                                 .map((split: any, slideIndex: number, splitCollection: any[]) => {
