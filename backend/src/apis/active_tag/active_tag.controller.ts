@@ -34,7 +34,6 @@ export async function postActiveTagController(request: Request, response: Respon
         }
 
         const data = {...validationResult.data, accountId}
-        console.log(data)
         await insertActiveTag(data)
         return response.json({status: 200, message: null, data})
     } catch (error: any) {

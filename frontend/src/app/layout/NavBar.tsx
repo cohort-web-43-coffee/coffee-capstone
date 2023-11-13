@@ -8,7 +8,6 @@ type SearchFieldProps = ChildProps & {
     initialText: string
 }
 
-
 export function SiteTitle() {
     return <header className={'text-2xl'}>Valid Coffee</header>
 }
@@ -16,7 +15,7 @@ export function SiteTitle() {
 export async function SearchField({children, initialText}: SearchFieldProps) {
     const router = useRouter()
     const handleSearchTextChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        router.push(`/?q=${event.target.value}`)
+        router.push(`/?q=${event.currentTarget.value}`)
     }
     return (
         <div className={'form-control'}>

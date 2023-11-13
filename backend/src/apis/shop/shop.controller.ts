@@ -44,7 +44,7 @@ export async function getShopByShopIdController (request: Request, response: Res
         }
         const shopId = validationResult.data
         const data = await getShopByShopId(shopId)
-        console.log(data)
+
         return response.json({
             status: 200,
             message: null,
