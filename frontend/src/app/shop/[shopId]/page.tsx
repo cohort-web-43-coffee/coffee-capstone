@@ -16,7 +16,7 @@ export default async function ShopPage({params}: { params: { shopId: string } })
     }
     const busyTags = {
         group: 'Busy Times',
-        tags: await getRestData('/apis/tag/tagGroup/brewing')
+        tags: await getRestData('/apis/tag/tagGroup/busy')
     }
     const serviceTags = {
         group: 'Service',
