@@ -71,24 +71,28 @@ export default async function HomePage({searchParams}: HomePageProps) {
             </nav>
             <PrimarySection>
                 <PrimaryContainer autoMargins>
-                    <div className="">
-                        <Carousel>
-                            {shopData.length > 0 ? sliceSplit(shopData, 6)
-                                .map((split: any, slideIndex: number, splitCollection: any[]) => {
-                                    const previousSlideIndex = getPreviousSlideIndex(slideIndex, splitCollection.length)
-                                    const nextSlideIndex = getNextSlideIndex(slideIndex, splitCollection.length)
-                                    return <CarouselSlide key={`slide${slideIndex}`}
-                                                          slideId={`slide${slideIndex}`} shopArray={split}
-                                                          previousSlideId={`slide${previousSlideIndex}`}
-                                                          nextSlideId={`slide${nextSlideIndex}`}/>
+                    <div className={'flex flex-col-reverse sm:flex-col-reverse md:flex-col lg:flex-col'}>
+                        <div className={"mt-5"}>
+                            <Carousel>
+                                {shopData.length > 0 ? sliceSplit(shopData, 6)
+                                    .map((split: any, slideIndex: number, splitCollection: any[]) => {
+                                        const previousSlideIndex = getPreviousSlideIndex(slideIndex, splitCollection.length)
+                                        const nextSlideIndex = getNextSlideIndex(slideIndex, splitCollection.length)
+                                        return <CarouselSlide key={`slide${slideIndex}`}
+                                                              slideId={`slide${slideIndex}`} shopArray={split}
+                                                              previousSlideId={`slide${previousSlideIndex}`}
+                                                              nextSlideId={`slide${nextSlideIndex}`}/>
 
 
-                                }) : <p>No shops matching your filters.</p>}
-                        </Carousel>
+                                    }) : <p>No shops matching your filters.</p>}
+                            </Carousel>
+                        </div>
+                        <div className={'flex flex-col'}>
+                        <TagList group={brewingTags} activeTags={tags}/>
+                        <TagList group={serviceTags} activeTags={tags}/>
+                        <TagList group={busyTags} activeTags={tags}/>
+                        </div>
                     </div>
-                    <TagList group={brewingTags} activeTags={tags}/>
-                    <TagList group={serviceTags} activeTags={tags}/>
-                    <TagList group={busyTags} activeTags={tags}/>
                 </PrimaryContainer>
             </PrimarySection>
         </>
