@@ -67,8 +67,7 @@ export default async function ShopPage({params, searchParams}: ShopPageProps) {
         </nav>
         <PrimarySection>
             <Container autoMargins>
-                <div
-                    className="mx-full p-5 bg-primary-container-variant flex-row justify-center grid grid-cols-[1fr_2fr] gap-3">
+                <div className="mx-full p-5 bg-primary-container-variant flex-row justify-center grid grid-cols-[1fr_2fr] gap-3">
                     <div className={'flex flex-col gap-2'}>
                         {photoData.map((photoDetails: any) => {
                             return <ShopDetailImage key={photoDetails.photoId} imageUrl={photoDetails.photoUrl}
@@ -77,8 +76,9 @@ export default async function ShopPage({params, searchParams}: ShopPageProps) {
                     </div>
                     <div className={'flex flex-col items-center justify-center'}>
                         <div className={'prose'}><h1 className={'text-primary-container drop-shadow-lg'}>{shopData.shopName}</h1></div>
-                        <div className={'prose'}><p className={'font-bold text-accent drop-shadow-lg'}>Address: {shopData.shopAddress}</p></div>
+                        <div className={'prose'}><p className={'font-bold text-accent drop-shadow-lg pl-2'}>Address: {shopData.shopAddress}</p></div>
                         <div className={'prose'}><p className={'font-bold text-accent drop-shadow-lg'}>Phone Number: {shopData.shopPhoneNumber}</p></div>
+                        <div className={"my-4 btn btn-xs sm:btn sm:btn-sm md:btn lg:btn btn-primary sm:btn-primary md:btn-primary lg:btn-primary text-secondary-content rounded-lg p-1 sm:p-1 md:p-2 lg:p-2"}>Add Bookmark</div>
                         <TagList group={brewingTags} showCounts/>
                         <TagList group={serviceTags} showCounts/>
                         <TagList group={busyTags} showCounts/>
