@@ -123,10 +123,10 @@ function BookmarkCard({name, address, phone, pixels}: BookmarkCardProps) {
             <CardBody>
                 <div className={"flex text-xs sm:text-sm md:text-sm"}>
                     <ul>
-                        <li className={"container p-1 sm:p-1 md:p-2 lg:p-4"}>{name}</li>
-                        <li className={"container p-1 sm:p-1 md:p-2 lg:p-4"}>{address}</li>
-                        <li className={"container p-1 sm:p-1 md:p-2 lg:p-4"}>{phone}</li>
-                        <li className={"btn btn-xs sm:btn sm:btn-sm md:btn lg:btn btn-secondary sm:btn-secondary md:btn-secondary lg:btn-secondary text-secondary-content rounded-lg"}>Delete Bookmark</li>
+                        <li className={"container p-1 sm:p-1 md:p-2 lg:p-2"}>{name}</li>
+                        <li className={"container p-1 sm:p-1 md:p-2 lg:p-2"}>{address}</li>
+                        <li className={"container p-1 sm:p-1 md:p-2 lg:p-2"}>{phone}</li>
+                        <li className={"btn btn-xs sm:btn sm:btn-sm md:btn lg:btn btn-secondary sm:btn-secondary md:btn-secondary lg:btn-secondary text-secondary-content rounded-lg p-1 sm:p-1 md:p-2 lg:p-2"}>Delete Bookmark</li>
                     </ul>
                 </div>
             </CardBody>
