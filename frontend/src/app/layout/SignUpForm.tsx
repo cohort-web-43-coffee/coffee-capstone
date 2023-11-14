@@ -2,10 +2,10 @@ import {Formik, FormikHelpers, FormikProps} from "formik";
 import {toFormikValidationSchema} from "zod-formik-adapter";
 import {DisplayError} from "@/app/components/displayError";
 import {DisplayStatus} from "@/app/components/displayStatus";
-import {SignUp, SignUpSchema} from "@/utils/models/SignUp";
+import {Signup, SignUpSchema} from "@/utils/models/Signup";
 
 export function SignUpForm() {
-    const initialValues: SignUp = {
+    const initialValues: Signup = {
         accountEmail: '',
         accountName: '',
         accountPassword: '',
@@ -14,9 +14,20 @@ export function SignUpForm() {
         accountActivationToken: null
     };
 
-    const handleSubmit = (values: SignUp, actions: FormikHelpers<SignUp>) => {
+    const handleSubmit = (values: Signup, actions: FormikHelpers<Signup>) => {
         const { setStatus, resetForm } = actions;
-        console.log(values)
+        const result = fetch('/apis/sign-up/', {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(values)
+        }).then(response => response.json()).then(json => {
+            if(json.status === 200) {
+                resetForm()
+            }
+            setStatus({type: json.type, message: json.message})
+        })
 
 
         resetForm();
@@ -34,7 +45,7 @@ export function SignUpForm() {
     );
 }
 
-function SignUpFormContent(props: FormikProps<SignUp>) {
+function SignUpFormContent(props: FormikProps<Signup>) {
     const {
         status,
         values,
@@ -51,7 +62,6 @@ function SignUpFormContent(props: FormikProps<SignUp>) {
     return (
         <>
             <form onSubmit={handleSubmit} className={''}>
-                {/*account email*/}
                 <div className="form-control">
                     <label className="label" htmlFor="accountEmail">
                         Email
@@ -67,7 +77,6 @@ function SignUpFormContent(props: FormikProps<SignUp>) {
                     />
                     <DisplayError errors={errors} touched={touched} field={'accountEmail'} />
                 </div>
-                {/*account name*/}
                 <div className="form-control">
                     <label className="label" htmlFor="accountName">
                         Account Name
@@ -83,7 +92,6 @@ function SignUpFormContent(props: FormikProps<SignUp>) {
                     />
                     <DisplayError errors={errors} touched={touched} field={'accountName'} />
                 </div>
-                {/*account password*/}
                 <div className="form-control">
                     <label className="label" htmlFor="accountPassword">
                         Password
@@ -99,7 +107,6 @@ function SignUpFormContent(props: FormikProps<SignUp>) {
                     />
                     <DisplayError errors={errors} touched={touched} field={'accountPassword'} />
                 </div>
-                {/*confirm password*/}
                 <div className="form-control">
                     <label className="label" htmlFor="accountPasswordConfirm">
                         Confirm Password
