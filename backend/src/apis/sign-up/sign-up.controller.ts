@@ -32,7 +32,7 @@ export async function signUpController (request: Request, response: Response): P
         const accountHash = await setHash(accountPassword)
         const accountActivationToken = setActivationToken()
 
-        const basePath: string = `${request.protocol}://${request.hostname}:8080${request.originalUrl}activation/${accountActivationToken}`
+        const basePath: string = `${request.protocol}://${request.hostname}:8080${request.originalUrl}/activation/${accountActivationToken}`
         // create a message for the activation email body
         const message = `<h2>Welcome to Coffee Land.</h2>
         <p>In order to start finding better coffee info you must confirm your account.</p>

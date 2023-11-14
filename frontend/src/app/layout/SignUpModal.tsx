@@ -3,6 +3,7 @@ import {Modal, ModalActions} from '@/app/components/Modal'
 import {Form, FormInput} from '@/app/components/Form'
 import {SignInForm} from "@/app/layout/SignInForm";
 import {useState} from "react";
+import {SignUpForm} from "@/app/layout/SignUpForm";
 
 export function SignUpModalButton() {
     return (
@@ -14,18 +15,18 @@ export function SignUpModalButton() {
     )
 }
 
-export function SignIn() {
-  const [isShown, setIsShown] = useState(true)
-
-  return (
-      <>
-          <div>
-              {isShown ? <span>{'sign-in-modal'}</span> : <span>{'sign-up-modal'}</span>}
-          </div>
-          <button onClick={() => {setIsShown(!isShown)}}>I am a button</button>
-      </>
-  );
-}
+// export function Sign() {
+//   const [isShown, setIsShown] = useState(true)
+//
+//   return (
+//       <>
+//           <div>
+//               {isShown ? <span>{'sign-in-modal'}</span> : <span>{'sign-up-modal'}</span>}
+//           </div>
+//           <button onClick={() => {setIsShown(!isShown)}}>I am a button</button>
+//       </>
+//   );
+// }
 
 export function SignInModalButton() {
     return (
@@ -44,6 +45,7 @@ export function SignUpModal () {
             {<SignUpForm/>}
 
             <ModalActions>
+
                 <button className={'btn'}>Close</button>
             </ModalActions>
 
@@ -63,18 +65,5 @@ export function SignInModal () {
             </ModalActions>
 
         </Modal>
-    )
-}
-
-function SignUpForm () {
-    return (
-        <Form id={'sign-up-form'}>
-            <FormInput label={'Name'} type={'text'} id={'name'} name={'name'} placeholder={'Thomas A. Anderson'}/>
-            <FormInput label={'Email'} type={'email'} id={'email'} name={'email'} placeholder={'smith@example.com'}/>
-            <FormInput label={'Password'} type={'password'} id={'password'} name={'password'}
-                       placeholder={'Enter Password'}/>
-            <FormInput label={'Confirm Password'} type={'password'} id={'password'} name={'password'}
-                       placeholder={'Confirm Password'}/>
-        </Form>
     )
 }
