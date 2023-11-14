@@ -13,7 +13,8 @@ create table if not exists shop (
     shop_address varchar(512) not null,
     shop_name varchar (200) not null,
     shop_phone_number varchar(30) not null,
-    shop_url varchar(512) not null
+    shop_url varchar(512) not null,
+    shop_photo_url varchar(512) null
 );
 
 create table if not exists photo (

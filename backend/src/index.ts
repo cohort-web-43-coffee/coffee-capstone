@@ -17,6 +17,7 @@ async function main (): Promise<void> {
     await app.listen()
     await app.insertYelpData()
     await app.insertTestAccountData()
+    console.log('...yay! Go drink coffee!')
   } catch (e) {
     console.log(e)
   }

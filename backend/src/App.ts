@@ -89,7 +89,6 @@ export class App {
         } else if (await isShopTableEmpty() && await isPhotoTableEmpty()) {
             console.log('Fetching data from Yelp...')
             await insertShopAndPhotoDataFromYelp()
-            console.log('...yay! Go drink coffee!')
         }
     }
 

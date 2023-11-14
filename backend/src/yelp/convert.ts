@@ -4,7 +4,8 @@ export function businessDetailsToShopEntry(businessDetails: any): any {
             "shopName": businessDetails.name,
             "shopAddress": locationToString(businessDetails.location),
             "shopUrl": businessDetails.url,
-            "shopPhoneNumber": businessDetails.display_phone
+            "shopPhoneNumber": businessDetails.display_phone,
+            "shopPhotoUrl": businessDetails.image_url
         }
     } catch (error: any) {
         console.error(`Error converting entry:\n${JSON.stringify(businessDetails)}`)

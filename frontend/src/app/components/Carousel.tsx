@@ -32,10 +32,8 @@ export function CarouselSlide({slideId, nextSlideId, previousSlideId, shopArray}
         <div id={slideId}
              className={'carousel-item relative w-full grid gap-4 sm:gap-4 md:gap-4 lg:gap-4 grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 md:grid-rows-2 justify-items-center'}>
             {shopArray.map(async (shop: any) => {
-                const photoData = await getPhotoData(shop.shopId)
-                return <Link key={shop.shopId} href={`/shop/${shop.shopId}`}><ShopCard
-                    imageUrl={photoData.data[0]?.photoUrl} imageAlt={shop.shopName}
-                    shopName={shop.shopName} shopAddress={shop.shopAddress}/></Link>
+                return <Link  key={shop.shopId} href={`/shop/${shop.shopId}`}><ShopCard imageUrl={shop?.shopPhotoUrl} imageAlt={shop.shopName}
+                                                                                        shopName={shop.shopName} shopAddress={shop.shopAddress}/></Link>
             })}
             <CarouselNav previousSlideId={previousSlideId} nextSlideId={nextSlideId}/>
         </div>
@@ -63,26 +61,4 @@ function ShopCard({imageUrl, imageAlt, shopName, shopAddress}: ShopCardProps) {
             </CardBody>
         </Card>
     )
-}
-
-async function getPhotoData(shopId: string): Promise<any> {
-    try {
-        const requestData = getRequestData()
-        const url = `${process.env.REST_API_URL}/apis/photo/photoByShopId/${shopId}`
-        const response = await fetch(url, requestData)
-        return await response.json()
-    } catch (error) {
-
-    }
-}
-
-function getRequestData(): RequestInit {
-    return {
-        method: 'GET',
-        headers: {
-            Accept: 'application/json',
-            "Content-Type":
-                'application/json'
-        }
-    }
 }
