@@ -2,17 +2,19 @@
 
 import {OptionalChildProps} from '@/app/types/Props'
 import {Tag, TagButton, TagGroup} from '@/app/components/Tag'
-import {requestDeleteHeaders, requestPostHeaders} from '@/app/utils/fetch'
+import {requestDeleteHeaders, requestGetHeaders, requestPostHeaders} from '@/app/utils/fetch'
 import {Session} from '@/utils/fetchSession'
 
 type TagToggleListProps = OptionalChildProps & {
     group: TagGroup,
     shopId: string,
-    session: Session
+    session: Session,
+    accountActiveTags?: Tag[]
 }
 
-export function TagToggleList ({children, group, shopId, session}: TagToggleListProps) {
-
+export function TagToggleList ({children, group, shopId, session, accountActiveTags}: TagToggleListProps) {
+    const headers = requestGetHeaders(session)
+    fetch(`${process.env.PUBLIC_API_URL}//apis/activeTag/activeTagsByShopId/${shopId}`).then(response => console.log(response))
     const handleTagButtonChanged = (event: any) => {
         const isChecked = event.currentTarget.checked
         const tagId = event.currentTarget.id
@@ -31,7 +33,7 @@ export function TagToggleList ({children, group, shopId, session}: TagToggleList
             <div className={'flex flex-wrap gap-6 justify-around'}>
                 {group.tags
                     .sort((a: Tag, b: Tag) => b.count - a.count)
-                    .map((tag: Tag) => <TagButton showCount tag={tag} key={tag.tagId}
+                    .map((tag: Tag) => <TagButton showCount tag={tag} key={tag.tagId} defaultChecked={accountActiveTags?.map(tag => tag.tagId)?.includes(tag.tagId)}
                                                   handleChanged={handleTagButtonChanged}/>)}
             </div>
         </>

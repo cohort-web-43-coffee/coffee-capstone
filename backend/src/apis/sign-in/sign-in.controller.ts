@@ -51,7 +51,6 @@ export async function signInController (request: Request, response: Response): P
         }
 
         const { accountId, accountActivationToken, accountName} = account
-
         const signature: string = uuid()
 
         const authorization: string = generateJwt({

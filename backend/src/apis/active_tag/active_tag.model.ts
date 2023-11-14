@@ -61,12 +61,13 @@ export async function selectActiveTagsByAccountId(accountId: string): Promise<Ac
 
 /**
  * selects the active tags by shop id
+ * @param accountId
  * @param shopId
  * @return an array of active tags
  */
 
-export async function selectActiveTagsByShopId(shopId: string): Promise<ActiveTag[]> {
-    const rows = await sql`SELECT ${columns} FROM active_tag WHERE ${shopIdColumn} = ${shopId}`
+export async function selectActiveTagsByShopId(accountId: string, shopId: string): Promise<ActiveTag[]> {
+    const rows = await sql`SELECT ${columns} FROM active_tag WHERE ${shopIdColumn} = ${shopId} AND ${accountIdColumn} = ${accountId}`
     return ActiveTagSchema.array().parse(rows)
 }
 

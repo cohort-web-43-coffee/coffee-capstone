@@ -5,15 +5,18 @@ import {ImageProps} from '@/app/types/Props'
 import {getRestData} from "@/app/utils/fetch"
 import {TagToggleList} from '@/app/shop/[shopId]/page.client'
 import {getSession} from '@/utils/fetchSession'
+import { unstable_noStore as noStore } from 'next/cache';
 
 
 export default async function ShopPage ({params}: { params: { shopId: string } }) {
+
+    const {shopId} = params
     const session = await getSession()
-    console.log(session)
-    const shopId = params.shopId
-    const shopData = await getShopData(shopId)
-    const photoData = await getPhotoData(shopId)
+    const shopData = await getRestData(`/apis/shop/shopId/${shopId}`)
+    const photoData = await getRestData(`/apis/photo/photoByShopId/${shopId}`)
     const tagData = await getRestData(`/apis/tag/shopTags/${shopId}`)
+    // const accountActiveTagData = await getRestData(`/apis/activeTag/activeTagsByShopId/${shopId}`, session)
+    // console.log('Data:', accountActiveTagData)
 
     const brewingTags = {
         group: 'Brewing',
@@ -64,14 +67,4 @@ function ShopDetailImage ({imageUrl, imageAlt}: ImageProps) {
     return (
         <img src={imageUrl} alt={imageAlt}/>
     )
-}
-
-async function getPhotoData (shopId: string) {
-    const endpoint = `/apis/photo/photoByShopId/${shopId}`
-    return await getRestData(endpoint)
-}
-
-async function getShopData (shopId: string) {
-    const endpoint = `/apis/shop/shopId/${shopId}`
-    return await getRestData(endpoint)
 }

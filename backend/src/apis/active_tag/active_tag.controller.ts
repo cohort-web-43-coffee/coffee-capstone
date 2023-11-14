@@ -123,17 +123,32 @@ export async function getActiveTagsByAccountIdController(request: Request, respo
  */
 
 export async function getActiveTagsByShopIdController(request: Request, response: Response): Promise<Response> {
-
+    console.log('Getting active tags by shop id')
     try {
-        const validationResult = z.string().uuid('Please provide a valid UUID for accountId').safeParse(request.params.shopId)
 
+        const accountId = request.session.account?.accountId ?? null
+
+        if(accountId === null) {
+            console.log('AccountID was null')
+            return response.json({
+                status: 400,
+                message: "Session missing account",
+                data: null
+            })
+        }
+
+        const validationResult = z.string().uuid('Please provide a valid UUID for shopId').safeParse(request.params.shopId)
+        console.log('Validating shopId')
         if (!validationResult.success) {
+            console.log('Invalid shopId')
             return zodErrorResponse(response, validationResult.error)
         }
 
         const shopId = validationResult.data
-        const data = await selectActiveTagsByShopId(shopId)
-
+        console.log('accountId:', accountId)
+        console.log('shopId:', shopId)
+        const data = await selectActiveTagsByShopId(accountId, shopId)
+        console.log('shop data:', data)
         return response.json({status: 200, message: null, data})
     } catch (error: any) {
         console.log(error.message)

@@ -1,9 +1,12 @@
 import {Session} from '@/utils/fetchSession'
 
-export async function getRestData (endpoint: string) {
+export async function getRestData (endpoint: string, session?: Session) {
     const url = getUrl(endpoint)
-    const response = await fetch(url, requestGetHeaders)
-    return (await response.json()).data
+    const getHeaders = requestGetHeaders(session)
+
+    const response = await fetch(url, getHeaders)
+    const json = await response.json()
+    return json.data
 }
 
 export async function postRestData (endpoint: string, body: string, session?: Session) {
@@ -20,8 +23,9 @@ export async function deleteRestData (endpoint: string, body: string, session?: 
     return (await response.json()).data
 }
 
-function getUrl(endpoint: string): string {
-    return `${process.env.REST_API_URL}${endpoint}`
+function getUrl (endpoint: string): string {
+    console.log('publicApi:', process.env.PUBLIC_API_URL)
+    return `${process.env.PUBLIC_API_URL}${endpoint}`
 }
 
 const jsonHeaders = {
@@ -30,23 +34,35 @@ const jsonHeaders = {
         'application/json'
 }
 
-const requestGetHeaders: RequestInit = {
-    method: 'GET',
-    headers: jsonHeaders
+export function requestGetHeaders (session?: Session): RequestInit {
+    if (session) {
+        return {
+            method: 'GET',
+            credentials: 'include',
+            headers: {
+                ...jsonHeaders,
+                'Authorization': `${session.authorization}`,
+            }
+        }
+    } else {
+        return {
+            method: 'GET',
+            headers: jsonHeaders
+        }
+    }
 }
 
 export function requestPostHeaders (body: string, session?: Session): RequestInit {
-    if(session) {
+    if (session) {
         return {
             method: 'POST',
             headers: {
                 ...jsonHeaders,
-                'Authorization': `${session.authorization}`
+                'Authorization': session.authorization
             },
             body
         }
-    }
-    else {
+    } else {
         return {
             method: 'POST',
             headers: jsonHeaders,
@@ -54,18 +70,18 @@ export function requestPostHeaders (body: string, session?: Session): RequestIni
         }
     }
 }
+
 export function requestDeleteHeaders (body: string, session?: Session): RequestInit {
-    if(session) {
+    if (session) {
         return {
             method: 'DELETE',
             headers: {
                 ...jsonHeaders,
-                'Authorization': `Bearer ${session.authorization}`
+                'Authorization': session.authorization
             },
             body
         }
-    }
-    else {
+    } else {
         return {
             method: 'DELETE',
             headers: jsonHeaders,
