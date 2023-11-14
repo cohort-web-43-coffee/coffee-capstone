@@ -46,9 +46,9 @@ export async function insertShopAndPhotoDataFromYelp () {
 
 async function insertShopEntry (businessDetails: any): Promise<string> {
     const uuid = randomUUID()
-    const {shopAddress, shopName, shopPhoneNumber, shopUrl} = businessDetailsToShopEntry(businessDetails)
-    await sql`INSERT INTO shop (shop_id, shop_address, shop_name, shop_phone_number, shop_url)
-              VALUES (${uuid}, ${shopAddress}, ${shopName}, ${shopPhoneNumber}, ${shopUrl})`
+    const {shopAddress, shopName, shopPhoneNumber, shopUrl, shopPhotoUrl} = businessDetailsToShopEntry(businessDetails)
+    await sql`INSERT INTO shop (shop_id, shop_address, shop_name, shop_phone_number, shop_url, shop_photo_url)
+              VALUES (${uuid}, ${shopAddress}, ${shopName}, ${shopPhoneNumber}, ${shopUrl}, ${shopPhotoUrl})`
     return uuid
 }
 

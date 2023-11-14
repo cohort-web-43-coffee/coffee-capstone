@@ -34,6 +34,7 @@ test('Convert yelp data into Shop data', () => {
     expect(shopData.shopAddress).toBe('600 Central Ave SE\nSte A\nAlbuquerque, NM 87102')
     expect(shopData.shopUrl).toBe('https://www.yelp.com/biz/the-grove-cafe-and-market-albuquerque?adjust_creative=gtw0huIWlUOiqWb7M4oBqQ&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_lookup&utm_source=gtw0huIWlUOiqWb7M4oBqQ')
     expect(shopData.shopPhoneNumber).toBe('(505) 248-9800')
+    expect(shopData.shopPhotoUrl).toBe('https://s3-media1.fl.yelpcdn.com/bphoto/Jn7M6EUl0NB_i4F8ymRULw/o.jpg')
 })
 
 test('Convert yelp data into Photo data', () => {

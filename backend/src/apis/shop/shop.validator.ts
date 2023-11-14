@@ -11,5 +11,7 @@ export const ShopSchema = z.object({
     shopPhoneNumber: z.string()
         .max(30, {message: 'Too many numbers. Please make sure the phone number is less than 30 characters.'}),
     shopUrl: z.string()
-        .max(512, {message: 'the website is too long. Please make sure it is only 512 characters maximum.'})
+        .max(512, {message: 'the website is too long. Please make sure it is only 512 characters maximum.'}),
+    shopPhotoUrl: z.string()
+        .max(512, {message: 'Photo URL too long. Please make sure it is only 512 characters maximum.'})
 })

@@ -38,7 +38,8 @@ function getSearchRoute(cityName: string, categories: string, page: number): str
         location: cityName,
         categories,
         limit: pageSize.toString(),
-        offset: (pageSize * page).toString()
+        offset: (pageSize * page).toString(),
+        sort_by: 'rating'
     })
 }
 
