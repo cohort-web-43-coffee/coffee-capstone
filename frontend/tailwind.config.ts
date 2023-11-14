@@ -31,7 +31,7 @@ const config: Config = {
     themes: [
       {
         valid: {
-          'primary': '#3c3a1e',
+          'primary': '#77733b',
           'secondary': '#dda35d',
           'accent': '#aa6231',
           'neutral': '#e3deca',

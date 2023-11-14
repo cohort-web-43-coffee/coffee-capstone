@@ -1,11 +1,11 @@
 import {PrimarySection, SecondarySection} from '@/app/components/Section'
 import {Container} from '@/app/components/Container'
 import {Card, CardBody, CardImage, CardTitle, MediumCard, SmallCard} from '@/app/components/Card'
-import {PageProps} from "@/app/types/Props";
-import {MenuButton, MenuContent, SearchField, SiteTitle} from "@/app/layout/NavBar";
-import Link from "next/link";
-import {SignInModal, SignUpModal} from "@/app/layout/SignUpModal";
-import {getRestData} from "@/app/utils/fetch";
+import {PageProps} from "@/app/types/Props"
+import {MenuButton, MenuContent, SearchField, SiteTitle} from "@/app/layout/NavBar"
+import Link from "next/link"
+import {SignInModal, SignUpModal} from "@/app/layout/SignUpModal"
+import {getRestData} from "@/app/utils/fetch"
 
 
 type BookmarkCardProps = {
@@ -25,7 +25,7 @@ export default async function AccountPage({searchParams}: PageProps) {
             <nav className={'navbar'}>
                 <div className={'dropdown'}>
                     <MenuButton/>
-                    <ul className={'menu menu-sm dropdown-content mt-3 z-50 p-2 shadow bg-base-100 rounded-box w-32'}>
+                    <ul className={'menu menu-sm dropdown-content mt-3 z-50 p-2 shadow bg-base-100 rounded-box w-32 gap-1'}>
                         <MenuContent/>
                     </ul>
                 </div>
@@ -49,7 +49,7 @@ export default async function AccountPage({searchParams}: PageProps) {
                         </SearchField>
                     </div>
                     <div className={'navbar-center hidden md:flex'}>
-                        <ul className={'menu menu-horizontal px-1'}>
+                        <ul className={'menu menu-horizontal px-1 gap-1'}>
                             <MenuContent/>
                         </ul>
                     </div>
@@ -67,7 +67,7 @@ export default async function AccountPage({searchParams}: PageProps) {
 
             <SecondarySection>
                 <Container autoMargins>
-                    <div className={'grid grid-cols-1 md:grid-cols-2 gap-y-12 md:gap-x-12 justify-items-center'}>
+                    <div className={'grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-y-12 md:gap-x-12 justify-items-center'}>
                         <BookmarkCard
                             name={"Last Drop Espresso Bar"}
                             address={"3759 Goldleaf Lane, Rochelle Park, NJ 07662"}
@@ -118,26 +118,26 @@ export default async function AccountPage({searchParams}: PageProps) {
 function BookmarkCard({name, address, phone, pixels}: BookmarkCardProps) {
     const id = Math.floor(Math.random() * 1084)
     return (
-        <MediumCard>
+        <SmallCard>
             <CardImage imageUrl={`https://picsum.photos/id/${id}/${pixels}/${pixels}`} imageAlt={'picture'}/>
             <CardBody>
-                <div className={"flex"}>
+                <div className={"flex text-xs sm:text-sm md:text-sm"}>
                     <ul>
-                        <li className={"container p-4"}>{name}</li>
-                        <li className={"container p-4"}>{address}</li>
-                        <li className={"container p-4"}>{phone}</li>
-                        <li className={"btn btn-secondary text-secondary-content rounded-lg"}>Delete Bookmark</li>
+                        <li className={"container p-1 sm:p-1 md:p-2 lg:p-4"}>{name}</li>
+                        <li className={"container p-1 sm:p-1 md:p-2 lg:p-4"}>{address}</li>
+                        <li className={"container p-1 sm:p-1 md:p-2 lg:p-4"}>{phone}</li>
+                        <li className={"btn btn-xs sm:btn sm:btn-sm md:btn lg:btn btn-secondary sm:btn-secondary md:btn-secondary lg:btn-secondary text-secondary-content rounded-lg"}>Delete Bookmark</li>
                     </ul>
                 </div>
             </CardBody>
-        </MediumCard>
+        </SmallCard>
     )
 }
 
 function AccountCard() {
     return (
         <>
-            <SmallCard>
+            <MediumCard>
                 <div className={'place-self-center'}>
                     <CardTitle>Account</CardTitle>
                 </div>
@@ -147,7 +147,7 @@ function AccountCard() {
                         <h1 className={'text-lg'}>EMAIL:</h1><p>fakeemail@realemail.com</p>
                     </div>
                 </CardBody>
-            </SmallCard>
+            </MediumCard>
         </>
     )
 }

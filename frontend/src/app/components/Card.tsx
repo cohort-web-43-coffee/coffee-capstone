@@ -2,7 +2,7 @@ import {ChildProps, ImageProps} from '@/app/types/Props'
 
 export function Card ({children}: ChildProps) {
     return (
-        <div className={'card sm:w-60 md:w-96 h-96 p-4 bg-base-100 text-black shadow-xl'}>
+        <div className={'card w-40 sm:w-52 md:w-56 lg:w-96 h-96 p-4 bg-base-100 text-black shadow-xl text-xs sm:text-sm md:text-lg'}>
             {children}
         </div>
     )
@@ -10,7 +10,7 @@ export function Card ({children}: ChildProps) {
 
 export function SmallCard({children}: ChildProps) {
     return (
-        <div className={'card p-4 bg-base-100 text-black shadow-xl'}>
+        <div className={'card w-40 sm:w-52 md:w-56 lg:w-96 h-96 p-4 bg-base-100 text-black shadow-xl text-xs sm:text-sm md:text-lg'}>
             {children}
         </div>
     )
@@ -32,7 +32,7 @@ export function CardImage ({imageUrl, imageAlt}: ImageProps) {
 
 export function CardBody ({children}: ChildProps) {
     return (
-        <div className={"card-body"}>
+        <div className={"card-compact sm:card-compact md:card-body"}>
             {children}
         </div>
     )

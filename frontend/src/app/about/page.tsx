@@ -1,12 +1,11 @@
 import {PrimarySection, SecondarySection} from '@/app/components/Section'
 import {Container} from '@/app/components/Container'
 import {Form, FormButton, FormInput, FormTextArea} from '@/app/components/Form'
-import Link from "next/link";
-import Image from "next/image";
-import {MenuButton, MenuContent, SearchField, SiteTitle} from "@/app/layout/NavBar";
-import {SignInModal, SignUpModal} from "@/app/layout/SignUpModal";
-import {PageProps} from "@/app/types/Props";
-import {getRestData} from "@/app/utils/fetch";
+import Link from "next/link"
+import {MenuButton, MenuContent, SearchField, SiteTitle} from "@/app/layout/NavBar"
+import {SignInModal, SignUpModal} from "@/app/layout/SignUpModal"
+import {PageProps} from "@/app/types/Props"
+import {getRestData} from "@/app/utils/fetch"
 
 
 
@@ -24,7 +23,7 @@ export default async function AboutPage({searchParams}: PageProps) {
             <nav className={'navbar'}>
                 <div className={'dropdown'}>
                     <MenuButton/>
-                    <ul className={'menu menu-sm dropdown-content mt-3 z-50 p-2 shadow bg-base-100 rounded-box w-32'}>
+                    <ul className={'menu menu-sm dropdown-content mt-3 z-50 p-2 shadow bg-base-100 rounded-box w-32 gap-1'}>
                         <MenuContent/>
                     </ul>
                 </div>
@@ -48,7 +47,7 @@ export default async function AboutPage({searchParams}: PageProps) {
                         </SearchField>
                     </div>
                     <div className={'navbar-center hidden md:flex'}>
-                        <ul className={'menu menu-horizontal px-1'}>
+                        <ul className={'menu menu-horizontal px-1 gap-1'}>
                             <MenuContent/>
                         </ul>
                     </div>

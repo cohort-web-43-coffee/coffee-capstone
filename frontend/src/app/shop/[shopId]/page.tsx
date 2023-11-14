@@ -3,10 +3,10 @@ import React from 'react'
 import {Container} from '@/app/components/Container'
 import {TagList} from '@/app/components/Tag'
 import {ImageProps, PageProps} from '@/app/types/Props'
-import {getRestData} from "@/app/utils/fetch";
-import {MenuButton, MenuContent, SearchField, SiteTitle} from "@/app/layout/NavBar";
-import Link from "next/link";
-import {SignInModal, SignUpModal} from "@/app/layout/SignUpModal";
+import {getRestData} from "@/app/utils/fetch"
+import {MenuButton, MenuContent, SearchField, SiteTitle} from "@/app/layout/NavBar"
+import Link from "next/link"
+import {SignInModal, SignUpModal} from "@/app/layout/SignUpModal"
 
 type ShopPageProps = PageProps & {
     params: { shopId: string }
@@ -33,7 +33,7 @@ export default async function ShopPage({params, searchParams}: ShopPageProps) {
         <nav className={'navbar'}>
             <div className={'dropdown'}>
                 <MenuButton/>
-                <ul className={'menu menu-sm dropdown-content mt-3 z-50 p-2 shadow bg-base-100 rounded-box w-32'}>
+                <ul className={'menu menu-sm dropdown-content mt-3 z-50 p-2 shadow bg-base-100 rounded-box w-32 gap-1'}>
                     <MenuContent/>
                 </ul>
             </div>
@@ -57,7 +57,7 @@ export default async function ShopPage({params, searchParams}: ShopPageProps) {
                     </SearchField>
                 </div>
                 <div className={'navbar-center hidden md:flex'}>
-                    <ul className={'menu menu-horizontal px-1'}>
+                    <ul className={'menu menu-horizontal px-1 gap-1'}>
                         <MenuContent/>
                     </ul>
                 </div>

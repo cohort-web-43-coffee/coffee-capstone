@@ -37,7 +37,7 @@ export default async function HomePage({searchParams}: HomePageProps) {
             <nav className={'navbar'}>
                 <div className={'dropdown'}>
                     <MenuButton/>
-                    <ul className={'menu menu-sm dropdown-content mt-3 z-50 p-2 shadow bg-base-100 rounded-box w-32'}>
+                    <ul className={'menu menu-sm dropdown-content mt-3 z-50 p-2 shadow bg-base-100 rounded-box w-32 gap-1'}>
                         <MenuContent/>
                     </ul>
                 </div>
@@ -61,7 +61,7 @@ export default async function HomePage({searchParams}: HomePageProps) {
                         </SearchField>
                     </div>
                     <div className={'navbar-center hidden md:flex'}>
-                        <ul className={'menu menu-horizontal px-1'}>
+                        <ul className={'menu menu-horizontal px-1 gap-1'}>
                             <MenuContent/>
                         </ul>
                     </div>

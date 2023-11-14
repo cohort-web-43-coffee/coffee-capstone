@@ -30,7 +30,7 @@ export function Carousel(props: ChildProps) {
 export function CarouselSlide({slideId, nextSlideId, previousSlideId, shopArray}: SlideProps) {
     return (
         <div id={slideId}
-             className={'carousel-item relative w-full grid grid-cols-1 md:grid-cols-3 md:grid-rows-2 gap-4 justify-items-center'}>
+             className={'carousel-item relative w-full grid gap-4 sm:gap-4 md:gap-4 lg:gap-4 grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 md:grid-rows-2 justify-items-center'}>
             {shopArray.map(async (shop: any) => {
                 const photoData = await getPhotoData(shop.shopId)
                 return <Link key={shop.shopId} href={`/shop/${shop.shopId}`}><ShopCard
@@ -56,7 +56,7 @@ function ShopCard({imageUrl, imageAlt, shopName, shopAddress}: ShopCardProps) {
         <Card>
             <CardImage imageUrl={imageUrl} imageAlt={imageAlt}/>
             <CardBody>
-                <div className={'md:prose'}>
+                <div className={'my-1'}>
                     <h1>{shopName}</h1>
                     <p>{shopAddress}</p>
                 </div>

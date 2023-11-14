@@ -8,7 +8,7 @@ export function SignUpModalButton() {
     return (
         <button
             onClick={() => (document.getElementById('sign-up-modal') as HTMLDialogElement).showModal()}
-            className={'btn btn-primary btn-xs rounded-full'}>
+            className={'btn btn-primary btn-xs rounded-full items-center'}>
             Sign Up
         </button>
     )
