@@ -57,8 +57,8 @@ function ShopCard({imageUrl, imageAlt, shopName, shopAddress}: ShopCardProps) {
             <CardImage imageUrl={imageUrl} imageAlt={imageAlt}/>
             <CardBody>
                 <div className={'my-1'}>
-                    <h1>{shopName}</h1>
-                    <p>{shopAddress}</p>
+                    <h1 className={'text-lg font-bold'}>{shopName}</h1>
+                    <p className={'text-base'}>{shopAddress}</p>
                 </div>
             </CardBody>
         </Card>
