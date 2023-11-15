@@ -63,17 +63,20 @@ export async function insertBookmarkController(request: Request, response: Respo
 
 export async function getBookmarksByAccountIdController(request: Request, response: Response): Promise<Response> {
     try {
+        console.log('getting bookmarks' )
         const bookmarkAccountId = request.session.account?.accountId ?? null
 
         if(bookmarkAccountId === null) {
+            console.log('account id was null')
             return response.json({
                 status: 400,
                 message: "Session missing account",
                 data: null
             })
         }
-
+        console.log('getting data')
         const data = await selectBookmarksByAccountId(bookmarkAccountId)
+        console.log('got data')
 
         // return the status and the bookmarks associated with the account
         return response.json({status: 200, message: null, data})
