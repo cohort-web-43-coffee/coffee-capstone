@@ -14,7 +14,6 @@ import {shopRoute} from "./apis/shop/shop.route";
 import {accountRoute} from "./apis/account/account.route";
 import {signOutRoute} from "./apis/sign-out/sign-out.route";
 import {photoRoute} from "./apis/photo/photo.route";
-import helmet from "helmet";
 import {
     insertShopAndPhotoDataFromYelp,
     isActiveTagTableEmpty,
@@ -57,10 +56,13 @@ export class App {
             store: this.redisStore,
             saveUninitialized: false,
             secret: process.env.SESSION_SECRET as string,
-            resave: false
+            resave: false,
+            cookie: {
+                sameSite: 'lax'
+            }
 
         }))
-        this.app.use(helmet())
+        // this.app.use(helmet())
     }
 
     // private method for setting up routes in their basic sense (ie. any route that performs an action on profiles starts with /profiles)

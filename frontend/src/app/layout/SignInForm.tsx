@@ -4,7 +4,6 @@ import {toFormikValidationSchema} from "zod-formik-adapter";
 import {SignIn, signInAccountSchema} from "@/utils/models/signin";
 import {DisplayError} from "@/app/components/displayError";
 import {DisplayStatus} from "@/app/components/displayStatus";
-import {FormDebugger} from "@/app/components/formDebbuger";
 
 
 export function SignInForm() {
@@ -15,7 +14,7 @@ export function SignInForm() {
 
     const handleSubmit = (values: SignIn, actions: FormikHelpers<SignIn>) => {
         const {setStatus, resetForm } = actions
-        const result = fetch('/apis/sign-in', {
+        const result = fetch('/api/sign-in', {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",

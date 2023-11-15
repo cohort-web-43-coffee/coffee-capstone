@@ -1,11 +1,11 @@
-import {PrimarySection, SecondarySection} from '@/app/components/Section'
+import {PrimarySection} from '@/app/components/Section'
 import {PrimaryContainer} from '@/app/components/Container'
-import {TagList} from '@/app/components/Tag'
 import {Carousel, CarouselSlide} from '@/app/components/Carousel'
 import {MenuButton, MenuContent, SearchField, SiteTitle} from "@/app/layout/NavBar"
 import {SignInModal, SignUpModal} from "@/app/layout/SignUpModal"
 import Link from "next/link"
 import {getRestData, postRestData} from '@/app/utils/fetch'
+import {TagFilterList} from '@/app/page.client'
 
 type HomePageProps = {
     searchParams: {
@@ -14,7 +14,7 @@ type HomePageProps = {
     }
 }
 
-export default async function HomePage({searchParams}: HomePageProps) {
+export default async function HomePage ({searchParams}: HomePageProps) {
     const query = searchParams.q
     const tagArray = searchParams.tags?.split(',').filter(value => value != '')
     const tags = new Set<string>(tagArray)
@@ -82,17 +82,16 @@ export default async function HomePage({searchParams}: HomePageProps) {
                                                               slideId={`slide${slideIndex}`} shopArray={split}
                                                               previousSlideId={`slide${previousSlideIndex}`}
                                                               nextSlideId={`slide${nextSlideIndex}`}/>
-
-
                                     }) : <p>No shops matching your filters.</p>}
                             </Carousel>
                         </div>
                         <div className={'flex flex-col'}>
-                        <TagList group={brewingTags} activeTags={tags}/>
-                        <TagList group={serviceTags} activeTags={tags}/>
-                        <TagList group={busyTags} activeTags={tags}/>
+                            <TagFilterList group={brewingTags} activeTags={tags}/>
+                            <TagFilterList group={serviceTags} activeTags={tags}/>
+                            <TagFilterList group={busyTags} activeTags={tags}/>
                         </div>
                     </div>
+
                 </PrimaryContainer>
             </PrimarySection>
         </>

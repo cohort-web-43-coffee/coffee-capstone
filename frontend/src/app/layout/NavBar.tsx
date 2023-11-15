@@ -8,7 +8,6 @@ type SearchFieldProps = ChildProps & {
     initialText: string
 }
 
-
 export function SiteTitle() {
     return <header className={'text-2xl'}>Valid Coffee</header>
 }

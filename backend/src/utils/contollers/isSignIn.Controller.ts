@@ -19,7 +19,6 @@ export function isSignInController(request: Request, response: Response, next: N
             return response.json(status)
         }
         verify(unverifiedJwtToken, signature)
-        console.log("success")
         return next()
     } catch (error: any) {
         return response.json(status)

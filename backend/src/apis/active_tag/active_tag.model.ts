@@ -2,18 +2,9 @@ import {ActiveTagSchema} from './active_tag.validator'
 import {z} from 'zod'
 import {sql} from '../../utils/database.utils'
 
-const accountIdColumn = 'account_id'
-
-const shopIdColumn = 'shop_id'
-
-const tagIdColumn = 'tag_id'
-
-const columns = `${tagIdColumn}, ${shopIdColumn}, ${accountIdColumn}`
-
 
 
 export type ActiveTag = z.infer<typeof ActiveTagSchema>
-
 
 /**
  * inserts an active tag into accountId and shopId tag
@@ -21,9 +12,9 @@ export type ActiveTag = z.infer<typeof ActiveTagSchema>
  * @returns 'Insert active tag successful.'
  */
 export async function insertActiveTag(activeTag: ActiveTag): Promise<string> {
-    const {accountId, tagId, shopId} = activeTag
+    const {activeTagAccountId   , activeTagTagId, activeTagShopId} = activeTag
 
-    await sql`INSERT INTO active_tag (active_tag_tag_id, active_tag_shop_id, active_tag_account_id) VALUES (${tagId}, ${shopId}, ${accountId})`
+    await sql`INSERT INTO active_tag (active_tag_tag_id, active_tag_shop_id, active_tag_account_id) VALUES (${activeTagTagId}, ${activeTagShopId}, ${activeTagAccountId})`
 
     return 'Insert active tag successful.'
 }
@@ -36,13 +27,13 @@ export async function insertActiveTag(activeTag: ActiveTag): Promise<string> {
  */
 
 export async function deleteActiveTag(activeTag: ActiveTag): Promise<string> {
-    const {accountId, tagId, shopId} = activeTag
+    const {activeTagAccountId, activeTagTagId, activeTagShopId} = activeTag
 
     await sql`DELETE
               FROM active_tag
-              WHERE ${tagIdColumn} = ${tagId}
-                AND ${accountIdColumn} = ${accountId}
-                AND ${shopIdColumn} = ${shopId}`
+              WHERE active_tag_tag_id = ${activeTagTagId}
+                AND active_tag_account_id = ${activeTagAccountId}
+                AND active_tag_shop_id = ${activeTagShopId}`
 
     return 'Delete active tag successful.'
 }
@@ -54,19 +45,20 @@ export async function deleteActiveTag(activeTag: ActiveTag): Promise<string> {
  * @return activeTagSchema
  */
 export async function selectActiveTagsByAccountId(accountId: string): Promise<ActiveTag[]> {
-    const rows = await sql`SELECT ${columns} FROM active_tag WHERE ${accountIdColumn} = ${accountId}`
+    const rows = await sql`SELECT active_tag_tag_id, active_tag_shop_id, active_tag_account_id FROM active_tag WHERE active_tag_account_id = ${accountId}`
     return ActiveTagSchema.array().parse(rows)
 }
 
 
 /**
  * selects the active tags by shop id
+ * @param accountId
  * @param shopId
  * @return an array of active tags
  */
 
-export async function selectActiveTagsByShopId(shopId: string): Promise<ActiveTag[]> {
-    const rows = await sql`SELECT ${columns} FROM active_tag WHERE ${shopIdColumn} = ${shopId}`
+export async function selectActiveTagsByAccountAndShopId(accountId: string, shopId: string): Promise<ActiveTag[]> {
+    const rows = await sql`SELECT active_tag_tag_id, active_tag_shop_id, active_tag_account_id FROM active_tag WHERE active_tag_shop_id = ${shopId} AND active_tag_account_id = ${accountId}`
     return ActiveTagSchema.array().parse(rows)
 }
 
@@ -76,7 +68,7 @@ export async function selectActiveTagsByShopId(shopId: string): Promise<ActiveTa
  * @return array starting with 0 (?)
  */
 export async function countActiveTagByTagId(tagId: string): Promise<number> {
-    const result = await sql`SELECT COUNT(active_tag_tag_id) FROM active_tag WHERE ${tagIdColumn} = ${tagId}`
+    const result = await sql`SELECT COUNT(active_tag_tag_id) FROM active_tag WHERE active_tag_tag_id = ${tagId}`
     return result[0].count
 }
 
@@ -88,7 +80,7 @@ export async function countActiveTagByTagId(tagId: string): Promise<number> {
 export async function countActiveTagByTagIdAndShopId(tagId: string, shopId: string): Promise<number> {
     const result = await sql`SELECT COUNT(active_tag_tag_id)
                              FROM active_tag
-                             WHERE ${tagIdColumn} = ${tagId}
-                               AND ${shopIdColumn} = ${shopId}`
+                             WHERE active_tag_tag_id = ${tagId}
+                               AND active_tag_shop_id = ${shopId}`
     return result[0].count
 }
