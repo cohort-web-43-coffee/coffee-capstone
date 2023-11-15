@@ -15,7 +15,7 @@ import {accountRoute} from "./apis/account/account.route";
 import {signOutRoute} from "./apis/sign-out/sign-out.route";
 import {photoRoute} from "./apis/photo/photo.route";
 import {
-    insertShopAndPhotoDataFromYelp,
+    insertShopAndPhotoDataFromYelp, isAccountTableEmpty,
     isActiveTagTableEmpty,
     isBookmarkTableEmpty, isPhotoTableEmpty,
     isShopTableEmpty
@@ -96,8 +96,8 @@ export class App {
 
     public async insertTestAccountData () {
         console.log('Checking to see if test data needs to be inserted...')
-        if (!await isShopTableEmpty() && await isActiveTagTableEmpty() && await isBookmarkTableEmpty()) {
-            console.log('...Tables empty, inserting bookmarks and active tags.')
+        if (!await isShopTableEmpty() && !await isAccountTableEmpty() && await isBookmarkTableEmpty()) {
+            console.log('...Bookmarks empty, inserting bookmarks...')
             await this.insertTestBookmark('The Grove Cafe & Market', 0)
             await this.insertTestBookmark('Little Bear Coffee', 1)
             await this.insertTestBookmark('Barelas Coffee House', 2)
@@ -109,11 +109,12 @@ export class App {
             await this.insertTestBookmark('Odacrem Coffee LLC', 8)
             await this.insertTestBookmark('Krispy Kreme', 9)
             await this.insertTestBookmark('Ethnosphere Coffee', 10)
-            await this.insertTestActiveTag('Drip coffee', 'Krispy Kreme')
-            await this.insertTestActiveTag('French press', 'Krispy Kreme')
-            await this.insertTestActiveTag('Espresso', 'Krispy Kreme')
-        } else {
-            console.log('Tables not empty, not inserting test data.')
+
+        }
+
+        if(!await isShopTableEmpty() && !await isAccountTableEmpty() && await isActiveTagTableEmpty()) {
+            console.log('...Bookmarks empty, inserting 2000 bookmarks...')
+            await this.insertRandomTestActiveTag(2000)
         }
     }
 
@@ -124,10 +125,12 @@ export class App {
                           ${order})`
     }
 
-    private async insertTestActiveTag (tagLabel: string, shopName: string) {
-        await sql`INSERT INTO active_tag(active_tag_account_id, active_tag_shop_id, active_tag_tag_id)
+    private async insertRandomTestActiveTag (count: number) {
+        for(let i = 0; i < count; i++) {
+            await sql`INSERT INTO active_tag(active_tag_account_id, active_tag_shop_id, active_tag_tag_id)
                   VALUES ('78110022-3ea1-4d51-9094-ba887e2fb580',
-                          (SELECT (shop_id) FROM shop WHERE shop_name = ${shopName} LIMIT 1),
-                          (SELECT (tag_id) FROM tag WHERE tag_label = ${tagLabel} LIMIT 1))`
+                          (SELECT (shop_id) FROM shop ORDER BY random() LIMIT 1),
+                          (SELECT (tag_id) FROM tag ORDER BY random() LIMIT 1))`
+        }
     }
 }
