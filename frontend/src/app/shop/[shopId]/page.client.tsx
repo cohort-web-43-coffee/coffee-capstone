@@ -19,7 +19,7 @@ type TagToggleGroupProps = {
     activeTagsSetter: React.Dispatch<React.SetStateAction<string[]>>
 }
 
-async function fetchActiveTags (shopId: String, activeTagsSetter: React.Dispatch<React.SetStateAction<string[]>>, session?: Session) {
+async function fetchActiveTags(shopId: String, activeTagsSetter: React.Dispatch<React.SetStateAction<string[]>>, session?: Session) {
     const headers = requestGetHeaders(session)
     const url = `/apis/activeTag/activeTagsByShopId/${shopId}`
     fetch(url, headers)
@@ -29,7 +29,7 @@ async function fetchActiveTags (shopId: String, activeTagsSetter: React.Dispatch
         })
 }
 
-export function TagToggleList ({tagData, shopId, session}: TagToggleListProps) {
+export function TagToggleList({tagData, shopId, session}: TagToggleListProps) {
     const [activeTags, setActiveTags] = useState(new Array<string>())
     const effect = () => {
         fetchActiveTags(shopId, setActiveTags, session).then()
@@ -49,7 +49,8 @@ export function TagToggleList ({tagData, shopId, session}: TagToggleListProps) {
         group: 'Service',
         tags: tagData.filter((tag: any) => tag.tagGroup === 'service')
     }
-    return (<>
+    return (
+        <>
             <TagToggleGroup group={brewingTags} shopId={shopId} session={session} activeTags={activeTags}
                             activeTagsSetter={setActiveTags}/>
             <TagToggleGroup group={busyTags} shopId={shopId} session={session} activeTags={activeTags}
@@ -60,7 +61,7 @@ export function TagToggleList ({tagData, shopId, session}: TagToggleListProps) {
     )
 }
 
-export function TagToggleGroup ({group, shopId, session, activeTags, activeTagsSetter}: TagToggleGroupProps) {
+export function TagToggleGroup({group, shopId, session, activeTags, activeTagsSetter}: TagToggleGroupProps) {
 
     const handleTagButtonChanged = (event: any) => {
         const isChecked = event.currentTarget.checked
@@ -94,14 +95,20 @@ export function TagToggleGroup ({group, shopId, session, activeTags, activeTagsS
 
     return (
         <>
-            <div className={'divider'}>{group.group}</div>
-            <div className={'flex flex-wrap gap-6 justify-around'}>
-                {group.tags
-                    .sort((a: Tag, b: Tag) => b.count - a.count)
-                    .map((tag: Tag) => <TagButton showCount tag={tag} key={tag.tagId}
-                                                  checked={activeTags.includes(tag.tagId)}
-                                                  handleChanged={handleTagButtonChanged}/>)}
-            </div>
+            <details className={"collapse collapse-arrow"}>
+                <summary className={"collapse-title text-xl font-medium"}>
+                    <div className={'divider'}>{group.group}</div>
+                </summary>
+                <div className="collapse-content">
+                    <div className={'flex flex-wrap gap-6 justify-around'}>
+                        {group.tags
+                            .sort((a: Tag, b: Tag) => b.count - a.count)
+                            .map((tag: Tag) => <TagButton showCount tag={tag} key={tag.tagId}
+                                                          checked={activeTags.includes(tag.tagId)}
+                                                          handleChanged={handleTagButtonChanged}/>)}
+                    </div>
+                </div>
+            </details>
         </>
     )
 }

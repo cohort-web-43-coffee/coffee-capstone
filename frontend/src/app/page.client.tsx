@@ -3,6 +3,7 @@
 import {usePathname, useRouter, useSearchParams} from 'next/navigation'
 import {Tag, TagButton, TagGroup} from '@/app/components/Tag'
 import {OptionalChildProps} from '@/app/types/Props'
+import React from "react";
 
 
 type TagFilterListProps = OptionalChildProps & {
@@ -11,7 +12,7 @@ type TagFilterListProps = OptionalChildProps & {
     activeTags: Set<string>
 }
 
-export function TagFilterList ({group, showCounts, children, activeTags}: TagFilterListProps) {
+export function TagFilterList({group, showCounts, children, activeTags}: TagFilterListProps) {
     const router = useRouter()
     const pathName = usePathname()
     const currentParams = useSearchParams()
@@ -33,12 +34,24 @@ export function TagFilterList ({group, showCounts, children, activeTags}: TagFil
 
     return (
         <>
-            <div className={'divider'}>{group.group}{children}</div>
-            <div className={'flex flex-wrap gap-6 justify-around'}>
-                {group.tags
-                    .sort((a: Tag, b: Tag) => b.count - a.count)
-                    .map((tag: Tag) => <TagButton tag={tag} checked={activeTags?.has(tag.tagId)} showCount={showCounts} key={tag.tagId}
-                                                  handleChanged={handleTagButtonChanged}/>)}
-            </div>
-        </>)
+            <details className={"collapse collapse-arrow"}>
+                <summary className={"collapse-title text-xl font-medium"}>
+                    <div className={'divider'}>{group.group}{children}</div>
+                </summary>
+                <div className="collapse-content">
+                    <div className={'flex flex-wrap gap-6 justify-around'}>
+                        {group.tags
+                            .sort((a: Tag, b: Tag) => b.count - a.count)
+                            .map((tag: Tag) => <TagButton tag={tag} checked={activeTags?.has(tag.tagId)}
+                                                          showCount={showCounts} key={tag.tagId}
+                                                          handleChanged={handleTagButtonChanged}/>)}
+                    </div>
+                </div>
+            </details>
+        </>
+    )
 }
+
+
+
+
