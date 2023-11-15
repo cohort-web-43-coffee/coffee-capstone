@@ -7,12 +7,17 @@ import {MenuButton, MenuContent, SearchField, SiteTitle} from "@/app/layout/NavB
 import Link from "next/link"
 import {SignInModal, SignUpModal} from "@/app/layout/SignUpModal"
 import {getRestData} from "@/app/utils/fetch"
-import {getSession} from "@/utils/fetchSession";
+import {getSession, session} from "@/utils/fetchSession";
 import {BookmarkList} from "@/app/account/page.client";
 
 
 export default async function AccountPage({searchParams}: PageProps) {
     const session = await getSession()
+
+    if(session === undefined) {
+        return <>Log in</>
+    }
+    console.log(session)
     const query = searchParams.q
     const searchResult = await getRestData(`/apis/shop/search?name=${query}`)
     return (
@@ -79,8 +84,8 @@ function AccountCard() {
                 </div>
                 <CardBody>
                     <div className={'grid grid-cols-2 justify-items-center'}>
-                        <h1 className={'text-lg'}>NAME:</h1><p>Frederick Douglas</p>
-                        <h1 className={'text-lg'}>EMAIL:</h1><p>fakeemail@realemail.com</p>
+                        <h1 className={'text-lg'}>NAME:</h1><p>{session.account.accountName}</p>
+
                     </div>
                 </CardBody>
             </MediumCard>

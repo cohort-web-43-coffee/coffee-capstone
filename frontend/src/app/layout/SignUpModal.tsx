@@ -15,19 +15,6 @@ export function SignUpModalButton() {
     )
 }
 
-// export function Sign() {
-//   const [isShown, setIsShown] = useState(true)
-//
-//   return (
-//       <>
-//           <div>
-//               {isShown ? <span>{'sign-in-modal'}</span> : <span>{'sign-up-modal'}</span>}
-//           </div>
-//           <button onClick={() => {setIsShown(!isShown)}}>I am a button</button>
-//       </>
-//   );
-// }
-
 export function SignInModalButton() {
     return (
         <button
