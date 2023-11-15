@@ -84,7 +84,7 @@ function AccountCard() {
                 </div>
                 <CardBody>
                     <div className={'grid grid-cols-2 justify-items-center'}>
-                        <h1 className={'text-lg'}>NAME:</h1><p>{session.account.accountName}</p>
+                        <h1 className={'text-lg'}>NAME:</h1><p>{session?.account.accountName}</p>
 
                     </div>
                 </CardBody>
