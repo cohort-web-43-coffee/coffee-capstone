@@ -101,7 +101,7 @@ export function TagToggleGroup({group, shopId, session, activeTags, activeTagsSe
                         {group.tags
                             .sort((a: Tag, b: Tag) => b.count - a.count)
                             .map((tag: Tag) => <TagButton tag={tag} key={tag.tagId}
-                                                          checked={activeTags.includes(tag.tagId)}
+                                                          checked={activeTags?.includes(tag.tagId)}
                                                           handleChanged={handleTagButtonChanged}/>)}
                     </div>
                 </div>
