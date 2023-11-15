@@ -1,7 +1,7 @@
 'use client'
 import Link from 'next/link';
 import {SignInModalButton, SignUpModalButton} from '@/app/layout/SignUpModal'
-import {useRouter} from "next/navigation"
+import {usePathname, useRouter, useSearchParams} from "next/navigation"
 import {ChildProps} from "@/app/types/Props"
 
 type SearchFieldProps = ChildProps & {
@@ -15,8 +15,12 @@ export function SiteTitle() {
 
 export async function SearchField({children, initialText}: SearchFieldProps) {
     const router = useRouter()
+    const pathName = usePathname()
+    const currentParams = useSearchParams()
     const handleSearchTextChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        router.push(`/?q=${event.target.value}`)
+        const newParams = new URLSearchParams(currentParams)
+        newParams.set('q', event.target.value)
+        router.push(`${pathName}?${newParams}`)
     }
     return (
         <div className={'form-control'}>
