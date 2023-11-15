@@ -1,3 +1,5 @@
+import {Session} from "@/utils/fetchSession";
+
 export type ChildProps = {
     children: React.ReactNode
 }
@@ -20,4 +22,8 @@ export type PageProps = {
         q: string,
         tags: string
     }
+}
+
+export type SessionProps = {
+    session?: Session
 }

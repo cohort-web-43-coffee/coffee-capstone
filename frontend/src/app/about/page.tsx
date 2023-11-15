@@ -6,6 +6,7 @@ import {MenuButton, MenuContent, SearchField, SiteTitle} from "@/app/layout/NavB
 import {SignInModal, SignUpModal} from "@/app/layout/SignUpModal"
 import {PageProps} from "@/app/types/Props"
 import {getRestData} from "@/app/utils/fetch"
+import {getSession} from "@/utils/fetchSession";
 
 
 
@@ -16,6 +17,7 @@ type AboutUsCardProps = {
 }
 
 export default async function AboutPage({searchParams}: PageProps) {
+    const session = await getSession()
     const query = searchParams.q
     const searchResult = await getRestData(`/apis/shop/search?name=${query}`)
     return (
@@ -24,7 +26,7 @@ export default async function AboutPage({searchParams}: PageProps) {
                 <div className={'dropdown'}>
                     <MenuButton/>
                     <ul className={'menu menu-sm dropdown-content mt-3 z-50 p-2 shadow bg-base-100 rounded-box w-32 gap-1'}>
-                        <MenuContent/>
+                        <MenuContent session={session}/>
                     </ul>
                 </div>
                 <div className={'flex-1'}>
@@ -47,8 +49,8 @@ export default async function AboutPage({searchParams}: PageProps) {
                         </SearchField>
                     </div>
                     <div className={'navbar-center hidden md:flex'}>
-                        <ul className={'menu menu-horizontal px-1 gap-1'}>
-                            <MenuContent/>
+                        <ul className={'relative flex items-center px-1 gap-4'}>
+                            <MenuContent session={session}/>
                         </ul>
                     </div>
                 </div>

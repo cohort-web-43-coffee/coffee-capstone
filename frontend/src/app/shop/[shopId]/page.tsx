@@ -28,7 +28,7 @@ export default async function ShopPage({params, searchParams}: ShopPageProps) {
             <div className={'dropdown'}>
                 <MenuButton/>
                 <ul className={'menu menu-sm dropdown-content mt-3 z-50 p-2 shadow bg-base-100 rounded-box w-32 gap-1'}>
-                    <MenuContent/>
+                    <MenuContent session={session}/>
                 </ul>
             </div>
             <div className={'flex-1'}>
@@ -51,8 +51,8 @@ export default async function ShopPage({params, searchParams}: ShopPageProps) {
                     </SearchField>
                 </div>
                 <div className={'navbar-center hidden md:flex'}>
-                    <ul className={'menu menu-horizontal px-1 gap-1'}>
-                        <MenuContent/>
+                    <ul className={'relative flex items-center px-1 gap-4'}>
+                        <MenuContent session={session}/>
                     </ul>
                 </div>
             </div>

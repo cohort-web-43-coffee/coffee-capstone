@@ -62,35 +62,49 @@ create index on bookmark(bookmark_shop_id);
 -- Test account
 INSERT INTO account(account_id, account_email, account_hash, account_activation_token, account_name)
 VALUES ('78110022-3ea1-4d51-9094-ba887e2fb580',
-        'test@test.test',
+        'jolene@yahoo.com',
         '$argon2id$v=19$m=65536,t=3,p=1$O1mv+FewvEnfWRTXdLLvxA$TkBR7RRvQjSMJGmoNw/jKSV/LMCmPb+IfWQBqbkDXBM',
         null,
-        'Little Jimmy');
+        'Jolene');
 
 
 -- busy group
 
-insert into tag(tag_id, tag_group, tag_label) VALUES (gen_random_uuid(), 'busy', 'busy:morning');
-insert into tag(tag_id, tag_group, tag_label) VALUES (gen_random_uuid(), 'busy', 'busy:afternoon');
-insert into tag(tag_id, tag_group, tag_label) VALUES (gen_random_uuid(), 'busy', 'busy:evening');
+insert into tag(tag_id, tag_group, tag_label) VALUES (gen_random_uuid(), 'busy', 'Morning');
+insert into tag(tag_id, tag_group, tag_label) VALUES (gen_random_uuid(), 'busy', 'Brunch');
+insert into tag(tag_id, tag_group, tag_label) VALUES (gen_random_uuid(), 'busy', 'Lunch');
+insert into tag(tag_id, tag_group, tag_label) VALUES (gen_random_uuid(), 'busy', 'Afternoon');
+insert into tag(tag_id, tag_group, tag_label) VALUES (gen_random_uuid(), 'busy', 'Evening');
+insert into tag(tag_id, tag_group, tag_label) VALUES (gen_random_uuid(), 'busy', 'Late');
 
 -- customer service group
 
-insert into tag(tag_id, tag_group, tag_label) VALUES (gen_random_uuid(), 'service', 'service:great');
-insert into tag(tag_id, tag_group, tag_label) VALUES (gen_random_uuid(), 'service', 'service:ok');
-insert into tag(tag_id, tag_group, tag_label) VALUES (gen_random_uuid(), 'service', 'service:poor');
+insert into tag(tag_id, tag_group, tag_label) VALUES (gen_random_uuid(), 'service', 'Great');
+insert into tag(tag_id, tag_group, tag_label) VALUES (gen_random_uuid(), 'service', 'Amazing');
+insert into tag(tag_id, tag_group, tag_label) VALUES (gen_random_uuid(), 'service', 'Outstanding');
+insert into tag(tag_id, tag_group, tag_label) VALUES (gen_random_uuid(), 'service', 'Excellent');
+insert into tag(tag_id, tag_group, tag_label) VALUES (gen_random_uuid(), 'service', 'Bussin Bussin');
+insert into tag(tag_id, tag_group, tag_label) VALUES (gen_random_uuid(), 'service', 'Pleasant');
+insert into tag(tag_id, tag_group, tag_label) VALUES (gen_random_uuid(), 'service', 'Helpful');
+insert into tag(tag_id, tag_group, tag_label) VALUES (gen_random_uuid(), 'service', 'Satisfactory');
+insert into tag(tag_id, tag_group, tag_label) VALUES (gen_random_uuid(), 'service', 'Good');
+insert into tag(tag_id, tag_group, tag_label) VALUES (gen_random_uuid(), 'service', 'Okay');
+insert into tag(tag_id, tag_group, tag_label) VALUES (gen_random_uuid(), 'service', 'Acceptable');
+insert into tag(tag_id, tag_group, tag_label) VALUES (gen_random_uuid(), 'service', 'Average');
+insert into tag(tag_id, tag_group, tag_label) VALUES (gen_random_uuid(), 'service', 'Subpar');
+insert into tag(tag_id, tag_group, tag_label) VALUES (gen_random_uuid(), 'service', 'Unhelpful');
+insert into tag(tag_id, tag_group, tag_label) VALUES (gen_random_uuid(), 'service', 'Dissatisfactory');
+insert into tag(tag_id, tag_group, tag_label) VALUES (gen_random_uuid(), 'service', 'Lousy');
+insert into tag(tag_id, tag_group, tag_label) VALUES (gen_random_uuid(), 'service', 'Poor');
+insert into tag(tag_id, tag_group, tag_label) VALUES (gen_random_uuid(), 'service', 'Bad');
 
 -- brewing method groups
 
 insert into tag(tag_id, tag_group, tag_label) VALUES (gen_random_uuid(), 'brewing', 'Drip coffee');
 insert into tag(tag_id, tag_group, tag_label) VALUES (gen_random_uuid(), 'brewing', 'Pour-over');
 insert into tag(tag_id, tag_group, tag_label) VALUES (gen_random_uuid(), 'brewing', 'French press');
-insert into tag(tag_id, tag_group, tag_label) VALUES (gen_random_uuid(), 'brewing', 'AeroPress');
+insert into tag(tag_id, tag_group, tag_label) VALUES (gen_random_uuid(), 'brewing', 'Latte');
 insert into tag(tag_id, tag_group, tag_label) VALUES (gen_random_uuid(), 'brewing', 'Espresso');
-insert into tag(tag_id, tag_group, tag_label) VALUES (gen_random_uuid(), 'brewing', 'Stove-top');
+insert into tag(tag_id, tag_group, tag_label) VALUES (gen_random_uuid(), 'brewing', 'Cortado');
 insert into tag(tag_id, tag_group, tag_label) VALUES (gen_random_uuid(), 'brewing', 'Cold brew');
-insert into tag(tag_id, tag_group, tag_label) VALUES (gen_random_uuid(), 'brewing', 'Japanese iced coffee');
-insert into tag(tag_id, tag_group, tag_label) VALUES (gen_random_uuid(), 'brewing', 'Percolator');
-insert into tag(tag_id, tag_group, tag_label) VALUES (gen_random_uuid(), 'brewing', 'Turkish');
-insert into tag(tag_id, tag_group, tag_label) VALUES (gen_random_uuid(), 'brewing', 'Coffee bag');
-insert into tag(tag_id, tag_group, tag_label) VALUES (gen_random_uuid(), 'brewing', 'Clever dripper');
+insert into tag(tag_id, tag_group, tag_label) VALUES (gen_random_uuid(), 'brewing', 'Tea Latte');

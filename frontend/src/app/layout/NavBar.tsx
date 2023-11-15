@@ -2,7 +2,8 @@
 import Link from 'next/link';
 import {SignInModalButton, SignUpModalButton} from '@/app/layout/SignUpModal'
 import {usePathname, useRouter, useSearchParams} from "next/navigation"
-import {ChildProps} from "@/app/types/Props"
+import {ChildProps, SessionProps} from "@/app/types/Props"
+import Image from "next/image";
 
 type SearchFieldProps = ChildProps & {
     initialText: string
@@ -23,7 +24,8 @@ export async function SearchField({children, initialText}: SearchFieldProps) {
     }
     return (
         <div className={'form-control'}>
-            <input type={'text'} placeholder={'Coffee shop name'} className={'placeholder:italic input input-bordered w-40 md:w-auto'} value={initialText}
+            <input type={'text'} placeholder={'Coffee shop name'}
+                   className={'placeholder:italic input input-bordered w-40 md:w-auto'} value={initialText}
                    onChange={handleSearchTextChange}/>
             {children}
         </div>
@@ -42,14 +44,24 @@ export function MenuButton() {
     )
 }
 
-export function MenuContent() {
+export function MenuContent({session}: SessionProps) {
     return (
         <>
-            <li><Link href={'/'}>Home</Link></li>
-            <li><Link href={'/account'}>Account</Link></li>
-            <li><Link href={'/about'}>About Us</Link></li>
-            <li><SignUpModalButton/></li>
-            <li><SignInModalButton/></li>
+            <li className={'w-auto'}><Link href={'/'}>Home</Link></li>
+            <li className={'w-auto inline'}><Link href={'/about'}>About Us</Link></li>
+            {session ?
+                <li className={'w-auto inline'}><Link href={'/account'}>
+                    <div className={"avatar placeholder pt-2"}>
+                    <div className={"rounded-lg w-5 h-5"}>
+                        <img className={''} src={'./bookmark_icon.png'} alt={'bookmark icon'}/>
+                    </div>
+                </div>
+                </Link></li>
+                : <>
+                    <li className={'w-auto inline'}><SignUpModalButton/></li>
+                    <li className={'w-auto inline'}><SignInModalButton/></li>
+                </>
+            }
         </>
     )
 }

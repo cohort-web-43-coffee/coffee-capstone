@@ -6,6 +6,7 @@ import {SignInModal, SignUpModal} from "@/app/layout/SignUpModal"
 import Link from "next/link"
 import {getRestData, postRestData} from '@/app/utils/fetch'
 import {TagFilterList} from '@/app/page.client'
+import {getSession} from "@/utils/fetchSession";
 
 type HomePageProps = {
     searchParams: {
@@ -15,6 +16,7 @@ type HomePageProps = {
 }
 
 export default async function HomePage ({searchParams}: HomePageProps) {
+    const session = await getSession()
     const query = searchParams.q
     const tagArray = searchParams.tags?.split(',').filter(value => value != '')
     const tags = new Set<string>(tagArray)
@@ -38,7 +40,7 @@ export default async function HomePage ({searchParams}: HomePageProps) {
                 <div className={'dropdown'}>
                     <MenuButton/>
                     <ul className={'menu menu-sm dropdown-content mt-3 z-50 p-2 shadow bg-base-100 rounded-box w-32 gap-1'}>
-                        <MenuContent/>
+                        <MenuContent session={session}/>
                     </ul>
                 </div>
                 <div className={'flex-1'}>
@@ -61,8 +63,8 @@ export default async function HomePage ({searchParams}: HomePageProps) {
                         </SearchField>
                     </div>
                     <div className={'navbar-center hidden md:flex'}>
-                        <ul className={'menu menu-horizontal px-1 gap-1'}>
-                            <MenuContent/>
+                        <ul className={'relative flex items-center px-1 gap-4'}>
+                            <MenuContent session={session}/>
                         </ul>
                     </div>
                 </div>
