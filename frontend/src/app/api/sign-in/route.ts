@@ -20,7 +20,7 @@ export async function POST(request: Request){
     const response = responseFromServer.clone()
 
     const authorization = response.headers.get("authorization")
-    console.log(authorization)
+
     if (authorization) {
         const cookieStore = cookies()
         const cookie = cookieStore.set("jwt-token", authorization, {path: "/", maxAge:3600})

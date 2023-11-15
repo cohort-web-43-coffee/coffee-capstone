@@ -106,6 +106,7 @@ export async function getShopTagsController(request: Request, response: Response
             return zodErrorResponse(response, validationResult.error)
         }
         const shopId = validationResult.data
+        console.log('shopId:', shopId)
         const data = await getTagsForShop(shopId)
 
         return response.json({

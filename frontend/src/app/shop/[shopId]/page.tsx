@@ -3,9 +3,8 @@ import React from 'react'
 import {Container} from '@/app/components/Container'
 import {ImageProps} from '@/app/types/Props'
 import {getRestData} from "@/app/utils/fetch"
-import {TagToggleList} from '@/app/shop/[shopId]/page.client'
+import {TagToggleGroup, TagToggleList} from '@/app/shop/[shopId]/page.client'
 import {getSession} from '@/utils/fetchSession'
-import { unstable_noStore as noStore } from 'next/cache';
 
 
 export default async function ShopPage ({params}: { params: { shopId: string } }) {
@@ -15,21 +14,7 @@ export default async function ShopPage ({params}: { params: { shopId: string } }
     const shopData = await getRestData(`/apis/shop/shopId/${shopId}`)
     const photoData = await getRestData(`/apis/photo/photoByShopId/${shopId}`)
     const tagData = await getRestData(`/apis/tag/shopTags/${shopId}`)
-    // const accountActiveTagData = await getRestData(`/apis/activeTag/activeTagsByShopId/${shopId}`, session)
-    // console.log('Data:', accountActiveTagData)
 
-    const brewingTags = {
-        group: 'Brewing',
-        tags: tagData.filter((tag: any) => tag.tagGroup === 'brewing')
-    }
-    const busyTags = {
-        group: 'Busy Times',
-        tags: tagData.filter((tag: any) => tag.tagGroup === 'busy')
-    }
-    const serviceTags = {
-        group: 'Service',
-        tags: tagData.filter((tag: any) => tag.tagGroup === 'service')
-    }
 
     return <>
         <PrimarySection>
@@ -47,15 +32,7 @@ export default async function ShopPage ({params}: { params: { shopId: string } }
                         <div className={'prose'}><p className={'font-bold'}>Address: {shopData.shopAddress}</p></div>
                         <div className={'prose'}><p className={'font-bold'}>Phone Number: {shopData.shopPhoneNumber}</p>
                         </div>
-                        {
-                            session
-                                ? <>
-                                    <TagToggleList group={brewingTags} shopId={shopId} session={session}/>
-                                    <TagToggleList group={serviceTags} shopId={shopId} session={session}/>
-                                    <TagToggleList group={busyTags} shopId={shopId} session={session}/>
-                            </>
-                                : <></>
-                        }
+                        <TagToggleList tagData={tagData} shopId={shopId} session={session}/>
                     </div>
                 </div>
             </Container>

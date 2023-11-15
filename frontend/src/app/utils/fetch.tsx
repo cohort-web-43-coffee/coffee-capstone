@@ -24,7 +24,6 @@ export async function deleteRestData (endpoint: string, body: string, session?: 
 }
 
 function getUrl (endpoint: string): string {
-    console.log('publicApi:', process.env.PUBLIC_API_URL)
     return `${process.env.PUBLIC_API_URL}${endpoint}`
 }
 

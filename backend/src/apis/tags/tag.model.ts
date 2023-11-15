@@ -39,6 +39,6 @@ export async function getTagsForShop(shopId: string): Promise<ShopTag[]> {
                                          FROM tag
                                                   LEFT OUTER JOIN public.active_tag on tag.tag_id = active_tag_tag_id
                                          WHERE active_tag_shop_id = ${shopId} OR active_tag_shop_id IS NULL
-                                         GROUP BY (tag_label, tag_group, tag_id)`
+                                         GROUP BY (tag_id, tag_label, tag_group)`
     return ShopTagSchema.array().parse(rowList)
 }

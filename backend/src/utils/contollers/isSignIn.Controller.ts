@@ -7,7 +7,6 @@ import {verify} from "jsonwebtoken";
 export function isSignInController(request: Request, response: Response, next: NextFunction): Response | void {
     const status: Status = {status: 401, message: 'Please login', data: null}
     try {
-        console.log('signIn:', request.headers)
         const account: PublicAccount | undefined = request.session?.account
         const signature: string | undefined = request.session?.signature
         const unverifiedJwtToken: string | undefined = request.headers?.authorization

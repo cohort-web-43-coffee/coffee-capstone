@@ -57,7 +57,10 @@ export class App {
             store: this.redisStore,
             saveUninitialized: false,
             secret: process.env.SESSION_SECRET as string,
-            resave: false
+            resave: false,
+            cookie: {
+                sameSite: 'lax'
+            }
 
         }))
         // this.app.use(helmet())
