@@ -99,7 +99,7 @@ export function TagToggleGroup({group, shopId, session, activeTags, activeTagsSe
                 <summary className={"collapse-title text-xl font-medium"}>
                     <div className={'divider'}>{group.group}</div>
                 </summary>
-                <div className="collapse-content">
+                <div className={"collapse-content"}>
                     <div className={'flex flex-wrap gap-6 justify-around'}>
                         {group.tags
                             .sort((a: Tag, b: Tag) => b.count - a.count)

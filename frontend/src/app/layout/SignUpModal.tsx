@@ -9,8 +9,8 @@ export function SignUpModalButton() {
     return (
         <button
             onClick={() => (document.getElementById('sign-up-modal') as HTMLDialogElement).showModal()}
-            className={'btn btn-primary btn-xs rounded-full items-center'}>
-            Sign Up
+            className={'btn btn-xs btn-primary rounded-full mt-2'}>
+                Sign Up
         </button>
     )
 }
@@ -32,7 +32,7 @@ export function SignInModalButton() {
     return (
         <button
             onClick={() => (document.getElementById('sign-in-modal') as HTMLDialogElement).showModal()}
-            className={'btn btn-primary btn-xs rounded-full'}>
+            className={'btn btn-primary btn-xs rounded-full mt-2'}>
             Sign In
         </button>
     )
