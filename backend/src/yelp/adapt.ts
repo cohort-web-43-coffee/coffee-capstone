@@ -20,6 +20,11 @@ export async function isActiveTagTableEmpty (): Promise<boolean> {
                              FROM active_tag`
     return result[0].count === '0'
 }
+export async function isAccountTableEmpty (): Promise<boolean> {
+    const result = await sql`SELECT COUNT(*)
+                             FROM account`
+    return result[0].count === '0'
+}
 
 export async function isBookmarkTableEmpty (): Promise<boolean> {
     const result = await sql`SELECT COUNT(*)
