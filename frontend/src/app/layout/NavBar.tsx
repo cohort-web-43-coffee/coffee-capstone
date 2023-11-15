@@ -47,8 +47,6 @@ export function MenuButton() {
 export function MenuContent({session}: SessionProps) {
     return (
         <>
-            <li className={'w-auto'}><Link href={'/'}>Home</Link></li>
-            <li className={'w-auto inline'}><Link href={'/about'}>About Us</Link></li>
             {session ?
                 <li className={'w-auto inline'}><Link href={'/account'}>
                     <div className={"avatar placeholder pt-2"}>
