@@ -17,15 +17,17 @@ import {z} from 'zod'
  */
 export async function postActiveTagController (request: Request, response: Response): Promise<Response> {
     try {
+        console.log('Inserting...')
         const validationResult = ActiveTagSchema.safeParse(request.body)
 
         if (!validationResult.success) {
+            console.log('Invalid body')
             return zodErrorResponse(response, validationResult.error)
         }
 
-        const accountId = request.session.account?.accountId ?? null
+        const activeTagAccountId = request.session.account?.accountId ?? null
 
-        if (accountId === null) {
+        if (activeTagAccountId === null) {
             return response.json({
                 status: 400,
                 message: "Session missing account",
@@ -33,9 +35,12 @@ export async function postActiveTagController (request: Request, response: Respo
             })
         }
 
-        const data = {...validationResult.data, accountId}
+        console.log('...auth okay...')
+
+        const data = {...validationResult.data, activeTagAccountId}
+        console.log('Insert data:', data)
         await insertActiveTag(data)
-        return response.json({status: 200, message: null, data})
+        return response.json({status: 200, message: null, data: null})
     } catch (error: any) {
         console.log(error.message)
         return response.json({
@@ -54,22 +59,24 @@ export async function postActiveTagController (request: Request, response: Respo
 
 export async function deleteActiveTagController (request: Request, response: Response): Promise<Response> {
     try {
+        console.log('Deleting...')
         const validationResult = ActiveTagSchema.safeParse(request.body)
 
         if (!validationResult.success) {
             return zodErrorResponse(response, validationResult.error)
         }
 
-        const accountId = request.session.account?.accountId ?? null
+        const activeTagAccountId = request.session.account?.accountId ?? null
 
-        if (accountId === null) {
+        if (activeTagAccountId === null) {
             return response.json({
                 status: 400,
                 message: "Session missing account",
                 data: null
             })
         }
-        const data = {...validationResult.data, activeTagAccountId: accountId}
+        const data = {...validationResult.data, activeTagAccountId}
+        console.log('Delete data:', data)
         await deleteActiveTag(data)
 
         return response.json({status: 200, message: null, data: null})
