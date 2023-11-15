@@ -5,12 +5,8 @@ import {useEffect, useState} from "react";
 import {requestGetHeaders} from "@/app/utils/fetch";
 
 
-
 type BookmarkCardProps = {
-    name: string
-    address: string
-    phone: string
-    pixels: number
+    shop: Shop
 }
 
 
@@ -18,50 +14,57 @@ type BookmarkCardProps = {
 type BookmarkListProps = {
     session? : Session
 }
- type Bookmark = {
-     bookmarkAccountId: string,
-     bookmarkShopId: string,
-     bookmarkOrder: number
+ type Shop = {
+     shopId: string,
+     shopAddress: string
+     shopName: string
+     shopPhoneNumber: string,
+     shopUrl: string
+     shopPhotoUrl: string
  }
-export async function BookmarkList({session}: BookmarkListProps ) {
-    const [bookmarks, setBookmarks] = useState(new Array<Bookmark>())
+export function BookmarkList({session}: BookmarkListProps ) {
+    const [shops, setShops] = useState(new Array<Shop>())
+    console.log(shops)
     const effect = () => {
         const getRequestHeaders = requestGetHeaders(session)
         fetch("/apis/bookmark/bookmarkByAccountId/", getRequestHeaders)
-            .then(response => response.json())
-            .then((body) => setBookmarks(body.data))
+            .then(response => {
+                console.log(response)
+               return  response.json()})
+            .then((body) => {
+                console.log(body.data)
+                setShops(body.data)
+            })
+
 
     }
-    useEffect(effect,[setBookmarks])
+    useEffect(effect,[setShops, session])
 
     return (
     <div
         className={'grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-y-12 md:gap-x-12 justify-items-center'}>
-        {bookmarks.map((bookmark: Bookmark) => {
+        {shops.map((shop: Shop) => {
             return (
                 <BookmarkCard
-                    key={bookmark.bookmarkShopId}
-                name={""}
-                address={"3759 Goldleaf Lane, Rochelle Park, NJ 07662"}
-                phone={"676-153-3448"}
-                pixels={300}/>)
+                    key={shop.shopId}
+                    shop={shop}
+                    />)
         })}
 
     </div>
     )
 }
 
-function BookmarkCard({name, address, phone, pixels}: BookmarkCardProps) {
-    const id = Math.floor(Math.random() * 1084)
+function BookmarkCard({shop}: BookmarkCardProps) {
     return (
         <SmallCard>
-            <CardImage imageUrl={`https://picsum.photos/id/${id}/${pixels}/${pixels}`} imageAlt={'picture'}/>
+            <CardImage imageUrl={shop.shopPhotoUrl} imageAlt={shop.shopName}/>
             <CardBody>
                 <div className={"flex text-xs sm:text-sm md:text-sm"}>
                     <ul>
-                        <li className={"container p-1 sm:p-1 md:p-2 lg:p-2 text-lg font-bold"}>{name}</li>
-                        <li className={"container p-1 sm:p-1 md:p-2 lg:p-2"}>{address}</li>
-                        <li className={"container p-1 sm:p-1 md:p-2 lg:p-2"}>{phone}</li>
+                        <li className={"container p-1 sm:p-1 md:p-2 lg:p-2 text-lg font-bold"}>{shop.shopName}</li>
+                        <li className={"container p-1 sm:p-1 md:p-2 lg:p-2"}>{shop.shopAddress}</li>
+                        <li className={"container p-1 sm:p-1 md:p-2 lg:p-2"}>{shop.shopPhoneNumber}</li>
                         <li className={"btn btn-xs sm:btn sm:btn-sm md:btn lg:btn btn-secondary sm:btn-secondary md:btn-secondary lg:btn-secondary text-secondary-content rounded-lg p-1 sm:p-1 md:p-2 lg:p-2"}>Delete Bookmark</li>
                     </ul>
                 </div>
