@@ -10,7 +10,7 @@ type SearchFieldProps = ChildProps & {
 }
 
 export function SiteTitle() {
-    return <header className={'text-2xl'}>Valid Coffee</header>
+    return <header className={'text-2xl'}><Link href={'/'}>Valid Coffee</Link></header>
 }
 
 export async function SearchField({children, initialText}: SearchFieldProps) {

@@ -66,9 +66,6 @@ function BookmarkCard ({shop}: BookmarkCardProps) {
                     <div className={"flex text-xs sm:text-sm md:text-sm"}>
                         <ul>
                             <li className={"container p-1 sm:p-1 md:p-2 lg:p-2 text-lg font-bold"}>{shop.shopName}</li>
-                            <li className={"container p-1 sm:p-1 md:p-2 lg:p-2"}>{shop.shopAddress}</li>
-                            <li className={"container p-1 sm:p-1 md:p-2 lg:p-2"}>{shop.shopPhoneNumber}</li>
-                            <li className={"btn btn-xs sm:btn sm:btn-sm md:btn lg:btn btn-secondary sm:btn-secondary md:btn-secondary lg:btn-secondary text-secondary-content rounded-lg p-1 sm:p-1 md:p-2 lg:p-2"}>Delete Bookmark</li>
                         </ul>
                     </div>
                 </CardBody>
