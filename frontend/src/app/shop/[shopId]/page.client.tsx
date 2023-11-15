@@ -19,7 +19,7 @@ type TagToggleGroupProps = {
     activeTagsSetter: React.Dispatch<React.SetStateAction<string[]>>
 }
 
-async function fetchActiveTags(shopId: String, activeTagsSetter: React.Dispatch<React.SetStateAction<string[]>>, session?: Session) {
+async function fetchActiveTags (shopId: String, activeTagsSetter: React.Dispatch<React.SetStateAction<string[]>>, session?: Session) {
     const headers = requestGetHeaders(session)
     const url = `/apis/activeTag/activeTagsByShopId/${shopId}`
     fetch(url, headers)
@@ -29,7 +29,7 @@ async function fetchActiveTags(shopId: String, activeTagsSetter: React.Dispatch<
         })
 }
 
-export function TagToggleList({tagData, shopId, session}: TagToggleListProps) {
+export function TagToggleList ({tagData, shopId, session}: TagToggleListProps) {
     const [activeTags, setActiveTags] = useState(new Array<string>())
     const effect = () => {
         fetchActiveTags(shopId, setActiveTags, session).then()
@@ -64,32 +64,29 @@ export function TagToggleList({tagData, shopId, session}: TagToggleListProps) {
 export function TagToggleGroup({group, shopId, session, activeTags, activeTagsSetter}: TagToggleGroupProps) {
 
     const handleTagButtonChanged = (event: any) => {
-        const isChecked = event.currentTarget.checked
-        const tagId = event.target.tagId
-        const body = JSON.stringify({
-            activeTagAccountId: null,
-            activeTagShopId: shopId,
-            activeTagTagId: tagId
-        })
+        if(session) {
+            const isChecked = event.currentTarget.checked
+            const tagId = event.target.id
 
-        if (!isChecked) {
-            const requestHeaders = requestDeleteHeaders(body, session)
-            fetch('/apis/activeTag', requestHeaders).then(response => {
-                    if (response.status === 200) {
+            const body = JSON.stringify({
+                activeTagAccountId: null,
+                activeTagShopId: shopId,
+                activeTagTagId: tagId
+            })
+
+            if (!isChecked) {
+                const requestHeaders = requestDeleteHeaders(body, session)
+                fetch('/apis/activeTag', requestHeaders).then(response => {
                         fetchActiveTags(shopId, activeTagsSetter, session).then()
                     }
-                }
-            )
-        } else {
-            const requestHeaders = requestPostHeaders(body, session)
-            fetch('/apis/activeTag', requestHeaders).then(response => {
-                    console.log('post response:', response)
-                    if (response.status === 200 || response.status === 304) {
-                        fetchActiveTags(shopId, activeTagsSetter, session)
-                            .then(getResponse => console.log('Get response:', getResponse))
+                )
+            } else {
+                const requestHeaders = requestPostHeaders(body, session)
+                fetch('/apis/activeTag', requestHeaders).then(response => {
+                        fetchActiveTags(shopId, activeTagsSetter, session).then()
                     }
-                }
-            )
+                )
+            }
         }
     }
 
@@ -103,7 +100,7 @@ export function TagToggleGroup({group, shopId, session, activeTags, activeTagsSe
                     <div className={'flex flex-wrap gap-6 justify-around'}>
                         {group.tags
                             .sort((a: Tag, b: Tag) => b.count - a.count)
-                            .map((tag: Tag) => <TagButton showCount tag={tag} key={tag.tagId}
+                            .map((tag: Tag) => <TagButton tag={tag} key={tag.tagId}
                                                           checked={activeTags.includes(tag.tagId)}
                                                           handleChanged={handleTagButtonChanged}/>)}
                     </div>
