@@ -14,6 +14,7 @@ type AboutUsCardProps = {
     name: string
     linkedIn: string
     gitHub: string
+    image: string
 }
 
 export default async function AboutPage({searchParams}: PageProps) {
@@ -61,13 +62,13 @@ export default async function AboutPage({searchParams}: PageProps) {
                 <Container autoMargins>
                     <AboutUsHeader/>
                     <section className={'container mx-auto grid grid-cols-2 justify-items-center gap-10 my-12'}>
-                        <AboutUsCard name={'Bob'} gitHub={'https://github.com/inhaledesign'}
+                        <AboutUsCard name={'Bob'} image={'./pictures/bob.jpg'}  gitHub={'https://github.com/inhaledesign'}
                                      linkedIn={'https://www.linkedin.com/in/inhale-design/'}/>
-                        <AboutUsCard name={'Victor'} gitHub={'https://github.com/vicvilla6'}
+                        <AboutUsCard name={'Victor'} image={'./pictures/victor.jpg'}  gitHub={'https://github.com/vicvilla6'}
                                      linkedIn={'https://www.linkedin.com/in/victor-villa-098330292/'}/>
-                        <AboutUsCard name={'Josh'} gitHub={'https://github.com/JoshuaYu2023'}
+                        <AboutUsCard name={'Josh'} image={'./pictures/josh.jpg'}  gitHub={'https://github.com/JoshuaYu2023'}
                                      linkedIn={'https://www.linkedin.com/in/joshua-yu-993887289/'}/>
-                        <AboutUsCard name={'Mariposa'} gitHub={' https://github.com/mariposawheat'}
+                        <AboutUsCard name={'Mariposa'} image={'./pictures/mariposa.jpg'}  gitHub={' https://github.com/mariposawheat'}
                                      linkedIn={'https://www.linkedin.com/in/mariposa-wheat-331763243/'}/>
                     </section>
                 </Container>
@@ -88,7 +89,7 @@ function AboutUsHeader () {
              <div className={'sm:text-sm'} style={{ margin: 'auto', width: '50%' }}>
                 <div className={'sm:text-accent md:text-accent md:prose'}>
                     <h1 className={'sm:text-accent md:text-accent'}>About Us!</h1>
-                    <p>This website was the group project created by Valid Coffee in Cohort 43 of CNM Ingenuity Deep Dive Fullstack Web development course. Bob, Victor, Mariposa, and Josh, (that's us), created this website so that the coffee drinkers of Albuquerque can have a smooth experience in finding the perfect cup of coffee. We wanted to streamline the long review process that has become the norm, and make it easier to find you want by using tags instead of paragraph reviews. We also put all the coffee shops in one place, making it easier to find instead of having to search through Google Maps and Yelp.<br/>To find out more about the other projects we've made, see the links below! Please use the contact form if you'd like to get in touch with us about any suggestions, comments, concerns, or queries. Thank you for using Valid Coffee! Hope your next cup of coffee is what you're looking for!</p>
+                    <p>This website was the group project created by Valid Coffee in Cohort 43 of CNM Ingenuity Deep Dive Fullstack Web development course. Bob, Victor, Mariposa, and Josh, (that's us), created this website so that the coffee drinkers of Albuquerque can have a smooth experience in finding the perfect cup of coffee! We streamlined the process by taking long reviews and turning them into simply tags.<br/>To find out more about the other projects we've made, see the links below! Thank you for using Valid Coffee! Hope your next cup of coffee is what you're looking for!</p>
                 </div>
              </div>
         </div>
@@ -96,11 +97,13 @@ function AboutUsHeader () {
     )
 }
 
-function AboutUsCard ({name, linkedIn, gitHub}: AboutUsCardProps) {
+function AboutUsCard ({name, linkedIn, gitHub, image}: AboutUsCardProps) {
     return (
         <div>
-            <img src={`https://picsum.photos/id/30/300/300`} alt={'picture of developers'} className={'rounded-full w-28 h-28 md:h-52 md:w-52'}/>
-            <p>Check {name} out on <Link href={linkedIn}>LinkedIn</Link> and <Link href={gitHub}>GitHub!</Link></p>
+            <img src={image}
+                 alt={'picture of developers'}
+                 className={'rounded-full w-28 h-28 md:h-52 md:w-52'}/>
+            <p>Check {name} out on <Link href={linkedIn} className={'link'}>LinkedIn</Link> and <Link href={gitHub} className={'link'}>GitHub!</Link></p>
         </div>
     )
 }
