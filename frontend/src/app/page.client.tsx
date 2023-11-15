@@ -37,7 +37,7 @@ export function TagFilterList ({group, showCounts, children, activeTags}: TagFil
             <div className={'flex flex-wrap gap-6 justify-around'}>
                 {group.tags
                     .sort((a: Tag, b: Tag) => b.count - a.count)
-                    .map((tag: Tag) => <TagButton tag={tag} defaultChecked={activeTags?.has(tag.tagId)} showCount={showCounts} key={tag.tagId}
+                    .map((tag: Tag) => <TagButton tag={tag} checked={activeTags?.has(tag.tagId)} showCount={showCounts} key={tag.tagId}
                                                   handleChanged={handleTagButtonChanged}/>)}
             </div>
         </>)
