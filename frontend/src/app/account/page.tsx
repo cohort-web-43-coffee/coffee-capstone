@@ -6,6 +6,7 @@ import {MenuButton, MenuContent, SearchField, SiteTitle} from "@/app/layout/NavB
 import Link from "next/link"
 import {SignInModal, SignUpModal} from "@/app/layout/SignUpModal"
 import {getRestData} from "@/app/utils/fetch"
+import {getSession} from "@/utils/fetchSession";
 
 
 type BookmarkCardProps = {
@@ -15,9 +16,11 @@ type BookmarkCardProps = {
     pixels: number
 }
 
+
+
 export default async function AccountPage({searchParams}: PageProps) {
-    // const shopData = await getShopData(params.shopId)
-    // const photoData = await getPhotoData(params.shopId)
+    const session = await getSession()
+
     const query = searchParams.q
     const searchResult = await getRestData(`/apis/shop/search?name=${query}`)
     return (
