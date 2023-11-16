@@ -108,7 +108,7 @@ function AboutUsCard ({name, linkedIn, gitHub, image}: AboutUsCardProps) {
     )
 }
 
-export function ContactForm () {
+function ContactForm () {
     return (
         <div>
             <div style={{margin: 'auto', width: '50%'}}>
