@@ -31,13 +31,19 @@ export async function getSession(): Promise<Session|undefined > {
 
 }
 
+export async function clearSession() {
+    'use server'
+    cookies().delete("jwt-token")
+    session = undefined
+}
+
 
 function setJwtToken(jwtToken: string) {
     console.log("jwtToken", jwtToken)
     try {
         const  parsedJwtToken = jwtDecode(jwtToken) as any
 
-        console.log("token is expired", currentTimeInSeconds < parsedJwtToken.exp)
+        console.log("token is expired", currentTimeInSeconds > parsedJwtToken.exp)
 
         if(parsedJwtToken &&  currentTimeInSeconds < parsedJwtToken.exp) {
             session = {
@@ -58,4 +64,3 @@ function setJwtToken(jwtToken: string) {
 
 
 }
-
