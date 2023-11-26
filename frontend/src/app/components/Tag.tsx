@@ -1,6 +1,6 @@
 'use client'
 
-export type Tag = { tagLabel: string, count: number, tagId: string }
+export type Tag = { tagLabel: string, count: number, tagId: string, tagGroup: string }
 export type TagGroup = { group: string, tags: Tag[] }
 
 type TagButtonProps = {

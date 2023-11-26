@@ -19,16 +19,6 @@ type TagToggleGroupProps = {
     activeTagsSetter: React.Dispatch<React.SetStateAction<string[]>>
 }
 
-async function fetchActiveTags (shopId: String, activeTagsSetter: React.Dispatch<React.SetStateAction<string[]>>, session?: Session) {
-    const headers = requestGetHeaders(session)
-    const url = `/apis/activeTag/activeTagsByShopId/${shopId}`
-    fetch(url, headers)
-        .then(response => response.json())
-        .then((body) => {
-            activeTagsSetter(body.data)
-        })
-}
-
 export function TagToggleList ({tagData, shopId, session}: TagToggleListProps) {
     const [activeTags, setActiveTags] = useState(new Array<string>())
     const effect = () => {
@@ -39,16 +29,17 @@ export function TagToggleList ({tagData, shopId, session}: TagToggleListProps) {
 
     const brewingTags = {
         group: 'Brewing',
-        tags: tagData.filter((tag: any) => tag.tagGroup === 'brewing')
+        tags: tagData.filter((tag: Tag) => tag.tagGroup === 'brewing')
     }
     const busyTags = {
         group: 'Busy Times',
-        tags: tagData.filter((tag: any) => tag.tagGroup === 'busy')
+        tags: tagData.filter((tag: Tag) => tag.tagGroup === 'busy')
     }
     const serviceTags = {
         group: 'Service',
-        tags: tagData.filter((tag: any) => tag.tagGroup === 'service')
+        tags: tagData.filter((tag: Tag) => tag.tagGroup === 'service')
     }
+
     return (
         <>
             <TagToggleGroup group={brewingTags} shopId={shopId} session={session} activeTags={activeTags}
@@ -108,4 +99,14 @@ export function TagToggleGroup({group, shopId, session, activeTags, activeTagsSe
             </details>
         </>
     )
+}
+
+async function fetchActiveTags (shopId: String, activeTagsSetter: React.Dispatch<React.SetStateAction<string[]>>, session?: Session) {
+    const headers = requestGetHeaders(session)
+    const url = `/apis/activeTag/activeTagsByShopId/${shopId}`
+    fetch(url, headers)
+        .then(response => response.json())
+        .then((body) => {
+            activeTagsSetter(body.data)
+        })
 }
