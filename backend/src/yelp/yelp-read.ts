@@ -30,7 +30,9 @@ async function findBusinessesByCityAndCategory(cityName: string, categories: str
 
 export async function readBusinessDetails(businessId: string): Promise<any> {
     const route = getBusinessDetailsRoute(businessId)
-    return makeRequest(route)
+    const result = await makeRequest(route)
+    if(result.error?.code === 'ACCESS_LIMIT_REACHED') throw Error('Sorry friend. You\'ve reached your request limit on Yelp for today.')
+    return result
 }
 
 function getSearchRoute(cityName: string, categories: string, page: number): string {
@@ -53,9 +55,8 @@ async function makeRequest (route: string): Promise<any> {
     await sleep(100)
     return fetch(route, requestData).then((response) => {
         return response.json()
-    }, (fetchFailReason) => {
-        console.error(fetchFailReason)
-        throw Error(fetchFailReason)
+    }, (error) => {
+        throw Error(error)
     })
 }
 function getRequestData(): RequestInit {
