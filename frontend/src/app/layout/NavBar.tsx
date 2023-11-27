@@ -54,7 +54,7 @@ function MenuContent ({session}: SessionProps) {
         <>
             {session ? <>
                     <li className={'w-auto inline'}><BookmarkLink/></li>
-                    <li className={'w-auto inline'}>psych haha<SignOutButton session={session} onSuccess={clearSession}/></li>
+                    <li className={'w-auto inline'}><SignOutButton session={session} onSuccess={clearSession}/></li>
                 </>
                 : <>
                     <li className={'w-auto inline'}><SignUpModalButton/></li>
