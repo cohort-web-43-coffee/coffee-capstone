@@ -35,10 +35,13 @@ export async function getAllTagsByTagLabel(tagLabel: string): Promise<Tag[]> {
  * @returns An array of tags with their tag_id, tag_group, and a count of the number of times the tag has been added.
  */
 export async function getTagsForShop(shopId: string): Promise<ShopTag[]> {
-    const rowList = <ShopTag[]>await sql`SELECT tag_id, tag_label, tag_group, COUNT(active_tag_shop_id)
+    const rowList = <ShopTag[]>await sql`SELECT tag_id,
+                                                tag_label,
+                                                tag_group,
+                                                COUNT(active_tag_shop_id)
+                                                FILTER (WHERE active_tag_shop_id = ${shopId})
                                          FROM tag
-                                                  LEFT OUTER JOIN public.active_tag on tag.tag_id = active_tag_tag_id
-                                         WHERE active_tag_shop_id = ${shopId} OR active_tag_shop_id IS NULL
+                                                  LEFT OUTER JOIN public.active_tag ON tag_id = active_tag_tag_id
                                          GROUP BY (tag_id, tag_label, tag_group)`
     return ShopTagSchema.array().parse(rowList)
 }
