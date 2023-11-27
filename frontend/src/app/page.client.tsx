@@ -2,17 +2,17 @@
 
 import {usePathname, useRouter, useSearchParams} from 'next/navigation'
 import {Tag, TagButton, TagGroup} from '@/app/components/Tag'
-import {OptionalChildProps} from '@/app/types/Props'
-import React from "react";
+import React from 'react';
 
 
-type TagFilterListProps = OptionalChildProps & {
+type TagFilterListProps = {
     showCounts?: boolean,
     group: TagGroup,
-    activeTags: Set<string>
+    activeTags: Set<string>,
+    startChecked?: boolean
 }
 
-export function TagFilterList({group, showCounts, children, activeTags}: TagFilterListProps) {
+export function TagFilterList ({group, showCounts, activeTags, startChecked}: TagFilterListProps) {
     const router = useRouter()
     const pathName = usePathname()
     const currentParams = useSearchParams()
@@ -33,25 +33,19 @@ export function TagFilterList({group, showCounts, children, activeTags}: TagFilt
     }
 
     return (
-        <>
-            <details className={"collapse collapse-arrow"}>
-                <summary className={"collapse-title text-xl font-medium"}>
-                    <div className={'divider'}>{group.group}{children}</div>
-                </summary>
-                <div className={"collapse-content"}>
-                    <div className={'flex flex-wrap gap-6 justify-around'}>
-                        {group.tags
-                            .sort((a: Tag, b: Tag) => b.count - a.count)
-                            .map((tag: Tag) => <TagButton tag={tag} checked={activeTags?.has(tag.tagId)}
-                                                          showCount={showCounts} key={tag.tagId}
-                                                          handleChanged={handleTagButtonChanged}/>)}
-                    </div>
-                </div>
-            </details>
-        </>
+        <div className={'collapse collapse-arrow'}>
+            <input type={'checkbox'} name={'filter-accordion'} className={'min-w-full'} defaultChecked={startChecked ?? false}/>
+            <div className={'collapse-title text-xl font-medium'}>
+                <div className={'divider'}>{group.group}</div>
+            </div>
+            <div className={'collapse-content flex flex-wrap gap-6 justify-around'}>
+                {group.tags
+                    .sort((a: Tag, b: Tag) => b.count - a.count)
+                    .map((tag: Tag) => <TagButton tag={tag} checked={activeTags?.has(tag.tagId)}
+                                                  showCount={showCounts} key={tag.tagId}
+                                                  handleChanged={handleTagButtonChanged}/>)
+                }
+            </div>
+        </div>
     )
 }
-
-
-
-
