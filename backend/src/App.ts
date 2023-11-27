@@ -113,8 +113,9 @@ export class App {
         }
 
         if(!await isShopTableEmpty() && !await isAccountTableEmpty() && await isActiveTagTableEmpty()) {
-            console.log('...Bookmarks empty, inserting 2000 bookmarks...')
-            await this.insertRandomTestActiveTag(2000)
+            const activeTagInsertCount = 2000
+            console.log(`...Active Tags empty, inserting ${activeTagInsertCount} active tags...`)
+            await this.insertRandomTestActiveTag(activeTagInsertCount)
         }
     }
 
