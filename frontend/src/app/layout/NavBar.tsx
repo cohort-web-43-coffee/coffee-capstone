@@ -1,60 +1,61 @@
-'use client'
-import Link from 'next/link';
-import {SignInModalButton, SignUpModalButton} from '@/app/layout/SignUpModal'
-import {usePathname, useRouter, useSearchParams} from "next/navigation"
-import {ChildProps, SessionProps} from "@/app/types/Props"
-import Image from "next/image";
+import {MenuButton, SearchField, SignOutButton, SiteTitle} from '@/app/layout/NavBar.client'
+import Link from 'next/link'
+import {SignInModal, SignInModalButton, SignUpModal, SignUpModalButton} from '@/app/layout/SignUpModal'
+import {SessionProps} from '@/app/types/Props'
+import {getRestData} from '@/app/utils/fetch'
+import {clearSession} from '@/utils/fetchSession'
 
-type SearchFieldProps = ChildProps & {
-    initialText: string
+type NavBarProps = SessionProps & {
+    query: string
 }
 
-export function SiteTitle() {
-    return <header className={'text-2xl'}><Link href={'/'}>Valid Coffee</Link></header>
-}
+export async function NavBar ({session, query}: NavBarProps) {
+    const searchResult = await getRestData(`/apis/shop/search?name=${query}`)
 
-export async function SearchField({children, initialText}: SearchFieldProps) {
-    const router = useRouter()
-    const pathName = usePathname()
-    const currentParams = useSearchParams()
-    const handleSearchTextChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const newParams = new URLSearchParams(currentParams)
-        newParams.set('q', event.target.value)
-        router.push(`${pathName}?${newParams}`)
-    }
-    return (
-        <div className={'form-control'}>
-            <input type={'text'} placeholder={'Coffee shop name'}
-                   className={'placeholder:italic input input-bordered w-40 md:w-auto'} value={initialText}
-                   onChange={handleSearchTextChange}/>
-            {children}
+    return <nav className={'navbar'}>
+        <div className={'dropdown'}>
+            <MenuButton/>
+            <ul className={'menu menu-sm dropdown-content mt-3 z-50 p-2 shadow bg-base-100 rounded-box w-32 gap-1'}>
+                <MenuContent session={session}/>
+            </ul>
         </div>
-    )
+        <div className={'flex-1'}>
+            <SiteTitle/>
+        </div>
+        <div className={'flex-none'}>
+            Search:&nbsp;
+            <div className={'dropdown'}>
+                <SearchField initialText={query}>
+                    <div tabIndex={0}>
+                        <ul tabIndex={0}
+                            className={'dropdown-content z-10 menu grid p-2 shadow bg-base-100 rounded-box sm:w-40 md:w-52 max-h-52 overflow-y-auto gap-4'}>
+                            {searchResult.length > 0 ? searchResult.map((shop: any) => <Link
+                                    href={`/shop/${shop.shopId}`}>
+                                    <li key={shop.shopId}>{shop.shopName}</li>
+                                </Link>) :
+                                <p>No Results</p>}
+                        </ul>
+                    </div>
+                </SearchField>
+            </div>
+            <div className={'navbar-center hidden md:flex'}>
+                <ul className={'relative flex items-center px-1 gap-4'}>
+                    <MenuContent session={session}/>
+                </ul>
+            </div>
+        </div>
+        <SignUpModal/>
+        <SignInModal/>
+    </nav>
 }
 
-export function MenuButton() {
-    return (
-        <label tabIndex={0} className={"btn btn-ghost md:hidden"}>
-            <svg xmlns={'http://www.w3.org/2000/svg'} className={'h-5 w-5'} fill={'none'} viewBox={'0 0 24 24'}
-                 stroke={'currentColor'}>
-                <path strokeLinecap={'round'} strokeLinejoin={'round'} strokeWidth={'2'}
-                      d={'M4 6h16M4 12h8m-8 6h16'}/>
-            </svg>
-        </label>
-    )
-}
-
-export function MenuContent({session}: SessionProps) {
+function MenuContent ({session}: SessionProps) {
     return (
         <>
-            {session ?
-                <li className={'w-auto inline'}><Link href={'/account'}>
-                    <div className={"avatar placeholder pt-2"}>
-                    <div className={"rounded-lg w-5 h-5"}>
-                        <img className={''} src={'./bookmark_icon.png'} alt={'bookmark icon'}/>
-                    </div>
-                </div>
-                </Link></li>
+            {session ? <>
+                    <li className={'w-auto inline'}><BookmarkLink/></li>
+                    <li className={'w-auto inline'}><SignOutButton session={session} onSuccess={clearSession}/></li>
+                </>
                 : <>
                     <li className={'w-auto inline'}><SignUpModalButton/></li>
                     <li className={'w-auto inline'}><SignInModalButton/></li>
@@ -62,4 +63,14 @@ export function MenuContent({session}: SessionProps) {
             }
         </>
     )
+}
+
+function BookmarkLink () {
+    return <Link href={'/account'}>
+        <div className={'avatar placeholder pt-2'}>
+            <div className={'rounded-lg w-5 h-5'}>
+                <img className={''} src={'./bookmark_icon.png'} alt={'bookmark icon'}/>
+            </div>
+        </div>
+    </Link>
 }
