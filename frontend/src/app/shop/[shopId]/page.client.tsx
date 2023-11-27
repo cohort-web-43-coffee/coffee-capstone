@@ -16,6 +16,7 @@ type TagToggleGroupProps = {
     shopId: string,
     session?: Session,
     activeTags: string[],
+    startChecked?: boolean
     activeTagsSetter: React.Dispatch<React.SetStateAction<string[]>>
 }
 
@@ -51,20 +52,30 @@ export function TagToggleList ({tagData, shopId, session}: TagToggleListProps) {
     }
     return (
         <>
-            <TagToggleGroup group={brewingTags} shopId={shopId} session={session} activeTags={activeTags}
-                            activeTagsSetter={setActiveTags}/>
-            <TagToggleGroup group={busyTags} shopId={shopId} session={session} activeTags={activeTags}
-                            activeTagsSetter={setActiveTags}/>
-            <TagToggleGroup group={serviceTags} shopId={shopId} session={session} activeTags={activeTags}
-                            activeTagsSetter={setActiveTags}/>
+            <div className={'block md:hidden'}>
+                <TagToggleGroup group={brewingTags} shopId={shopId} session={session} activeTags={activeTags}
+                                activeTagsSetter={setActiveTags} startChecked/>
+                <TagToggleGroup group={busyTags} shopId={shopId} session={session} activeTags={activeTags}
+                                activeTagsSetter={setActiveTags}/>
+                <TagToggleGroup group={serviceTags} shopId={shopId} session={session} activeTags={activeTags}
+                                activeTagsSetter={setActiveTags}/>
+            </div>
+            <div className={'hidden md:block'}>
+                <TagToggleGroup group={brewingTags} shopId={shopId} session={session} activeTags={activeTags}
+                                activeTagsSetter={setActiveTags} startChecked/>
+                <TagToggleGroup group={busyTags} shopId={shopId} session={session} activeTags={activeTags}
+                                activeTagsSetter={setActiveTags} startChecked/>
+                <TagToggleGroup group={serviceTags} shopId={shopId} session={session} activeTags={activeTags}
+                                activeTagsSetter={setActiveTags} startChecked/>
+            </div>
         </>
     )
 }
 
-export function TagToggleGroup({group, shopId, session, activeTags, activeTagsSetter}: TagToggleGroupProps) {
+export function TagToggleGroup ({group, shopId, session, activeTags, startChecked, activeTagsSetter}: TagToggleGroupProps) {
 
     const handleTagButtonChanged = (event: any) => {
-        if(session) {
+        if (session) {
             const isChecked = event.currentTarget.checked
             const tagId = event.target.id
 
@@ -76,13 +87,13 @@ export function TagToggleGroup({group, shopId, session, activeTags, activeTagsSe
 
             if (!isChecked) {
                 const requestHeaders = requestDeleteHeaders(body, session)
-                fetch('/apis/activeTag', requestHeaders).then(response => {
+                fetch('/apis/activeTag', requestHeaders).then(() => {
                         fetchActiveTags(shopId, activeTagsSetter, session).then()
                     }
                 )
             } else {
                 const requestHeaders = requestPostHeaders(body, session)
-                fetch('/apis/activeTag', requestHeaders).then(response => {
+                fetch('/apis/activeTag', requestHeaders).then(() => {
                         fetchActiveTags(shopId, activeTagsSetter, session).then()
                     }
                 )
@@ -92,11 +103,13 @@ export function TagToggleGroup({group, shopId, session, activeTags, activeTagsSe
 
     return (
         <>
-            <details className={"collapse collapse-arrow"}>
-                <summary className={"collapse-title text-xl font-medium"}>
+            <div className={'collapse collapse-arrow'}>
+                <input type={'checkbox'} name={'filter-accordion'} className={'min-w-full'}
+                       defaultChecked={startChecked ?? false}/>
+                <div className={'collapse-title text-xl font-medium'}>
                     <div className={'divider'}>{group.group}</div>
-                </summary>
-                <div className={"collapse-content"}>
+                </div>
+                <div className={'collapse-content'}>
                     <div className={'flex flex-wrap gap-6 justify-around'}>
                         {group.tags
                             .sort((a: Tag, b: Tag) => b.count - a.count)
@@ -105,7 +118,7 @@ export function TagToggleGroup({group, shopId, session, activeTags, activeTagsSe
                                                           handleChanged={handleTagButtonChanged}/>)}
                     </div>
                 </div>
-            </details>
+            </div>
         </>
     )
 }
