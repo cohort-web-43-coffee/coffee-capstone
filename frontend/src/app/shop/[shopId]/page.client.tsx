@@ -4,6 +4,7 @@ import {Tag, TagButton, TagGroup} from '@/app/components/Tag'
 import {requestDeleteHeaders, requestGetHeaders, requestPostHeaders} from '@/app/utils/fetch'
 import {Session} from '@/utils/fetchSession'
 import React, {useEffect, useState} from 'react'
+import {SessionProps} from '@/app/types/Props'
 
 
 type TagToggleListProps = {
@@ -19,6 +20,9 @@ type TagToggleGroupProps = {
     startChecked?: boolean
     activeTagsSetter: React.Dispatch<React.SetStateAction<string[]>>
 }
+type BookmarkToggleProps = SessionProps & {
+    shopId: string
+}
 
 export function TagToggleList ({tagData, shopId, session}: TagToggleListProps) {
     const [activeTags, setActiveTags] = useState(new Array<string>())
@@ -30,15 +34,15 @@ export function TagToggleList ({tagData, shopId, session}: TagToggleListProps) {
 
     const brewingTags = {
         group: 'Brewing',
-        tags: tagData.filter((tag: Tag) => tag.tagGroup === 'brewing')
+        tags: tagData?.filter((tag: Tag) => tag.tagGroup === 'brewing')
     }
     const busyTags = {
         group: 'Busy Times',
-        tags: tagData.filter((tag: Tag) => tag.tagGroup === 'busy')
+        tags: tagData?.filter((tag: Tag) => tag.tagGroup === 'busy')
     }
     const serviceTags = {
         group: 'Service',
-        tags: tagData.filter((tag: Tag) => tag.tagGroup === 'service')
+        tags: tagData?.filter((tag: Tag) => tag.tagGroup === 'service')
     }
 
     return (
@@ -63,7 +67,9 @@ export function TagToggleList ({tagData, shopId, session}: TagToggleListProps) {
     )
 }
 
+
 export function TagToggleGroup ({group, shopId, session, activeTags, startChecked, activeTagsSetter}: TagToggleGroupProps) {
+
 
     const handleTagButtonChanged = (event: any) => {
         if (session) {
@@ -102,8 +108,8 @@ export function TagToggleGroup ({group, shopId, session, activeTags, startChecke
                 </div>
                 <div className={'collapse-content'}>
                     <div className={'flex flex-wrap gap-6 justify-around'}>
-                        {group.tags
-                            .sort((a: Tag, b: Tag) => b.count - a.count)
+                        {group?.tags
+                            ?.sort((a: Tag, b: Tag) => b.count - a.count)
                             .map((tag: Tag) => <TagButton tag={tag} key={tag.tagId}
                                                           checked={activeTags?.includes(tag.tagId) ?? false}
                                                           handleChanged={handleTagButtonChanged}/>)}
@@ -114,12 +120,50 @@ export function TagToggleGroup ({group, shopId, session, activeTags, startChecke
     )
 }
 
+export function BookmarkToggle ({session, shopId}: BookmarkToggleProps) {
+    const [bookmarks, setBookmarks] = useState(Array<object>())
+
+    const getRequestHeaders = requestGetHeaders(session)
+    const fetchBookmarks = () => {
+        fetch('/apis/bookmark', getRequestHeaders)
+            .then(response => response.json())
+            .then((body) => {
+                setBookmarks(body.data)
+            })
+    }
+
+    const handleBookmarkToggleChanged = (event: React.ChangeEvent<HTMLInputElement>) => {
+        if (session) {
+            const body = {
+                bookmarkAccountId: null,
+                bookmarkShopId: shopId,
+                bookmarkOrder: bookmarks.length
+            }
+            const headers = event.target.checked ? requestPostHeaders(JSON.stringify(body), session) : requestDeleteHeaders(JSON.stringify(body), session)
+            fetch('/apis/bookmark', headers)
+                .then(response => {
+                    if (response.ok) {
+                        fetchBookmarks()
+                    }
+                })
+        } else {
+            event.preventDefault()
+            console.log('Need to be signed in to bookmark')
+        }
+    }
+
+    useEffect(fetchBookmarks, [setBookmarks])
+
+    return <input type={'checkbox'} aria-label={'Bookmark'} className={'btn'}
+                  checked={bookmarks?.filter((shop: any) => shop.shopId === shopId).length > 0 ?? false}
+                  onChange={handleBookmarkToggleChanged} style={{backgroundImage: 'none'}}/>
+}
+
+
 async function fetchActiveTags (shopId: String, activeTagsSetter: React.Dispatch<React.SetStateAction<string[]>>, session?: Session) {
     const headers = requestGetHeaders(session)
     const url = `/apis/activeTag/activeTagsByShopId/${shopId}`
     fetch(url, headers)
         .then(response => response.json())
-        .then((body) => {
-            activeTagsSetter(body.data)
-        })
+        .then((body) => activeTagsSetter(body.data))
 }

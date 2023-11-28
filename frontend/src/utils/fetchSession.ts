@@ -14,8 +14,6 @@ export type Session = {
 
 export let session : Session|undefined = undefined
 
-console.log("session", session)
-
 const currentTimeInSeconds = new Date().getTime() / 1000
 
 export async function getSession(): Promise<Session|undefined > {
