@@ -1,5 +1,6 @@
 import {MenuButton, SearchField, SignOutButton, SiteTitle} from '@/app/layout/NavBar.client'
 import Link from 'next/link'
+import Image from 'next/image'
 import {SignInModal, SignInModalButton, SignUpModal, SignUpModalButton} from '@/app/layout/SignUpModal'
 import {SessionProps} from '@/app/types/Props'
 import {getRestData} from '@/app/utils/fetch'
@@ -69,7 +70,7 @@ function BookmarkLink () {
     return <Link href={'/account'}>
         <div className={'avatar placeholder pt-2'}>
             <div className={'rounded-lg w-5 h-5'}>
-                <img className={''} src={'./bookmark_icon.png'} alt={'bookmark icon'}/>
+                <Image src={'/bookmark.png'} alt={'bookmark icon'} width={48} height={48}/>
             </div>
         </div>
     </Link>
