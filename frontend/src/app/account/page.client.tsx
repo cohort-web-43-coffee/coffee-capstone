@@ -25,7 +25,7 @@ type Shop = {
 
 export function BookmarkList ({session}: BookmarkListProps) {
     const [shops, setShops] = useState(new Array<Shop>())
-    console.log(shops)
+
     const effect = () => {
         const getRequestHeaders = requestGetHeaders(session)
         fetch('/apis/bookmark', getRequestHeaders)
