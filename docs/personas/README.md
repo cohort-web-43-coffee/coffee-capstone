@@ -1,6 +1,5 @@
-# Capstone Documentation
+# Personas
 
-## Personas
 * [Kathy](Kathy.md): Balloon Fiesta Tourist
 * [Richard](Richard.md): ABQ Coffee Aficionado
 * [Jolene](Jolene.md): Midday Lunch Coffee Drinker
