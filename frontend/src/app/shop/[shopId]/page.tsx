@@ -24,28 +24,27 @@ export default async function ShopPage({params, searchParams}: ShopPageProps) {
         <NavBar query={query} session={session}/>
         <PrimarySection>
             <Container autoMargins>
-                <div
-                    className="mx-full p-5 bg-primary-container-variant flex-row justify-center grid grid-cols-[1fr_2fr] gap-3">
-                    <div className={'flex flex-col gap-2'}>
-                        {photoData.map((photoDetails: any) => {
-                            return <ShopDetailImage key={photoDetails.photoId} imageUrl={photoDetails.photoUrl}
-                                                    imageAlt={`Photograph of ${shopData.shopName}`}/>
-                        })}
-                    </div>
-                    <div className={'flex flex-col items-center justify-center'}>
+                <div className={"mx-auto p-5 bg-primary-container-variant justify-center"}>
+                    <div className={'mx-48 flex flex-col items-center justify-center'}>
                         <div className={'prose'}><h1
                             className={'text-primary-container drop-shadow-lg'}>{shopData.shopName}</h1></div>
                         <div className={'prose'}><p
-                            className={'font-bold text-accent drop-shadow-lg pl-2'}>Address: {shopData.shopAddress}</p>
+                            className={'font-bold text-accent drop-shadow-lg'}>Address: {shopData.shopAddress}</p>
                         </div>
-                        <div className={'prose'}><p className={'font-bold text-accent drop-shadow-lg'}>Phone
+                        <div className={'prose'}><p className={'font-bold text-accent drop-shadow-lg '}>Phone
                             Number: {shopData.shopPhoneNumber}</p></div>
                         <div
                             className={"my-4 btn btn-xs sm:btn sm:btn-sm md:btn lg:btn btn-primary sm:btn-primary md:btn-primary lg:btn-primary text-secondary-content rounded-lg p-1 sm:p-1 md:p-2 lg:p-2"}>Add
                             Bookmark
                         </div>
 
-                    <TagToggleList tagData={tagData} shopId={shopId} session={session}/>
+                        <TagToggleList tagData={tagData} shopId={shopId} session={session}/>
+                    </div>
+                    <div className={'flex flex-row gap-4 justify-center'}>
+                        {photoData.map((photoDetails: any) => {
+                            return <ShopDetailImage key={photoDetails.photoId} imageUrl={photoDetails.photoUrl}
+                                                    imageAlt={`Photograph of ${shopData.shopName}`}/>
+                        })}
                     </div>
                 </div>
             </Container>
@@ -55,6 +54,6 @@ export default async function ShopPage({params, searchParams}: ShopPageProps) {
 
 function ShopDetailImage({imageUrl, imageAlt}: ImageProps) {
     return (
-        <img src={imageUrl} alt={imageAlt}/>
+        <img src={imageUrl} alt={imageAlt} className={'w-28 h-28 sm:w-40 sm:h-40 md:w-60 md:h-60 lg:w-96 lg:h-96'}/>
     )
 }
