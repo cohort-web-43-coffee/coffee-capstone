@@ -25,13 +25,13 @@ export default async function ShopPage({params, searchParams}: ShopPageProps) {
         <PrimarySection>
             <Container autoMargins>
                 <div className={"mx-auto p-5 bg-primary-container-variant justify-center"}>
-                    <div className={'mx-48 flex flex-col items-center justify-center'}>
+                    <div className={'mx-auto sm:mx-48 flex flex-col items-center justify-center'}>
                         <div className={'prose'}><h1
                             className={'text-primary-container drop-shadow-lg'}>{shopData.shopName}</h1></div>
                         <div className={'prose'}><p
-                            className={'font-bold text-accent drop-shadow-lg'}>Address: {shopData.shopAddress}</p>
+                            className={'font-bold text-accent drop-shadow-lg px-12'}>Address: {shopData.shopAddress}</p>
                         </div>
-                        <div className={'prose'}><p className={'font-bold text-accent drop-shadow-lg '}>Phone
+                        <div className={'prose'}><p className={'font-bold text-accent drop-shadow-lg pr-4'}>Phone
                             Number: {shopData.shopPhoneNumber}</p></div>
                         <div
                             className={"my-4 btn btn-xs sm:btn sm:btn-sm md:btn lg:btn btn-primary sm:btn-primary md:btn-primary lg:btn-primary text-secondary-content rounded-lg p-1 sm:p-1 md:p-2 lg:p-2"}>Add
