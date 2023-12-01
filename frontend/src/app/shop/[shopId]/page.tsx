@@ -24,9 +24,9 @@ export default async function ShopPage({params, searchParams}: ShopPageProps) {
         <NavBar query={query} session={session}/>
         <PrimarySection>
             <Container autoMargins>
-                <div className={"grid grid-cols-2 p-5 bg-primary-container-variant justify-center"}>
+                <div className={"mx-full p-5 bg-primary-container-variant flex-row justify-center grid grid-cols-[1fr_2fr] gap-3"}>
                     <div>
-                        <img src={shopData.shopPhotoUrl} alt={shopData.shopName} className={'w-28 h-28 sm:w-40 sm:h-40 md:w-60 md:h-60 lg:w-96 lg:h-96'}/>
+                        <img src={shopData.shopPhotoUrl} alt={shopData.shopName} className={'w-auto h-auto sm:w-40 sm:h-40 md:w-60 md:h-60 lg:w-96 lg:h-96'}/>
                     </div>
                     <div className={'flex flex-col items-center justify-center'}>
                         <div className={'prose'}><h1
@@ -44,6 +44,13 @@ export default async function ShopPage({params, searchParams}: ShopPageProps) {
                         <TagToggleList tagData={tagData} shopId={shopId} session={session}/>
                     </div>
                 </div>
+                <div className={'mx-full p-5 bg-primary-container-variant flex flex-row gap-4 justify-center'}>
+                    {photoData.map((photoDetails: any) => {
+                        return <ShopDetailImage key={photoDetails.photoId} imageUrl={photoDetails.photoUrl}
+                                                imageAlt={`Photograph of ${shopData.shopName}`}/>
+                    })}
+                </div>
+                // TODO: Make the div above a gallery
             </Container>
         </PrimarySection>
     </>
