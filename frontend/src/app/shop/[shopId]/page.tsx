@@ -24,8 +24,11 @@ export default async function ShopPage({params, searchParams}: ShopPageProps) {
         <NavBar query={query} session={session}/>
         <PrimarySection>
             <Container autoMargins>
-                <div className={"mx-auto p-5 bg-primary-container-variant justify-center"}>
-                    <div className={'mx-auto sm:mx-48 flex flex-col items-center justify-center'}>
+                <div className={"grid grid-cols-2 p-5 bg-primary-container-variant justify-center"}>
+                    <div>
+                        <img src={shopData.shopPhotoUrl} alt={shopData.shopName} className={'w-28 h-28 sm:w-40 sm:h-40 md:w-60 md:h-60 lg:w-96 lg:h-96'}/>
+                    </div>
+                    <div className={'flex flex-col items-center justify-center'}>
                         <div className={'prose'}><h1
                             className={'text-primary-container drop-shadow-lg'}>{shopData.shopName}</h1></div>
                         <div className={'prose'}><p
@@ -39,12 +42,6 @@ export default async function ShopPage({params, searchParams}: ShopPageProps) {
                         </div>
 
                         <TagToggleList tagData={tagData} shopId={shopId} session={session}/>
-                    </div>
-                    <div className={'flex flex-row gap-4 justify-center'}>
-                        {photoData.map((photoDetails: any) => {
-                            return <ShopDetailImage key={photoDetails.photoId} imageUrl={photoDetails.photoUrl}
-                                                    imageAlt={`Photograph of ${shopData.shopName}`}/>
-                        })}
                     </div>
                 </div>
             </Container>
