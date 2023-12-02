@@ -1,8 +1,8 @@
 import {PrimarySection} from '@/app/components/Section'
 import React from 'react'
 import {Container} from '@/app/components/Container'
-import {BookmarkToggle, TagToggleList} from '@/app/shop/[shopId]/page.client'
-import {ImageProps, PageProps} from '@/app/types/Props'
+import {GalleryModal, GalleryModalButton, BookmarkToggle, TagToggleList} from '@/app/shop/[shopId]/page.client'
+import {PageProps} from '@/app/types/Props'
 import {getRestData} from "@/app/utils/fetch"
 import {getSession} from '@/utils/fetchSession'
 import {NavBar} from '@/app/layout/NavBar'
@@ -16,8 +16,8 @@ export default async function ShopPage({params, searchParams}: ShopPageProps) {
     const {shopId} = params
     const session = await getSession()
     const shopData = await getRestData(`/apis/shop/shopId/${shopId}`)
-    const photoData = await getRestData(`/apis/photo/photoByShopId/${shopId}`)
     const tagData = await getRestData(`/apis/tag/shopTags/${shopId}`)
+    const photoData = await getRestData(`/apis/photo/photoByShopId/${shopId}`)
     const query = searchParams.q
 
     return <>
@@ -25,12 +25,10 @@ export default async function ShopPage({params, searchParams}: ShopPageProps) {
         <PrimarySection>
             <Container autoMargins>
                 <div
-                    className="mx-full p-5 bg-primary-container-variant flex-row justify-center grid grid-cols-[1fr_2fr] gap-3">
-                    <div className={'flex flex-col gap-2'}>
-                        {photoData?.map((photoDetails: any) => {
-                            return <ShopDetailImage key={photoDetails.photoId} imageUrl={photoDetails.photoUrl}
-                                                    imageAlt={`Photograph of ${shopData.shopName}`}/>
-                        })}
+                    className={"mx-auto p-5 bg-primary-container-variant flex flex-col justify-center sm:grid sm:grid-cols-[1fr_2fr] gap-3"}>
+                    <div>
+                        <img src={shopData.shopPhotoUrl} alt={shopData.shopName}
+                             className={'w-auto h-auto sm:w-40 sm:h-40 md:w-60 md:h-60 lg:w-96 lg:h-96'}/>
                     </div>
                     <div className={'flex flex-col items-center justify-center'}>
                         <div className={'prose'}><h1
@@ -42,16 +40,16 @@ export default async function ShopPage({params, searchParams}: ShopPageProps) {
                             Number: {shopData?.shopPhoneNumber}</p></div>
                         <BookmarkToggle shopId={shopId} session={session}/>
 
-                    <TagToggleList tagData={tagData} shopId={shopId} session={session}/>
+                        <TagToggleList tagData={tagData} shopId={shopId} session={session}/>
                     </div>
+                    <div>
+                        <GalleryModalButton/>
+                    </div>
+                    <GalleryModal shopPhotoUrl={shopData.shopPhotoUrl} photosUrls={photoData} shopName={shopData.shopName}/>
                 </div>
             </Container>
         </PrimarySection>
     </>
 }
 
-function ShopDetailImage({imageUrl, imageAlt}: ImageProps) {
-    return (
-        <img src={imageUrl} alt={imageAlt}/>
-    )
-}
+

@@ -1,10 +1,15 @@
 'use client'
 
 import {Tag, TagButton, TagGroup} from '@/app/components/Tag'
-import {requestDeleteHeaders, requestGetHeaders, requestPostHeaders} from '@/app/utils/fetch'
+import {getRestData, requestDeleteHeaders, requestGetHeaders, requestPostHeaders} from '@/app/utils/fetch'
 import {Session} from '@/utils/fetchSession'
 import React, {useEffect, useState} from 'react'
+import {ImageProps} from "@/app/types/Props"
+import {Modal, ModalActions} from "@/app/components/Modal"
+import Image from "next/image"
+
 import {SessionProps} from '@/app/types/Props'
+
 
 
 type TagToggleListProps = {
@@ -22,6 +27,12 @@ type TagToggleGroupProps = {
 }
 type BookmarkToggleProps = SessionProps & {
     shopId: string
+}
+
+type GalleryProps = {
+    shopPhotoUrl: string
+    photosUrls: string[]
+    shopName: string
 }
 
 export function TagToggleList ({tagData, shopId, session}: TagToggleListProps) {
@@ -165,5 +176,38 @@ async function fetchActiveTags (shopId: String, activeTagsSetter: React.Dispatch
     const url = `/apis/activeTag/activeTagsByShopId/${shopId}`
     fetch(url, headers)
         .then(response => response.json())
-        .then((body) => activeTagsSetter(body.data))
+        .then((body) => {
+            activeTagsSetter(body.data)
+        })
+}
+
+export async function GalleryModal({shopPhotoUrl, photosUrls, shopName}: GalleryProps) {
+    return (
+        <Modal id={'images_modal'}>
+            <div className={'grid grid-rows-1 gap-4 justify-center'}>
+                {photosUrls.map((photoDetails: any) => {
+                    return <ShopDetailImage key={photoDetails.photoId} imageUrl={photoDetails.photoUrl}
+                                            imageAlt={`Photograph of ${shopName}`}/>
+                })}
+            </div>
+            <ModalActions>
+                <button className={"btn btn-sm btn-circle btn-ghost absolute right-2 top-2"}>✕</button>
+            </ModalActions>
+        </Modal>
+    )
+}
+
+export function GalleryModalButton() {
+    return(
+        <button className={"btn self-center"}
+                onClick={() => (document.getElementById('images_modal') as HTMLDialogElement).showModal()}><img src={'/photo_icon.svg'} alt={'Image Photo From Google Fonts'}/>Image Gallery
+        </button>
+    )
+}
+
+function ShopDetailImage({imageUrl, imageAlt}: ImageProps) {
+    return (
+        <img src={imageUrl} alt={imageAlt} className={'w-auto h-auto'}/>
+    )
+
 }
