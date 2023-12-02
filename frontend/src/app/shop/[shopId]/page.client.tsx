@@ -1,9 +1,11 @@
 'use client'
 
 import {Tag, TagButton, TagGroup} from '@/app/components/Tag'
-import {requestDeleteHeaders, requestGetHeaders, requestPostHeaders} from '@/app/utils/fetch'
+import {getRestData, requestDeleteHeaders, requestGetHeaders, requestPostHeaders} from '@/app/utils/fetch'
 import {Session} from '@/utils/fetchSession'
 import React, {useEffect, useState} from 'react'
+import {ImageProps} from "@/app/types/Props"
+import {Modal, ModalActions} from "@/app/components/Modal";
 
 
 type TagToggleListProps = {
@@ -17,6 +19,10 @@ type TagToggleGroupProps = {
     session?: Session,
     activeTags: string[],
     activeTagsSetter: React.Dispatch<React.SetStateAction<string[]>>
+}
+
+type GalleryProps = {
+    params: { shopId: string }
 }
 
 export function TagToggleList ({tagData, shopId, session}: TagToggleListProps) {
@@ -109,4 +115,38 @@ async function fetchActiveTags (shopId: String, activeTagsSetter: React.Dispatch
         .then((body) => {
             activeTagsSetter(body.data)
         })
+}
+
+export async function GalleryModal({params}: GalleryProps) {
+    const {shopId}= params
+    const shopData = await getRestData(`/apis/shop/shopId/${shopId}`)
+    const photoData = await getRestData(`/apis/photo/photoByShopId/${shopId}`)
+    return (
+        <Modal id={'images_modal'}>
+            <div className={'flex flex-row gap-4 justify-center'}>
+                {photoData.map((photoDetails: any) => {
+                    return <ShopDetailImage key={photoDetails.photoId} imageUrl={photoDetails.photoUrl}
+                                            imageAlt={`Photograph of ${shopData.shopName}`}/>
+                })}
+            </div>
+            <ModalActions>
+                <button className={"btn btn-sm btn-circle btn-ghost absolute right-2 top-2"}>✕</button>
+            </ModalActions>
+        </Modal>
+    )
+}
+
+export function GalleryModalButton() {
+    return(
+        <button className={"btn btn-link self-center"}
+                onClick={() => (document.getElementById('images_modal') as HTMLDialogElement).showModal()}>Click
+            here to see more images!
+        </button>
+    )
+}
+
+function ShopDetailImage({imageUrl, imageAlt}: ImageProps) {
+    return (
+        <img src={imageUrl} alt={imageAlt} className={'w-28 h-28 sm:w-40 sm:h-40 md:w-60 md:h-60 lg:w-96 lg:h-96'}/>
+    )
 }
