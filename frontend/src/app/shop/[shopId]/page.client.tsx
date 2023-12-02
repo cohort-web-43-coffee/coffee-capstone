@@ -22,7 +22,9 @@ type TagToggleGroupProps = {
 }
 
 type GalleryProps = {
-    params: { shopId: string }
+    shopPhotoUrl: string
+    photosUrls: string[]
+    shopName: string
 }
 
 export function TagToggleList ({tagData, shopId, session}: TagToggleListProps) {
@@ -117,16 +119,13 @@ async function fetchActiveTags (shopId: String, activeTagsSetter: React.Dispatch
         })
 }
 
-export async function GalleryModal({params}: GalleryProps) {
-    const {shopId}= params
-    const shopData = await getRestData(`/apis/shop/shopId/${shopId}`)
-    const photoData = await getRestData(`/apis/photo/photoByShopId/${shopId}`)
+export async function GalleryModal({shopPhotoUrl, photosUrls, shopName}: GalleryProps) {
     return (
         <Modal id={'images_modal'}>
             <div className={'flex flex-row gap-4 justify-center'}>
-                {photoData.map((photoDetails: any) => {
+                {photosUrls.map((photoDetails: any) => {
                     return <ShopDetailImage key={photoDetails.photoId} imageUrl={photoDetails.photoUrl}
-                                            imageAlt={`Photograph of ${shopData.shopName}`}/>
+                                            imageAlt={`Photograph of ${shopName}`}/>
                 })}
             </div>
             <ModalActions>

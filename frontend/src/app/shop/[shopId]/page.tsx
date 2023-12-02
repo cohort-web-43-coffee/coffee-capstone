@@ -17,6 +17,7 @@ export default async function ShopPage({params, searchParams}: ShopPageProps) {
     const session = await getSession()
     const shopData = await getRestData(`/apis/shop/shopId/${shopId}`)
     const tagData = await getRestData(`/apis/tag/shopTags/${shopId}`)
+    const photoData = await getRestData(`/apis/photo/photoByShopId/${shopId}`)
     const query = searchParams.q
 
     return <>
@@ -47,6 +48,7 @@ export default async function ShopPage({params, searchParams}: ShopPageProps) {
                     <div>
                         <GalleryModalButton/>
                     </div>
+                    <GalleryModal shopPhotoUrl={shopData.shopPhotoUrl} photosUrls={photoData} shopName={shopData.shopName}/>
                 </div>
             </Container>
         </PrimarySection>
