@@ -4,9 +4,11 @@ import {toFormikValidationSchema} from "zod-formik-adapter";
 import {SignIn, signInAccountSchema} from "@/utils/models/signin";
 import {DisplayError} from "@/app/components/displayError";
 import {DisplayStatus} from "@/app/components/displayStatus";
+import {useRouter} from "next/navigation";
 
 
 export function SignInForm() {
+    const router = useRouter()
     const initialValues : any = {
         accountEmail: '',
         accountPassword: ''
@@ -23,6 +25,7 @@ export function SignInForm() {
         }).then(response => response.json()).then(json => {
             if (json.status === 200) {
                 resetForm()
+                router.replace('/account')
             }
             setStatus({type: json.type, message: json.message})
         })

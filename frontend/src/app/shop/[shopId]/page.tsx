@@ -1,7 +1,7 @@
 import {PrimarySection} from '@/app/components/Section'
 import React from 'react'
 import {Container} from '@/app/components/Container'
-import {GalleryModal, GalleryModalButton, TagToggleList} from '@/app/shop/[shopId]/page.client'
+import {GalleryModal, GalleryModalButton, BookmarkToggle, TagToggleList} from '@/app/shop/[shopId]/page.client'
 import {PageProps} from '@/app/types/Props'
 import {getRestData} from "@/app/utils/fetch"
 import {getSession} from '@/utils/fetchSession'
@@ -32,16 +32,13 @@ export default async function ShopPage({params, searchParams}: ShopPageProps) {
                     </div>
                     <div className={'flex flex-col items-center justify-center'}>
                         <div className={'prose'}><h1
-                            className={'text-primary-container drop-shadow-lg'}>{shopData.shopName}</h1></div>
+                            className={'text-primary-container drop-shadow-lg'}>{shopData?.shopName}</h1></div>
                         <div className={'prose'}><p
-                            className={'font-bold text-accent drop-shadow-lg px-12'}>Address: {shopData.shopAddress}</p>
+                            className={'font-bold text-accent drop-shadow-lg pl-2'}>Address: {shopData?.shopAddress}</p>
                         </div>
-                        <div className={'prose'}><p className={'font-bold text-accent drop-shadow-lg pr-4'}>Phone
-                            Number: {shopData.shopPhoneNumber}</p></div>
-                        <div
-                            className={"my-4 btn btn-xs sm:btn sm:btn-sm md:btn lg:btn btn-primary sm:btn-primary md:btn-primary lg:btn-primary text-secondary-content rounded-lg p-1 sm:p-1 md:p-2 lg:p-2"}>Add
-                            Bookmark
-                        </div>
+                        <div className={'prose'}><p className={'font-bold text-accent drop-shadow-lg'}>Phone
+                            Number: {shopData?.shopPhoneNumber}</p></div>
+                        <BookmarkToggle shopId={shopId} session={session}/>
 
                         <TagToggleList tagData={tagData} shopId={shopId} session={session}/>
                     </div>

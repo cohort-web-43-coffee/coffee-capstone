@@ -25,34 +25,20 @@ type Shop = {
 
 export function BookmarkList ({session}: BookmarkListProps) {
     const [shops, setShops] = useState(new Array<Shop>())
-    console.log(shops)
+
     const effect = () => {
         const getRequestHeaders = requestGetHeaders(session)
-        fetch("/apis/bookmark/bookmarkByAccountId/", getRequestHeaders)
-            .then(response => {
-                console.log(response)
-                return response.json()
-            })
-            .then((body) => {
-                console.log(body.data)
-                setShops(body.data)
-            })
-
-
+        fetch('/apis/bookmark', getRequestHeaders)
+            .then(response => response.json())
+            .then((body) => setShops(body.data))
     }
+
     useEffect(effect, [setShops, session])
 
     return (
         <div
             className={'grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-y-12 md:gap-x-12 justify-items-center'}>
-            {shops.map((shop: Shop) => {
-                return (
-                    <BookmarkCard
-                        key={shop.shopId}
-                        shop={shop}
-                    />)
-            })}
-
+            {shops.map((shop: Shop) => <BookmarkCard key={shop.shopId} shop={shop}/>)}
         </div>
     )
 }

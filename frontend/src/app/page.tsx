@@ -37,7 +37,7 @@ export default async function HomePage ({searchParams}: HomePageProps) {
             <NavBar query={query} session={session}/>
             <PrimarySection>
                 <PrimaryContainer autoMargins>
-                    <div className={'flex flex-col-reverse sm:flex-col-reverse md:flex-col lg:flex-col'}>
+                    <div className={'flex flex-col-reverse md:flex-col'}>
                         <div className={"mt-5"}>
                             <Carousel>
                                 {shopData.length > 0 ? sliceSplit(shopData, 6)
@@ -51,10 +51,15 @@ export default async function HomePage ({searchParams}: HomePageProps) {
                                     }) : <p>No shops matching your filters.</p>}
                             </Carousel>
                         </div>
-                        <div className={'flex flex-col'}>
-                            <TagFilterList group={brewingTags} activeTags={tags}/>
+                        <div className={'block md:hidden'}>
+                            <TagFilterList group={brewingTags} activeTags={tags} startChecked/>
                             <TagFilterList group={serviceTags} activeTags={tags}/>
                             <TagFilterList group={busyTags} activeTags={tags}/>
+                        </div>
+                        <div className={'hidden md:block'}>
+                            <TagFilterList group={brewingTags} activeTags={tags} startChecked/>
+                            <TagFilterList group={serviceTags} activeTags={tags} startChecked/>
+                            <TagFilterList group={busyTags} activeTags={tags} startChecked/>
                         </div>
                     </div>
 
