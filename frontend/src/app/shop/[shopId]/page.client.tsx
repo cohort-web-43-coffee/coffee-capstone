@@ -6,6 +6,7 @@ import {Session} from '@/utils/fetchSession'
 import React, {useEffect, useState} from 'react'
 import {ImageProps} from "@/app/types/Props"
 import {Modal, ModalActions} from "@/app/components/Modal";
+import Image from "next/image";
 
 
 type TagToggleListProps = {
@@ -122,7 +123,7 @@ async function fetchActiveTags (shopId: String, activeTagsSetter: React.Dispatch
 export async function GalleryModal({shopPhotoUrl, photosUrls, shopName}: GalleryProps) {
     return (
         <Modal id={'images_modal'}>
-            <div className={'flex flex-row gap-4 justify-center'}>
+            <div className={'grid grid-rows-1 gap-4 justify-center'}>
                 {photosUrls.map((photoDetails: any) => {
                     return <ShopDetailImage key={photoDetails.photoId} imageUrl={photoDetails.photoUrl}
                                             imageAlt={`Photograph of ${shopName}`}/>
@@ -137,15 +138,14 @@ export async function GalleryModal({shopPhotoUrl, photosUrls, shopName}: Gallery
 
 export function GalleryModalButton() {
     return(
-        <button className={"btn btn-link self-center"}
-                onClick={() => (document.getElementById('images_modal') as HTMLDialogElement).showModal()}>Click
-            here to see more images!
+        <button className={"btn self-center"}
+                onClick={() => (document.getElementById('images_modal') as HTMLDialogElement).showModal()}><img src={'/photo_icon.svg'} alt={'Image Photo From Google Fonts'}/>Image Gallery
         </button>
     )
 }
 
 function ShopDetailImage({imageUrl, imageAlt}: ImageProps) {
     return (
-        <img src={imageUrl} alt={imageAlt} className={'w-28 h-28 sm:w-40 sm:h-40 md:w-60 md:h-60 lg:w-96 lg:h-96'}/>
+        <img src={imageUrl} alt={imageAlt} className={'w-auto h-auto'}/>
     )
 }

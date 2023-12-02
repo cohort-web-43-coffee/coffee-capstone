@@ -25,7 +25,7 @@ export default async function ShopPage({params, searchParams}: ShopPageProps) {
         <PrimarySection>
             <Container autoMargins>
                 <div
-                    className={"mx-full p-5 bg-primary-container-variant flex-row justify-center grid grid-cols-[1fr_2fr] gap-3"}>
+                    className={"mx-auto p-5 bg-primary-container-variant flex flex-col justify-center sm:grid sm:grid-cols-[1fr_2fr] gap-3"}>
                     <div>
                         <img src={shopData.shopPhotoUrl} alt={shopData.shopName}
                              className={'w-auto h-auto sm:w-40 sm:h-40 md:w-60 md:h-60 lg:w-96 lg:h-96'}/>
