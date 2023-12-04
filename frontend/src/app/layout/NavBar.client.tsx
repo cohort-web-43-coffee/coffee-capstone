@@ -1,10 +1,10 @@
 'use client'
 import Link from 'next/link';
 import {usePathname, useRouter, useSearchParams} from "next/navigation"
-import {ChildProps, SessionProps} from "@/app/types/Props"
+import {SessionProps} from "@/app/types/Props"
 import {requestGetHeaders} from '@/app/utils/fetch'
 
-type SearchFieldProps = ChildProps & {
+type SearchFieldProps = {
     initialText: string
 }
 
@@ -12,7 +12,7 @@ export function SiteTitle () {
     return <header className={'text-2xl'}><Link href={'/'}>Valid Coffee</Link></header>
 }
 
-export async function SearchField ({children, initialText}: SearchFieldProps) {
+export function SearchField ({initialText}: Readonly<SearchFieldProps>) {
     const router = useRouter()
     const pathName = usePathname()
     const currentParams = useSearchParams()
@@ -22,12 +22,9 @@ export async function SearchField ({children, initialText}: SearchFieldProps) {
         router.push(`${pathName}?${newParams}`)
     }
     return (
-        <div className={'form-control'}>
             <input type={'text'} placeholder={'Coffee shop name'}
                    className={'placeholder:italic input input-bordered w-40 md:w-auto'} value={initialText}
                    onChange={handleSearchTextChange}/>
-            {children}
-        </div>
     )
 }
 type SignOutButtonProps = SessionProps & {
