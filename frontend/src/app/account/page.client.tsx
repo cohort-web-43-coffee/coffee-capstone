@@ -1,5 +1,5 @@
 'use client'
-import {CardBody, CardImage, SmallCard} from "@/components/Card";
+import {Card, CardBody, CardImage} from "@/components/Card";
 import {Session} from "@/utils/fetchSession";
 import {useEffect, useState} from "react";
 import {requestGetHeaders} from "@/utils/fetchHeaders";
@@ -46,7 +46,7 @@ export function BookmarkList ({session}: Readonly<BookmarkListProps>) {
 function BookmarkCard ({shop}: Readonly<BookmarkCardProps>) {
     return (
         <Link key={shop.shopId} href={`/shop/${shop.shopId}`}>
-            <SmallCard>
+            <Card>
                 <CardImage imageUrl={shop.shopPhotoUrl} imageAlt={shop.shopName}/>
                 <CardBody>
                     <div className={"flex text-xs sm:text-sm md:text-sm"}>
@@ -55,7 +55,7 @@ function BookmarkCard ({shop}: Readonly<BookmarkCardProps>) {
                         </ul>
                     </div>
                 </CardBody>
-            </SmallCard>
+            </Card>
         </Link>
     )
 }

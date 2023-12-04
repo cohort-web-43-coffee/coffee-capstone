@@ -30,7 +30,7 @@ export default async function HomePage ({searchParams}: Readonly<HomePageProps>)
     }
     return (
         <PrimarySection>
-            <PrimaryContainer autoMargins>
+            <PrimaryContainer>
                 <div className={'flex flex-col-reverse md:flex-col'}>
                     <div className={"mt-5"}>
                         <Carousel>

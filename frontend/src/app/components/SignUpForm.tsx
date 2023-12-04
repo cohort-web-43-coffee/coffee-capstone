@@ -1,8 +1,8 @@
 import {Formik, FormikHelpers, FormikProps} from "formik";
 import {toFormikValidationSchema} from "zod-formik-adapter";
-import {DisplayError} from "@/components/displayError";
-import {DisplayStatus} from "@/components/displayStatus";
 import {Signup, SignUpSchema} from "@/utils/models/Signup";
+import {DisplayError, DisplayStatus} from '@/components/Display'
+
 
 export function SignUpForm() {
     const initialValues: Signup = {

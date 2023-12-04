@@ -16,7 +16,7 @@ export default async function AboutPage() {
     return (
         <>
             <PrimarySection>
-                <Container autoMargins>
+                <Container>
                     <AboutUsHeader/>
                     <section className={'container mx-auto grid grid-cols-2 justify-items-center gap-10 my-12'}>
                         <AboutUsCard name={'Bob'} image={'/profile/bob.jpg'}  gitHub={'https://github.com/inhaledesign'}
@@ -32,7 +32,7 @@ export default async function AboutPage() {
             </PrimarySection>
 
             <SecondarySection>
-                <Container autoMargins>
+                <Container>
                     <ContactForm/>
                 </Container>
             </SecondarySection>

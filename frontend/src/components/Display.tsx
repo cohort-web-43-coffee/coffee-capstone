@@ -20,3 +20,22 @@ export function DisplayError(props: Readonly<DisplayErrorProps>) {
         return <></>
     }
 }
+
+interface DisplayStatusProps {
+    status: {
+        type: string,
+        message: string
+    }
+}
+
+export function DisplayStatus(props: Readonly<DisplayStatusProps>) {
+    const {status} = props
+    if(status) {
+        return(
+            <output className={`block ${status.type}`}>
+                {status.message}
+            </output>
+        )
+    }
+    return <></>
+}

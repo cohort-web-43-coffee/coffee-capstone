@@ -13,7 +13,7 @@ export default async function AccountPage() {
     return (
         <>
             <PrimarySection>
-                <Container autoMargins>
+                <Container>
                     <div className={'flex justify-center'}>
                         <AccountCard/>
                     </div>
@@ -21,7 +21,7 @@ export default async function AccountPage() {
             </PrimarySection>
 
             <SecondarySection>
-                <Container autoMargins>
+                <Container>
                     <BookmarkList session={session}/>
                 </Container>
             </SecondarySection>

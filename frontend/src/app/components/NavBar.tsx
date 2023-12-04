@@ -27,7 +27,7 @@ export async function NavBar ({session, query}: NavBarProps) {
             Search:&nbsp;
             <div className={'dropdown'}>
                 <div className={'form-control'}>
-                    <SearchField initialText={query}/>
+                    <SearchField/>
                     <div tabIndex={0}>
                         <ul tabIndex={0}
                             className={'dropdown-content z-10 menu grid p-2 shadow bg-base-100 rounded-box sm:w-40 md:w-52 max-h-52 overflow-y-auto gap-4'}>

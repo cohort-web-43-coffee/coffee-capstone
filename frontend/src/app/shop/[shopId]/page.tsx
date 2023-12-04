@@ -19,7 +19,7 @@ export default async function ShopPage ({params}: Readonly<ShopPageProps>) {
 
     return (
         <PrimarySection>
-            <Container autoMargins>
+            <Container>
                 <div
                     className={"mx-auto p-5 bg-primary-container-variant flex flex-col justify-center sm:grid sm:grid-cols-[1fr_2fr] gap-3"}>
                     <div>

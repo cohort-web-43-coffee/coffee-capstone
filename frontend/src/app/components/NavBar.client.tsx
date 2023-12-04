@@ -3,28 +3,28 @@ import Link from 'next/link';
 import {usePathname, useRouter, useSearchParams} from "next/navigation"
 import {SessionProps} from "@/types/Props"
 import {requestGetHeaders} from '@/utils/fetchHeaders'
+import React from 'react'
 
-type SearchFieldProps = {
-    initialText: string
-}
 
 export function SiteTitle () {
     return <header className={'text-2xl'}><Link href={'/'}>Valid Coffee</Link></header>
 }
 
-export function SearchField ({initialText}: Readonly<SearchFieldProps>) {
+export function SearchField () {
     const router = useRouter()
     const pathName = usePathname()
     const currentParams = useSearchParams()
-    const handleSearchTextChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+
+
+    const handleTextChanged = (event: React.ChangeEvent<HTMLInputElement>) => {
         const newParams = new URLSearchParams(currentParams)
         newParams.set('q', event.target.value)
         router.push(`${pathName}?${newParams}`)
     }
     return (
             <input type={'text'} placeholder={'Coffee shop name'}
-                   className={'placeholder:italic input input-bordered w-40 md:w-auto'} value={initialText}
-                   onChange={handleSearchTextChange}/>
+                   className={'placeholder:italic input input-bordered w-40 md:w-auto'} defaultValue={currentParams.get('q') ?? ''}
+                   onChange={handleTextChanged}/>
     )
 }
 type SignOutButtonProps = SessionProps & {

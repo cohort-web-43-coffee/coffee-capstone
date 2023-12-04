@@ -8,14 +8,6 @@ export function Card ({children}: Readonly<ChildProps>) {
     )
 }
 
-export function SmallCard({children}: Readonly<ChildProps>) {
-    return (
-        <div className={'card w-40 sm:w-52 md:w-56 lg:w-96 h-96 p-4 bg-base-100 text-black shadow-xl text-xs sm:text-sm md:text-lg'}>
-            {children}
-        </div>
-    )
-}
-
 export function MediumCard({children}: Readonly<ChildProps>) {
     return (
         <div className={'card p-4 bg-base-100 text-black shadow-xl'}>

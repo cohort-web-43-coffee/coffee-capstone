@@ -13,13 +13,6 @@ export type ImageProps = {
     imageAlt: string
 }
 
-export type SearchProps = {
-    searchParams: {
-        q: string,
-        tags: string
-    }
-}
-
 export type SessionProps = {
     session: Session|undefined
 }
