@@ -25,5 +25,5 @@ export type SearchProps = {
 }
 
 export type SessionProps = {
-    session?: Session
+    session: Session|undefined
 }

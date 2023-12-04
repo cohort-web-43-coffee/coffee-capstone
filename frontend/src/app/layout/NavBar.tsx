@@ -52,18 +52,16 @@ export async function NavBar ({session, query}: NavBarProps) {
 }
 
 function MenuContent ({session}: Readonly<SessionProps>) {
-    return (
-        <>
-            {session ? <>
-                    <li className={'w-auto inline'}><BookmarkLink/></li>
-                    <li className={'w-auto inline'}><SignOutButton session={session} onSuccess={clearSession}/></li>
-                </>
-                : <>
-                    <li className={'w-auto inline'}><SignUpModalButton/></li>
-                    <li className={'w-auto inline'}><SignInModalButton/></li>
-                </>
-            }
-        </>
+    return (session ?
+            <>
+                <li className={'w-auto inline'}><BookmarkLink/></li>
+                <li className={'w-auto inline'}><SignOutButton session={session} onSuccess={clearSession}/></li>
+            </>
+            :
+            <>
+                <li className={'w-auto inline'}><SignUpModalButton/></li>
+                <li className={'w-auto inline'}><SignInModalButton/></li>
+            </>
     )
 }
 

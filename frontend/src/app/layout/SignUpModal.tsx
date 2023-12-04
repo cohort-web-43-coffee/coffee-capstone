@@ -1,27 +1,20 @@
 'use client'
 import {Modal, ModalActions} from '@/app/components/Modal'
-import {Form, FormInput} from '@/app/components/Form'
 import {SignInForm} from "@/app/layout/SignInForm";
-import {useState} from "react";
 import {SignUpForm} from "@/app/layout/SignUpForm";
 
-export function SignUpModalButton() {
+
+export function SignUpModalButton () {
+    const handleOnClick = () => (document.getElementById('sign-up-modal') as HTMLDialogElement).showModal()
     return (
-        <button
-            onClick={() => (document.getElementById('sign-up-modal') as HTMLDialogElement).showModal()}
-            className={'btn btn-xs btn-primary rounded-full mt-2'}>
-                Sign Up
-        </button>
+        <button onClick={handleOnClick} className={'btn btn-xs btn-primary rounded-full mt-2'}>Sign Up</button>
     )
 }
 
-export function SignInModalButton() {
+export function SignInModalButton () {
+    const handleOnClick = () => (document.getElementById('sign-in-modal') as HTMLDialogElement).showModal()
     return (
-        <button
-            onClick={() => (document.getElementById('sign-in-modal') as HTMLDialogElement).showModal()}
-            className={'btn btn-primary btn-xs rounded-full mt-2'}>
-            Sign In
-        </button>
+        <button onClick={handleOnClick} className={'btn btn-primary btn-xs rounded-full mt-2'}>Sign In</button>
     )
 }
 
@@ -32,15 +25,12 @@ export function SignUpModal () {
             {<SignUpForm/>}
 
             <ModalActions>
-
                 <button className={'btn'}>Close</button>
             </ModalActions>
 
         </Modal>
     )
 }
-
-
 
 export function SignInModal () {
     return (
