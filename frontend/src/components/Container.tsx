@@ -1,4 +1,4 @@
-import {ChildProps} from '@/app/types/Props'
+import {ChildProps} from '@/types/Props'
 
 type ContainerProps = ChildProps & {
     autoMargins?: boolean

@@ -1,7 +1,7 @@
 import {Formik, FormikHelpers, FormikProps} from "formik";
 import {toFormikValidationSchema} from "zod-formik-adapter";
-import {DisplayError} from "@/app/components/displayError";
-import {DisplayStatus} from "@/app/components/displayStatus";
+import {DisplayError} from "@/components/displayError";
+import {DisplayStatus} from "@/components/displayStatus";
 import {Signup, SignUpSchema} from "@/utils/models/Signup";
 
 export function SignUpForm() {

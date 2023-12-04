@@ -1,8 +1,8 @@
 import type { Metadata } from 'next'
 import './globals.css'
-import {Footer} from '@/app/layout/Footer'
-import {ChildProps, SearchProps} from '@/app/types/Props'
-import {NavBar} from '@/app/layout/NavBar'
+import {Footer} from '@/app/components/Footer'
+import {ChildProps, SearchProps} from '@/types/Props'
+import {NavBar} from '@/app/components/NavBar'
 import {getSession} from '@/utils/fetchSession'
 
 

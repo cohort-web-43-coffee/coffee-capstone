@@ -1,7 +1,7 @@
 'use client'
 
 import {usePathname, useRouter, useSearchParams} from 'next/navigation'
-import {Tag, TagButton, TagGroup} from '@/app/components/Tag'
+import {Tag, TagButton, TagGroup} from '@/components/Tag'
 import React from 'react';
 
 

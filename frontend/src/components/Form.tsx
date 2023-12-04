@@ -1,4 +1,4 @@
-import {ChildProps, IdProps} from '@/app/types/Props'
+import {ChildProps, IdProps} from '@/types/Props'
 
 type FormElementProps = {
     label: string

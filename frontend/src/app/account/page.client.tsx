@@ -1,8 +1,8 @@
 'use client'
-import {CardBody, CardImage, SmallCard} from "@/app/components/Card";
+import {CardBody, CardImage, SmallCard} from "@/components/Card";
 import {Session} from "@/utils/fetchSession";
 import {useEffect, useState} from "react";
-import {requestGetHeaders} from "@/app/utils/fetch";
+import {requestGetHeaders} from "@/utils/fetchHeaders";
 import Link from 'next/link'
 
 

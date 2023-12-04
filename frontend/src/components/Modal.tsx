@@ -1,4 +1,4 @@
-import {ChildProps, IdProps} from '@/app/types/Props'
+import {ChildProps, IdProps} from '@/types/Props'
 
 
 export function Modal ({children, id}: ChildProps & IdProps) {

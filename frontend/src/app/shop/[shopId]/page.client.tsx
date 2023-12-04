@@ -1,11 +1,11 @@
 'use client'
 
-import {Tag, TagButton, TagGroup} from '@/app/components/Tag'
-import {requestDeleteHeaders, requestGetHeaders, requestPostHeaders} from '@/app/utils/fetch'
+import {Tag, TagButton, TagGroup} from '@/components/Tag'
+import {requestDeleteHeaders, requestGetHeaders, requestPostHeaders} from '@/utils/fetchHeaders'
 import {Session} from '@/utils/fetchSession'
 import React, {useEffect, useState} from 'react'
-import {ImageProps, SessionProps} from "@/app/types/Props"
-import {Modal, ModalActions} from "@/app/components/Modal"
+import {ImageProps, SessionProps} from "@/types/Props"
+import {Modal, ModalActions} from "@/components/Modal"
 
 
 type TagToggleListProps = {

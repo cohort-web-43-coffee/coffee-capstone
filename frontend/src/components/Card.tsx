@@ -1,4 +1,4 @@
-import {ChildProps, ImageProps} from '@/app/types/Props'
+import {ChildProps, ImageProps} from '@/types/Props'
 
 export function Card ({children}: ChildProps) {
     return (

@@ -1,7 +1,7 @@
-import {PrimarySection} from '@/app/components/Section'
-import {PrimaryContainer} from '@/app/components/Container'
-import {Carousel, CarouselSlide} from '@/app/components/Carousel'
-import {getRestData, postRestData} from '@/app/utils/fetch'
+import {PrimarySection} from '@/components/Section'
+import {PrimaryContainer} from '@/components/Container'
+import {Carousel, CarouselSlide} from '@/components/Carousel'
+import {getRestData, postRestData} from '@/utils/fetchHeaders'
 import {TagFilterList} from '@/app/page.client'
 
 type HomePageProps = {

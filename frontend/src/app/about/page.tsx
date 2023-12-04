@@ -1,6 +1,6 @@
-import {PrimarySection, SecondarySection} from '@/app/components/Section'
-import {Container} from '@/app/components/Container'
-import {Form, FormButton, FormInput, FormTextArea} from '@/app/components/Form'
+import {PrimarySection, SecondarySection} from '@/components/Section'
+import {Container} from '@/components/Container'
+import {Form, FormButton, FormInput, FormTextArea} from '@/components/Form'
 import Link from 'next/link'
 import Image from 'next/image'
 

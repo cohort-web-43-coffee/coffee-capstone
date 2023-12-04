@@ -1,6 +1,6 @@
-import {PrimarySection, SecondarySection} from '@/app/components/Section'
-import {Container} from '@/app/components/Container'
-import {CardBody, CardTitle, MediumCard} from '@/app/components/Card'
+import {PrimarySection, SecondarySection} from '@/components/Section'
+import {Container} from '@/components/Container'
+import {CardBody, CardTitle, MediumCard} from '@/components/Card'
 import {getSession, session} from "@/utils/fetchSession";
 import {BookmarkList} from "@/app/account/page.client";
 

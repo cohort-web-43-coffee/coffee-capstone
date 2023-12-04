@@ -1,9 +1,9 @@
-import {MenuButton, SearchField, SignOutButton, SiteTitle} from '@/app/layout/NavBar.client'
+import {MenuButton, SearchField, SignOutButton, SiteTitle} from '@/app/components/NavBar.client'
 import Link from 'next/link'
 import Image from 'next/image'
-import {SignInModal, SignInModalButton, SignUpModal, SignUpModalButton} from '@/app/layout/SignUpModal'
-import {SessionProps} from '@/app/types/Props'
-import {getRestData} from '@/app/utils/fetch'
+import {SignInModal, SignInModalButton, SignUpModal, SignUpModalButton} from '@/app/components/SignUpModal'
+import {SessionProps} from '@/types/Props'
+import {getRestData} from '@/utils/fetchHeaders'
 import {clearSession} from '@/utils/fetchSession'
 
 type NavBarProps = SessionProps & {

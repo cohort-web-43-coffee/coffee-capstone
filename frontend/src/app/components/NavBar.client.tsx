@@ -1,8 +1,8 @@
 'use client'
 import Link from 'next/link';
 import {usePathname, useRouter, useSearchParams} from "next/navigation"
-import {SessionProps} from "@/app/types/Props"
-import {requestGetHeaders} from '@/app/utils/fetch'
+import {SessionProps} from "@/types/Props"
+import {requestGetHeaders} from '@/utils/fetchHeaders'
 
 type SearchFieldProps = {
     initialText: string

@@ -2,8 +2,8 @@
 import {Formik, FormikHelpers, FormikProps} from "formik";
 import {toFormikValidationSchema} from "zod-formik-adapter";
 import {SignIn, signInAccountSchema} from "@/utils/models/signin";
-import {DisplayError} from "@/app/components/displayError";
-import {DisplayStatus} from "@/app/components/displayStatus";
+import {DisplayError} from "@/components/displayError";
+import {DisplayStatus} from "@/components/displayStatus";
 import {useRouter} from "next/navigation";
 
 

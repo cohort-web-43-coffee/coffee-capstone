@@ -1,6 +1,6 @@
-import {ChildProps, ImageProps} from '@/app/types/Props'
+import {ChildProps, ImageProps} from '@/types/Props'
 import React from "react"
-import {Card, CardBody, CardImage} from "@/app/components/Card"
+import {Card, CardBody, CardImage} from "@/components/Card"
 import Link from "next/link"
 
 

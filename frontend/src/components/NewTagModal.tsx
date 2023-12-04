@@ -1,8 +1,8 @@
 'use client'
 
 import React from 'react'
-import {Modal, ModalActions} from '@/app/components/Modal'
-import {Form, FormInput} from '@/app/components/Form'
+import {Modal, ModalActions} from '@/components/Modal'
+import {Form, FormInput} from '@/components/Form'
 
 export function NewTagButton() {
     return (

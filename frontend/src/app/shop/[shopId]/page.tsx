@@ -1,8 +1,8 @@
-import {PrimarySection} from '@/app/components/Section'
+import {PrimarySection} from '@/components/Section'
 import React from 'react'
-import {Container} from '@/app/components/Container'
+import {Container} from '@/components/Container'
 import {GalleryModal, GalleryModalButton, BookmarkToggle, TagToggleList} from '@/app/shop/[shopId]/page.client'
-import {getRestData} from "@/app/utils/fetch"
+import {getRestData} from "@/utils/fetchHeaders"
 import {getSession} from '@/utils/fetchSession'
 
 
