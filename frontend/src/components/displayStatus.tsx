@@ -5,19 +5,14 @@ interface DisplayStatusProps {
     }
 }
 
-export function DisplayStatus(props: DisplayStatusProps): JSX.Element {
+export function DisplayStatus(props: Readonly<DisplayStatusProps>) {
     const {status} = props
     if(status) {
         return(
-            <>
-
-                <output className={`block ${status.type}`}>
-                    {status.message}
-                </output>
-            </>
-
+            <output className={`block ${status.type}`}>
+                {status.message}
+            </output>
         )
-
     }
     return <></>
 }

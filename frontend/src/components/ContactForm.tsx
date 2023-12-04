@@ -5,7 +5,7 @@ type ContactFormInputProps = {
     name: string;
     placeholder: string
 }
-function ContactFormInput(props: ContactFormInputProps) {
+function ContactFormInput(props: Readonly<ContactFormInputProps>) {
     const { label, type, id, name, placeholder } = props
     return (
         <div className="py-3">
@@ -21,7 +21,7 @@ function ContactFormInput(props: ContactFormInputProps) {
     )
 }
 
-function ContactFormTextarea({ label, id, name, placeholder, rows }: { label: string; id: string; name: string; placeholder: string; rows: number }) {
+function ContactFormTextarea({ label, id, name, placeholder, rows }: Readonly<{ label: string; id: string; name: string; placeholder: string; rows: number }>) {
     return (
         <div className={"py-3"}>
             <label htmlFor={id} className={"block text-gray text-sm font-bold mb-2"}>{label}</label>
@@ -79,4 +79,3 @@ export function SignUp() {
     )
 
 }
-

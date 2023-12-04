@@ -4,10 +4,6 @@ export type ChildProps = {
     children: React.ReactNode
 }
 
-export type OptionalChildProps = {
-    children?: React.ReactNode
-}
-
 export type IdProps = {
     id: string
 }

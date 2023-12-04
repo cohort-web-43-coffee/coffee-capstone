@@ -11,11 +11,11 @@ type TagButtonProps = {
     handleChanged: (event: React.ChangeEvent<HTMLInputElement>) => void
 }
 
-export function TagButton ({showCount, tag, handleChanged, checked}: TagButtonProps) {
+export function TagButton ({showCount, tag, key, handleChanged, checked}: Readonly<TagButtonProps>) {
     const {tagLabel, count} = tag
     const formattedLabel = formatTagButtonLabel(tagLabel, count, showCount)
 
-    return <input type={'checkbox'} id={tag.tagId} key={tag.tagId} onChange={handleChanged} aria-label={formattedLabel}
+    return <input type={'checkbox'} id={tag.tagId} key={key} onChange={handleChanged} aria-label={formattedLabel}
                   checked={checked} className="btn bg-primary-unchecked btn-xs md:btn-sm lg:btn-md" style={{backgroundImage: 'none'}}/>
 }
 

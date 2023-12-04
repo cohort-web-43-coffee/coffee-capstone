@@ -21,13 +21,13 @@ type ShopCardProps = ImageProps & {
     shopAddress: string
 }
 
-export function Carousel(props: ChildProps) {
+export function Carousel(props: Readonly<ChildProps>) {
     return (<div className={"carousel w-full"}>
         {props.children}
     </div>)
 }
 
-export function CarouselSlide({slideId, nextSlideId, previousSlideId, shopArray}: SlideProps) {
+export function CarouselSlide({slideId, nextSlideId, previousSlideId, shopArray}: Readonly<SlideProps>) {
     return (
         <div id={slideId}
              className={'carousel-item relative w-full grid gap-4 sm:gap-4 md:gap-4 lg:gap-4 grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 md:grid-rows-2 justify-items-center'}>
@@ -40,7 +40,7 @@ export function CarouselSlide({slideId, nextSlideId, previousSlideId, shopArray}
     )
 }
 
-function CarouselNav({previousSlideId, nextSlideId}: CarouselNavProps) {
+function CarouselNav({previousSlideId, nextSlideId}: Readonly<CarouselNavProps>) {
     return (
         <nav className={"absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2"}>
             <a href={`#${previousSlideId}`} className={"btn btn-circle"}>❮</a>
@@ -49,7 +49,7 @@ function CarouselNav({previousSlideId, nextSlideId}: CarouselNavProps) {
     )
 }
 
-function ShopCard({imageUrl, imageAlt, shopName, shopAddress}: ShopCardProps) {
+function ShopCard({imageUrl, imageAlt, shopName, shopAddress}: Readonly<ShopCardProps>) {
     return (
         <Card>
             <CardImage imageUrl={imageUrl} imageAlt={imageAlt}/>

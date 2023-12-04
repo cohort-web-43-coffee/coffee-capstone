@@ -16,7 +16,7 @@ export function SignUpForm() {
 
     const handleSubmit = (values: Signup, actions: FormikHelpers<Signup>) => {
         const { setStatus, resetForm } = actions;
-        const result = fetch('/apis/sign-up/', {
+        fetch('/apis/sign-up/', {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -60,78 +60,76 @@ function SignUpFormContent(props: FormikProps<Signup>) {
     } = props;
 
     return (
-        <>
-            <form onSubmit={handleSubmit} className={''}>
-                <div className="form-control">
-                    <label className="label" htmlFor="accountEmail">
-                        Email
-                    </label>
-                    <input
-                        onBlur={handleBlur}
-                        onChange={handleChange}
-                        value={values.accountEmail}
-                        className="input input-bordered w-full max"
-                        type="text"
-                        name="accountEmail"
-                        id="accountEmail"
-                    />
-                    <DisplayError errors={errors} touched={touched} field={'accountEmail'} />
-                </div>
-                <div className="form-control">
-                    <label className="label" htmlFor="accountName">
-                        Account Name
-                    </label>
-                    <input
-                        onBlur={handleBlur}
-                        onChange={handleChange}
-                        value={values.accountName}
-                        className="input input-bordered w-full max"
-                        type="text"
-                        name="accountName"
-                        id="accountName"
-                    />
-                    <DisplayError errors={errors} touched={touched} field={'accountName'} />
-                </div>
-                <div className="form-control">
-                    <label className="label" htmlFor="accountPassword">
-                        Password
-                    </label>
-                    <input
-                        className="input input-bordered w-full max"
-                        onBlur={handleBlur}
-                        onChange={handleChange}
-                        value={values.accountPassword}
-                        type="password"
-                        name="accountPassword"
-                        id="accountPassword"
-                    />
-                    <DisplayError errors={errors} touched={touched} field={'accountPassword'} />
-                </div>
-                <div className="form-control">
-                    <label className="label" htmlFor="accountPasswordConfirm">
-                        Confirm Password
-                    </label>
-                    <input
-                        className="input input-bordered w-full max"
-                        onBlur={handleBlur}
-                        onChange={handleChange}
-                        value={values.accountPasswordConfirm}
-                        type="password"
-                        name="accountPasswordConfirm"
-                        id="accountPasswordConfirm"
-                    />
-                    <DisplayError errors={errors} touched={touched} field={'accountPasswordConfirm'} />
-                </div>
-                <div className="py-2 flex gap-2">
-                    <button className="btn btn-success" type="submit">
-                        Sign Up
-                    </button>
-                    <button className="btn btn-danger" onClick={handleReset} type="reset">
-                        Reset
-                    </button>
-                </div>
-                <DisplayStatus status={status} />
-            </form>
-        </>
+        <form onSubmit={handleSubmit} className={''}>
+            <div className="form-control">
+                <label className="label" htmlFor="accountEmail">
+                    Email
+                </label>
+                <input
+                    onBlur={handleBlur}
+                    onChange={handleChange}
+                    value={values.accountEmail}
+                    className="input input-bordered w-full max"
+                    type="text"
+                    name="accountEmail"
+                    id="accountEmail"
+                />
+                <DisplayError errors={errors} touched={touched} field={'accountEmail'}/>
+            </div>
+            <div className="form-control">
+                <label className="label" htmlFor="accountName">
+                    Account Name
+                </label>
+                <input
+                    onBlur={handleBlur}
+                    onChange={handleChange}
+                    value={values.accountName}
+                    className="input input-bordered w-full max"
+                    type="text"
+                    name="accountName"
+                    id="accountName"
+                />
+                <DisplayError errors={errors} touched={touched} field={'accountName'}/>
+            </div>
+            <div className="form-control">
+                <label className="label" htmlFor="accountPassword">
+                    Password
+                </label>
+                <input
+                    className="input input-bordered w-full max"
+                    onBlur={handleBlur}
+                    onChange={handleChange}
+                    value={values.accountPassword}
+                    type="password"
+                    name="accountPassword"
+                    id="accountPassword"
+                />
+                <DisplayError errors={errors} touched={touched} field={'accountPassword'}/>
+            </div>
+            <div className="form-control">
+                <label className="label" htmlFor="accountPasswordConfirm">
+                    Confirm Password
+                </label>
+                <input
+                    className="input input-bordered w-full max"
+                    onBlur={handleBlur}
+                    onChange={handleChange}
+                    value={values.accountPasswordConfirm}
+                    type="password"
+                    name="accountPasswordConfirm"
+                    id="accountPasswordConfirm"
+                />
+                <DisplayError errors={errors} touched={touched} field={'accountPasswordConfirm'}/>
+            </div>
+            <div className="py-2 flex gap-2">
+                <button className="btn btn-success" type="submit">
+                    Sign Up
+                </button>
+                <button className="btn btn-danger" onClick={handleReset} type="reset">
+                    Reset
+                </button>
+            </div>
+            <DisplayStatus status={status}/>
+        </form>
     );
 }

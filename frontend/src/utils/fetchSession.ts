@@ -39,7 +39,7 @@ export async function clearSession() {
 function setJwtToken(jwtToken: string) {
     console.log("jwtToken", jwtToken)
     try {
-        const  parsedJwtToken = jwtDecode(jwtToken) as any
+        const parsedJwtToken = jwtDecode(jwtToken) as any
 
         console.log("token is expired", currentTimeInSeconds > parsedJwtToken.exp)
 

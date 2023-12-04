@@ -7,7 +7,7 @@ interface DisplayErrorProps {
     field: string
 }
 
-export function DisplayError(props: DisplayErrorProps) {
+export function DisplayError(props: Readonly<DisplayErrorProps>) {
     const { errors, touched, field } = props
     if(errors[field] && touched[field]) {
         return (
