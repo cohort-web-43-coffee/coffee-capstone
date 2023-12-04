@@ -159,7 +159,7 @@ export function BookmarkToggle ({session, shopId}: BookmarkToggleProps) {
     useEffect(fetchBookmarks, [setBookmarks])
 
     return <input type={'checkbox'} aria-label={'Bookmark'} className={'btn'}
-                  checked={bookmarks.filter((shop: any) => shop.shopId === shopId).length > 0}
+                  checked={bookmarks?.filter((shop: any) => shop.shopId === shopId).length > 0}
                   onChange={handleBookmarkToggleChanged} style={{backgroundImage: 'none'}}/>
 }
 

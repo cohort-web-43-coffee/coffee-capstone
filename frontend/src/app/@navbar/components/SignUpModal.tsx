@@ -1,7 +1,7 @@
 'use client'
 import {Modal, ModalActions} from '@/components/Modal'
-import {SignInForm} from "@/app/components/SignInForm";
-import {SignUpForm} from "@/app/components/SignUpForm";
+import {SignInForm} from "@/app/@navbar/components/SignInForm";
+import {SignUpForm} from "@/app/@navbar/components/SignUpForm";
 
 
 export function SignUpModalButton () {

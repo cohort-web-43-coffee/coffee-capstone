@@ -1,18 +1,23 @@
-import {MenuButton, SearchField, SignOutButton, SiteTitle} from '@/app/components/NavBar.client'
+import {MenuButton, SearchField, SignOutButton, SiteTitle} from '@/app/@navbar/default.client'
 import Link from 'next/link'
 import Image from 'next/image'
-import {SignInModal, SignInModalButton, SignUpModal, SignUpModalButton} from '@/app/components/SignUpModal'
+import {SignInModal, SignInModalButton, SignUpModal, SignUpModalButton} from '@/app/@navbar/components/SignUpModal'
 import {SessionProps} from '@/types/Props'
 import {getRestData} from '@/utils/fetchHeaders'
-import {clearSession} from '@/utils/fetchSession'
+import {clearSession, getSession} from '@/utils/fetchSession'
 
-type NavBarProps = SessionProps & {
-    query: string
+type NavBarProps = {
+    searchParams: {
+        q: string
+    }
 }
 
-export async function NavBar ({session, query}: NavBarProps) {
-    const searchResult = await getRestData(`/apis/shop/search?name=${query}`)
+export default async function NavBar ({searchParams}: NavBarProps) {
+    const session = await getSession()
+    const searchResult = await getRestData(`/apis/shop/search?name=${searchParams.q}`)
 
+    console.log('Query', searchParams.q)
+    console.log('Results', searchResult)
     return <nav className={'navbar'}>
         <div className={'dropdown'}>
             <MenuButton/>

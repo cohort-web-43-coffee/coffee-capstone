@@ -15,11 +15,11 @@ export function SearchField () {
     const pathName = usePathname()
     const currentParams = useSearchParams()
 
-
     const handleTextChanged = (event: React.ChangeEvent<HTMLInputElement>) => {
         const newParams = new URLSearchParams(currentParams)
         newParams.set('q', event.target.value)
-        router.push(`${pathName}?${newParams}`)
+        router.replace(`${pathName}?${newParams}`, { scroll: false })
+        router.refresh()
     }
     return (
             <input type={'text'} placeholder={'Coffee shop name'}

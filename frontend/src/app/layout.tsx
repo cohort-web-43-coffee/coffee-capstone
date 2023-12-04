@@ -1,9 +1,8 @@
 import type { Metadata } from 'next'
 import './globals.css'
-import {Footer} from '@/app/components/Footer'
 import {ChildProps} from '@/types/Props'
-import {NavBar} from '@/app/components/NavBar'
-import {getSession} from '@/utils/fetchSession'
+import React from 'react'
+import Link from 'next/link'
 
 
 export const metadata: Metadata = {
@@ -12,21 +11,28 @@ export const metadata: Metadata = {
 }
 
 type RootLayoutProps = ChildProps & {
-    searchParams: {
-        q: string,
-        tags: string
-    }
+    navbar: React.ReactNode
 }
 
-export default async function RootLayout ({children, searchParams}: Readonly<RootLayoutProps>) {
-    const session = await getSession()
+export default async function RootLayout ({children, navbar}: Readonly<RootLayoutProps>) {
     return (
         <html data-theme={'valid'} lang={'en'}>
         <body>
-        <NavBar query={searchParams?.q ?? 'none'} session={session}/>
+        {navbar}
         {children}
         <Footer/>
         </body>
         </html>
+    )
+}
+
+function Footer () {
+    return (
+        <footer className={"footer footer-center p-4 text-base-content"}>
+            <aside>
+                <Link href={'/about'}><p className={'text-lg link'}>About Us</p></Link>
+                <p>Copyright © 2023 - All rights reserved by Valid Coffee Developers</p>
+            </aside>
+        </footer>
     )
 }
