@@ -3,10 +3,6 @@ import {Container} from '@/app/components/Container'
 import {Form, FormButton, FormInput, FormTextArea} from '@/app/components/Form'
 import Link from 'next/link'
 import Image from 'next/image'
-import {PageProps} from "@/app/types/Props"
-import {getSession} from "@/utils/fetchSession";
-import {NavBar} from '@/app/layout/NavBar'
-
 
 
 type AboutUsCardProps = {
@@ -16,13 +12,9 @@ type AboutUsCardProps = {
     image: string
 }
 
-export default async function AboutPage({searchParams}: PageProps) {
-    const session = await getSession()
-    const query = searchParams.q
-
+export default async function AboutPage() {
     return (
         <>
-            <NavBar query={query} session={session}/>
             <PrimarySection>
                 <Container autoMargins>
                     <AboutUsHeader/>
@@ -62,7 +54,7 @@ function AboutUsHeader () {
     )
 }
 
-function AboutUsCard ({name, linkedIn, gitHub, image}: AboutUsCardProps) {
+function AboutUsCard ({name, linkedIn, gitHub, image}: Readonly<AboutUsCardProps>) {
     return (
         <div>
             <Image src={image} alt={`Profile photo of ${name}`} width={100} height={100} className={'rounded-full w-28 h-28 md:h-52 md:w-52'}/>

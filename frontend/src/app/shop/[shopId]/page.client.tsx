@@ -1,15 +1,11 @@
 'use client'
 
 import {Tag, TagButton, TagGroup} from '@/app/components/Tag'
-import {getRestData, requestDeleteHeaders, requestGetHeaders, requestPostHeaders} from '@/app/utils/fetch'
+import {requestDeleteHeaders, requestGetHeaders, requestPostHeaders} from '@/app/utils/fetch'
 import {Session} from '@/utils/fetchSession'
 import React, {useEffect, useState} from 'react'
-import {ImageProps} from "@/app/types/Props"
+import {ImageProps, SessionProps} from "@/app/types/Props"
 import {Modal, ModalActions} from "@/app/components/Modal"
-import Image from "next/image"
-
-import {SessionProps} from '@/app/types/Props'
-
 
 
 type TagToggleListProps = {
@@ -30,12 +26,11 @@ type BookmarkToggleProps = SessionProps & {
 }
 
 type GalleryProps = {
-    shopPhotoUrl: string
     photosUrls: string[]
     shopName: string
 }
 
-export function TagToggleList ({tagData, shopId, session}: TagToggleListProps) {
+export function TagToggleList ({tagData, shopId, session}: Readonly<TagToggleListProps>) {
     const [activeTags, setActiveTags] = useState(new Array<string>())
     const effect = () => {
         fetchActiveTags(shopId, setActiveTags, session).then()
@@ -79,7 +74,7 @@ export function TagToggleList ({tagData, shopId, session}: TagToggleListProps) {
 }
 
 
-export function TagToggleGroup ({group, shopId, session, activeTags, startChecked, activeTagsSetter}: TagToggleGroupProps) {
+export function TagToggleGroup ({group, shopId, session, activeTags, startChecked, activeTagsSetter}: Readonly<TagToggleGroupProps>) {
 
 
     const handleTagButtonChanged = (event: any) => {
@@ -110,24 +105,22 @@ export function TagToggleGroup ({group, shopId, session, activeTags, startChecke
     }
 
     return (
-        <>
-            <div className={'collapse collapse-arrow'}>
-                <input type={'checkbox'} name={'filter-accordion'} className={'min-w-full'}
-                       defaultChecked={startChecked ?? false}/>
-                <div className={'collapse-title text-xl font-medium'}>
-                    <div className={'divider'}>{group.group}</div>
-                </div>
-                <div className={'collapse-content'}>
-                    <div className={'flex flex-wrap gap-6 justify-around'}>
-                        {group?.tags
-                            ?.sort((a: Tag, b: Tag) => b.count - a.count)
-                            .map((tag: Tag) => <TagButton tag={tag} key={tag.tagId}
-                                                          checked={activeTags?.includes(tag.tagId) ?? false}
-                                                          handleChanged={handleTagButtonChanged}/>)}
-                    </div>
+        <div className={'collapse collapse-arrow'}>
+            <input type={'checkbox'} name={'filter-accordion'} className={'min-w-full'}
+                   defaultChecked={startChecked ?? false}/>
+            <div className={'collapse-title text-xl font-medium'}>
+                <div className={'divider'}>{group.group}</div>
+            </div>
+            <div className={'collapse-content'}>
+                <div className={'flex flex-wrap gap-6 justify-around'}>
+                    {group?.tags
+                        ?.toSorted((a: Tag, b: Tag) => b.count - a.count)
+                        .map((tag: Tag) => <TagButton tag={tag} key={tag.tagId}
+                                                      checked={activeTags?.includes(tag.tagId) ?? false}
+                                                      handleChanged={handleTagButtonChanged}/>)}
                 </div>
             </div>
-        </>
+        </div>
     )
 }
 
@@ -166,12 +159,12 @@ export function BookmarkToggle ({session, shopId}: BookmarkToggleProps) {
     useEffect(fetchBookmarks, [setBookmarks])
 
     return <input type={'checkbox'} aria-label={'Bookmark'} className={'btn'}
-                  checked={bookmarks?.filter((shop: any) => shop.shopId === shopId).length > 0 ?? false}
+                  checked={bookmarks.filter((shop: any) => shop.shopId === shopId).length > 0}
                   onChange={handleBookmarkToggleChanged} style={{backgroundImage: 'none'}}/>
 }
 
 
-async function fetchActiveTags (shopId: String, activeTagsSetter: React.Dispatch<React.SetStateAction<string[]>>, session?: Session) {
+async function fetchActiveTags (shopId: string, activeTagsSetter: React.Dispatch<React.SetStateAction<string[]>>, session?: Session) {
     const headers = requestGetHeaders(session)
     const url = `/apis/activeTag/activeTagsByShopId/${shopId}`
     fetch(url, headers)
@@ -181,7 +174,7 @@ async function fetchActiveTags (shopId: String, activeTagsSetter: React.Dispatch
         })
 }
 
-export async function GalleryModal({shopPhotoUrl, photosUrls, shopName}: GalleryProps) {
+export async function GalleryModal ({photosUrls, shopName}: Readonly<GalleryProps>) {
     return (
         <Modal id={'images_modal'}>
             <div className={'grid grid-rows-1 gap-4 justify-center'}>
@@ -197,15 +190,16 @@ export async function GalleryModal({shopPhotoUrl, photosUrls, shopName}: Gallery
     )
 }
 
-export function GalleryModalButton() {
-    return(
+export function GalleryModalButton () {
+    return (
         <button className={"btn self-center"}
-                onClick={() => (document.getElementById('images_modal') as HTMLDialogElement).showModal()}><img src={'/photo_icon.svg'} alt={'Image Photo From Google Fonts'}/>Image Gallery
+                onClick={() => (document.getElementById('images_modal') as HTMLDialogElement).showModal()}><img
+            src={'/photo_icon.svg'} alt={'Image Photo From Google Fonts'}/>Image Gallery
         </button>
     )
 }
 
-function ShopDetailImage({imageUrl, imageAlt}: ImageProps) {
+function ShopDetailImage ({imageUrl, imageAlt}: Readonly<ImageProps>) {
     return (
         <img src={imageUrl} alt={imageAlt} className={'w-auto h-auto'}/>
     )

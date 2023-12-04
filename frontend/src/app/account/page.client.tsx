@@ -23,7 +23,7 @@ type Shop = {
     shopPhotoUrl: string
 }
 
-export function BookmarkList ({session}: BookmarkListProps) {
+export function BookmarkList ({session}: Readonly<BookmarkListProps>) {
     const [shops, setShops] = useState(new Array<Shop>())
 
     const effect = () => {
@@ -43,7 +43,7 @@ export function BookmarkList ({session}: BookmarkListProps) {
     )
 }
 
-function BookmarkCard ({shop}: BookmarkCardProps) {
+function BookmarkCard ({shop}: Readonly<BookmarkCardProps>) {
     return (
         <Link key={shop.shopId} href={`/shop/${shop.shopId}`}>
             <SmallCard>

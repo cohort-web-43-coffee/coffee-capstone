@@ -2,26 +2,22 @@ import {PrimarySection} from '@/app/components/Section'
 import React from 'react'
 import {Container} from '@/app/components/Container'
 import {GalleryModal, GalleryModalButton, BookmarkToggle, TagToggleList} from '@/app/shop/[shopId]/page.client'
-import {PageProps} from '@/app/types/Props'
 import {getRestData} from "@/app/utils/fetch"
 import {getSession} from '@/utils/fetchSession'
-import {NavBar} from '@/app/layout/NavBar'
 
 
-type ShopPageProps = PageProps & {
+type ShopPageProps = {
     params: { shopId: string }
 }
 
-export default async function ShopPage({params, searchParams}: ShopPageProps) {
+export default async function ShopPage ({params}: Readonly<ShopPageProps>) {
     const {shopId} = params
     const session = await getSession()
     const shopData = await getRestData(`/apis/shop/shopId/${shopId}`)
     const tagData = await getRestData(`/apis/tag/shopTags/${shopId}`)
     const photoData = await getRestData(`/apis/photo/photoByShopId/${shopId}`)
-    const query = searchParams.q
 
-    return <>
-        <NavBar query={query} session={session}/>
+    return (
         <PrimarySection>
             <Container autoMargins>
                 <div
@@ -45,11 +41,10 @@ export default async function ShopPage({params, searchParams}: ShopPageProps) {
                     <div>
                         <GalleryModalButton/>
                     </div>
-                    <GalleryModal shopPhotoUrl={shopData.shopPhotoUrl} photosUrls={photoData} shopName={shopData.shopName}/>
+                    <GalleryModal photosUrls={photoData}
+                                  shopName={shopData.shopName}/>
                 </div>
             </Container>
         </PrimarySection>
-    </>
+    )
 }
-
-

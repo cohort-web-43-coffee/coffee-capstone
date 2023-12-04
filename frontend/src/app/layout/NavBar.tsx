@@ -27,7 +27,7 @@ export async function NavBar ({session, query}: NavBarProps) {
             Search:&nbsp;
             <div className={'dropdown'}>
                 <div className={'form-control'}>
-                <SearchField initialText={query}/>
+                    <SearchField initialText={query}/>
                     <div tabIndex={0}>
                         <ul tabIndex={0}
                             className={'dropdown-content z-10 menu grid p-2 shadow bg-base-100 rounded-box sm:w-40 md:w-52 max-h-52 overflow-y-auto gap-4'}>
@@ -51,7 +51,7 @@ export async function NavBar ({session, query}: NavBarProps) {
     </nav>
 }
 
-function MenuContent ({session}: SessionProps) {
+function MenuContent ({session}: Readonly<SessionProps>) {
     return (
         <>
             {session ? <>
@@ -68,11 +68,13 @@ function MenuContent ({session}: SessionProps) {
 }
 
 function BookmarkLink () {
-    return <Link href={'/account'}>
-        <div className={'avatar placeholder pt-2'}>
-            <div className={'rounded-lg w-5 h-5'}>
-                <Image src={'/bookmark.png'} alt={'bookmark icon'} width={48} height={48}/>
+    return (
+        <Link href={'/account'}>
+            <div className={'avatar placeholder pt-2'}>
+                <div className={'rounded-lg w-5 h-5'}>
+                    <Image src={'/bookmark.png'} alt={'bookmark icon'} width={48} height={48}/>
+                </div>
             </div>
-        </div>
-    </Link>
+        </Link>
+    )
 }

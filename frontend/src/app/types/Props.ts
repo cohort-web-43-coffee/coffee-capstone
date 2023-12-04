@@ -17,7 +17,7 @@ export type ImageProps = {
     imageAlt: string
 }
 
-export type PageProps = {
+export type SearchProps = {
     searchParams: {
         q: string,
         tags: string
