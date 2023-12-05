@@ -1,7 +1,7 @@
 import {PrimarySection} from '@/components/Section'
 import React from 'react'
 import {Container} from '@/components/Container'
-import {GalleryModal, GalleryModalButton, BookmarkToggle, TagToggleList} from '@/app/shop/[shopId]/page.client'
+import {BookmarkToggle, TagToggleList} from '@/app/shop/[shopId]/page.client'
 import {getRestData} from "@/utils/fetchHeaders"
 import {getSession} from '@/utils/fetchSession'
 import {CustomLink} from '@/components/CustomLink.client'
@@ -20,7 +20,7 @@ export default async function ShopPage ({params}: Readonly<ShopPageProps>) {
         <PrimarySection>
             <Container>
                 <div
-                    className={"mx-auto p-5 bg-primary-container-variant flex flex-col justify-center sm:grid sm:grid-cols-[1fr_2fr] gap-3"}>
+                    className={'mx-auto bg-primary-container-variant flex flex-col justify-center sm:grid sm:grid-cols-[1fr_2fr] gap-3'}>
                     <div>
                         <img src={shopData.shopPhotoUrl} alt={shopData.shopName}
                              className={'w-auto h-auto sm:w-40 sm:h-40 md:w-60 md:h-60 lg:w-96 lg:h-96'}/>
@@ -43,7 +43,6 @@ export default async function ShopPage ({params}: Readonly<ShopPageProps>) {
                                 <img src={'/photo_icon.svg'} alt={'Gallery button'}/>Image Gallery
                             </button>
                         </CustomLink>
-
                     </div>
 
                 </div>
