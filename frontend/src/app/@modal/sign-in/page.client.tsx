@@ -5,11 +5,8 @@ import {SignIn, signInAccountSchema} from '@/utils/models/signin'
 import {Formik, FormikHelpers, FormikProps} from 'formik'
 import {toFormikValidationSchema} from 'zod-formik-adapter'
 import {DisplayError, DisplayStatus} from '@/components/Display'
+import React from 'react'
 
-export function CloseModalButton() {
-    const router = useRouter()
-    return <button className={'btn'} onClick={() => router.back()}>Close</button>
-}
 
 export function SignInForm() {
     const router = useRouter()

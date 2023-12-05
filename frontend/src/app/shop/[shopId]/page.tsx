@@ -4,6 +4,7 @@ import {Container} from '@/components/Container'
 import {GalleryModal, GalleryModalButton, BookmarkToggle, TagToggleList} from '@/app/shop/[shopId]/page.client'
 import {getRestData} from "@/utils/fetchHeaders"
 import {getSession} from '@/utils/fetchSession'
+import {CustomLink} from '@/components/CustomLink.client'
 
 
 type ShopPageProps = {
@@ -15,8 +16,6 @@ export default async function ShopPage ({params}: Readonly<ShopPageProps>) {
     const session = await getSession()
     const shopData = await getRestData(`/apis/shop/shopId/${shopId}`)
     const tagData = await getRestData(`/apis/tag/shopTags/${shopId}`)
-    const photoData = await getRestData(`/apis/photo/photoByShopId/${shopId}`)
-
     return (
         <PrimarySection>
             <Container>
@@ -39,10 +38,14 @@ export default async function ShopPage ({params}: Readonly<ShopPageProps>) {
                         <TagToggleList tagData={tagData} shopId={shopId} session={session}/>
                     </div>
                     <div>
-                        <GalleryModalButton/>
+                        <CustomLink href={`/gallery/${shopId}`}>
+                            <button className={'btn self-center'}>
+                                <img src={'/photo_icon.svg'} alt={'Gallery button'}/>Image Gallery
+                            </button>
+                        </CustomLink>
+
                     </div>
-                    <GalleryModal photosUrls={photoData}
-                                  shopName={shopData.shopName}/>
+
                 </div>
             </Container>
         </PrimarySection>

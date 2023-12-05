@@ -1,5 +1,4 @@
 'use client'
-
 import {Tag, TagButton, TagGroup} from '@/components/Tag'
 import {requestDeleteHeaders, requestGetHeaders, requestPostHeaders} from '@/utils/fetchHeaders'
 import {Session} from '@/utils/fetchSession'
@@ -23,11 +22,6 @@ type TagToggleGroupProps = {
 }
 type BookmarkToggleProps = SessionProps & {
     shopId: string
-}
-
-type GalleryProps = {
-    photosUrls: string[]
-    shopName: string
 }
 
 export function TagToggleList ({tagData, shopId, session}: Readonly<TagToggleListProps>) {
@@ -174,22 +168,6 @@ async function fetchActiveTags (shopId: string, activeTagsSetter: React.Dispatch
         })
 }
 
-export async function GalleryModal ({photosUrls, shopName}: Readonly<GalleryProps>) {
-    return (
-        <Modal id={'images_modal'}>
-            <div className={'grid grid-rows-1 gap-4 justify-center'}>
-                {photosUrls.map((photoDetails: any) => {
-                    return <ShopDetailImage key={photoDetails.photoId} imageUrl={photoDetails.photoUrl}
-                                            imageAlt={`Photograph of ${shopName}`}/>
-                })}
-            </div>
-            <ModalActions>
-                <button className={"btn btn-sm btn-circle btn-ghost absolute right-2 top-2"}>✕</button>
-            </ModalActions>
-        </Modal>
-    )
-}
-
 export function GalleryModalButton () {
     return (
         <button className={"btn self-center"}
@@ -197,11 +175,4 @@ export function GalleryModalButton () {
             src={'/photo_icon.svg'} alt={'Image Photo From Google Fonts'}/>Image Gallery
         </button>
     )
-}
-
-function ShopDetailImage ({imageUrl, imageAlt}: Readonly<ImageProps>) {
-    return (
-        <img src={imageUrl} alt={imageAlt} className={'w-auto h-auto'}/>
-    )
-
 }
