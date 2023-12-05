@@ -1,10 +1,12 @@
-import {MenuButton, SearchField, SignOutButton, SiteTitle} from '@/app/@navbar/default.client'
+import {SearchField, SignOutButton} from '@/app/@navbar/default.client'
 import Link from 'next/link'
 import Image from 'next/image'
 import {SignInModal, SignInModalButton, SignUpModal, SignUpModalButton} from '@/app/@navbar/components/SignUpModal'
 import {SessionProps} from '@/types/Props'
 import {getRestData} from '@/utils/fetchHeaders'
 import {clearSession, getSession} from '@/utils/fetchSession'
+import React from 'react'
+
 
 type NavBarProps = {
     searchParams: {
@@ -12,39 +14,21 @@ type NavBarProps = {
     }
 }
 
-export default async function NavBar ({searchParams}: NavBarProps) {
+type SearchBarProps = {
+    searchResult: any[]
+}
+
+export default async function NavBar ({searchParams}: Readonly<NavBarProps>) {
     const session = await getSession()
     const searchResult = await getRestData(`/apis/shop/search?name=${searchParams.q}`)
 
-    console.log('Query', searchParams.q)
-    console.log('Results', searchResult)
     return <nav className={'navbar'}>
-        <div className={'dropdown'}>
-            <MenuButton/>
-            <ul className={'menu menu-sm dropdown-content mt-3 z-50 p-2 shadow bg-base-100 rounded-box w-32 gap-1'}>
-                <MenuContent session={session}/>
-            </ul>
-        </div>
+        <Menu session={session}/>
         <div className={'flex-1'}>
-            <SiteTitle/>
+            <header className={'text-2xl'}><Link href={'/'}>Valid Coffee</Link></header>
         </div>
         <div className={'flex-none'}>
-            Search:&nbsp;
-            <div className={'dropdown'}>
-                <div className={'form-control'}>
-                    <SearchField/>
-                    <div tabIndex={0}>
-                        <ul tabIndex={0}
-                            className={'dropdown-content z-10 menu grid p-2 shadow bg-base-100 rounded-box sm:w-40 md:w-52 max-h-52 overflow-y-auto gap-4'}>
-                            {searchResult.length > 0 ? searchResult.map((shop: any) =>
-                                    <Link key={shop.shopId} href={`/shop/${shop.shopId}`}>
-                                        <li>{shop.shopName}</li>
-                                    </Link>) :
-                                <p>No Results</p>}
-                        </ul>
-                    </div>
-                </div>
-            </div>
+            Search:&nbsp;<SearchBar searchResult={searchResult}/>
             <div className={'navbar-center hidden md:flex'}>
                 <ul className={'relative flex items-center px-1 gap-4'}>
                     <MenuContent session={session}/>
@@ -54,6 +38,23 @@ export default async function NavBar ({searchParams}: NavBarProps) {
         <SignUpModal/>
         <SignInModal/>
     </nav>
+}
+
+function Menu ({session}: Readonly<SessionProps>) {
+    return (
+        <div className={'dropdown'}>
+            <label tabIndex={0} className={'btn btn-ghost md:hidden'}>
+                <svg xmlns={'http://www.w3.org/2000/svg'} className={'h-5 w-5'} fill={'none'} viewBox={'0 0 24 24'}
+                     stroke={'currentColor'}>
+                    <path strokeLinecap={'round'} strokeLinejoin={'round'} strokeWidth={'2'}
+                          d={'M4 6h16M4 12h8m-8 6h16'}/>
+                </svg>
+            </label>
+            <ul className={'menu menu-sm dropdown-content mt-3 z-50 p-2 shadow bg-base-100 rounded-box w-32 gap-1'}>
+                <MenuContent session={session}/>
+            </ul>
+        </div>
+    )
 }
 
 function MenuContent ({session}: Readonly<SessionProps>) {
@@ -79,5 +80,32 @@ function BookmarkLink () {
                 </div>
             </div>
         </Link>
+    )
+}
+
+function SearchBar ({searchResult}: Readonly<SearchBarProps>) {
+    return (
+        <div className={'dropdown'}>
+            <div className={'form-control'}>
+                <SearchField/>
+                <SearchResults searchResult={searchResult}/>
+            </div>
+        </div>
+    )
+}
+
+function SearchResults ({searchResult}: Readonly<SearchBarProps>) {
+    return (
+        <div tabIndex={0}>
+            <ul tabIndex={0}
+                className={'dropdown-content z-10 menu grid p-2 shadow bg-base-100 rounded-box sm:w-40 md:w-52 max-h-52 overflow-y-auto gap-4'}>
+                {searchResult.length > 0 ? searchResult.map((shop: any) =>
+                        <Link key={shop.shopId} href={`/shop/${shop.shopId}`}>
+                            <li>{shop.shopName}</li>
+                        </Link>)
+                    :
+                    <p>No Results</p>}
+            </ul>
+        </div>
     )
 }
