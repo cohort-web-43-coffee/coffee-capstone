@@ -16,3 +16,7 @@ export type ImageProps = {
 export type SessionProps = {
     session: Session|undefined
 }
+
+export type HrefProps = {
+    href: string
+}

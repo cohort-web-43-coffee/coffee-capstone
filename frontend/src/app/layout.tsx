@@ -12,15 +12,17 @@ export const metadata: Metadata = {
 
 type RootLayoutProps = ChildProps & {
     navbar: React.ReactNode
+    modal: React.ReactNode
 }
 
-export default async function RootLayout ({children, navbar}: Readonly<RootLayoutProps>) {
+export default async function RootLayout ({children, navbar, modal}: Readonly<RootLayoutProps>) {
     return (
         <html data-theme={'valid'} lang={'en'}>
         <body>
         {navbar}
         {children}
         <Footer/>
+        {modal}
         </body>
         </html>
     )
@@ -28,10 +30,9 @@ export default async function RootLayout ({children, navbar}: Readonly<RootLayou
 
 function Footer () {
     return (
-        <footer className={"footer footer-center p-4 text-base-content"}>
+        <footer className={'footer footer-center p-4 text-base-content'}>
             <aside>
                 <Link href={'/about'}><p className={'text-lg link'}>About Us</p></Link>
-                <p>Copyright © 2023 - All rights reserved by Valid Coffee Developers</p>
             </aside>
         </footer>
     )

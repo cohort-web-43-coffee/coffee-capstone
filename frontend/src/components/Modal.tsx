@@ -1,9 +1,9 @@
-import {ChildProps, IdProps} from '@/types/Props'
+import {ChildProps} from '@/types/Props'
 
 
-export function Modal ({children, id}: Readonly<ChildProps & IdProps>) {
+export function Modal ({children}: Readonly<ChildProps>) {
     return (
-        <dialog id={id} className={'modal modal-bottom sm:modal-middle'}>
+        <dialog className={'modal modal-bottom modal-open sm:modal-middle'}>
             <div className={'modal-box'}>
                 {children}
             </div>

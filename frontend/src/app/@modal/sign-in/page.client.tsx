@@ -1,10 +1,15 @@
 'use client'
-import {Formik, FormikHelpers, FormikProps} from 'formik';
-import {toFormikValidationSchema} from 'zod-formik-adapter';
-import {SignIn, signInAccountSchema} from '@/utils/models/signin';
-import {useRouter} from 'next/navigation';
+
+import {useRouter} from 'next/navigation'
+import {SignIn, signInAccountSchema} from '@/utils/models/signin'
+import {Formik, FormikHelpers, FormikProps} from 'formik'
+import {toFormikValidationSchema} from 'zod-formik-adapter'
 import {DisplayError, DisplayStatus} from '@/components/Display'
 
+export function CloseModalButton() {
+    const router = useRouter()
+    return <button className={'btn'} onClick={() => router.back()}>Close</button>
+}
 
 export function SignInForm() {
     const router = useRouter()
@@ -24,6 +29,7 @@ export function SignInForm() {
         }).then(response => response.json()).then(json => {
             if (json.status === 200) {
                 resetForm()
+                router.back()
                 router.refresh()
             }
             setStatus({type: json.type, message: json.message})

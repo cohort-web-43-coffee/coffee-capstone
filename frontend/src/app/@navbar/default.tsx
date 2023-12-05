@@ -1,11 +1,11 @@
 import {SearchField, SignOutButton} from '@/app/@navbar/default.client'
 import Link from 'next/link'
 import Image from 'next/image'
-import {SignInModal, SignInModalButton, SignUpModal, SignUpModalButton} from '@/app/@navbar/components/SignUpModal'
 import {SessionProps} from '@/types/Props'
 import {getRestData} from '@/utils/fetchHeaders'
 import {clearSession, getSession} from '@/utils/fetchSession'
 import React from 'react'
+import {CustomLink} from '@/components/CustomLink.client'
 
 
 type NavBarProps = {
@@ -35,8 +35,6 @@ export default async function NavBar ({searchParams}: Readonly<NavBarProps>) {
                 </ul>
             </div>
         </div>
-        <SignUpModal/>
-        <SignInModal/>
     </nav>
 }
 
@@ -65,8 +63,8 @@ function MenuContent ({session}: Readonly<SessionProps>) {
             </>
             :
             <>
-                <li className={'w-auto inline'}><SignUpModalButton/></li>
-                <li className={'w-auto inline'}><SignInModalButton/></li>
+                <li className={'w-auto inline'}><CustomLink href={'/sign-up'}><button className={'btn btn-xs btn-primary rounded-full mt-2'}>Sign Up</button></CustomLink></li>
+                <li className={'w-auto inline'}><CustomLink href={'/sign-in'}><button className={'btn btn-xs btn-primary rounded-full mt-2'}>Sign In</button></CustomLink></li>
             </>
     )
 }
