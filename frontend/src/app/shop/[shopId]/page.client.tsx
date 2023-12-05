@@ -5,6 +5,7 @@ import {Session} from '@/utils/fetchSession'
 import React, {useEffect, useState} from 'react'
 import {ImageProps, SessionProps} from "@/types/Props"
 import {Modal, ModalActions} from "@/components/Modal"
+import Image from 'next/image'
 
 
 type TagToggleListProps = {
@@ -152,9 +153,20 @@ export function BookmarkToggle ({session, shopId}: BookmarkToggleProps) {
 
     useEffect(fetchBookmarks, [setBookmarks])
 
-    return <input type={'checkbox'} aria-label={'Bookmark'} className={'btn'}
-                  checked={bookmarks?.filter((shop: any) => shop.shopId === shopId).length > 0}
-                  onChange={handleBookmarkToggleChanged} style={{backgroundImage: 'none'}}/>
+    return (
+        <label className={'swap swap-flip w-12'}>
+            <input type={'checkbox'}
+                   aria-label={'Bookmark'}
+                   checked={bookmarks?.filter((shop: any) => shop.shopId === shopId).length > 0}
+                   onChange={handleBookmarkToggleChanged}
+                   className={'hidden'}
+            />
+
+            <Image className={'swap-off fill-current'} src={'/bookmark_add.svg'} width={24} height={24} alt={'Add bookmark'}/>
+            <Image className={'swap-on fill-current'} src={'/bookmark_added.svg'} width={24} height={24} alt={'Bookmark added'}/>
+
+        </label>
+    )
 }
 
 
