@@ -34,7 +34,7 @@ export function BookmarkList ({session}: Readonly<SessionProps>) {
 
     return (
         <div
-            className={'grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-y-12 md:gap-x-12 justify-items-center'}>
+            className={'grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3'}>
             {shops.map((shop: Shop) => <BookmarkCard key={shop.shopId} shop={shop}/>)}
         </div>
     )

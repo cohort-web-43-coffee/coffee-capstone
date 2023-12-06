@@ -36,7 +36,6 @@ export default async function ShopPage ({params}: Readonly<ShopPageProps>) {
                                 <GallerySVG className={'fill-primary'}/>
                             </CustomLink>
                             <BookmarkToggle shopId={shopId} session={session}/>
-
                         </div>
                     </div>
                 </div>

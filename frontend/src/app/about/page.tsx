@@ -53,7 +53,7 @@ function AboutUsHeader () {
              <div className={'sm:text-sm'} style={{ margin: 'auto', width: '50%' }}>
                 <div className={'sm:text-accent md:text-accent md:prose'}>
                     <h1 className={'sm:text-accent md:text-accent'}>About Us!</h1>
-                    <p>This website was the group project created by Valid Coffee in Cohort 43 of CNM Ingenuity Deep Dive Fullstack Web development course. Bob, Victor, Mariposa, and Josh, (that's us), created this website so that the coffee drinkers of Albuquerque can have a smooth experience in finding the perfect cup of coffee! We streamlined the process by taking long reviews and turning them into simply tags.<br/>To find out more about the other projects we've made, see the links below! Thank you for using Valid Coffee! Hope your next cup of coffee is what you're looking for!</p>
+                    <p>This web was the group project created by Valid Coffee in Cohort 43 of CNM Ingenuity Deep Dive Fullstack Web development course. Bob, Victor, Mariposa, and Josh, (that's us), created this website so that the coffee drinkers of Albuquerque can have a smooth experience in finding the perfect cup of coffee! We streamlined the process by taking long reviews and turning them into simply tags.<br/>To find out more about the other projects we've made, see the links below! Thank you for using Valid Coffee! Hope your next cup of coffee is what you're looking for!</p>
                 </div>
              </div>
         </div>
@@ -65,7 +65,7 @@ function AboutUsCard ({linkedIn, gitHub, imageAlt, imageUrl}: Readonly<AboutUsCa
     return (
         <div>
             <Image src={imageUrl} alt={imageAlt} width={100} height={100} className={'rounded-full w-28 h-28 md:h-52 md:w-52'}/>
-            <p>${imageAlt}</p>
+            <p>{imageAlt}</p>
             <p>Check them out on <Link href={linkedIn} className={'link'}>LinkedIn</Link> and <Link href={gitHub} className={'link'}>GitHub!</Link></p>
         </div>
     )

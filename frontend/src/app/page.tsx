@@ -46,7 +46,7 @@ export default async function HomePage ({searchParams}: Readonly<HomePageProps>)
     return (
         <PrimarySection>
             <PrimaryContainer>
-                <div className={'flex flex-col-reverse md:flex-col p-4'}>
+                <div className={'flex flex-col-reverse md:flex-col'}>
                     <Carousel className={'flex sm:hidden'}>
                         <ShopSlides idPrefix={'mobile'} shopData={shopData} pageSize={2} className={'grid-cols-1'}/>
                     </Carousel>
