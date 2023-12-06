@@ -29,11 +29,12 @@ export async function NavBar({session, query}: NavBarProps) {
                 <SearchField initialText={query}>
                     <div tabIndex={0}>
                         <ul tabIndex={0}
-                            className={'dropdown-content z-10 menu grid p-2 shadow bg-base-100 rounded-box sm:w-40 md:w-52 max-h-52 overflow-y-auto gap-4'}>
+                            className={'dropdown-content z-10 menu grid p-2 shadow bg-base-100 rounded-box sm:w-40 md:w-52 max-h-52 overflow-y-auto'}>
                             {searchResult.length > 0 ? searchResult.map((shop: any) => <Link
                                     href={`/shop/${shop.shopId}`}>
                                     <li key={shop.shopId}>{shop.shopName}</li>
-                                    <li className={'text-xs'} key={shop.shopId}>{shop.shopAddress}</li>
+                                    <li className={'text-xs pt-1'} key={shop.shopId}>{shop.shopAddress}</li>
+                                    <div className={'divider max-h-1'}></div>
                                 </Link>) :
                                 <p>No Results</p>}
                         </ul>
