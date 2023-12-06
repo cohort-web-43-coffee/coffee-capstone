@@ -3,13 +3,12 @@ import {Container} from '@/components/Container'
 import {Form, FormButton, FormInput, FormTextArea} from '@/components/Form'
 import Link from 'next/link'
 import Image from 'next/image'
+import {ImageProps} from '@/types/Props'
 
 
-type AboutUsCardProps = {
-    name: string
+type AboutUsCardProps = ImageProps & {
     linkedIn: string
     gitHub: string
-    image: string
 }
 
 export default async function AboutPage() {
@@ -19,13 +18,21 @@ export default async function AboutPage() {
                 <Container>
                     <AboutUsHeader/>
                     <section className={'container mx-auto grid grid-cols-2 justify-items-center gap-10 my-12'}>
-                        <AboutUsCard name={'Bob'} image={'/profile/bob.jpg'}  gitHub={'https://github.com/inhaledesign'}
+                        <AboutUsCard imageAlt={'Bob'}
+                                     imageUrl={'/profile/bob.jpg'}
+                                     gitHub={'https://github.com/inhaledesign'}
                                      linkedIn={'https://www.linkedin.com/in/inhale-design/'}/>
-                        <AboutUsCard name={'Victor'} image={'/profile/victor.jpg'}  gitHub={'https://github.com/vicvilla6'}
+                        <AboutUsCard imageAlt={'Victor'}
+                                     imageUrl={'/profile/victor.jpg'}
+                                     gitHub={'https://github.com/vicvilla6'}
                                      linkedIn={'https://www.linkedin.com/in/victor-villa-098330292/'}/>
-                        <AboutUsCard name={'Josh'} image={'/profile/josh.jpg'}  gitHub={'https://github.com/JoshuaYu2023'}
+                        <AboutUsCard imageAlt={'Josh'}
+                                     imageUrl={'/profile/josh.jpg'}
+                                     gitHub={'https://github.com/JoshuaYu2023'}
                                      linkedIn={'https://www.linkedin.com/in/joshua-yu-993887289/'}/>
-                        <AboutUsCard name={'Mariposa'} image={'/profile/mariposa.jpg'}  gitHub={' https://github.com/mariposawheat'}
+                        <AboutUsCard imageAlt={'Mariposa'}
+                                     imageUrl={'/profile/mariposa.jpg'}
+                                     gitHub={' https://github.com/mariposawheat'}
                                      linkedIn={'https://www.linkedin.com/in/mariposa-wheat-331763243/'}/>
                     </section>
                 </Container>
@@ -54,11 +61,12 @@ function AboutUsHeader () {
     )
 }
 
-function AboutUsCard ({name, linkedIn, gitHub, image}: Readonly<AboutUsCardProps>) {
+function AboutUsCard ({linkedIn, gitHub, imageAlt, imageUrl}: Readonly<AboutUsCardProps>) {
     return (
         <div>
-            <Image src={image} alt={`Profile photo of ${name}`} width={100} height={100} className={'rounded-full w-28 h-28 md:h-52 md:w-52'}/>
-            <p>Check {name} out on <Link href={linkedIn} className={'link'}>LinkedIn</Link> and <Link href={gitHub} className={'link'}>GitHub!</Link></p>
+            <Image src={imageUrl} alt={imageAlt} width={100} height={100} className={'rounded-full w-28 h-28 md:h-52 md:w-52'}/>
+            <p>${imageAlt}</p>
+            <p>Check them out on <Link href={linkedIn} className={'link'}>LinkedIn</Link> and <Link href={gitHub} className={'link'}>GitHub!</Link></p>
         </div>
     )
 }

@@ -1,8 +1,8 @@
 import {getRestData} from '@/utils/fetchHeaders'
 import {Modal, ModalActions} from '@/components/Modal'
-import {ImageProps} from '@/types/Props'
 import React from 'react'
 import {CloseModalButton} from '@/components/CloseModalButton'
+import Image from 'next/image'
 
 
 type GalleryModalProps = {
@@ -17,8 +17,9 @@ export default async function GalleryModal ({params}: Readonly<GalleryModalProps
     return (
         <Modal>
             <div className={'grid grid-rows-1 gap-4 justify-center'}>
+                <p>${shopData.shopName} Photos</p>
                 {photoData.map((photo: any) => {
-                    return <img src={photo.photoUrl} alt={`Customer photo of ${shopData.shopName}`} key={photo.photoId} className={'w-auto h-auto'}/>
+                    return <Image src={photo.photoUrl} alt={''} key={photo.photoId} className={'w-auto h-auto'}/>
                 })}
             </div>
             <ModalActions>

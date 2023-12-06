@@ -24,3 +24,8 @@ export type HrefProps = {
 export type ClassProps = {
     className: string
 }
+
+export type SizeProps = {
+    width: number
+    height: number
+}

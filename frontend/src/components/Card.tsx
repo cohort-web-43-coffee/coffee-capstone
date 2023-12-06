@@ -1,4 +1,5 @@
 import {ChildProps, ImageProps} from '@/types/Props'
+import Image from 'next/image'
 
 export function Card ({children}: Readonly<ChildProps>) {
     return (
@@ -18,13 +19,15 @@ export function MediumCard({children}: Readonly<ChildProps>) {
 
 export function CardImage ({imageUrl, imageAlt}: Readonly<ImageProps>) {
     return (
-        <figure className={'h-60 md:h-96 rounded-lg'}><img src={imageUrl} alt={imageAlt}/></figure>
+        <figure className={'relative h-60 md:h-96 rounded-lg'}>
+            <Image src={imageUrl} alt={imageAlt} fill className={'w-auto h-auto object-cover'}/>
+        </figure>
     )
 }
 
 export function CardBody ({children}: Readonly<ChildProps>) {
     return (
-        <div className={"card-compact sm:card-compact md:card-body"}>
+        <div className={'card-compact sm:card-compact md:card-body'}>
             {children}
         </div>
     )
@@ -32,7 +35,7 @@ export function CardBody ({children}: Readonly<ChildProps>) {
 
 export function CardTitle ({children}: Readonly<ChildProps>) {
     return (
-        <div className={"card-title"}>
+        <div className={'card-title'}>
             {children}
         </div>
     )
@@ -40,7 +43,7 @@ export function CardTitle ({children}: Readonly<ChildProps>) {
 
 export function CardActions ({children}: Readonly<ChildProps>) {
     return (
-        <div className={"card-actions justify-end"}>
+        <div className={'card-actions justify-end'}>
             {children}
         </div>
     )

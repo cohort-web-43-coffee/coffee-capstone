@@ -3,9 +3,7 @@ import {Tag, TagButton, TagGroup} from '@/components/Tag'
 import {requestDeleteHeaders, requestGetHeaders, requestPostHeaders} from '@/utils/fetchHeaders'
 import {Session} from '@/utils/fetchSession'
 import React, {useEffect, useState} from 'react'
-import {ClassProps, ImageProps, SessionProps} from "@/types/Props"
-import {Modal, ModalActions} from "@/components/Modal"
-import Image from 'next/image'
+import {SessionProps} from "@/types/Props"
 import {BookmarkAddedSVG, BookmarkAddSVG} from '@/components/SVG'
 
 
@@ -177,13 +175,4 @@ async function fetchActiveTags (shopId: string, activeTagsSetter: React.Dispatch
         .then((body) => {
             activeTagsSetter(body.data)
         })
-}
-
-export function GalleryModalButton () {
-    return (
-        <button className={'btn self-center'}
-                onClick={() => (document.getElementById('images_modal') as HTMLDialogElement).showModal()}><img
-            src={'/photo_icon.svg'} alt={''}/>Image Gallery
-        </button>
-    )
 }
