@@ -207,7 +207,7 @@ export function GalleryModalButton() {
 
 function ShopDetailImage({imageUrl, imageAlt}: ImageProps) {
     return (
-        <img src={imageUrl} alt={imageAlt} className={'w-auto h-auto'}/>
+        <img src={imageUrl} alt={imageAlt} className={'w-auto h-auto rounded-lg'}/>
     )
 
 }
