@@ -1,5 +1,3 @@
-import {PrimarySection} from '@/components/Section'
-import {PrimaryContainer} from '@/components/Container'
 import {Carousel, CarouselSlide, getNextSlideIndex, getPreviousSlideIndex} from '@/components/Carousel'
 import {getRestData, postRestData} from '@/utils/fetchHeaders'
 import {TagFilterList} from '@/app/page.client'
@@ -44,32 +42,27 @@ export default async function HomePage ({searchParams}: Readonly<HomePageProps>)
         tags: await getRestData('/apis/tag/tagGroup/service')
     }
     return (
-        <PrimarySection>
-            <PrimaryContainer>
-                <div className={'flex flex-col-reverse md:flex-col'}>
-                    <Carousel className={'flex sm:hidden'}>
-                        <ShopSlides idPrefix={'mobile'} shopData={shopData} pageSize={2} className={'grid-cols-1'}/>
-                    </Carousel>
-                    <Carousel className={'hidden sm:flex lg:hidden'}>
-                        <ShopSlides idPrefix={'tablet'} shopData={shopData} pageSize={4} className={'grid-cols-2'}/>
-                    </Carousel>
-                    <Carousel className={'hidden lg:flex'}>
-                        <ShopSlides idPrefix={'desktop'} shopData={shopData} pageSize={6} className={'grid-cols-3'}/>
-                    </Carousel>
-                    <div className={'block md:hidden'}>
-                        <TagFilterList group={brewingTags} activeTags={tags} startChecked/>
-                        <TagFilterList group={serviceTags} activeTags={tags}/>
-                        <TagFilterList group={busyTags} activeTags={tags}/>
-                    </div>
-                    <div className={'hidden md:block'}>
-                        <TagFilterList group={brewingTags} activeTags={tags} startChecked/>
-                        <TagFilterList group={serviceTags} activeTags={tags} startChecked/>
-                        <TagFilterList group={busyTags} activeTags={tags} startChecked/>
-                    </div>
-                </div>
-
-            </PrimaryContainer>
-        </PrimarySection>
+        <div className={'flex flex-col-reverse md:flex-col'}>
+            <Carousel className={'flex sm:hidden'}>
+                <ShopSlides idPrefix={'mobile'} shopData={shopData} pageSize={2} className={'grid-cols-1'}/>
+            </Carousel>
+            <Carousel className={'hidden sm:flex lg:hidden'}>
+                <ShopSlides idPrefix={'tablet'} shopData={shopData} pageSize={4} className={'grid-cols-2'}/>
+            </Carousel>
+            <Carousel className={'hidden lg:flex'}>
+                <ShopSlides idPrefix={'desktop'} shopData={shopData} pageSize={6} className={'grid-cols-3'}/>
+            </Carousel>
+            <div className={'block md:hidden'}>
+                <TagFilterList group={brewingTags} activeTags={tags} startChecked/>
+                <TagFilterList group={serviceTags} activeTags={tags}/>
+                <TagFilterList group={busyTags} activeTags={tags}/>
+            </div>
+            <div className={'hidden md:block'}>
+                <TagFilterList group={brewingTags} activeTags={tags} startChecked/>
+                <TagFilterList group={serviceTags} activeTags={tags} startChecked/>
+                <TagFilterList group={busyTags} activeTags={tags} startChecked/>
+            </div>
+        </div>
     )
 }
 

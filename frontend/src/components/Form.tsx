@@ -17,7 +17,7 @@ type FormTextAreaProps = FormElementProps & {
 
 export function Form({children, id}: ChildProps & IdProps) {
     return (
-        <form id={id} className={'md:w-1/2 md:auto mx-auto grid-cols-1 auto-rows-max gap-6 mt-8'}>
+        <form id={id} className={'md:w-1/2 md:auto mx-auto grid-cols-1 auto-rows-max gap-4'}>
             {children}
         </form>
     )
