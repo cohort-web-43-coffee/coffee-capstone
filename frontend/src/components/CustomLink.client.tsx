@@ -12,8 +12,6 @@ export function CustomLink ({children, href}: ChildProps & HrefProps) {
     }
 
     return (
-        <a href={href} onClick={handleClick}>
-            {children}
-        </a>
+        <a href={href} onClick={handleClick} className={'inline-grid'}>{children}</a>
     )
 }

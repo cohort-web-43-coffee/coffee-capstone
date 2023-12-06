@@ -3,7 +3,7 @@ import {Tag, TagButton, TagGroup} from '@/components/Tag'
 import {requestDeleteHeaders, requestGetHeaders, requestPostHeaders} from '@/utils/fetchHeaders'
 import {Session} from '@/utils/fetchSession'
 import React, {useEffect, useState} from 'react'
-import {ImageProps, SessionProps} from "@/types/Props"
+import {ClassProps, ImageProps, SessionProps} from "@/types/Props"
 import {Modal, ModalActions} from "@/components/Modal"
 import Image from 'next/image'
 import {BookmarkAddedSVG, BookmarkAddSVG} from '@/components/SVG'
@@ -155,17 +155,15 @@ export function BookmarkToggle ({session, shopId}: BookmarkToggleProps) {
     useEffect(fetchBookmarks, [setBookmarks])
 
     return (
-        <label className={'swap swap-flip w-12'}>
+        <label className={`swap swap-flip w-[24px] h-[24px]`}>
             <input type={'checkbox'}
                    aria-label={'Bookmark'}
                    checked={bookmarks?.filter((shop: any) => shop.shopId === shopId).length > 0}
                    onChange={handleBookmarkToggleChanged}
                    className={'hidden'}
             />
-
             <BookmarkAddSVG className={'swap-off fill-primary'}/>
             <BookmarkAddedSVG className={'swap-on fill-primary'}/>
-
         </label>
     )
 }
