@@ -1,8 +1,8 @@
 type ContactFormInputProps = {
-    label: string;
-    type: string;
-    id: string;
-    name: string;
+    label: string
+    type: string
+    id: string
+    name: string
     placeholder: string
 }
 function ContactFormInput(props: Readonly<ContactFormInputProps>) {
@@ -64,8 +64,7 @@ function ContactForm() {
     )
 }
 
-export default ContactForm;
-
+export default ContactForm
 
 export function SignUp() {
     return (

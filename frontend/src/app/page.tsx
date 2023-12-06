@@ -10,7 +10,7 @@ import {ImageProps} from '@/types/Props'
 
 type HomePageProps = {
     searchParams: {
-        q: string,
+        q: string
         tags: string
     }
 }

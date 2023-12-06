@@ -23,7 +23,7 @@ export function DisplayError(props: Readonly<DisplayErrorProps>) {
 
 interface DisplayStatusProps {
     status: {
-        type: string,
+        type: string
         message: string
     }
 }

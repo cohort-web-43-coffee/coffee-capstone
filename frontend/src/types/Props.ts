@@ -9,7 +9,7 @@ export type IdProps = {
 }
 
 export type ImageProps = {
-    imageUrl: string,
+    imageUrl: string
     imageAlt: string
 }
 
@@ -23,9 +23,4 @@ export type HrefProps = {
 
 export type ClassProps = {
     className?: string
-}
-
-export type SizeProps = {
-    width: number
-    height: number
 }

@@ -4,16 +4,13 @@ import {Session} from "@/utils/fetchSession";
 import {useEffect, useState} from "react";
 import {requestGetHeaders} from "@/utils/fetchHeaders";
 import Link from 'next/link'
+import {SessionProps} from '@/types/Props'
 
 
 type BookmarkCardProps = {
     shop: Shop
 }
 
-
-type BookmarkListProps = {
-    session?: Session
-}
 type Shop = {
     shopId: string,
     shopAddress: string
@@ -23,7 +20,7 @@ type Shop = {
     shopPhotoUrl: string
 }
 
-export function BookmarkList ({session}: Readonly<BookmarkListProps>) {
+export function BookmarkList ({session}: Readonly<SessionProps>) {
     const [shops, setShops] = useState(new Array<Shop>())
 
     const effect = () => {

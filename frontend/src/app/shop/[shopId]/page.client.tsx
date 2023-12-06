@@ -12,10 +12,9 @@ type TagToggleListProps = {
     shopId: string,
     session?: Session
 }
-type TagToggleGroupProps = {
+type TagToggleGroupProps = SessionProps & {
     group: TagGroup,
     shopId: string,
-    session?: Session,
     activeTags: string[],
     startChecked?: boolean
     activeTagsSetter: React.Dispatch<React.SetStateAction<string[]>>
