@@ -20,3 +20,7 @@ export type SessionProps = {
 export type HrefProps = {
     href: string
 }
+
+export type ClassProps = {
+    className: string
+}

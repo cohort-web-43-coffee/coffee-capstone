@@ -6,6 +6,7 @@ import React, {useEffect, useState} from 'react'
 import {ImageProps, SessionProps} from "@/types/Props"
 import {Modal, ModalActions} from "@/components/Modal"
 import Image from 'next/image'
+import {BookmarkAddedSVG, BookmarkAddSVG} from '@/components/SVG'
 
 
 type TagToggleListProps = {
@@ -136,7 +137,7 @@ export function BookmarkToggle ({session, shopId}: BookmarkToggleProps) {
             const body = {
                 bookmarkAccountId: null,
                 bookmarkShopId: shopId,
-                bookmarkOrder: bookmarks.length
+                bookmarkOrder: bookmarks?.length ?? 1
             }
             const headers = event.target.checked ? requestPostHeaders(JSON.stringify(body), session) : requestDeleteHeaders(JSON.stringify(body), session)
             fetch('/apis/bookmark', headers)
@@ -162,8 +163,8 @@ export function BookmarkToggle ({session, shopId}: BookmarkToggleProps) {
                    className={'hidden'}
             />
 
-            <Image className={'swap-off fill-current'} src={'/bookmark_add.svg'} width={24} height={24} alt={'Add bookmark'}/>
-            <Image className={'swap-on fill-current'} src={'/bookmark_added.svg'} width={24} height={24} alt={'Bookmark added'}/>
+            <BookmarkAddSVG className={'swap-off fill-primary'}/>
+            <BookmarkAddedSVG className={'swap-on fill-primary'}/>
 
         </label>
     )
@@ -182,9 +183,9 @@ async function fetchActiveTags (shopId: string, activeTagsSetter: React.Dispatch
 
 export function GalleryModalButton () {
     return (
-        <button className={"btn self-center"}
+        <button className={'btn self-center'}
                 onClick={() => (document.getElementById('images_modal') as HTMLDialogElement).showModal()}><img
-            src={'/photo_icon.svg'} alt={'Image Photo From Google Fonts'}/>Image Gallery
+            src={'/photo_icon.svg'} alt={''}/>Image Gallery
         </button>
     )
 }
