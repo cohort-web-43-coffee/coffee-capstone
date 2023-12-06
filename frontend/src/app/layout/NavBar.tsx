@@ -29,7 +29,7 @@ export async function NavBar({session, query}: NavBarProps) {
                 <SearchField initialText={query}>
                     <div tabIndex={0}>
                         <ul tabIndex={0}
-                            className={'dropdown-content z-10 menu grid gap-4 p-2 shadow bg-base-100 rounded-box sm:w-40 md:w-52 max-h-52 overflow-y-auto'}>
+                            className={'dropdown-content z-10 menu grid p-2 shadow bg-base-100 rounded-box sm:w-40 md:w-52 max-h-52 overflow-y-auto gap-4'}>
                             {searchResult.length > 0 ? searchResult.map((shop: any) => <Link
                                     href={`/shop/${shop.shopId}`}>
                                     <li key={shop.shopId}>{shop.shopName}</li>
