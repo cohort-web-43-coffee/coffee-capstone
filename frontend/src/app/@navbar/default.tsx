@@ -6,7 +6,7 @@ import {getRestData} from '@/utils/fetchHeaders'
 import {clearSession, getSession} from '@/utils/fetchSession'
 import React from 'react'
 import {CustomLink} from '@/components/CustomLink.client'
-import {MenuSVG} from '@/components/SVG'
+import {BookmarksSVG, MenuSVG} from '@/components/SVG'
 
 
 type NavBarProps = {
@@ -71,7 +71,7 @@ function BookmarkLink () {
         <Link href={'/account'}>
             <div className={'avatar placeholder pt-2'}>
                 <div className={'rounded-lg w-5 h-5'}>
-                    <Image src={'/bookmark.png'} alt={'bookmark icon'} width={48} height={48}/>
+                    <BookmarksSVG className={'fill-primary'}/>
                 </div>
             </div>
         </Link>
