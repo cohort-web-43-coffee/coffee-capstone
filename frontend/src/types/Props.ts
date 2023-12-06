@@ -22,7 +22,7 @@ export type HrefProps = {
 }
 
 export type ClassProps = {
-    className: string
+    className?: string
 }
 
 export type SizeProps = {
