@@ -36,7 +36,7 @@ export async function signUpController (request: Request, response: Response): P
         // create a message for the activation email body
         const message = `<h2>Welcome to Coffee Land.</h2>
         <p>In order to start finding better coffee info you must confirm your account.</p>
-        <p><a href="${basePath}">${basePath}</a></p>`
+        <p><Link href="${basePath}">${basePath}</Link></p>`
         // create a mailgun message object
         const mailgunMessage = {
             from: `Mailgun Sandbox <postmaster@${process.env.MAILGUN_DOMAIN as string}>`,

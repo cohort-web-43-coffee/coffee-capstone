@@ -11,6 +11,7 @@ export function CustomLink ({children, href}: ChildProps & HrefProps) {
         router.push(href)
     }
 
+    // Intentionally not next/link, until we don't need this workaround
     return (
         <a href={href} onClick={handleClick} className={'inline-grid'}>{children}</a>
     )
