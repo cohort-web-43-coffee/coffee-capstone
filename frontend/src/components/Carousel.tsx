@@ -14,9 +14,9 @@ type CarouselNavProps = {
     nextSlideId: string
 }
 
-export function Carousel(props: Readonly<ChildProps>) {
-    return (<div className={'carousel w-full'}>
-        {props.children}
+export function Carousel({children, className}: Readonly<ChildProps & ClassProps>) {
+    return (<div className={`carousel w-full ${className}`}>
+        {children}
     </div>)
 }
 

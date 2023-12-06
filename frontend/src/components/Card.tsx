@@ -3,7 +3,7 @@ import Image from 'next/image'
 
 export function Card ({children}: Readonly<ChildProps>) {
     return (
-        <div className={'card w-40 sm:w-52 md:w-56 lg:w-96 h-96 p-4 bg-base-100 text-black shadow-xl text-xs sm:text-sm md:text-lg'}>
+        <div className={'card bg-base-100 text-black shadow-xl p-4'}>
             {children}
         </div>
     )
@@ -27,7 +27,7 @@ export function CardImage ({imageUrl, imageAlt}: Readonly<ImageProps>) {
 
 export function CardBody ({children}: Readonly<ChildProps>) {
     return (
-        <div className={'card-compact sm:card-compact md:card-body'}>
+        <div className={'card-compact md:card-body'}>
             {children}
         </div>
     )
