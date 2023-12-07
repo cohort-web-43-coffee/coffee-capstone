@@ -20,25 +20,13 @@ export default async function RootLayout ({children, navbar, modal}: Readonly<Ro
         <html data-theme={'valid'} lang={'en'}>
         <body>
         {navbar}
-        <Section>
-            {children}
-        </Section>
+        {children}
         <Footer/>
         {modal}
         </body>
         </html>
     )
 }
-function Section ({children}: Readonly<ChildProps>) {
-    return (
-        <section className={'bg-primary-container text-accent'}>
-            <div className={'container mx-auto p-4 bg-primary-container-variant'}>
-                {children}
-            </div>
-        </section>
-    )
-}
-
 
 function Footer () {
     return (

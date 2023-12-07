@@ -4,6 +4,7 @@ import {getRestData} from '@/utils/fetchHeaders'
 import {getSession} from '@/utils/fetchSession'
 import {CustomLink} from '@/components/CustomLink.client'
 import {GallerySVG} from '@/components/SVG'
+import {Section} from '@/components/Section'
 
 
 type ShopPageProps = {
@@ -16,7 +17,7 @@ export default async function ShopPage ({params}: Readonly<ShopPageProps>) {
     const shopData = await getRestData(`/apis/shop/${shopId}`)
     const tagData = await getRestData(`/apis/tag/shop/${shopId}`)
     return (
-        <>
+        <Section>
             <div className="hero min-h-[40vh]" style={{backgroundImage: `url(${shopData.shopPhotoUrl})`}}>
                 <div className="hero-overlay bg-opacity-60"/>
                 <div className="hero-content text-center text-neutral-content grid grid-rows-[auto_12px]">
@@ -39,6 +40,6 @@ export default async function ShopPage ({params}: Readonly<ShopPageProps>) {
             <div className={'grid cols-1 justify-items-center gap-4'}>
                 <TagToggleList tagData={tagData} shopId={shopId} session={session}/>
             </div>
-        </>
+        </Section>
     )
 }

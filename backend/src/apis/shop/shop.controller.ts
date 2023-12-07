@@ -100,7 +100,6 @@ export async function getsShopsWithTagsController (request: Request, response: R
         const tagIds = validationResult.data
         const data = await getShopsWithTags(tagIds)
 
-        console.log(data)
         return response.json({
             status: 200,
             message: null,

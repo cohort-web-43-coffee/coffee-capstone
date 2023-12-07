@@ -5,6 +5,7 @@ import Link from 'next/link'
 import React from 'react'
 import {Card, CardBody, CardImage} from '@/components/Card'
 import {ClassProps, ImageProps} from '@/types/Props'
+import {Section} from '@/components/Section'
 
 type HomePageProps = {
     searchParams: {
@@ -42,27 +43,29 @@ export default async function HomePage ({searchParams}: Readonly<HomePageProps>)
         tags: await getRestData('/apis/tag/group/service')
     }
     return (
-        <div className={'flex flex-col-reverse md:flex-col'}>
-            <Carousel className={'flex sm:hidden'}>
-                <ShopSlides idPrefix={'mobile'} shopData={shopData} pageSize={2} className={'grid-cols-1'}/>
-            </Carousel>
-            <Carousel className={'hidden sm:flex lg:hidden'}>
-                <ShopSlides idPrefix={'tablet'} shopData={shopData} pageSize={4} className={'grid-cols-2'}/>
-            </Carousel>
-            <Carousel className={'hidden lg:flex'}>
-                <ShopSlides idPrefix={'desktop'} shopData={shopData} pageSize={6} className={'grid-cols-3'}/>
-            </Carousel>
-            <div className={'block md:hidden'}>
-                <TagFilterList group={brewingTags} activeTags={tags} startChecked/>
-                <TagFilterList group={serviceTags} activeTags={tags}/>
-                <TagFilterList group={busyTags} activeTags={tags}/>
+        <Section className={'p-4'}>
+            <div className={'flex flex-col-reverse md:flex-col'}>
+                <Carousel className={'flex sm:hidden'}>
+                    <ShopSlides idPrefix={'mobile'} shopData={shopData} pageSize={2} className={'grid-cols-1'}/>
+                </Carousel>
+                <Carousel className={'hidden sm:flex lg:hidden'}>
+                    <ShopSlides idPrefix={'tablet'} shopData={shopData} pageSize={4} className={'grid-cols-2'}/>
+                </Carousel>
+                <Carousel className={'hidden lg:flex'}>
+                    <ShopSlides idPrefix={'desktop'} shopData={shopData} pageSize={6} className={'grid-cols-3'}/>
+                </Carousel>
+                <div className={'block md:hidden'}>
+                    <TagFilterList group={brewingTags} activeTags={tags} startChecked/>
+                    <TagFilterList group={serviceTags} activeTags={tags}/>
+                    <TagFilterList group={busyTags} activeTags={tags}/>
+                </div>
+                <div className={'hidden md:block'}>
+                    <TagFilterList group={brewingTags} activeTags={tags} startChecked/>
+                    <TagFilterList group={serviceTags} activeTags={tags} startChecked/>
+                    <TagFilterList group={busyTags} activeTags={tags} startChecked/>
+                </div>
             </div>
-            <div className={'hidden md:block'}>
-                <TagFilterList group={brewingTags} activeTags={tags} startChecked/>
-                <TagFilterList group={serviceTags} activeTags={tags} startChecked/>
-                <TagFilterList group={busyTags} activeTags={tags} startChecked/>
-            </div>
-        </div>
+        </Section>
     )
 }
 
@@ -70,27 +73,28 @@ export default async function HomePage ({searchParams}: Readonly<HomePageProps>)
 function ShopSlides ({shopData, pageSize, className, idPrefix}: ShopSlidesProps) {
     return shopData.length > 0 ? sliceSplit(shopData, pageSize)
         .map((split: any, slideIndex: number, splitCollection: any[]) => {
-            const previousSlideIndex = getPreviousSlideIndex(slideIndex, splitCollection.length)
-            const nextSlideIndex = getNextSlideIndex(slideIndex, splitCollection.length)
-            return (
-                <CarouselSlide
-                    className={`grid gap-2 ${className}`}
-                    key={`${idPrefix}${slideIndex}`}
-                    slideId={`${idPrefix}${slideIndex}`}
-                    previousSlideId={`${idPrefix}${previousSlideIndex}`}
-                    nextSlideId={`${idPrefix}${nextSlideIndex}`}>
-                    {split.map(async (shop: any) => {
-                        return (
-                            <Link key={`${idPrefix}${shop.shopId}`} href={`/shop/${shop.shopId}`}>
-                                <ShopCard
-                                    imageUrl={shop?.shopPhotoUrl}
-                                    imageAlt={shop.shopName}
-                                    shopName={shop.shopName}
-                                    shopAddress={shop.shopAddress}/>
-                            </Link>)
-                    })}
-                </CarouselSlide>)
-        }) : <p>No shops matching your filters.</p>
+                const previousSlideIndex = getPreviousSlideIndex(slideIndex, splitCollection.length)
+                const nextSlideIndex = getNextSlideIndex(slideIndex, splitCollection.length)
+                return (
+                    <CarouselSlide
+                        className={`grid gap-2 ${className}`}
+                        key={`${idPrefix}${slideIndex}`}
+                        slideId={`${idPrefix}${slideIndex}`}
+                        previousSlideId={`${idPrefix}${previousSlideIndex}`}
+                        nextSlideId={`${idPrefix}${nextSlideIndex}`}>
+                        {split.map(async (shop: any) => {
+                            return (
+                                <Link key={`${idPrefix}${shop.shopId}`} href={`/shop/${shop.shopId}`}>
+                                    <ShopCard
+                                        imageUrl={shop?.shopPhotoUrl}
+                                        imageAlt={shop.shopName}
+                                        shopName={shop.shopName}
+                                        shopAddress={shop.shopAddress}/>
+                                </Link>)
+                        })}
+                    </CarouselSlide>)
+            }
+        ) : <p>No shops matching your filters.</p>
 }
 
 function ShopCard ({imageUrl, imageAlt, shopName, shopAddress}: Readonly<ShopCardProps>) {
@@ -103,7 +107,6 @@ function ShopCard ({imageUrl, imageAlt, shopName, shopAddress}: Readonly<ShopCar
             </CardBody>
         </Card>
     )
-
 }
 
 function sliceSplit (array: Array<any>, sliceSize: number) {

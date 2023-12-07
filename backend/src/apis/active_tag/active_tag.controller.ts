@@ -36,7 +36,7 @@ export async function postActiveTagController (request: Request, response: Respo
         await insertActiveTag(data)
         return response.json({status: 200, message: null, data: null})
     } catch (error: any) {
-        console.log(error.message)
+        console.error(error.message)
         return response.json({
             status: 500,
             message: error.message,
@@ -75,7 +75,7 @@ export async function deleteActiveTagController (request: Request, response: Res
 
         return response.json({status: 200, message: null, data: null})
     } catch (error: any) {
-        console.log(error.message)
+        console.error(error.message)
         return response.json({
             status: 500,
             message: error.message,
@@ -120,7 +120,7 @@ export async function getActiveTagsByShopIdController (request: Request, respons
 
         return response.json({status: 200, message: null, data})
     } catch (error: any) {
-        console.log(error.message)
+        console.error(error.message)
         return response.json({
             status: 500,
             message: error.message,

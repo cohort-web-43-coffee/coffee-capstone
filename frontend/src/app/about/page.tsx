@@ -3,6 +3,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import {ClassProps, ImageProps} from '@/types/Props'
 import {Card} from '@/components/Card'
+import {Section} from '@/components/Section'
 
 
 type AboutUsCardProps = ImageProps & ClassProps & {
@@ -12,7 +13,7 @@ type AboutUsCardProps = ImageProps & ClassProps & {
 
 export default async function AboutPage () {
     return (
-        <>
+        <Section className={'p-4'}>
             <div className={'grid grid-cols-2 gap-4 py-4'}>
                 <AboutUsCard
                     className={'justify-self-end'}
@@ -45,7 +46,7 @@ export default async function AboutPage () {
                 <h1>Contact Us</h1>
             </div>
             <ContactForm/>
-        </>
+        </Section>
     )
 }
 

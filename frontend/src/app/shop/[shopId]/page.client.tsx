@@ -145,7 +145,7 @@ export function BookmarkToggle ({session, shopId}: BookmarkToggleProps) {
                 })
         } else {
             event.preventDefault()
-            console.log('Need to be signed in to bookmark')
+            console.error('Need to be signed in to bookmark')
         }
     }
 

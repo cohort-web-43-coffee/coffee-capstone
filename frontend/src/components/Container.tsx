@@ -1,1 +1,0 @@
-import {ChildProps} from '@/types/Props'

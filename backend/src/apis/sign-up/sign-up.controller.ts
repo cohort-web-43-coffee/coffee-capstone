@@ -63,7 +63,7 @@ export async function signUpController (request: Request, response: Response): P
         }
         return response.json(status)
     } catch (error: any) {
-        console.log(error)
+        console.error(error)
         const status: Status = {
             status: 500,
             message: error.message,
