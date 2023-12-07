@@ -67,6 +67,7 @@ export function ShopSlides ({shopData}: Readonly<ShopSlidesProps>) {
     const isLg = useMedia('(min-width: 1024px)', false)
     const isSm = useMedia('(min-width: 640px)', false)
     const pageSize = isLg ? 6 : isSm ? 4 : 2
+
     return shopData.length > 0 ? sliceSplit(shopData, pageSize)
         .map((split: any, slideIndex: number, splitCollection: any[]) => {
                 const previousSlideIndex = getPreviousSlideIndex(slideIndex, splitCollection.length)
@@ -82,7 +83,7 @@ export function ShopSlides ({shopData}: Readonly<ShopSlidesProps>) {
                             return (
                                 <Link key={`${idPrefix}${shop.shopId}`} href={`/shop/${shop.shopId}`}>
                                     <ShopCard
-                                        imageUrl={shop?.shopPhotoUrl ?? ''}
+                                        imageUrl={shop?.shopPhotoUrl === '' ? '/coffee.svg' : shop.shopPhotoUrl ?? '/coffee.svg'}
                                         imageAlt={shop.shopName}
                                         shopName={shop.shopName}
                                         shopAddress={shop.shopAddress}/>
