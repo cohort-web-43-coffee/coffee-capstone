@@ -7,6 +7,13 @@ interface DisplayErrorProps {
     field: string
 }
 
+interface DisplayStatusProps {
+    status: {
+        type: string
+        message: string
+    }
+}
+
 export function DisplayError(props: Readonly<DisplayErrorProps>) {
     const { errors, touched, field } = props
     if(errors[field] && touched[field]) {
@@ -21,12 +28,7 @@ export function DisplayError(props: Readonly<DisplayErrorProps>) {
     }
 }
 
-interface DisplayStatusProps {
-    status: {
-        type: string
-        message: string
-    }
-}
+
 
 export function DisplayStatus(props: Readonly<DisplayStatusProps>) {
     const {status} = props

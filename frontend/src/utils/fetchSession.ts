@@ -1,7 +1,7 @@
 import {cookies} from 'next/headers';
 import {jwtDecode} from 'jwt-decode';
 import { unstable_noStore as noStore } from 'next/cache';
-import {Account, AccountSchema} from '@/utils/models/account';
+import {Account, AccountSchema} from '@/utils/models/Account';
 
 noStore()
 export type Session = {

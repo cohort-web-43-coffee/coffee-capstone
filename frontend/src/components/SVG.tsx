@@ -1,6 +1,7 @@
 import React from 'react'
 import {ClassProps} from '@/types/Props'
 
+
 export function MenuSVG () {
     return (
         <svg

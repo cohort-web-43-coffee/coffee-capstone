@@ -50,7 +50,6 @@ export default async function AboutPage () {
     )
 }
 
-
 function AboutUsCard ({linkedIn, gitHub, imageAlt, imageUrl, className}: Readonly<AboutUsCardProps>) {
     return (
         <Card className={`flex items-center ${className}`}>

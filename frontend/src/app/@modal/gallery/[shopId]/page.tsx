@@ -1,10 +1,8 @@
 import {getRestData} from '@/utils/fetchHeaders'
 import {Modal, ModalActions} from '@/components/Modal'
-import React from 'react'
-import {CloseModalButton} from '@/components/CloseModalButton'
 import Image from 'next/image'
 import {Carousel, CarouselSlide, getNextSlideIndex, getPreviousSlideIndex} from '@/components/Carousel'
-import {Phudu} from 'next/dist/compiled/@next/font/dist/google'
+import {CloseModalButton} from '@/components/Modal.client'
 
 
 type GalleryModalProps = {

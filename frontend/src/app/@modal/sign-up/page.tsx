@@ -1,6 +1,6 @@
 import {Modal, ModalActions} from '@/components/Modal'
 import {SignUpForm} from '@/app/@modal/sign-up/page.client'
-import {CloseModalButton} from '@/components/CloseModalButton'
+import {CloseModalButton} from '@/components/Modal.client'
 
 
 export default function SignUpModal () {

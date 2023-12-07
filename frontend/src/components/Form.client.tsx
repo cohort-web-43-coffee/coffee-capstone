@@ -1,5 +1,8 @@
 'use client'
 
+
+// This gets used during development
+// noinspection JSUnusedGlobalSymbols
 export const FormDebugger = (props: any) => (
     <div style={{margin: '1rem 0'}}>
         <h3 style={{fontFamily: 'monospace'}}>.</h3>
