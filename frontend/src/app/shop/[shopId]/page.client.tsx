@@ -106,11 +106,12 @@ export function TagToggleGroup ({group, shopId, session, activeTags, startChecke
             </div>
             <div className={'collapse-content'}>
                 <div className={'flex flex-wrap gap-6 justify-around'}>
-                    {group?.tags
-                        ?.sort((a: Tag, b: Tag) => b.count - a.count)
-                        .map((tag: Tag) => <TagButton tag={tag} key={tag.tagId}
-                                                      checked={activeTags?.includes(tag.tagId) ?? false}
-                                                      handleChanged={handleTagButtonChanged}/>)}
+                    {group?.tags?.map((tag: Tag) =>
+                        <TagButton
+                            tag={tag}
+                            key={tag.tagId}
+                            checked={activeTags?.includes(tag.tagId) ?? false}
+                            handleChanged={handleTagButtonChanged}/>)}
                 </div>
             </div>
         </div>

@@ -40,7 +40,6 @@ export function TagFilterList ({group, showCounts, activeTags, startChecked}: Re
             </div>
             <div className={'collapse-content flex flex-wrap gap-6 justify-around'}>
                 {group.tags
-                    .sort((a: Tag, b: Tag) => b.count - a.count)
                     .map((tag: Tag) => <TagButton tag={tag}
                                                   key={tag.tagId}
                                                   checked={activeTags?.has(tag.tagId)}
