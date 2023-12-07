@@ -168,7 +168,7 @@ export function BookmarkToggle ({session, shopId}: BookmarkToggleProps) {
 
 async function fetchActiveTags (shopId: string, activeTagsSetter: React.Dispatch<React.SetStateAction<string[]>>, session?: Session) {
     const headers = requestGetHeaders(session)
-    const url = `/apis/activeTag/activeTagsByShopId/${shopId}`
+    const url = `/apis/activeTag/shop/${shopId}`
     fetch(url, headers)
         .then(response => response.json())
         .then((body) => {

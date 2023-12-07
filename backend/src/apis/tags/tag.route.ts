@@ -12,9 +12,9 @@ const basePath = '/apis/tag'
 const router = Router()
 router.route('/')
     .post(isSignInController, insertTagController)
-router.route('/tagGroup/:tagGroup')
+router.route('/group/:tagGroup')
     .get(getAllTagsByTagGroupController)
-router.route('/shopTags/:shopId')
+router.route('/shop/:shopId')
     .get(getShopTagsController)
 
 export const tagRoute = {basePath, router}

@@ -10,7 +10,7 @@ router.route('/')
     .post(isSignInController,postActiveTagController)
     .delete(isSignInController, deleteActiveTagController)
 
-router.route('/activeTagsByShopId/:shopId')
+router.route('/shop/:shopId')
     .get(isSignInController, getActiveTagsByShopIdController)
 
 export const activeTagRoute = {basePath, router}

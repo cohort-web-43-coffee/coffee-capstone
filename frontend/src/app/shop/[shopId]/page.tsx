@@ -14,7 +14,7 @@ export default async function ShopPage ({params}: Readonly<ShopPageProps>) {
     const {shopId} = params
     const session = await getSession()
     const shopData = await getRestData(`/apis/shop/${shopId}`)
-    const tagData = await getRestData(`/apis/tag/shopTags/${shopId}`)
+    const tagData = await getRestData(`/apis/tag/shop/${shopId}`)
     return (
         <>
             <div className="hero min-h-[40vh]" style={{backgroundImage: `url(${shopData.shopPhotoUrl})`}}>

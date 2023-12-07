@@ -31,15 +31,15 @@ export default async function HomePage ({searchParams}: Readonly<HomePageProps>)
 
     const brewingTags = {
         group: 'Brewing',
-        tags: await getRestData('/apis/tag/tagGroup/brewing')
+        tags: await getRestData('/apis/tag/group/brewing')
     }
     const busyTags = {
         group: 'Busy Times',
-        tags: await getRestData('/apis/tag/tagGroup/busy')
+        tags: await getRestData('/apis/tag/group/busy')
     }
     const serviceTags = {
         group: 'Service',
-        tags: await getRestData('/apis/tag/tagGroup/service')
+        tags: await getRestData('/apis/tag/group/service')
     }
     return (
         <div className={'flex flex-col-reverse md:flex-col'}>
