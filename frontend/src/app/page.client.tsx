@@ -1,5 +1,5 @@
 'use client'
-import {usePathname, useRouter, useSearchParams} from 'next/navigation'
+import {ReadonlyURLSearchParams, usePathname, useRouter, useSearchParams} from 'next/navigation'
 import {Tag, TagButton, TagGroup} from '@/components/Tag'
 import React from 'react';
 import {CarouselSlide, getNextSlideIndex, getPreviousSlideIndex} from '@/components/Carousel'
@@ -7,6 +7,7 @@ import Link from 'next/link'
 import {Card, CardBody, CardImage} from '@/components/Card'
 import {ClassProps, ImageProps} from '@/types/Props'
 import { useMedia } from 'react-use';
+import {AppRouterInstance} from 'next/dist/shared/lib/app-router-context.shared-runtime'
 
 type TagFilterListProps = {
     showCounts?: boolean,
@@ -27,21 +28,7 @@ export function TagFilterList ({group, showCounts, activeTags, startChecked}: Re
     const router = useRouter()
     const pathName = usePathname()
     const currentParams = useSearchParams()
-
-    const handleTagButtonChanged = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const newParams = new URLSearchParams(currentParams)
-        const tagId = event.currentTarget.id
-        let newTagSet: Set<string> = new Set<string>(activeTags)
-
-        if (event.target.checked) {
-            newTagSet = newTagSet.add(tagId)
-        } else {
-            newTagSet.delete(tagId)
-        }
-
-        newParams.set('tags', Array.from(newTagSet).join(','))
-        router.push(`${pathName}?${newParams.toString()}`)
-    }
+    const handleTagButtonChanged = makeTagToggleHandler(activeTags, pathName, currentParams, router)
 
     return (
         <div className={'collapse collapse-arrow'}>
@@ -104,6 +91,23 @@ function ShopCard ({imageUrl, imageAlt, shopName, shopAddress}: Readonly<ShopCar
             </CardBody>
         </Card>
     )
+}
+
+function makeTagToggleHandler(activeTags: Set<string>, pathName: string, currentParams: ReadonlyURLSearchParams, router: AppRouterInstance) {
+    return (event: React.ChangeEvent<HTMLInputElement>) => {
+        const newParams = new URLSearchParams(currentParams)
+        const tagId = event.currentTarget.id
+        let newTagSet: Set<string> = new Set<string>(activeTags)
+
+        if (event.target.checked) {
+            newTagSet = newTagSet.add(tagId)
+        } else {
+            newTagSet.delete(tagId)
+        }
+
+        newParams.set('tags', Array.from(newTagSet).join(','))
+        router.push(`${pathName}?${newParams.toString()}`)
+    }
 }
 
 function sliceSplit (array: Array<any>, sliceSize: number) {

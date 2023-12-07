@@ -25,9 +25,7 @@ export default async function ShopPage ({params}: Readonly<ShopPageProps>) {
                         <h1 className={'text-4xl text-primary-container drop-shadow-lg flex items-center justify-center'}>
                             {shopData?.shopName}
                         </h1>
-                        <p className={'font-bold text-accent text-center'}>{shopData?.shopAddress}<br/>{shopData?.shopPhoneNumber}
-                        </p>
-
+                        <p className={'font-bold text-accent text-center'}>{shopData?.shopAddress}<br/>{shopData?.shopPhoneNumber}</p>
                     </div>
                     <div>
                         <CustomLink href={`/gallery/${shopId}`}>

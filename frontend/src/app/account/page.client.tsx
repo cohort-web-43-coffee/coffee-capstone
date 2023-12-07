@@ -1,15 +1,11 @@
 'use client'
-import {Card, CardBody, CardImage} from "@/components/Card";
-import {Session} from "@/utils/fetchSession";
-import {useEffect, useState} from "react";
-import {requestGetHeaders} from "@/utils/fetchHeaders";
+import {Card, CardBody, CardImage} from '@/components/Card';
+import {Session} from '@/utils/fetchSession';
+import {useEffect, useState} from 'react';
+import {requestGetHeaders} from '@/utils/fetchHeaders';
 import Link from 'next/link'
 import {SessionProps} from '@/types/Props'
 
-
-type BookmarkCardProps = {
-    shop: Shop
-}
 
 type Shop = {
     shopId: string,
@@ -40,15 +36,15 @@ export function BookmarkList ({session}: Readonly<SessionProps>) {
     )
 }
 
-function BookmarkCard ({shop}: Readonly<BookmarkCardProps>) {
+function BookmarkCard ({shop}: { shop: Shop }) {
     return (
         <Link key={shop.shopId} href={`/shop/${shop.shopId}`}>
             <Card>
                 <CardImage imageUrl={shop.shopPhotoUrl} imageAlt={shop.shopName}/>
                 <CardBody>
-                    <div className={"flex text-xs sm:text-sm md:text-sm"}>
+                    <div className={'flex text-xs sm:text-sm md:text-sm'}>
                         <ul>
-                            <li className={"container p-1 sm:p-1 md:p-2 lg:p-2 text-lg font-bold"}>{shop.shopName}</li>
+                            <li className={'container p-1 sm:p-1 md:p-2 lg:p-2 text-lg font-bold'}>{shop.shopName}</li>
                         </ul>
                     </div>
                 </CardBody>

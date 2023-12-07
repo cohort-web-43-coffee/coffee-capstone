@@ -14,7 +14,7 @@ type HomePageProps = {
 export default async function HomePage ({searchParams}: Readonly<HomePageProps>) {
     const tagArray = searchParams.tags?.split(',').filter(value => value != '')
     const tags = new Set<string>(tagArray)
-    const shopData = tags?.size > 0 ? await postRestData('/apis/shop/tag', JSON.stringify(tagArray)) : await getRestData('/apis/shop')
+    const shopData = tags?.size > 0 ? await postRestData('/apis/shop/tag', tagArray) : await getRestData('/apis/shop')
 
     const brewingTags = {
         group: 'Brewing',

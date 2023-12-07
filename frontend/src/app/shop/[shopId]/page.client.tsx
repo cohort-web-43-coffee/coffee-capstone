@@ -68,18 +68,40 @@ export function TagToggleList ({tagData, shopId, session}: Readonly<TagToggleLis
 
 
 export function TagToggleGroup ({group, shopId, session, activeTags, startChecked, activeTagsSetter}: Readonly<TagToggleGroupProps>) {
+    const handleChanged =  makeToggleChangedHandler(shopId, activeTagsSetter, session)
 
+    return (
+        <div className={'collapse collapse-arrow'}>
+            <input type={'checkbox'} name={'filter-accordion'} className={'min-w-full'}
+                   defaultChecked={startChecked ?? false}/>
+            <div className={'collapse-title text-xl font-medium'}>
+                <div className={'divider'}>{group.group}</div>
+            </div>
+            <div className={'collapse-content'}>
+                <div className={'flex flex-wrap gap-6 justify-around'}>
+                    {group?.tags?.map((tag: Tag) =>
+                        <TagButton
+                            tag={tag}
+                            key={tag.tagId}
+                            checked={activeTags?.includes(tag.tagId) ?? false}
+                            handleChanged={handleChanged}/>)}
+                </div>
+            </div>
+        </div>
+    )
+}
 
-    const handleTagButtonChanged = (event: any) => {
+function makeToggleChangedHandler(shopId: string, activeTagsSetter: React.Dispatch<React.SetStateAction<string[]>>, session: Session|undefined) {
+    return (event: any) => {
         if (session) {
             const isChecked = event.currentTarget.checked
             const tagId = event.target.id
 
-            const body = JSON.stringify({
+            const body = {
                 activeTagAccountId: null,
                 activeTagShopId: shopId,
                 activeTagTagId: tagId
-            })
+            }
 
             if (!isChecked) {
                 const requestHeaders = requestDeleteHeaders(body, session)
@@ -96,26 +118,6 @@ export function TagToggleGroup ({group, shopId, session, activeTags, startChecke
             }
         }
     }
-
-    return (
-        <div className={'collapse collapse-arrow'}>
-            <input type={'checkbox'} name={'filter-accordion'} className={'min-w-full'}
-                   defaultChecked={startChecked ?? false}/>
-            <div className={'collapse-title text-xl font-medium'}>
-                <div className={'divider'}>{group.group}</div>
-            </div>
-            <div className={'collapse-content'}>
-                <div className={'flex flex-wrap gap-6 justify-around'}>
-                    {group?.tags?.map((tag: Tag) =>
-                        <TagButton
-                            tag={tag}
-                            key={tag.tagId}
-                            checked={activeTags?.includes(tag.tagId) ?? false}
-                            handleChanged={handleTagButtonChanged}/>)}
-                </div>
-            </div>
-        </div>
-    )
 }
 
 export function BookmarkToggle ({session, shopId}: BookmarkToggleProps) {
@@ -137,7 +139,7 @@ export function BookmarkToggle ({session, shopId}: BookmarkToggleProps) {
                 bookmarkShopId: shopId,
                 bookmarkOrder: bookmarks?.length ?? 1
             }
-            const headers = event.target.checked ? requestPostHeaders(JSON.stringify(body), session) : requestDeleteHeaders(JSON.stringify(body), session)
+            const headers = event.target.checked ? requestPostHeaders(body, session) : requestDeleteHeaders(body, session)
             fetch('/apis/bookmark', headers)
                 .then(response => {
                     if (response.ok) {
