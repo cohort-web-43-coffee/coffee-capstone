@@ -5,11 +5,6 @@ import {sql} from '../../utils/database.utils'
 
 export type ActiveTag = z.infer<typeof ActiveTagSchema>
 
-/**
- * inserts an active tag into accountId and shopId tag
- * @param activeTag
- * @returns 'Insert active tag successful.'
- */
 export async function insertActiveTag(activeTag: ActiveTag): Promise<string> {
     const {activeTagAccountId   , activeTagTagId, activeTagShopId} = activeTag
 
@@ -17,13 +12,6 @@ export async function insertActiveTag(activeTag: ActiveTag): Promise<string> {
 
     return 'Insert active tag successful.'
 }
-
-
-/**
- * deletes an active tag from the table
- * @param activeTag
- * @returns 'Delete active tag successful.'
- */
 
 export async function deleteActiveTag(activeTag: ActiveTag): Promise<string> {
     const {activeTagAccountId, activeTagTagId, activeTagShopId} = activeTag

@@ -4,6 +4,7 @@ import {getPhotosByShopIdController} from "./photo.controller";
 
 const basePath = '/apis/photo'
 const router = Router()
+
 router.route('/photoByShopId/:shopId')
     .get(getPhotosByShopIdController)
 

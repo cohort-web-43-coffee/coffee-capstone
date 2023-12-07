@@ -5,12 +5,6 @@ import {zodErrorResponse} from '../../utils/response.utils'
 import {selectPrivateAccountByAccountActivationToken, updateAccount} from '../account/account.model'
 
 
-/**
- * Handles the logic for account activation by checking for an existing accountActivationToken and updating the accountActivationToken to null
- * @param request {Request} the request object containing the accountActivationToken
- * @param response {Response} the response object containing the status and message
- */
-
 export async function activationController(request: Request, response: Response): Promise<Response<Status>> {
     try {
         const validationResult = activationAccountSchema.safeParse(request.params)

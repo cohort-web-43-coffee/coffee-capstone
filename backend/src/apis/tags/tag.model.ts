@@ -17,11 +17,6 @@ export async function getAllTagsByTagGroup(tagGroup: string): Promise<Tag[]> {
     return TagSchema.array().parse(rowList)
 }
 
-/**
- * Get a list of tags that have been added
- * @param shopId to be selected by tagLabel
- * @returns An array of tags with their tag_id, tag_group, and a count of the number of times the tag has been added.
- */
 export async function getTagsForShop(shopId: string): Promise<ShopTag[]> {
     const rowList = <ShopTag[]>await sql`SELECT tag_id,
                                                 tag_label,

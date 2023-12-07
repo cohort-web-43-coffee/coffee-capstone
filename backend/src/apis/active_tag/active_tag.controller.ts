@@ -4,18 +4,13 @@ import {zodErrorResponse} from '../../utils/response.utils'
 import {deleteActiveTag, insertActiveTag, selectActiveTagsByAccountAndShopId, ActiveTag} from './active_tag.model'
 import {z} from 'zod'
 
-/**
- * posts the active tag with active tag account id
- * @param request
- * @param response "Session missing account"
- */
+
 export async function postActiveTagController (request: Request, response: Response): Promise<Response> {
     try {
-        console.log('Inserting...')
         const validationResult = ActiveTagSchema.safeParse(request.body)
 
         if (!validationResult.success) {
-            console.log('Invalid body')
+            console.error('Invalid body')
             return zodErrorResponse(response, validationResult.error)
         }
 
@@ -29,10 +24,7 @@ export async function postActiveTagController (request: Request, response: Respo
             })
         }
 
-        console.log('...auth okay...')
-
         const data = {...validationResult.data, activeTagAccountId}
-        console.log('Insert data:', data)
         await insertActiveTag(data)
         return response.json({status: 200, message: null, data: null})
     } catch (error: any) {
@@ -45,15 +37,8 @@ export async function postActiveTagController (request: Request, response: Respo
     }
 }
 
-/**
- * controller that deletes an active tag
- * @param request
- * @param response "Session missing account",
- */
-
 export async function deleteActiveTagController (request: Request, response: Response): Promise<Response> {
     try {
-        console.log('Deleting...')
         const validationResult = ActiveTagSchema.safeParse(request.body)
 
         if (!validationResult.success) {
@@ -70,7 +55,6 @@ export async function deleteActiveTagController (request: Request, response: Res
             })
         }
         const data = {...validationResult.data, activeTagAccountId}
-        console.log('Delete data:', data)
         await deleteActiveTag(data)
 
         return response.json({status: 200, message: null, data: null})
@@ -84,22 +68,15 @@ export async function deleteActiveTagController (request: Request, response: Res
     }
 }
 
-/**
- * gets the active tags by the shop id
- * @param request
- * @param response
- */
-
 export async function getActiveTagsByShopIdController (request: Request, response: Response): Promise<Response> {
     try {
 
         const accountId = request.session.account?.accountId ?? null
 
         if (accountId === null) {
-            console.log('AccountID was null')
             return response.json({
                 status: 400,
-                message: "Session missing account",
+                message: 'Session missing account',
                 data: null
             })
         }
@@ -107,7 +84,7 @@ export async function getActiveTagsByShopIdController (request: Request, respons
         const validationResult = z.string().uuid('Please provide a valid UUID for shopId').safeParse(request.params.shopId)
 
         if (!validationResult.success) {
-            console.log('Invalid shopId')
+            console.error('Invalid shopId')
             return zodErrorResponse(response, validationResult.error)
         }
 

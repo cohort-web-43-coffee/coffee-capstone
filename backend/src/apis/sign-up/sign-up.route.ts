@@ -2,6 +2,7 @@ import { Router } from 'express'
 import { signUpController } from './sign-up.controller'
 import {activationController} from './activation.controller'
 
+
 const basePath = '/apis/sign-up'
 const router: Router = Router()
 router.route('/')
