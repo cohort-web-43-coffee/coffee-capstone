@@ -5,7 +5,6 @@ import {SignUp, SignUpSchema} from "@/utils/models/SignUp";
 import {DisplayError, DisplayStatus} from '@/components/Display'
 import {useRouter} from 'next/navigation'
 import {AppRouterInstance} from 'next/dist/shared/lib/app-router-context.shared-runtime'
-import {SignIn} from '@/utils/models/SignIn'
 
 
 export function SignUpForm () {

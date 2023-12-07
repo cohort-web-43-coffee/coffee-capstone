@@ -1,6 +1,5 @@
 'use client'
 import {Card, CardBody, CardImage} from '@/components/Card';
-import {Session} from '@/utils/fetchSession';
 import {useEffect, useState} from 'react';
 import {requestGetHeaders} from '@/utils/fetchHeaders';
 import Link from 'next/link'
@@ -36,7 +35,7 @@ export function BookmarkList ({session}: Readonly<SessionProps>) {
     )
 }
 
-function BookmarkCard ({shop}: { shop: Shop }) {
+function BookmarkCard ({shop}: Readonly<{ shop: Shop }>) {
     return (
         <Link key={shop.shopId} href={`/shop/${shop.shopId}`}>
             <Card>

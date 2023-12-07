@@ -1,6 +1,5 @@
 import {SearchField, SignOutButton} from '@/app/@navbar/default.client'
 import Link from 'next/link'
-import Image from 'next/image'
 import {SessionProps} from '@/types/Props'
 import {getRestData} from '@/utils/fetchHeaders'
 import {clearSession, getSession} from '@/utils/fetchSession'

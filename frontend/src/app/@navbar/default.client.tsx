@@ -4,6 +4,7 @@ import {SessionProps} from "@/types/Props"
 import {requestGetHeaders} from '@/utils/fetchHeaders'
 import React from 'react'
 import {Session} from '@/utils/fetchSession'
+import {AppRouterInstance} from 'next/dist/shared/lib/app-router-context.shared-runtime'
 
 
 type SignOutButtonProps = SessionProps & {
@@ -11,8 +12,10 @@ type SignOutButtonProps = SessionProps & {
 }
 
 export function SearchField () {
+    const router = useRouter()
+    const pathName = usePathname()
     const searchParams = useSearchParams()
-    const handler = makeTextChangeHandler(searchParams)
+    const handler = makeTextChangeHandler(searchParams, router, pathName)
 
     return (
         <input
@@ -32,10 +35,7 @@ export function SignOutButton ({session, onSuccess}: SignOutButtonProps) {
     )
 }
 
-function makeTextChangeHandler (searchParams: ReadonlyURLSearchParams) {
-    const router = useRouter()
-    const pathName = usePathname()
-
+function makeTextChangeHandler (searchParams: ReadonlyURLSearchParams, router: AppRouterInstance, pathName: string) {
     return (event: React.ChangeEvent<HTMLInputElement>) => {
         const newParams = new URLSearchParams(searchParams)
         newParams.set('q', event.target.value)
