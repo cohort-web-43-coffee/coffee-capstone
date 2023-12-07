@@ -1,10 +1,11 @@
-import {getSession, session} from "@/utils/fetchSession";
+import {getSession} from "@/utils/fetchSession";
 import {BookmarkList} from "@/app/account/page.client";
 import {Section} from '@/components/Section'
 
 
 export default async function AccountPage () {
-    return await getSession() === undefined ?
+    const session = await getSession()
+    return session ?
         <>Log in</>
         :
         <Section className={'p-4'}>

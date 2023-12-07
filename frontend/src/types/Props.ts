@@ -1,4 +1,6 @@
 import {Session} from "@/utils/fetchSession";
+import React from 'react'
+
 
 export type ChildProps = {
     children: React.ReactNode
