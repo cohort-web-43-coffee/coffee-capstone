@@ -1,7 +1,6 @@
 import {Router} from "express";
 import {
     getAllTagsByTagGroupController,
-    getAllTagsByTagLabelController,
     getShopTagsController,
     insertTagController
 } from "./tag.controller";
@@ -15,10 +14,6 @@ router.route('/')
     .post(isSignInController, insertTagController)
 router.route('/tagGroup/:tagGroup')
     .get(getAllTagsByTagGroupController)
-
-router.route('/tagLabel/:tagLabel')
-    .get(getAllTagsByTagLabelController)
-
 router.route('/shopTags/:shopId')
     .get(getShopTagsController)
 

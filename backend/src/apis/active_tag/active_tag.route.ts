@@ -1,8 +1,5 @@
 import {Router} from 'express'
-import {
-    deleteActiveTagController, getActiveTagCountByTagIdAndShopIdController, getActiveTagCountByTagIdController,
-    getActiveTagsByAccountIdController, getActiveTagsByShopIdController,
-    postActiveTagController
+import {deleteActiveTagController, getActiveTagsByShopIdController, postActiveTagController
 } from './active_tag.controller'
 import {isSignInController} from "../../utils/contollers/isSignIn.Controller"
 
@@ -13,16 +10,7 @@ router.route('/')
     .post(isSignInController,postActiveTagController)
     .delete(isSignInController, deleteActiveTagController)
 
-router.route('/activeTagsByAccountId/')
-    .get(isSignInController,getActiveTagsByAccountIdController)
-
 router.route('/activeTagsByShopId/:shopId')
     .get(isSignInController, getActiveTagsByShopIdController)
-
-router.route('/activeTagCount/:tagId')
-    .get(getActiveTagCountByTagIdController)
-
-router.route('/activeTagCount/:tagId/:shopId')
-    .get(getActiveTagCountByTagIdAndShopIdController)
 
 export const activeTagRoute = {basePath, router}
