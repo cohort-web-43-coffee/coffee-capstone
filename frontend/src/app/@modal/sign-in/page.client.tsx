@@ -1,42 +1,26 @@
 'use client'
-
 import {useRouter} from 'next/navigation'
 import {SignIn, signInAccountSchema} from '@/utils/models/signin'
 import {Formik, FormikHelpers, FormikProps} from 'formik'
 import {toFormikValidationSchema} from 'zod-formik-adapter'
 import {DisplayError, DisplayStatus} from '@/components/Display'
 import React from 'react'
+import {AppRouterInstance} from 'next/dist/shared/lib/app-router-context.shared-runtime'
 
 
-export function SignInForm() {
+export function SignInForm () {
     const router = useRouter()
-    const initialValues : any = {
+    const submitHandler = makeSignInHandler(router)
+    const initialValues: any = {
         accountEmail: '',
         accountPassword: ''
     }
 
-    const handleSubmit = (values: SignIn, actions: FormikHelpers<SignIn>) => {
-        const {setStatus, resetForm} = actions
-        fetch('/api/sign-in', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(values)
-        }).then(response => response.json()).then(json => {
-            if (json.status === 200) {
-                resetForm()
-                router.back()
-                router.refresh()
-            }
-            setStatus({type: json.type, message: json.message})
-        })
-    }
-
     return (
-        <Formik initialValues={initialValues}
-                onSubmit={handleSubmit}
-                validationSchema={toFormikValidationSchema(signInAccountSchema)}>
+        <Formik
+            initialValues={initialValues}
+            onSubmit={submitHandler}
+            validationSchema={toFormikValidationSchema(signInAccountSchema)}>
             {SignInFormContent}
         </Formik>
     )
@@ -48,8 +32,6 @@ function SignInFormContent (props: FormikProps<SignIn>) {
         values,
         errors,
         touched,
-        dirty,
-        isSubmitting,
         handleChange,
         handleBlur,
         handleSubmit,
@@ -59,7 +41,7 @@ function SignInFormContent (props: FormikProps<SignIn>) {
     return (
         <form onSubmit={handleSubmit} className={''}>
             <div className={'form-control'}>
-                <label className={'label'} htmlFor='accountEmail'>email</label>
+                <label className={'label'} htmlFor='accountEmail'>E-mail</label>
                 <input
                     onBlur={handleBlur}
                     onChange={handleChange}
@@ -71,7 +53,7 @@ function SignInFormContent (props: FormikProps<SignIn>) {
                 />
                 <DisplayError errors={errors} touched={touched} field={'accountEmail'}/>
             </div>
-            <div className=' form-control'>
+            <div className='form-control'>
                 <label className={' label'} htmlFor='password'>Password</label>
                 <input
                     className={'input input-bordered w-full max'}
@@ -91,4 +73,24 @@ function SignInFormContent (props: FormikProps<SignIn>) {
             <DisplayStatus status={status}/>
         </form>
     )
+}
+
+function makeSignInHandler (router: AppRouterInstance) {
+    return (values: SignIn, actions: FormikHelpers<SignIn>) => {
+        const {setStatus, resetForm} = actions
+        fetch('/api/sign-in', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(values)
+        }).then(response => response.json()).then(json => {
+            if (json.status === 200) {
+                resetForm()
+                router.back()
+                router.refresh()
+            }
+            setStatus({type: json.type, message: json.message})
+        })
+    }
 }

@@ -28,4 +28,4 @@ export const SignUpSchema = z.object({
     accountActivationToken:z.null()
 
 })
-export type Signup = z.infer<typeof SignUpSchema>
+export type SignUp = z.infer<typeof SignUpSchema>
