@@ -13,7 +13,7 @@ type ShopPageProps = {
 export default async function ShopPage ({params}: Readonly<ShopPageProps>) {
     const {shopId} = params
     const session = await getSession()
-    const shopData = await getRestData(`/apis/shop/shopId/${shopId}`)
+    const shopData = await getRestData(`/apis/shop/${shopId}`)
     const tagData = await getRestData(`/apis/tag/shopTags/${shopId}`)
     return (
         <>
