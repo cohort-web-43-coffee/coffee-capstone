@@ -3,6 +3,7 @@ import './globals.css'
 import {ChildProps} from '@/types/Props'
 import React from 'react'
 import Link from 'next/link'
+import {YelpSVG} from '@/components/SVG'
 
 
 export const metadata: Metadata = {
@@ -30,10 +31,15 @@ export default async function RootLayout ({children, navbar, modal}: Readonly<Ro
 
 function Footer () {
     return (
-        <footer className={'footer footer-center p-4 text-base-content'}>
-            <aside>
-                <Link href={'/about'}><p className={'text-lg link'}>About Us</p></Link>
+        <footer className='footer items-center p-4 text-neutral-content'>
+            <aside className='items-center grid-flow-col'>
+                <Link href={'/about'} className={'text-lg link'}>About Us</Link> | <Link href={'https://github.com/cohort-web-43-coffee/coffee-capstone'} className={'text-lg link'}> Source Code</Link>
             </aside>
+            <nav className='flex md:place-self-center md:justify-self-end'>
+                Data powered by <Link href={'https://yelp.com'} className={'inline'}><YelpSVG/></Link>
+            </nav>
         </footer>
+
+
     )
 }

@@ -32,10 +32,10 @@ const config: Config = {
       {
         valid: {
           'primary': '#77733b',
-          'secondary': '#dda35d',
+          'secondary': '#f1f477',
           'accent': '#aa6231',
           'neutral': '#e3deca',
-          'base-100': '#FFFFEA',
+          'base-100': '#e3deca',
           'base-200': '#EEEEDA',
           'base-300': '#DDDDCA',
           '--primary-container': '#5c2c0c',

@@ -29,25 +29,22 @@ export default async function HomePage ({searchParams}: Readonly<HomePageProps>)
         tags: await getRestData('/apis/tag/group/service')
     }
     return (
-        <>
-            <Section className={'p-4'}>
-                <div className={'flex flex-col-reverse md:flex-col'}>
-                    <Carousel>
-                        <ShopSlides shopData={shopData}/>
-                    </Carousel>
-                    <div className={'block md:hidden'}>
-                        <TagFilterList group={brewingTags} activeTags={tags} startChecked/>
-                        <TagFilterList group={serviceTags} activeTags={tags}/>
-                        <TagFilterList group={busyTags} activeTags={tags}/>
-                    </div>
-                    <div className={'hidden md:block'}>
-                        <TagFilterList group={brewingTags} activeTags={tags} startChecked/>
-                        <TagFilterList group={serviceTags} activeTags={tags} startChecked/>
-                        <TagFilterList group={busyTags} activeTags={tags} startChecked/>
-                    </div>
+        <Section className={'p-4'}>
+            <div className={'flex flex-col-reverse md:flex-col'}>
+                <Carousel className={'pb-4'}>
+                    <ShopSlides shopData={shopData}/>
+                </Carousel>
+                <div className={'block md:hidden'}>
+                    <TagFilterList group={brewingTags} activeTags={tags} startChecked/>
+                    <TagFilterList group={serviceTags} activeTags={tags}/>
+                    <TagFilterList group={busyTags} activeTags={tags}/>
                 </div>
-            </Section>
-
-        </>
+                <div className={'hidden md:block'}>
+                    <TagFilterList group={brewingTags} activeTags={tags} startChecked/>
+                    <TagFilterList group={serviceTags} activeTags={tags} startChecked/>
+                    <TagFilterList group={busyTags} activeTags={tags} startChecked/>
+                </div>
+            </div>
+        </Section>
     )
 }

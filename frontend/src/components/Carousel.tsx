@@ -33,8 +33,8 @@ export function CarouselSlide({slideId, nextSlideId, previousSlideId, children, 
 function CarouselNav({previousSlideId, nextSlideId}: Readonly<CarouselNavProps>) {
     return (
         <nav className={'absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2'}>
-            <Link href={`#${previousSlideId}`} className={'btn btn-circle'} replace>❮</Link>
-            <Link href={`#${nextSlideId}`} className={'btn btn-circle'} replace>❯</Link>
+            <Link href={`#${previousSlideId}`} className={'btn btn-secondary btn-circle'} replace>❮</Link>
+            <Link href={`#${nextSlideId}`} className={'btn btn-secondary btn-circle'} replace>❯</Link>
         </nav>
     )
 }
