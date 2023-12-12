@@ -1,86 +1,50 @@
-import {PrimarySection} from '@/app/components/Section'
-import {PrimaryContainer} from '@/app/components/Container'
-import {Carousel, CarouselSlide} from '@/app/components/Carousel'
-import {getRestData, postRestData} from '@/app/utils/fetch'
-import {TagFilterList} from '@/app/page.client'
-import {getSession} from "@/utils/fetchSession";
-import {NavBar} from '@/app/layout/NavBar'
+import {Carousel} from '@/components/Carousel'
+import {getRestData, postRestData} from '@/utils/fetchHeaders'
+import {ShopSlides, TagFilterList} from '@/app/page.client'
+import React from 'react'
+import {Section} from '@/components/Section'
 
 type HomePageProps = {
     searchParams: {
-        q: string,
+        q: string
         tags: string
     }
 }
 
-export default async function HomePage ({searchParams}: HomePageProps) {
-    const session = await getSession()
-    const query = searchParams.q
+export default async function HomePage ({searchParams}: Readonly<HomePageProps>) {
     const tagArray = searchParams.tags?.split(',').filter(value => value != '')
     const tags = new Set<string>(tagArray)
-    const shopData = tags?.size > 0 ? await postRestData('/apis/shop/getShopsWithTags', JSON.stringify(tagArray)) : await getRestData('/apis/shop')
+    const shopData = tags?.size > 0 ? await postRestData('/apis/shop/tag', tagArray) : await getRestData('/apis/shop')
 
     const brewingTags = {
         group: 'Brewing',
-        tags: await getRestData('/apis/tag/tagGroup/brewing')
+        tags: await getRestData('/apis/tag/group/brewing')
     }
     const busyTags = {
         group: 'Busy Times',
-        tags: await getRestData('/apis/tag/tagGroup/busy')
+        tags: await getRestData('/apis/tag/group/busy')
     }
     const serviceTags = {
         group: 'Service',
-        tags: await getRestData('/apis/tag/tagGroup/service')
+        tags: await getRestData('/apis/tag/group/service')
     }
     return (
-        <>
-            <NavBar query={query} session={session}/>
-            <PrimarySection>
-                <PrimaryContainer autoMargins>
-                    <div className={'flex flex-col-reverse md:flex-col'}>
-                        <div className={"mt-5"}>
-                            <Carousel>
-                                {shopData.length > 0 ? sliceSplit(shopData, 6)
-                                    .map((split: any, slideIndex: number, splitCollection: any[]) => {
-                                        const previousSlideIndex = getPreviousSlideIndex(slideIndex, splitCollection.length)
-                                        const nextSlideIndex = getNextSlideIndex(slideIndex, splitCollection.length)
-                                        return <CarouselSlide key={`slide${slideIndex}`}
-                                                              slideId={`slide${slideIndex}`} shopArray={split}
-                                                              previousSlideId={`slide${previousSlideIndex}`}
-                                                              nextSlideId={`slide${nextSlideIndex}`}/>
-                                    }) : <p>No shops matching your filters.</p>}
-                            </Carousel>
-                        </div>
-                        <div className={'block md:hidden'}>
-                            <TagFilterList group={brewingTags} activeTags={tags} startChecked/>
-                            <TagFilterList group={serviceTags} activeTags={tags}/>
-                            <TagFilterList group={busyTags} activeTags={tags}/>
-                        </div>
-                        <div className={'hidden md:block'}>
-                            <TagFilterList group={brewingTags} activeTags={tags} startChecked/>
-                            <TagFilterList group={serviceTags} activeTags={tags} startChecked/>
-                            <TagFilterList group={busyTags} activeTags={tags} startChecked/>
-                        </div>
-                    </div>
-
-                </PrimaryContainer>
-            </PrimarySection>
-        </>
+        <Section className={'p-4'}>
+            <div className={'flex flex-col-reverse md:flex-col'}>
+                <Carousel className={'pb-4'}>
+                    <ShopSlides shopData={shopData}/>
+                </Carousel>
+                <div className={'block md:hidden'}>
+                    <TagFilterList group={brewingTags} activeTags={tags} startChecked/>
+                    <TagFilterList group={serviceTags} activeTags={tags}/>
+                    <TagFilterList group={busyTags} activeTags={tags}/>
+                </div>
+                <div className={'hidden md:block'}>
+                    <TagFilterList group={brewingTags} activeTags={tags} startChecked/>
+                    <TagFilterList group={serviceTags} activeTags={tags} startChecked/>
+                    <TagFilterList group={busyTags} activeTags={tags} startChecked/>
+                </div>
+            </div>
+        </Section>
     )
-}
-
-function getPreviousSlideIndex(slideIndex: number, max: number) {
-    return slideIndex === 0 ? max - 1 : slideIndex - 1;
-}
-
-function getNextSlideIndex(slideIndex: number, max: number) {
-    return slideIndex === max - 1 ? 0 : slideIndex + 1;
-}
-
-function sliceSplit(array: Array<any>, sliceSize: number) {
-    return array.reduce((accumulator, element, index) => {
-        const sliceIndex = Math.floor(index / sliceSize)
-        accumulator[sliceIndex] = [].concat((accumulator[sliceIndex] || []), element)
-        return accumulator
-    }, [])
 }

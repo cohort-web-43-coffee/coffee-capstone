@@ -1,55 +1,43 @@
-import {PrimarySection} from '@/app/components/Section'
 import React from 'react'
-import {Container} from '@/app/components/Container'
-import {GalleryModal, GalleryModalButton, BookmarkToggle, TagToggleList} from '@/app/shop/[shopId]/page.client'
-import {PageProps} from '@/app/types/Props'
-import {getRestData} from "@/app/utils/fetch"
+import {BookmarkToggle, TagToggleList} from '@/app/shop/[shopId]/page.client'
+import {getRestData} from '@/utils/fetchHeaders'
 import {getSession} from '@/utils/fetchSession'
-import {NavBar} from '@/app/layout/NavBar'
+import {CustomLink} from '@/components/CustomLink.client'
+import {GallerySVG} from '@/components/SVG'
+import {Section} from '@/components/Section'
 
 
-type ShopPageProps = PageProps & {
+type ShopPageProps = {
     params: { shopId: string }
 }
 
-export default async function ShopPage({params, searchParams}: ShopPageProps) {
+export default async function ShopPage ({params}: Readonly<ShopPageProps>) {
     const {shopId} = params
     const session = await getSession()
-    const shopData = await getRestData(`/apis/shop/shopId/${shopId}`)
-    const tagData = await getRestData(`/apis/tag/shopTags/${shopId}`)
-    const photoData = await getRestData(`/apis/photo/photoByShopId/${shopId}`)
-    const query = searchParams.q
-
-    return <>
-        <NavBar query={query} session={session}/>
-        <PrimarySection>
-            <Container autoMargins>
-                <div
-                    className={"mx-auto p-5 bg-primary-container-variant flex flex-col justify-center sm:grid sm:grid-cols-[1fr_2fr] gap-3"}>
-                    <div>
-                        <img src={shopData.shopPhotoUrl} alt={shopData.shopName}
-                             className={'w-auto h-auto sm:w-40 sm:h-40 md:w-60 md:h-60 lg:w-96 lg:h-96'}/>
+    const shopData = await getRestData(`/apis/shop/${shopId}`)
+    const tagData = await getRestData(`/apis/tag/shop/${shopId}`)
+    return (
+        <Section>
+            <div className="hero min-h-[40vh]" style={{backgroundImage: `url(${shopData.shopPhotoUrl})`}}>
+                <div className="hero-overlay bg-opacity-60"/>
+                <div className="hero-content text-center text-neutral-content grid grid-rows-[auto_12px]">
+                    <div className="max-w-md">
+                        <h1 className={'text-4xl text-primary-container drop-shadow-lg flex items-center justify-center'}>
+                            {shopData?.shopName}
+                        </h1>
+                        <p className={'font-bold text-accent text-center'}>{shopData?.shopAddress}<br/>{shopData?.shopPhoneNumber}</p>
                     </div>
-                    <div className={'flex flex-col items-center justify-center'}>
-                        <div className={'prose'}><h1
-                            className={'text-primary-container drop-shadow-lg'}>{shopData?.shopName}</h1></div>
-                        <div className={'prose'}><p
-                            className={'font-bold text-accent drop-shadow-lg pl-2'}>Address: {shopData?.shopAddress}</p>
-                        </div>
-                        <div className={'prose'}><p className={'font-bold text-accent drop-shadow-lg'}>Phone
-                            Number: {shopData?.shopPhoneNumber}</p></div>
+                    <div>
+                        <CustomLink href={`/gallery/${shopId}`}>
+                            <GallerySVG className={'fill-primary'}/>
+                        </CustomLink>
                         <BookmarkToggle shopId={shopId} session={session}/>
-
-                        <TagToggleList tagData={tagData} shopId={shopId} session={session}/>
                     </div>
-                    <div>
-                        <GalleryModalButton/>
-                    </div>
-                    <GalleryModal shopPhotoUrl={shopData.shopPhotoUrl} photosUrls={photoData} shopName={shopData.shopName}/>
                 </div>
-            </Container>
-        </PrimarySection>
-    </>
+            </div>
+            <div className={'grid cols-1 justify-items-center gap-4'}>
+                <TagToggleList tagData={tagData} shopId={shopId} session={session}/>
+            </div>
+        </Section>
+    )
 }
-
-

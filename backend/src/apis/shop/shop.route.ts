@@ -9,16 +9,14 @@ import {
 
 const basePath = '/apis/shop'
 const router = Router()
+
 router.route('/')
     .get(getAllShopsController)
-
-router.route('/shopId/:shopId')
-    .get(getShopByShopIdController)
-
 router.route('/search')
     .get(searchShopByNameController)
-
-router.route('/getShopsWithTags')
+router.route('/tag')
     .post(getsShopsWithTagsController)
+router.route('/:shopId')
+    .get(getShopByShopIdController)
 
 export const shopRoute = {basePath, router}

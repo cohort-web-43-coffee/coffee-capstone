@@ -1,11 +1,10 @@
-import {Router} from "express";
+import {Router} from 'express';
 import {
     getAllTagsByTagGroupController,
-    getAllTagsByTagLabelController,
     getShopTagsController,
     insertTagController
-} from "./tag.controller";
-import {isSignInController} from "../../utils/contollers/isSignIn.Controller";
+} from './tag.controller'
+import {isSignInController} from '../../utils/contollers/isSignIn.Controller'
 
 
 
@@ -13,13 +12,9 @@ const basePath = '/apis/tag'
 const router = Router()
 router.route('/')
     .post(isSignInController, insertTagController)
-router.route('/tagGroup/:tagGroup')
+router.route('/group/:tagGroup')
     .get(getAllTagsByTagGroupController)
-
-router.route('/tagLabel/:tagLabel')
-    .get(getAllTagsByTagLabelController)
-
-router.route('/shopTags/:shopId')
+router.route('/shop/:shopId')
     .get(getShopTagsController)
 
 export const tagRoute = {basePath, router}

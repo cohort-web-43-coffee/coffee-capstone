@@ -1,30 +1,27 @@
-import {cookies} from "next/headers";
+import {cookies} from 'next/headers';
 
-export async function POST(request: Request){
-
-
+export async function POST (request: Request) {
     const data = await request.json()
+    const response = await postSignIn(data)
+    const authorization = response.headers.get('authorization')
 
-    const responseFromServer =  await fetch(`${process.env.PUBLIC_API_URL}/apis/sign-in`,
+    if (authorization) {
+        const cookieStore = cookies()
+        cookieStore.set('jwt-token', authorization, {path: '/', maxAge: 3600})
+    }
+
+    return response
+}
+
+async function postSignIn (data: string) {
+    return await fetch(`${process.env.PUBLIC_API_URL}/apis/sign-in`,
         {
-            method: "POST",
-            credentials: "include",
+            method: 'POST',
+            credentials: 'include',
             headers: {
-                "Content-Type": "application/json",
+                'Content-Type': 'application/json'
             },
             body: JSON.stringify(data)
         }
     )
-
-    const response = responseFromServer.clone()
-
-    const authorization = response.headers.get("authorization")
-
-    if (authorization) {
-        const cookieStore = cookies()
-        const cookie = cookieStore.set("jwt-token", authorization, {path: "/", maxAge:3600})
-        console.log(cookie)
-    }
-
-    return response
 }

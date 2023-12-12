@@ -15,7 +15,7 @@ export function isSignInController(request: Request, response: Response, next: N
             return response.json(status)
         }
         if (unverifiedJwtToken !== request.session?.jwt) {
-            console.log("token mismatched")
+            console.error("token mismatched")
             return response.json(status)
         }
         verify(unverifiedJwtToken, signature)

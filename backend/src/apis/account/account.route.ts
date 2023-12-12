@@ -1,17 +1,14 @@
 import {Router} from "express";
 import {
-    getPublicAccountController,
+    getPublicAccountController
 } from "./account.controller";
 import {isSignInController} from "../../utils/contollers/isSignIn.Controller";
 
-// this is the basePath for this router
-const basePath = '/apis/account'
 
-////instantiate a new router object
+const basePath = '/apis/account'
 const router: Router = Router()
 
 router.route('/')
-.get(isSignInController, getPublicAccountController)
+    .get(isSignInController, getPublicAccountController)
 
-//// export the router with the basePath and router object
 export const accountRoute = {basePath, router}

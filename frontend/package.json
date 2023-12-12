@@ -17,6 +17,7 @@
     "next": "14.0.0",
     "react": "^18",
     "react-dom": "^18",
+    "react-use": "^17.4.2",
     "zod-formik-adapter": "^1.2.0"
   },
   "devDependencies": {

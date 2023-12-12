@@ -8,17 +8,6 @@ import Mailgun from "mailgun.js";
 import formData from 'form-data'
 
 
-/**
- * Express controller for sign-up
- * @endpoint POST /apis/sign-up/
- * @param request an object containing the body contain a accountName, accountEmail, accountPassword and accountPasswordConfirm.
- * @param response an object modeling the response that will be sent to the client.
- * @returns response to the client indicating whether the sign up was successful or not
- * */
-
-
-
-
 export async function signUpController (request: Request, response: Response): Promise<Response | undefined> {
     try{
         const bodyValidationResult = SignUpSchema.safeParse(request.body)
@@ -36,7 +25,7 @@ export async function signUpController (request: Request, response: Response): P
         // create a message for the activation email body
         const message = `<h2>Welcome to Coffee Land.</h2>
         <p>In order to start finding better coffee info you must confirm your account.</p>
-        <p><a href="${basePath}">${basePath}</a></p>`
+        <p><Link href="${basePath}">${basePath}</Link></p>`
         // create a mailgun message object
         const mailgunMessage = {
             from: `Mailgun Sandbox <postmaster@${process.env.MAILGUN_DOMAIN as string}>`,
@@ -63,7 +52,7 @@ export async function signUpController (request: Request, response: Response): P
         }
         return response.json(status)
     } catch (error: any) {
-        console.log(error)
+        console.error(error)
         const status: Status = {
             status: 500,
             message: error.message,

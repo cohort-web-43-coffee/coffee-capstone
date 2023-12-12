@@ -17,8 +17,6 @@ const nextConfig = {
         ]
     },
     async rewrites() {
-
-
         return [
             {
                 source: '/apis/:path*',
@@ -26,7 +24,17 @@ const nextConfig = {
                 // Proxy to Backend
             }
         ]
-    }
+    },
+    images: {
+        remotePatterns: [
+            {
+                protocol: 'https',
+                hostname: '**.yelpcdn.com',
+                port: '',
+                pathname: '/bphoto/*/o.jpg',
+            },
+        ],
+    },
 }
 
 
