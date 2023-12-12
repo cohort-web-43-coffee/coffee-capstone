@@ -97,6 +97,7 @@ function SearchResults ({searchResult}: Readonly<SearchBarProps>) {
                         <Link key={shop.shopId} href={`/shop/${shop.shopId}`}>
                             <li>{shop.shopName}</li>
                             <li className={'text-xs pt-1'} key={shop.shopId}>{shop.shopAddress}</li>
+                            <div className={'divider max-h-1'}></div>
                         </Link>)
                     :
                     <p>No Results</p>}
