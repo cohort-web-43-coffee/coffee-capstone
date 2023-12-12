@@ -92,11 +92,11 @@ function SearchResults ({searchResult}: Readonly<SearchBarProps>) {
     return (
         <div tabIndex={0}>
             <ul tabIndex={0}
-                className={'dropdown-content z-10 menu grid p-2 shadow bg-base-100 rounded-box sm:w-40 md:w-52 max-h-52 overflow-y-auto gap-4'}>
+                className={'dropdown-content z-10 menu grid p-2 shadow bg-base-100 rounded-box sm:w-40 md:w-52 max-h-52 overflow-y-auto'}>
                 {searchResult.length > 0 ? searchResult.map((shop: any) =>
                         <Link key={shop.shopId} href={`/shop/${shop.shopId}`}>
                             <li>{shop.shopName}</li>
-                            <li className={'text-xs'}>{shop.shopAddress}</li>
+                            <li className={'text-xs pt-1'} key={shop.shopId}>{shop.shopAddress}</li>
                         </Link>)
                     :
                     <p>No Results</p>}
