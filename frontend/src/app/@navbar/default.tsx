@@ -96,6 +96,7 @@ function SearchResults ({searchResult}: Readonly<SearchBarProps>) {
                 {searchResult.length > 0 ? searchResult.map((shop: any) =>
                         <Link key={shop.shopId} href={`/shop/${shop.shopId}`}>
                             <li>{shop.shopName}</li>
+                            <li className={'text-xs'}>{shop.shopAddress}</li>
                         </Link>)
                     :
                     <p>No Results</p>}
