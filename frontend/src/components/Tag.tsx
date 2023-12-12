@@ -16,9 +16,9 @@ export function TagButton ({showCount, tag, handleChanged, checked}: Readonly<Ta
     const formattedLabel = formatTagButtonLabel(tagLabel, count, showCount)
 
     return <input type={'checkbox'} id={tag.tagId} onChange={handleChanged} aria-label={formattedLabel}
-                  checked={checked} className="btn bg-primary-unchecked btn-xs md:btn-sm lg:btn-md" style={{backgroundImage: 'none'}}/>
+                  checked={checked} className={'btn bg-primary-unchecked btn-xs md:btn-sm'} style={{backgroundImage: 'none'}}/>
 }
 
 function formatTagButtonLabel (label: string, count: number, showCount?: boolean) {
-    return showCount && count != undefined ? `#${label} ${count}` : `#${label}`
+    return showCount && count && count > 0 ? `#${label} (${count})` : `#${label}`
 }

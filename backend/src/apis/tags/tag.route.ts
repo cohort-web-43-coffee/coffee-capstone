@@ -1,11 +1,6 @@
 import {Router} from 'express';
-import {
-    getAllTagsByTagGroupController,
-    getShopTagsController,
-    insertTagController
-} from './tag.controller'
+import {getAllTagsByTagGroupController, getShopTagsController, insertTagController} from './tag.controller'
 import {isSignInController} from '../../utils/contollers/isSignIn.Controller'
-
 
 
 const basePath = '/apis/tag'
