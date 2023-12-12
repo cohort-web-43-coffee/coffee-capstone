@@ -93,7 +93,7 @@ export function TagToggleGroup ({group, shopId, session, activeTags, startChecke
                 <div className={'divider'}>{group.group}</div>
             </div>
             <div className={'collapse-content'}>
-                <div className={'flex flex-wrap gap-1 justify-center'}>
+                <div className={'flex flex-wrap gap-4 justify-around'}>
                     {group?.tags?.map((tag: Tag) =>
                         <TagButton
                             showCount
