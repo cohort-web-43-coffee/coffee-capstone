@@ -11,7 +11,7 @@ type GalleryModalProps = {
 
 export default async function GalleryModal ({params}: Readonly<GalleryModalProps>) {
     const {shopId} = params
-    const photoData = await getRestData(`/apis/photo/photoByShopId/${shopId}`)
+    const photoData = await getRestData(`/apis/photo/shop/${shopId}`)
     const shopData = await getRestData(`/apis/shop/${shopId}`)
 
     return (
