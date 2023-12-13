@@ -21,11 +21,12 @@ export default async function ShopPage ({params}: Readonly<ShopPageProps>) {
             <div className="hero min-h-[40vh]" style={{backgroundImage: `url(${shopData?.shopPhotoUrl})`}}>
                 <div className="hero-overlay bg-opacity-60"/>
                 <div className="hero-content text-center text-neutral-content grid grid-rows-[auto_12px]">
-                    <div className="max-w-md">
+                    <div className='max-w-md'>
                         <h1 className={'text-4xl text-primary-container drop-shadow-lg flex items-center justify-center'}>
                             {shopData?.shopName}
                         </h1>
-                        <p className={'font-bold text-accent text-center'}>{shopData?.shopAddress}<br/>{shopData?.shopPhoneNumber}</p>
+                        <p className={'font-bold drop-shadow-md text-accent text-center'}>{shopData?.shopAddress}<br/>{shopData?.shopPhoneNumber}
+                        </p>
                     </div>
                     <div>
                         <CustomLink href={`/gallery/${shopId}`}>

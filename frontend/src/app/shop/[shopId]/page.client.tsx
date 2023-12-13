@@ -36,8 +36,8 @@ export function TagToggleList ({shopId, session}: Readonly<TagToggleListProps>) 
         fetchTags(shopId, setTags).then()
     }
 
-    useEffect(fetchActiveTagsEffect, [setActiveTags, shopId])
-    useEffect(fetchTagsEffect, [setTags, shopId])
+    useEffect(fetchActiveTagsEffect, [shopId, session])
+    useEffect(fetchTagsEffect, [shopId])
 
     const brewingTags = {
         group: 'Brewing',
@@ -173,7 +173,7 @@ export function BookmarkToggle ({session, shopId}: BookmarkToggleProps) {
     useEffect(fetchBookmarks, [setBookmarks])
 
     return (
-        <label className={`swap swap-flip w-[24px] h-[24px]`}>
+        <label className={`swap swap-flip w-[36px] h-[36px]`}>
             <input
                 type={'checkbox'}
                 aria-label={'Bookmark'}
