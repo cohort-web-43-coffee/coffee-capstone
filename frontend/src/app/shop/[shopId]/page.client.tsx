@@ -6,81 +6,97 @@ import React, {useEffect, useState} from 'react'
 import {SessionProps} from "@/types/Props"
 import {BookmarkAddedSVG, BookmarkAddSVG} from '@/components/SVG'
 
-
-type TagToggleListProps = {
-    tagData: any[],
-    shopId: string,
-    session?: Session
+type TagsSetter = React.Dispatch<React.SetStateAction<Tag[]>>
+type ActiveTagsSetter = React.Dispatch<React.SetStateAction<string[]>>
+type TagToggleListProps = SessionProps & {
+    shopId: string
 }
 type TagToggleGroupProps = SessionProps & {
     group: TagGroup,
     shopId: string,
     activeTags: string[],
     startChecked?: boolean
-    activeTagsSetter: React.Dispatch<React.SetStateAction<string[]>>
+    activeTagsSetter: ActiveTagsSetter
+    tagsSetter: TagsSetter
 }
 type BookmarkToggleProps = SessionProps & {
     shopId: string
 }
 
-export function TagToggleList ({tagData, shopId, session}: Readonly<TagToggleListProps>) {
+export function TagToggleList ({shopId, session}: Readonly<TagToggleListProps>) {
     const [activeTags, setActiveTags] = useState(new Array<string>())
-    const effect = () => {
+    const [tags, setTags] = useState(new Array<Tag>())
+
+
+    const fetchActiveTagsEffect = () => {
         fetchActiveTags(shopId, setActiveTags, session).then()
     }
 
-    useEffect(effect, [setActiveTags, shopId])
+    const fetchTagsEffect = () => {
+        fetchTags(shopId, setTags).then()
+    }
+
+    useEffect(fetchActiveTagsEffect, [setActiveTags, shopId])
+    useEffect(fetchTagsEffect, [setTags, shopId])
 
     const brewingTags = {
         group: 'Brewing',
-        tags: tagData?.filter((tag: Tag) => tag.tagGroup === 'brewing')
+        tags: tags.filter((tag: Tag) => tag.tagGroup === 'brewing')
     }
     const busyTags = {
         group: 'Busy Times',
-        tags: tagData?.filter((tag: Tag) => tag.tagGroup === 'busy')
+        tags: tags.filter((tag: Tag) => tag.tagGroup === 'busy')
     }
     const serviceTags = {
         group: 'Service',
-        tags: tagData?.filter((tag: Tag) => tag.tagGroup === 'service')
+        tags: tags.filter((tag: Tag) => tag.tagGroup === 'service')
     }
 
     return (
         <>
             <div className={'block md:hidden'}>
-                <TagToggleGroup group={brewingTags} shopId={shopId} session={session} activeTags={activeTags}
-                                activeTagsSetter={setActiveTags} startChecked/>
-                <TagToggleGroup group={busyTags} shopId={shopId} session={session} activeTags={activeTags}
-                                activeTagsSetter={setActiveTags}/>
-                <TagToggleGroup group={serviceTags} shopId={shopId} session={session} activeTags={activeTags}
-                                activeTagsSetter={setActiveTags}/>
+                <TagToggleGroup
+                    group={brewingTags} shopId={shopId} session={session} activeTags={activeTags}
+                    activeTagsSetter={setActiveTags} tagsSetter={setTags} startChecked/>
+                <TagToggleGroup
+                    group={busyTags} shopId={shopId} session={session} activeTags={activeTags}
+                    activeTagsSetter={setActiveTags} tagsSetter={setTags}/>
+                <TagToggleGroup
+                    group={serviceTags} shopId={shopId} session={session} activeTags={activeTags}
+                    activeTagsSetter={setActiveTags} tagsSetter={setTags}/>
             </div>
             <div className={'hidden md:block'}>
-                <TagToggleGroup group={brewingTags} shopId={shopId} session={session} activeTags={activeTags}
-                                activeTagsSetter={setActiveTags} startChecked/>
-                <TagToggleGroup group={busyTags} shopId={shopId} session={session} activeTags={activeTags}
-                                activeTagsSetter={setActiveTags} startChecked/>
-                <TagToggleGroup group={serviceTags} shopId={shopId} session={session} activeTags={activeTags}
-                                activeTagsSetter={setActiveTags} startChecked/>
+                <TagToggleGroup
+                    group={brewingTags} shopId={shopId} session={session} activeTags={activeTags}
+                    activeTagsSetter={setActiveTags} startChecked tagsSetter={setTags}/>
+                <TagToggleGroup
+                    group={busyTags} shopId={shopId} session={session} activeTags={activeTags}
+                    activeTagsSetter={setActiveTags} startChecked tagsSetter={setTags}/>
+                <TagToggleGroup
+                    group={serviceTags} shopId={shopId} session={session} activeTags={activeTags}
+                    activeTagsSetter={setActiveTags} startChecked tagsSetter={setTags}/>
             </div>
         </>
     )
 }
 
 
-export function TagToggleGroup ({group, shopId, session, activeTags, startChecked, activeTagsSetter}: Readonly<TagToggleGroupProps>) {
-    const handleChanged =  makeToggleChangedHandler(shopId, activeTagsSetter, session)
+export function TagToggleGroup ({group, shopId, session, activeTags, startChecked, activeTagsSetter, tagsSetter}: Readonly<TagToggleGroupProps>) {
+    const handleChanged = makeToggleChangedHandler(shopId, activeTagsSetter, tagsSetter, session)
 
     return (
         <div className={'collapse collapse-arrow'}>
-            <input type={'checkbox'} name={'filter-accordion'} className={'min-w-full'}
-                   defaultChecked={startChecked ?? false}/>
+            <input
+                type={'checkbox'} name={'filter-accordion'} className={'min-w-full'}
+                defaultChecked={startChecked ?? false}/>
             <div className={'collapse-title text-xl font-medium'}>
                 <div className={'divider'}>{group.group}</div>
             </div>
             <div className={'collapse-content'}>
-                <div className={'flex flex-wrap gap-6 justify-around'}>
+                <div className={'flex flex-wrap gap-4 justify-around'}>
                     {group?.tags?.map((tag: Tag) =>
                         <TagButton
+                            showCount
                             tag={tag}
                             key={tag.tagId}
                             checked={activeTags?.includes(tag.tagId) ?? false}
@@ -91,7 +107,7 @@ export function TagToggleGroup ({group, shopId, session, activeTags, startChecke
     )
 }
 
-function makeToggleChangedHandler(shopId: string, activeTagsSetter: React.Dispatch<React.SetStateAction<string[]>>, session: Session|undefined) {
+function makeToggleChangedHandler (shopId: string, activeTagsSetter: ActiveTagsSetter, tagSetter: TagsSetter, session: Session | undefined) {
     return (event: any) => {
         if (session) {
             const isChecked = event.currentTarget.checked
@@ -107,12 +123,14 @@ function makeToggleChangedHandler(shopId: string, activeTagsSetter: React.Dispat
                 const requestHeaders = requestDeleteHeaders(body, session)
                 fetch('/apis/activeTag', requestHeaders).then(() => {
                         fetchActiveTags(shopId, activeTagsSetter, session).then()
+                        fetchTags(shopId, tagSetter).then()
                     }
                 )
             } else {
                 const requestHeaders = requestPostHeaders(body, session)
                 fetch('/apis/activeTag', requestHeaders).then(() => {
                         fetchActiveTags(shopId, activeTagsSetter, session).then()
+                        fetchTags(shopId, tagSetter).then()
                     }
                 )
             }
@@ -156,25 +174,35 @@ export function BookmarkToggle ({session, shopId}: BookmarkToggleProps) {
 
     return (
         <label className={`swap swap-flip w-[24px] h-[24px]`}>
-            <input type={'checkbox'}
-                   aria-label={'Bookmark'}
-                   checked={bookmarks?.filter((shop: any) => shop.shopId === shopId).length > 0}
-                   onChange={handleBookmarkToggleChanged}
-                   className={'hidden'}
+            <input
+                type={'checkbox'}
+                aria-label={'Bookmark'}
+                checked={bookmarks?.filter((shop: any) => shop.shopId === shopId).length > 0}
+                onChange={handleBookmarkToggleChanged}
+                className={'hidden'}
             />
             <BookmarkAddSVG className={'swap-off fill-primary'}/>
             <BookmarkAddedSVG className={'swap-on fill-primary'}/>
         </label>
     )
 }
-
-
-async function fetchActiveTags (shopId: string, activeTagsSetter: React.Dispatch<React.SetStateAction<string[]>>, session?: Session) {
+async function fetchActiveTags (shopId: string, activeTagsSetter: ActiveTagsSetter, session?: Session) {
     const headers = requestGetHeaders(session)
     const url = `/apis/activeTag/shop/${shopId}`
     fetch(url, headers)
         .then(response => response.json())
         .then((body) => {
             activeTagsSetter(body.data)
+        })
+}
+
+
+async function fetchTags (shopId: string, tagsSetter: TagsSetter) {
+    const headers = requestGetHeaders()
+    const url = `/apis/tag/shop/${shopId}`
+    fetch(url, headers)
+        .then(response => response.json())
+        .then(body => {
+            tagsSetter(body.data)
         })
 }

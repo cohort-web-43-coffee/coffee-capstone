@@ -15,10 +15,10 @@ export default async function ShopPage ({params}: Readonly<ShopPageProps>) {
     const {shopId} = params
     const session = await getSession()
     const shopData = await getRestData(`/apis/shop/${shopId}`)
-    const tagData = await getRestData(`/apis/tag/shop/${shopId}`)
+
     return (
         <Section>
-            <div className="hero min-h-[40vh]" style={{backgroundImage: `url(${shopData.shopPhotoUrl})`}}>
+            <div className="hero min-h-[40vh]" style={{backgroundImage: `url(${shopData?.shopPhotoUrl})`}}>
                 <div className="hero-overlay bg-opacity-60"/>
                 <div className="hero-content text-center text-neutral-content grid grid-rows-[auto_12px]">
                     <div className="max-w-md">
@@ -36,7 +36,7 @@ export default async function ShopPage ({params}: Readonly<ShopPageProps>) {
                 </div>
             </div>
             <div className={'grid cols-1 justify-items-center gap-4'}>
-                <TagToggleList tagData={tagData} shopId={shopId} session={session}/>
+                <TagToggleList shopId={shopId} session={session}/>
             </div>
         </Section>
     )
