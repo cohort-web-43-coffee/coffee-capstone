@@ -11,8 +11,7 @@ type ShopPageProps = {
     params: { shopId: string }
 }
 
-export default async function ShopPage ({params}: Readonly<ShopPageProps>) {
-    const {shopId} = params
+export default async function ShopPage ({params: {shopId}}: Readonly<ShopPageProps>) {
     const session = await getSession()
     const shopData = await getRestData(`/apis/shop/${shopId}`)
 
