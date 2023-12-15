@@ -1,4 +1,4 @@
-import {SignInForm} from '@/app/@modal/sign-in/page.client'
+import {SignInForm} from '@/app/sign-in/page.client'
 import {Modal, ModalActions} from '@/components/Modal'
 import {CloseModalButton} from '@/components/Modal.client'
 
