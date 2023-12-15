@@ -11,8 +11,7 @@ type ShopPageProps = {
     params: { shopId: string }
 }
 
-export default async function ShopPage ({params}: Readonly<ShopPageProps>) {
-    const {shopId} = params
+export default async function ShopPage ({params: {shopId}}: Readonly<ShopPageProps>) {
     const session = await getSession()
     const shopData = await getRestData(`/apis/shop/${shopId}`)
 
@@ -29,7 +28,7 @@ export default async function ShopPage ({params}: Readonly<ShopPageProps>) {
                         </p>
                     </div>
                     <div>
-                        <CustomLink href={`/gallery/${shopId}`}>
+                        <CustomLink href={`${shopId}/gallery`}>
                             <GallerySVG className={'fill-primary'}/>
                         </CustomLink>
                         <BookmarkToggle shopId={shopId} session={session}/>

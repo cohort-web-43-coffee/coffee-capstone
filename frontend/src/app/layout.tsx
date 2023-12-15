@@ -39,7 +39,5 @@ function Footer () {
                 Data powered by <Link href={'https://yelp.com'} className={'inline'}><YelpSVG/></Link>
             </nav>
         </footer>
-
-
     )
 }

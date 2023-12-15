@@ -1,12 +1,11 @@
+import {ChildProps} from '@/types/Props'
 import {Modal, ModalActions} from '@/components/Modal'
-import {SignUpForm} from '@/app/@modal/sign-up/page.client'
 import {CloseModalButton} from '@/components/Modal.client'
 
-
-export default function SignUpModal () {
+export default function AuthModalLayout ({children}: Readonly<ChildProps>) {
     return (
         <Modal>
-            <SignUpForm/>
+            {children}
             <ModalActions>
                 <CloseModalButton/>
             </ModalActions>
