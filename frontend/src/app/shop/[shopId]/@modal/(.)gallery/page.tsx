@@ -1,5 +1,5 @@
 import {Modal, ModalActions} from '@/components/Modal'
-import { GalleryPageProps} from '@/app/gallery/[shopId]/page'
+import { GalleryPageProps} from '@/app/shop/[shopId]/gallery/page'
 import {CloseModalButton} from '@/components/Modal.client'
 import {getRestData} from '@/utils/fetchHeaders'
 import {Carousel, CarouselSlide, getNextSlideIndex, getPreviousSlideIndex} from '@/components/Carousel'

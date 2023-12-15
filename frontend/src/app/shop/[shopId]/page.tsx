@@ -28,7 +28,7 @@ export default async function ShopPage ({params: {shopId}}: Readonly<ShopPagePro
                         </p>
                     </div>
                     <div>
-                        <CustomLink href={`/gallery/${shopId}`}>
+                        <CustomLink href={`${shopId}/gallery`}>
                             <GallerySVG className={'fill-primary'}/>
                         </CustomLink>
                         <BookmarkToggle shopId={shopId} session={session}/>
