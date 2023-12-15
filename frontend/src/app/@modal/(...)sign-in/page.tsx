@@ -1,6 +1,6 @@
-import {SignInForm} from '@/app/sign-in/page.client'
 import {Modal, ModalActions} from '@/components/Modal'
 import {CloseModalButton} from '@/components/Modal.client'
+import {SignInForm} from '@/app/(auth)/sign-in/page.client'
 
 
 export default function SignInModal () {

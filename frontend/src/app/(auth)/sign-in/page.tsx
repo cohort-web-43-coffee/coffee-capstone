@@ -1,5 +1,6 @@
 import {Section} from '@/components/Section'
-import {SignInForm} from '@/app/sign-in/page.client'
+import {SignInForm} from '@/app/(auth)/sign-in/page.client'
+
 
 export default function SignInPage () {
     return (
