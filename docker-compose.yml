@@ -1,43 +1,49 @@
-version: "3"
+version: '3'
 
 services:
-  app:
+  frontend:
     build: frontend
-    user: "node"
-    ports:
-      - "80:3000"
+    user: 'node'
     env_file:
-      - ./project.env
+      - project.env
     depends_on:
-      - node
-      #    For deploying to server use ports: - 80:80
+      - backend
   redis:
     image: 'redis:alpine'
     volumes:
       - 'redis:/data'
     env_file:
-      - ./project.env
+      - project.env
     healthcheck:
-      test: [ "CMD", "redis-cli", "ping"]
+      test: [ 'CMD', 'redis-cli', 'ping']
   sql:
-    build: ./sql
+    build: sql
     ports:
       - '54321:5432'
     platform: linux/x86_64
     volumes:
       - sql:/var/lib/postgresql/data/
     env_file:
-      - ./project.env
-  node:
+      - project.env
+  backend:
     build: backend
     env_file:
       - project.env
     ports:
       - '8080:4200'
-    user: "node"
+    user: 'node'
     volumes:
       - ./backend/src:/home/node/app/src
       - ./backend/tsconfig.json:/home/node/app/tsconfig.json
+  reverse-proxy:
+    build: reverse-proxy
+    ports:
+      - '80:80'
+      - '443:443'
+    restart: always
+    depends_on:
+      - backend
+      - frontend
 volumes:
   sql:
     driver: local
