@@ -30,8 +30,8 @@ It's a Docker-based full stack web application utilizing Postgresql, Express, Ne
 
 2. Create `.env.development` in `/frontend`:
     ```dotenv
-    REST_API_URL=http://localhost:8080 # domain of your development container
-    PUBLIC_API_URL=http://localhost:3000 # always localhost
+    REST_API_URL=http://localhost:8080# domain of your development container
+    PUBLIC_API_URL=http://localhost:3000# always localhost
     ```
 
 * Run `docker compose up` in the root directory. Every time the containers spin up, the front end app will check the
