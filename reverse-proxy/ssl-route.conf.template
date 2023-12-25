@@ -4,6 +4,10 @@ upstream frontend_upstream {
     server frontend:3000;
 }
 
+upstream backend_upstream {
+    server backend:4200;
+}
+
 server {
     listen 443 ssl default_server reuseport;
     listen [::]:443 ssl default_server reuseport;
@@ -36,6 +40,10 @@ server {
         proxy_ignore_headers Cache-Control;
         proxy_cache_valid 60m;
         proxy_pass http://frontend_upstream;
+    }
+
+    location /apis {
+        proxy_pass http://backend_upstream;
     }
 
     location / {

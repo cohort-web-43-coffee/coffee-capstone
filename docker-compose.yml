@@ -6,8 +6,6 @@ services:
     user: 'node'
     env_file:
       - project.env
-    depends_on:
-      - backend
   redis:
     image: 'redis:alpine'
     volumes:
@@ -35,7 +33,6 @@ services:
     build: reverse-proxy
     ports:
       - '80:80'
-      - '8080:8080'
       - '443:443'
     env_file:
       - project.env
