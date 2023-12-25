@@ -7,7 +7,7 @@ upstream frontend_upstream {
 server {
     listen 443 ssl default_server reuseport;
     listen [::]:443 ssl default_server reuseport;
-    server_name coffee.inhale.design;
+    server_name ${NGINX_SERVER_NAME};
     server_tokens off;
 
     ssl_certificate         /etc/letsencrypt/live/coffee/fullchain.pem;
