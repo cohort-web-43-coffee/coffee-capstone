@@ -34,8 +34,9 @@ It's a Docker-based full stack web application utilizing Postgresql, Express, Ne
     PUBLIC_API_URL=http://localhost:3000# always localhost
     ```
 
-* Run `docker compose up` in the root directory. Every time the containers spin up, the front end app will check the
-  database tables. If any are empty, it will download the relevant data from Yelp and insert some data for a test
+3. Run `docker compose up` to start the containers in development. Use `docker compose -f production.yml up` to start the containers in production (adds SSL, certbot, and better caching).
+
+Every time the containers spin up, the front end app will check the database tables. If any are empty, it will download the relevant data from Yelp and insert some data for a test
   account.
 
 > [!WARNING]

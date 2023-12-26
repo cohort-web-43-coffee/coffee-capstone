@@ -1,26 +1,26 @@
-version: '3'
-
 services:
   frontend:
     build: frontend
     user: 'node'
     env_file:
-      - project.env
+      - ./project.env
+    depends_on:
+      - backend
   redis:
     image: 'redis:alpine'
     volumes:
       - 'redis:/data'
     env_file:
-      - project.env
+      - ./project.env
     healthcheck:
       test: [ 'CMD', 'redis-cli', 'ping']
   sql:
-    build: sql
+    build: ./sql
     platform: linux/x86_64
     volumes:
       - sql:/var/lib/postgresql/data/
     env_file:
-      - project.env
+      - ./project.env
   backend:
     build: backend
     env_file:
@@ -29,23 +29,8 @@ services:
     volumes:
       - ./backend/src:/home/node/app/src
       - ./backend/tsconfig.json:/home/node/app/tsconfig.json
-  reverse-proxy:
-    build: reverse-proxy
-    ports:
-      - '80:80'
-      - '443:443'
-    env_file:
-      - project.env
-    volumes:
-      - reverse-proxy:/etc/letsencrypt
-    restart: unless-stopped
-    depends_on:
-      - backend
-      - frontend
 volumes:
   sql:
     driver: local
   redis:
-    driver: local
-  reverse-proxy:
     driver: local
