@@ -1,6 +1,6 @@
 services:
   frontend:
-    build: frontend
+    build: ./frontend
     user: 'node'
     env_file:
       - ./project.env
@@ -22,7 +22,7 @@ services:
     env_file:
       - ./project.env
   backend:
-    build: backend
+    build: ./backend
     env_file:
       - project.env
     user: 'node'

@@ -1,0 +1,34 @@
+services:
+
+  log-db:
+    image: elasticsearch:8.11.3
+    environment:
+      discovery.type: "single-node"
+    expose:
+      - 9200
+    ports:
+      - '9200:9200'
+
+  log-aggregator:
+    build: ./fluentd
+    volumes:
+      - ./fluentd/conf:/fluentd/etc
+    links:
+      - log-db
+    ports:
+      - '24224:24224'
+      - '24224:24224/udp'
+    depends_on:
+      - log-db
+
+  log-dash:
+    container_name: log-dash
+    image: kibana:8.11.3
+    links:
+      - log-db
+    expose:
+      - '5601'
+    ports:
+      - '5601:5601'
+    depends_on:
+      - log-aggregator

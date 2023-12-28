@@ -3,20 +3,56 @@ services:
     extends:
       file: docker-compose.yml
       service: frontend
+    links:
+      - log-aggregator
+    logging:
+      driver: 'fluentd'
+      options:
+        fluentd-address: log-aggregator:24224
+        tag: frontend
+    depends_on:
+    - log-aggregator
   backend:
       extends:
         file: docker-compose.yml
         service: backend
+      links:
+        - log-aggregator
+      logging:
+        driver: 'fluentd'
+        options:
+          fluentd-address: log-aggregator:24224
+          tag: backend
+      depends_on:
+        - log-aggregator
   sql:
       extends:
         file: docker-compose.yml
         service: sql
+      links:
+        - log-aggregator
+      logging:
+        driver: 'fluentd'
+        options:
+          fluentd-address: log-aggregator:24224
+          tag: backend
+      depends_on:
+        - log-aggregator
   redis:
       extends:
         file: docker-compose.yml
         service: redis
+      links:
+        - log-aggregator
+      logging:
+        driver: 'fluentd'
+        options:
+          fluentd-address: log-aggregator:24224
+          tag: redis
+      depends_on:
+        - log-aggregator
   reverse-proxy:
-    build: reverse-proxy
+    build: ./reverse-proxy
     ports:
       - '80:80'
       - '443:443'
@@ -28,6 +64,27 @@ services:
     depends_on:
       - backend
       - frontend
+      - log-aggregator
+    links:
+      - log-aggregator
+    logging:
+      driver: 'fluentd'
+      options:
+        fluentd-address: log-aggregator:24224
+        tag: reverse-proxy
+  log-db:
+    extends:
+      file: docker-logger.yml
+      service: log-db
+  log-aggregator:
+    extends:
+      file: docker-logger.yml
+      service: log-aggregator
+  log-dash:
+    extends:
+      file: docker-logger.yml
+      service: log-dash
+
 volumes:
   sql:
     driver: local
