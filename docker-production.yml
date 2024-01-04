@@ -16,6 +16,8 @@ services:
         file: docker-compose.yml
         service: redis
   reverse-proxy:
+    logging:
+      driver: journald
     build: reverse-proxy
     ports:
       - '80:80'
