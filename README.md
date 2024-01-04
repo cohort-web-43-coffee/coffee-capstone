@@ -1,6 +1,7 @@
 # Valid Coffee
 
-Valid Coffee is a web application designed to stream line user reviews experiences. It uses Yelp business data for coffee shops in Albuquerque, while providing a unique interface for leaving reviews.
+Valid Coffee is a web application designed to stream line user reviews experiences. It uses Yelp business data for
+coffee shops in Albuquerque, while providing a unique interface for leaving reviews.
 
 It's a Docker-based full stack web application utilizing Postgresql, Express, Next, and React.
 
@@ -21,18 +22,28 @@ It's a Docker-based full stack web application utilizing Postgresql, Express, Ne
     MAILGUN_API_KEY=
     # get a Yelp Fusion API key: https://fusion.yelp.com
     YELP_API_KEY=
+    # E-mail required for SSL support
+    CERTBOT_EMAIL=
+    # Server domain name(s) for SSL certficiate. Ref: https://nginx.org/en/docs/http/server_names.html
+    NGINX_SERVER_NAME=
     ```
+
 2. Create `.env.development` in `/frontend`:
     ```dotenv
-    REST_API_URL=http://localhost:8080 # domain of your development container
-    PUBLIC_API_URL=http://localhost:3000 # always localhost
+    REST_API_URL=http://localhost:8080# domain of your development container
+    PUBLIC_API_URL=http://localhost:3000# always localhost
     ```
 
-* Run `docker compose up` in the root directory. Every time the containers spin up, the front end app will  check the database tables. If any are empty, it will download the relevant data from Yelp and insert some data for a test account.
+3. Run `docker compose up` to start the containers in development. Use `docker compose -f production.yml up` to start the containers in production (adds SSL, certbot, and better caching).
+
+Every time the containers spin up, the front end app will check the database tables. If any are empty, it will download the relevant data from Yelp and insert some data for a test account.
 
 > [!WARNING]
-> The free tier of Yelp Fusion limits you to 500 requests per day. This is enough to download data for all coffeeshops in Albuquerque once. If you try more than once, you'll end up with incomplete data and get locked out. If this happens, wait 24hrs and do `docker compose down -v` to reset the database.  
+> The free tier of Yelp Fusion limits you to 500 requests per day. This is enough to download data for all coffeeshops
+in Albuquerque once. If you try more than once, you'll end up with incomplete data and get locked out. If this happens,
+wait 24hrs and do `docker compose down -v` to reset the database.
 
 ## Contributing
+
 * Once you've got the container spun up, visit our [documentation](docs) to get started!
 * If you have something you would like to contribute, please file an issue to discuss it!
